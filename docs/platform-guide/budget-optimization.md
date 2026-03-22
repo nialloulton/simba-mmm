@@ -83,3 +83,35 @@ Optimization results are recommendations, not automatic actions. To move from re
 4. **Close the loop.** After implementing the recommended allocation, feed the new performance data back into Simba. The [AI Data Auditor](./data-auditor.md) will validate the incoming data, [Incremental Measurement](./measurement.md) will update attribution estimates, and the cycle continues.
 
 For details on the underlying model parameters that drive optimization, see [Model Configuration](./model-configuration.md) and [Smart Defaults](./smart-defaults.md).
+
+---
+
+## Portfolio Optimization with Halo and Trademark Effects
+
+When optimizing at the portfolio level (available on Pro tier and above), the optimizer extends beyond single-brand allocation to account for cross-brand effects.
+
+### Halo Channel Optimization
+
+Halo channels generate incremental lift not just for their primary brand but for other brands in the portfolio. The optimizer gives halo channels credit for their **total portfolio impact**, which often results in higher recommended spend than a single-brand analysis would suggest.
+
+For example, if a TV campaign for Brand A drives a 5% lift in Brand B sales (a halo effect), the portfolio optimizer accounts for both the Brand A lift and the Brand B spillover when determining optimal TV spend.
+
+### Trademark Channel Optimization
+
+Trademark (masterbrand, portfolio, corporate) channels are treated as portfolio-wide investments. Their budget is optimized against the total revenue impact across all brands in the portfolio, not attributed to any single brand.
+
+The optimizer solves for the allocation that maximizes **total portfolio revenue**, including:
+
+- Direct channel effects within each brand
+- Halo effects (brand-specific spillover)
+- Trademark effects (portfolio-wide impact)
+
+### Portfolio Optimization Constraints
+
+In addition to per-channel constraints, portfolio optimization supports:
+
+- **Per-brand budget caps**: Limit total spend for a specific brand.
+- **Cross-brand constraints**: Ensure minimum spend diversity across brands.
+- **Halo-aware bounds**: Set constraints that account for a channel's total portfolio contribution.
+
+See [Halo and Trademark Channels](./halo-trademark-channels.md) for configuration details and [Portfolio Analysis](./portfolio-analysis.md) for the full portfolio workflow.
