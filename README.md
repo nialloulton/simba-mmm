@@ -1,4 +1,4 @@
-# SIMBA — Unified Marketing Mix Modeling at Global Scale
+# SIMBA — Unified Marketing Mix Modeling for Smarter Growth
 
 [![Website](https://img.shields.io/badge/Website-getsimba.ai-blue)](https://getsimba.ai)
 [![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-red)](#license)
@@ -7,7 +7,7 @@
 
 **Simba is a Bayesian Marketing Mix Modeling (MMM) platform that powers smarter marketing decisions for modern brands.** Replace fragmented models with one centralized platform delivering transparent, actionable, and comparable insights across every market and brand.
 
-Built on the open-source [PyMC-Marketing](https://www.pymc-marketing.io/) framework by [1749](https://getsimba.ai), Simba combines the rigor of Bayesian statistics with an intuitive no-code interface — giving marketing teams enterprise-grade modeling without writing a single line of code.
+Built on the open-source [PyMC-Marketing](https://www.pymc-marketing.io/) framework by [PyMC Labs](https://www.pymc-labs.com/), [Simba](https://getsimba.ai) combines the rigor of Bayesian statistics with an intuitive no-code interface — giving marketing teams enterprise-grade modeling without writing a single line of code.
 
 ---
 
@@ -155,7 +155,7 @@ Simba is powered by [PyMC-Marketing](https://www.pymc-marketing.io/), the leadin
 
 ## License
 
-Copyright © 2025 1749. All rights reserved.
+Copyright © 2025 1749 Ltd. All rights reserved.
 
 This repository and its contents are proprietary. See [LICENSE](LICENSE) for details.
 
@@ -170,4 +170,4 @@ This repository and its contents are proprietary. See [LICENSE](LICENSE) for det
 
 ---
 
-<sub>Simba is a product of [1749](https://getsimba.ai). Built on [PyMC-Marketing](https://www.pymc-marketing.io/).</sub>
+<sub>[Simba](https://getsimba.ai). Built on [PyMC-Marketing](https://www.pymc-marketing.io/) by [PyMC Labs](https://www.pymc-labs.com/).</sub>

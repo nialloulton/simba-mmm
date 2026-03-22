@@ -1,6 +1,6 @@
 # Getting Started with Simba
 
-Welcome to Simba, the Bayesian Marketing Mix Modeling platform built on [PyMC-Marketing](../core-concepts/bayesian-modeling.md) by [1749](https://getsimba.ai). Whether you are a brand marketer looking for clear ROI answers, an agency managing multiple clients, or a data team seeking transparent statistical models, this section will guide you from sign-up to your first optimized budget recommendation.
+Welcome to Simba, the Bayesian Marketing Mix Modeling platform built on [PyMC-Marketing](../core-concepts/bayesian-modeling.md) by [PyMC Labs](https://www.pymc-labs.com/). Whether you are a brand marketer looking for clear ROI answers, an agency managing multiple clients, or a data team seeking transparent statistical models, this section will guide you from sign-up to your first optimized budget recommendation.
 
 Simba replaces black-box attribution tools with a glass-box approach: every assumption is visible, every prior is configurable, and every result comes with uncertainty intervals you can trust. No code required.
 

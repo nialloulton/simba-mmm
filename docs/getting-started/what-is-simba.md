@@ -1,6 +1,6 @@
 # What is Simba? — Bayesian Marketing Mix Modeling Platform
 
-Simba is a no-code Bayesian Marketing Mix Modeling (MMM) platform built on [PyMC-Marketing](../core-concepts/bayesian-modeling.md), the leading open-source Bayesian marketing science framework. Developed by [1749](https://getsimba.ai), Simba makes advanced econometric modeling accessible to marketers, analysts, and agencies without requiring programming skills or a PhD in statistics.
+Simba is a no-code Bayesian Marketing Mix Modeling (MMM) platform built on [PyMC-Marketing](../core-concepts/bayesian-modeling.md), the leading open-source Bayesian marketing science framework. [Simba](https://getsimba.ai) makes advanced econometric modeling accessible to marketers, analysts, and agencies without requiring programming skills or a PhD in statistics.
 
 Marketing Mix Modeling answers the fundamental question every marketer faces: **which channels are actually driving results, and how should I allocate my budget?** Simba gives you those answers with full statistical transparency, uncertainty quantification, and actionable optimization recommendations.
 
