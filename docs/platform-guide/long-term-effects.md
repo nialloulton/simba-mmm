@@ -155,3 +155,9 @@ When long-term effects are available, they inform budget decisions:
 - [VAR Models](./var-models.md) --- Building VAR models in Simba
 - [Budget Optimization](./budget-optimization.md) --- How long-term effects influence allocation
 - [Model Configuration](./model-configuration.md) --- Standard model prior configuration
+
+---
+
+## Further Reading
+
+- Cain, P. (2022). [Modelling short- and long-term marketing effects in the consumer purchase journey](https://www.sciencedirect.com/science/article/abs/pii/S0167811621000495). *International Journal of Research in Marketing*, 39(1), 96--116. --- The foundational paper behind this approach: distinguishes short-term incremental sales response from long-term brand-building effects through the consumer purchase journey, and demonstrates how different media (brand TV, PR, sponsorship) play distinct roles in driving awareness, consideration, and halo effects across business units.
