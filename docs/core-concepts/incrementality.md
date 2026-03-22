@@ -42,7 +42,7 @@ Simba achieves causal attribution by modeling all channels simultaneously. When 
 
 In practice, many channels are correlated --- brands often increase TV and digital spend during the same campaign flights. This multicollinearity makes it difficult for any model to perfectly separate channel effects. Bayesian MMM handles this better than frequentist alternatives for two reasons:
 
-1. **Priors constrain the solution space.** If lift test data tells you paid search ROAS is between 2x and 4x, the model will not attribute all of the effect to TV just because the two channels happen to be correlated. See [Priors and Distributions](./priors-and-distributions.md).
+1. **Priors constrain the solution space.** If lift test data shows paid search ROAS is between 2x and 4x, this observation constrains the model so it will not attribute all of the effect to TV just because the two channels happen to be correlated. See [Priors and Distributions](./priors-and-distributions.md).
 2. **Uncertainty reflects ambiguity.** When two channels are highly correlated, the posterior distributions will be wider, honestly reflecting the difficulty of separating their effects. This prevents overconfident attribution.
 
 ---
@@ -57,7 +57,7 @@ While lift tests are the gold standard for single-channel causal measurement, th
 - Tests require sufficient duration and sample size.
 - Running them on every channel every quarter is logistically impractical.
 
-Simba bridges this gap by letting you **calibrate your MMM with lift test results**. When you have a lift test result for a channel, you can encode it as an informative prior. The model then combines this experimental evidence with the observational data, producing estimates that respect both sources of information.
+Simba bridges this gap by letting you **calibrate your MMM with lift test results**. When you have a lift test result for a channel, you can add it as a likelihood observation that calibrates the model. The model then combines this experimental evidence with the observational data through the likelihood function, producing posterior estimates that are consistent with both the time-series patterns and the experimental results.
 
 This creates a virtuous cycle:
 

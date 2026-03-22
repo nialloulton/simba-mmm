@@ -12,7 +12,7 @@ Priors matter for several reasons:
 
 ### 1. Encoding Domain Knowledge
 
-If a lift test showed that paid search ROAS is between 2x and 4x, you can set a prior on the paid search coefficient that reflects this range. The model will use this information alongside the observational data, producing more accurate and stable estimates.
+If a lift test showed that paid search ROAS is between 2x and 4x, you can add this as a calibration observation in the Model Details step. The model will use this experimental evidence as additional likelihood data alongside the time-series data, producing more accurate and stable estimates.
 
 ### 2. Regularization
 
@@ -155,7 +155,7 @@ Smart defaults work well when:
 
 Manual configuration is worth the effort when:
 
-- **Lift test calibration.** You have experimental results that should anchor the model. Encoding a lift test result as an informative prior on the corresponding channel coefficient is one of the highest-value actions you can take.
+- **Lift test calibration.** You have experimental results that should anchor the model. Adding lift test results as calibration observations in the Model Details step is one of the highest-value actions you can take. The lift test data enters the model as additional likelihood terms that constrain the channel response curve.
 - **Known channel behavior.** If your media team has deep experience with a channel and can articulate expectations about decay rates or saturation points, encoding that knowledge improves accuracy.
 - **Sparse channels.** A channel that was only active for 4 to 6 weeks will have a poorly identified effect from data alone. A reasonable prior keeps the estimate sensible.
 - **Sensitivity analysis.** Running the model with different priors helps you understand which results are driven by data and which are driven by assumptions.
