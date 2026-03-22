@@ -205,3 +205,55 @@ A form of scenario planning where you change one or more input variables (e.g., 
 *Missing a term? [Let us know](../../../issues/new?template=support_question.yml) and we'll add it.*
 
 *See also: [Core Concepts](../docs/core-concepts/README.md) | [FAQ](../docs/faq/README.md)*
+
+---
+
+## Data Pipeline
+A visual, node-based workflow in Simba for preparing data before modeling. Pipelines combine data source connectors (CSV, Excel, external APIs) with transform nodes (filter, merge, aggregate) to create repeatable, versioned data preparation processes.
+
+### Delayed Adstock
+An adstock formulation where the peak effect does not occur immediately but builds to a maximum after a configurable delay, then decays. Used for channels where impact takes time to materialize, such as brand-building TV campaigns or sponsorships. See **Adstock**.
+
+---
+
+## F
+
+### FEVD (Forecast Error Variance Decomposition)
+A statistical technique used in VAR (Vector AutoRegression) models that decomposes the forecast uncertainty of one variable into the contributions of shocks from all variables in the system. In marketing, FEVD shows how much of the uncertainty in revenue forecasts is attributable to changes in each marketing channel. See **VAR**.
+
+---
+
+## H
+
+### Halo Effect
+In marketing, the phenomenon where advertising for one brand or product generates incremental lift for related brands or products in the same portfolio. Simba models halo effects through halo channels and trademark channels, enabling cross-brand optimization that accounts for portfolio-wide marketing impact.
+
+### Half-Life
+The number of time periods it takes for a channel's adstock (carryover) effect to decay to 50% of its initial value. A channel with a half-life of 2 weeks retains half its impact after two weeks and a quarter after four weeks. A more intuitive alternative to the raw decay rate parameter.
+
+---
+
+## P
+
+### Power Law Adstock
+An adstock formulation where the retention rate varies with the magnitude of accumulated effect. Larger accumulated effects decay faster than smaller ones. Produces a decay curve that drops quickly after heavy spend periods but has a longer tail during low-spend periods. See **Adstock**.
+
+### Prior Predictive Check
+A validation step for Bayesian models where sample forecasts are generated from the prior distributions (before seeing data) to confirm that the priors produce sensible ranges. Used in VAR modeling to validate that prior configurations are reasonable before committing to a full model fit.
+
+---
+
+## T
+
+### Trademark Channel
+A virtual channel in Simba that represents masterbrand, portfolio-level, or corporate advertising benefiting multiple brands simultaneously. Unlike halo channels (which are brand-specific), trademark channels are always global and affect all brands in the portfolio equally. Three types exist: masterbrand, portfolio, and corporate. See **Halo Effect**.
+
+### Two-Factor Authentication (2FA)
+An additional security layer that requires a time-based one-time password (TOTP) from an authenticator app in addition to your email and password when logging in. Supported in Simba for enhanced account security.
+
+---
+
+## V
+
+### VAR (Vector AutoRegression)
+A statistical model where each variable in the system is modeled as a function of its own past values and the past values of all other variables. Unlike standard MMM (which models a single target as a function of inputs), VAR models the entire system of interactions between marketing channels and outcomes simultaneously. Available on Trial, Pro, and Scale tiers in Simba.

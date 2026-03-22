@@ -70,9 +70,10 @@ Example structure:
 ## Time Granularity
 
 - **Weekly data** is recommended for most use cases
-- **Daily data** can work but may introduce noise
+- **Daily data** is fully supported and auto-detected. Daily granularity provides more data points but may introduce noise. Best for high-frequency decision-making (e.g., e-commerce, performance marketing)
 - **Monthly data** is acceptable but provides fewer data points for modeling
 - All variables must use the **same time granularity**
+- **Auto-detection**: Simba automatically detects whether your data is daily or weekly based on the date column spacing. No manual configuration is needed
 
 ## Minimum Data Requirements
 

@@ -6,15 +6,15 @@ Simba offers flexible pricing tiers designed to scale with your needs — from s
 
 ## Plans Overview
 
-### Sandbox (Free Trial)
+### Trial (Free Trial)
 
-**Try the full Analyst plan for 14 days.**
+**28-day free trial with full platform access.**
 
 Perfect for evaluating Simba with your own data before committing.
 
-- 1 saved model
-- 4 optimization runs
-- 4 scenario planner runs
+- 10 saved models
+- 10 optimization runs
+- 10 scenario planner runs
 - Full platform access during trial period
 
 → [Start Free Trial](https://getsimba.ai)
@@ -25,7 +25,7 @@ Perfect for evaluating Simba with your own data before committing.
 
 **For solo modelers getting started with Bayesian MMM.**
 
-- 1 saved model
+- 10 saved models
 - 6 optimizer runs per month
 - 6 scenario planner runs per month
 - 1 model fit per month
@@ -127,3 +127,38 @@ For specific pricing, visit [getsimba.ai](https://getsimba.ai) or contact our sa
 ---
 
 *See also: [What is Simba?](../getting-started/what-is-simba.md) | [Account Setup](../getting-started/account-setup.md) | [FAQ](../faq/README.md)*
+
+---
+
+## Actual Plan Pricing
+
+| Plan | Price |
+|------|-------|
+| Trial | Free for 28 days |
+| Analyst | $100/month |
+| Pro | $500/month |
+| Scale | $4,000/month |
+| Enterprise | Custom pricing |
+| Managed | Custom pricing |
+
+## Detailed Limits
+
+| Resource | Trial | Analyst | Pro | Scale | Enterprise |
+|----------|-------|---------|-----|-------|------------|
+| Duration | 28 days | Ongoing | Ongoing | Ongoing | Ongoing |
+| Saved models | 10 | 1 | 5 | 10 | Unlimited |
+| Model fits/period | 10 | 1 | 5 | Unlimited | Unlimited |
+| Optimizations/period | 10 | 6 | 8 | Unlimited | Unlimited |
+| Scenarios/period | 10 | 6 | 8 | Unlimited | Unlimited |
+| Refits/period | 0 | 1 | 5 | Unlimited | Unlimited |
+| VAR models | Yes | No | Yes | Yes | Yes |
+| Portfolios | 0 | 0 | 1 | 2 | Unlimited |
+| Long-term model | No | No | Yes | Yes | Yes |
+
+### Trial Grace Period
+
+When your 28-day trial expires, you have a **3-day grace period** with limited platform access. During this period, you can view existing results but cannot create new models or run optimizations. Upgrade to a paid plan to restore full access. All data and model configurations are preserved when you upgrade.
+
+### Usage Tracking
+
+Usage counters (model fits, optimizations, scenarios, refits) reset at the start of each billing period. When you reach a limit, the platform prevents additional actions of that type until the counter resets or you upgrade your plan. See [Usage Tracking](../platform-guide/usage-tracking.md) for details.

@@ -161,3 +161,50 @@ A quick-service restaurant chain runs a three-month billboard campaign across a 
 - [Saturation Curves](./saturation-curves.md) --- Understand how diminishing returns interact with carryover.
 - [Priors and Distributions](./priors-and-distributions.md) --- Configure priors on decay parameters.
 - [Marketing Mix Modeling](./marketing-mix-modeling.md) --- See how adstock fits into the full MMM framework.
+
+
+---
+
+## Adstock Types in Simba
+
+Simba supports three distinct adstock formulations. Each captures a different pattern of how advertising impact accumulates and decays over time. The choice of adstock type is made per channel during model setup.
+
+### Geometric Adstock (Default)
+
+The most common formulation, described in the sections above. Impact peaks immediately upon exposure and decays geometrically each period.
+
+> adstocked_spend(t) = spend(t) + decay_rate * adstocked_spend(t-1)
+
+- **Peak timing**: Instantaneous --- the strongest effect occurs in the same period as the spend.
+- **Decay shape**: Exponential decline. Each period retains a fixed fraction of the previous period's effect.
+- **Best for**: Channels where impact is strongest at the time of exposure and fades steadily: paid search, paid social (feed), email, display.
+
+### Power Law Adstock
+
+A non-linear adstock function where the retention rate varies with the magnitude of accumulated effect. Larger accumulated effects decay faster than smaller ones.
+
+- **Peak timing**: Instantaneous, similar to geometric.
+- **Decay shape**: Non-exponential. Heavy accumulation decays more rapidly, while small residual effects linger longer. This produces a decay curve that drops quickly after heavy spend periods but has a longer tail during low-spend periods.
+- **Best for**: Channels where heavy saturation of consumer attention leads to faster forgetting, but low-level background exposure persists: TV during heavy flight periods, large-scale OOH campaigns.
+
+### Delayed Adstock
+
+Models a delayed peak effect --- the maximum impact does not occur immediately but builds to a peak over several periods before decaying.
+
+> The effect ramps up from the spend period, reaches a peak after a configurable delay, then decays.
+
+- **Peak timing**: Delayed by one or more periods. The delay parameter controls how many periods after spend the peak occurs.
+- **Decay shape**: After the peak, decay follows a geometric or similar pattern.
+- **Best for**: Channels where the impact takes time to materialize: brand-building TV campaigns (awareness builds over repeated exposures before driving action), sponsorships, content marketing, and PR where the purchase decision has a natural lag.
+
+### Choosing the Right Adstock Type
+
+| Adstock Type | Peak Timing | Best Channels | When to Use |
+|---|---|---|---|
+| Geometric | Immediate | Search, social, email, display | Default choice for most channels |
+| Power law | Immediate | TV (heavy flights), large OOH | When heavy spend periods show faster decay |
+| Delayed | After delay | Brand TV, sponsorships, PR, content | When impact builds before converting |
+
+For most first-time models, **geometric adstock with smart defaults** is the recommended starting point. Switch to power law or delayed adstock when you have domain knowledge suggesting that the standard geometric decay does not capture the channel's behavior, or when model diagnostics indicate poor fit for specific channels.
+
+The adstock type is selected during Step 4 (Model Setup) of the [Model Creation Wizard](../platform-guide/model-creation-wizard.md).

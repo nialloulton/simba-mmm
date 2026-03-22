@@ -110,6 +110,39 @@ Read more: [Budget Optimization](../workflow/budget-optimization.md)
 
 ---
 
+
+---
+
+### Data Pipelines
+
+**Purpose:** Build repeatable data preparation workflows.
+
+The Data Pipelines feature provides a visual, node-based pipeline builder for creating ETL workflows that prepare data for modeling:
+
+- **Visual Canvas** --- Drag and drop data source nodes and transform nodes onto the canvas, connecting them with edges to define the data flow.
+- **Node Palette** --- Choose from available connectors (CSV, Excel, external data sources like weather APIs) and transforms (filter, merge, aggregate, calculate).
+- **Config Panel** --- Click any node to configure its parameters in the right-side panel.
+- **Data Preview** --- Preview the output of any node or the final pipeline output before committing.
+- **Version Management** --- Each pipeline execution creates a versioned snapshot. Compare versions side by side and download any version as CSV.
+
+Pipeline outputs can be used directly as data sources when creating models in the Warehouse.
+
+Read more: [Data Pipelines](../platform-guide/data-pipelines.md)
+
+---
+
+### AI Assistant
+
+**Purpose:** Generate custom interactive analyses using natural language.
+
+Available within the Active Model results page, the AI Assistant lets you ask questions about your model results in natural language. It generates interactive Marimo notebook dashboards with custom charts, tables, and analyses.
+
+- **Chat interface** on the left panel for entering queries.
+- **Interactive dashboard** on the right panel showing the generated analysis.
+- Example queries: channel contribution waterfalls, ROAS comparisons, monthly breakdowns, spend-response relationships.
+
+Read more: [AI Assistant](../platform-guide/ai-assistant.md)
+
 ## The Dashboard
 
 The **Dashboard** is your landing page when you log in. It provides a high-level overview of your workspace:
@@ -192,6 +225,8 @@ Here is a summary of the main navigation structure:
 | **Data** | Dataset library, upload, and preview |
 | **Models** | Model list, comparison, versioning, and management |
 | **Settings** | Workspace, team, billing, profile, and security |
+| **Pipelines** | Data pipeline builder, connectors, transforms, versions |
+| **AI Assistant** | Interactive chat-based analysis (within Active Model) |
 
 The workflow steps (Audit, Measure, Predict, Optimize) also appear as a linear stepper within each model context, making it easy to move forward through the process or jump back to an earlier stage.
 

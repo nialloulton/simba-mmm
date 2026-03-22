@@ -112,3 +112,38 @@ The [Smart Defaults](./smart-defaults.md) are appropriate for most situations. C
 - **The model's posterior is dominated by the prior** rather than the data. This happens when spend variation is too low for the data to update the prior. In that case, the prior effectively becomes the answer, so it needs to be set carefully.
 
 For details on how defaults are generated, see [Smart Defaults](./smart-defaults.md). For information on long-term brand effects that extend beyond standard adstock decay, see [Long-Term Effects](./long-term-effects.md).
+
+
+---
+
+## Variable Transformations
+
+Simba supports several mathematical transformations that can be applied to variables before they enter the model. Transformations help normalize data distributions and can improve model fit.
+
+### Available Transformations
+
+| Transformation | Formula | When to Use |
+|---|---|---|
+| **Identity** | y = x | Default. Use when the variable does not need transformation. |
+| **Log** | y = log(x) | When the variable has a right-skewed distribution or when you expect multiplicative (percentage) effects rather than additive. Common for revenue and spend variables. |
+| **Log-Log** | y = log(log(x)) | For highly skewed variables where a single log is insufficient. Rarely needed but useful for variables spanning many orders of magnitude. |
+| **Power** | y = x^p | Applies a power transformation with a configurable exponent. Useful for fine-tuning the relationship shape between input and output. |
+| **Box-Cox** | y = (x^lambda - 1) / lambda | A flexible family of transformations parameterized by lambda. Automatically finds the best power transformation to normalize the data. Includes log (lambda=0) and identity (lambda=1) as special cases. |
+
+Transformations are configured during Step 4 (Model Setup) of the model creation wizard.
+
+### Choosing a Transformation
+
+For most models, **identity or log** transformations are sufficient. Use log when your target variable (e.g., revenue) spans a wide range and you expect percentage changes in spend to drive percentage changes in outcome. Use identity when the relationship is expected to be additive.
+
+Power and Box-Cox transformations are advanced options for cases where standard transformations produce poor model fit.
+
+## Adstock Type Selection
+
+In addition to configuring the decay rate parameter, you can choose the adstock function type for each channel:
+
+- **Geometric** (default): Immediate peak with exponential decay. Appropriate for most channels.
+- **Power Law**: Immediate peak with non-linear decay that varies with accumulation level.
+- **Delayed**: Peak occurs after a configurable delay, then decays. Use for channels where impact builds before converting.
+
+See [Adstock Effects](../core-concepts/adstock-effects.md) for detailed explanations of each type, including when to use each one.
