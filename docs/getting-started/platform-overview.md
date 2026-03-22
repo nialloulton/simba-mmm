@@ -1,106 +1,107 @@
-# Platform Overview — Navigating the Simba Interface
+# Platform Overview --- Navigating the Simba Interface
 
-This guide walks you through the Simba interface so you know exactly where to find every feature. Simba is organized around a clear four-step workflow — Audit, Measure, Predict, Optimize — and the interface is designed to guide you through that flow while giving you the flexibility to jump between stages as needed.
-
----
-
-## The Four-Step Workflow
-
-The Simba workflow is the backbone of the interface. It appears as a navigation bar or stepper at the top of your screen, showing where you are in the modeling process.
-
-### Step 1: Audit (Data Validator)
-
-**Purpose:** Validate your data before modeling.
-
-When you upload a dataset, the Data Validator automatically analyzes it and presents a comprehensive audit report. This screen shows:
-
-- **Data health score** — An overall assessment of your dataset's readiness for modeling.
-- **Issue breakdown** — Individual checks grouped by severity (critical, warning, informational). Each issue includes an explanation of why it matters and what to do about it.
-- **Column summary** — Statistics for each column including data type, range, missing value count, and distribution preview.
-- **Correlation matrix** — A visual display of relationships between your media channels, used to flag multicollinearity risks.
-
-You can address issues by editing your data externally and re-uploading, or in some cases by using Simba's built-in data preparation tools.
-
-**Key action:** Review the audit report and resolve any critical issues before proceeding to modeling.
-
-Read more: [Data Validator](../platform-guide/data-auditor.md)
+This guide walks you through the Simba interface so you know exactly where to find every feature. Simba is organized around a sidebar navigation with four main sections --- Model Warehouse, Active Model, Optimization, and Scenario Planner --- designed to guide you through the modeling process while giving you the flexibility to jump between stages as needed.
 
 ---
 
-### Step 2: Measure (Incremental Measurement)
+## Navigation Structure
 
-**Purpose:** Build and run your Bayesian marketing mix model.
+Simba uses a left sidebar for primary navigation. The four main sections are:
 
-The Measure step is where the core modeling happens. It has several sub-screens:
+1. **Model Warehouse** --- Your entry point and model management hub
+2. **Active Model** --- View results for the currently selected model
+3. **Optimization** --- Budget Optimizer for finding the best allocation
+4. **Scenario Planner** --- Simulate budget changes and forecast outcomes
 
-#### Model Configuration
+Active Model, Optimization, and Scenario Planner require a model to be selected in the Model Warehouse first. Until you select a model, a prompt in the sidebar reminds you to do so.
 
-This is where you set up how Simba should model your data. The configuration interface is divided into panels:
+---
 
-- **Channel Configuration** — For each media channel, configure:
-  - **Prior distributions** for the channel coefficient (effect size). Use the visual distribution editor to set mean and spread, or accept the smart default.
-  - **Adstock parameters** — Choose geometric or Weibull decay, and set the decay rate and maximum lag. Visual previews show how the decay curve looks with your settings.
-  - **Saturation parameters** — Choose logistic or Hill function and configure the half-saturation point and slope. A live preview shows the saturation curve.
+## Model Warehouse
 
-- **Control Variables** — Select which non-media columns to include as controls (e.g., price, promotions, holidays). Controls help the model separate marketing effects from other business drivers.
+**Purpose:** Create, configure, manage, and compare your models.
 
-- **Target KPI** — Confirm which column is the target variable and whether to model it on a raw or log scale.
+The Model Warehouse is your landing page and the starting point for all work in Simba. It contains several tabs:
 
-- **Smart Defaults Panel** — A summary showing what Simba auto-generated for each setting, with the option to accept all defaults with a single click or customize individually.
+### Data Source Configuration
 
-Read more: [Setting Priors](../platform-guide/model-configuration.md) | [Adstock Settings](../core-concepts/adstock-effects.md) | [Saturation Curves](../core-concepts/saturation-curves.md) | [Smart Defaults](../platform-guide/smart-defaults.md)
+Upload your dataset and configure how Simba should interpret it. This includes:
 
-#### Model Execution
+- **Data upload** --- Drag-and-drop or file selection for CSV/Excel uploads.
+- **Column mapping** --- Assign columns to roles: date, dependent variable (KPI), media channels, spend columns, control variables, and hierarchy columns.
+- **Semantic matching** --- Simba automatically detects column types using semantic analysis of variable names, recognizing channel types (TV, digital, social, search, etc.), metric types (cost, impressions, GRPs, clicks), and control variable types (price, promotions, distribution).
+- **Data Validator** --- Run the Validator Agent to check data quality. It analyzes your dataset and presents validation results including issue detection, column statistics, and data readiness assessment.
 
-Once configured, click **Run Model** to start the Bayesian inference. The execution screen shows:
+### Model Configuration
 
-- **Progress indicator** — Real-time status of the MCMC sampling process.
-- **Estimated time remaining** — Based on your dataset size and model complexity.
-- **Run log** — Technical details for advanced users who want to monitor convergence.
+This is where you set up how Simba should model your data:
+
+- **Variable Selection** --- Choose which columns to include as media channels, spend variables, and controls. Simba's semantic matcher suggests categorizations automatically.
+- **Prior Configuration (Prior Builder)** --- For each media channel, configure:
+  - **Prior distributions** for the channel coefficient (effect size). The default distribution is InverseGamma. Use the visual distribution editor to set mean and spread, or accept the smart default.
+  - **Adstock parameters** --- Set decay range (lower and upper bounds) and effect period. Smart defaults set these based on semantic channel type detection (e.g., social media gets fast decay, TV gets slow decay).
+  - **Saturation scalar** --- Auto-filled with the channel's average value from your data.
+- **Control Variable Priors** --- Smart defaults detect control variable types semantically (price, promotion, distribution) and set appropriate distributions and sign constraints.
+- **Industry Benchmark Selector** --- Choose your industry (FMCG, Retail, TelCo, Financial Services, E-Commerce, or Other) to calibrate expected total media effect. This drives the smart prior coefficients.
+- **Smart Defaults** --- A single click applies data-informed priors to all channels based on cost share analysis, industry benchmarks, and semantic channel detection. See [Smart Defaults](../platform-guide/smart-defaults.md) for details.
+
+Read more: [Model Configuration](../platform-guide/model-configuration.md) | [Smart Defaults](../platform-guide/smart-defaults.md)
+
+### Model Execution
+
+Once configured, click **Build Model** to start the Bayesian inference. The execution interface shows:
+
+- **Progress indicator** --- Real-time status of the MCMC sampling process.
+- **Estimated time remaining** --- Based on your dataset size and model complexity.
 
 You can navigate away during execution and return when it completes. Simba will notify you.
 
-#### Results Dashboard
+### Model Management
 
-When the model finishes, you arrive at the results dashboard. This is the most information-rich screen in Simba:
+Over time, you will build multiple models --- different time periods, different channel sets, different prior configurations. The Warehouse helps you organize and compare them:
 
-- **Channel Contribution Chart** — A stacked area or waterfall chart showing how much each channel contributed to the KPI over the modeled period. Each channel includes credible intervals.
-- **ROAS Summary** — A table and bar chart showing the return on ad spend for each channel, with posterior medians and credible intervals.
-- **Adstock Curves** — Per-channel visualizations of the estimated carryover effect.
-- **Saturation Response Curves** — Per-channel visualizations showing how the KPI responds to increasing spend, highlighting where diminishing returns begin.
-- **Model Fit** — Actual versus predicted KPI values over time, so you can visually assess how well the model captures your data.
-- **Posterior Distributions** — For advanced users, the full posterior distribution plots for every model parameter.
-- **Diagnostics Tab** — Convergence diagnostics (R-hat, effective sample size), posterior predictive checks, and model comparison metrics.
-
-Read more: [Interpreting Results](../platform-guide/measurement.md) | [Model Diagnostics](../platform-guide/measurement.md)
+- **Model list** --- All models in your project, sortable by date, name, and status.
+- **Model comparison** --- Select two or more completed models and compare their results side by side.
+- **Clone model** --- Duplicate a model configuration as a starting point for a new run with adjusted settings.
 
 ---
 
-### Step 3: Predict (Scenario Planning)
+## Active Model
 
-**Purpose:** Simulate budget changes and forecast outcomes.
+**Purpose:** View detailed results for the currently selected model.
 
-The Scenario Planning screen lets you create and compare hypothetical budget allocations:
+When you select a completed model in the Warehouse, the Active Model section becomes available. This is the most information-rich area of Simba:
 
-- **Budget Sliders** — Adjust each channel's spend up or down using sliders or direct numeric input. Changes are expressed as absolute values or percentage shifts from the current allocation.
-- **Simulation Output** — As you adjust budgets, Simba recalculates the predicted KPI using your fitted model. Results include the median prediction and credible intervals.
-- **Scenario Comparison** — Save multiple scenarios and view them side by side in a comparison table or chart. This is useful for presenting options to stakeholders.
-- **Scenario Library** — Previously saved scenarios are stored here for reference and re-use.
+- **Channel Contribution Chart** --- A stacked area or waterfall chart showing how much each channel contributed to the KPI over the modeled period. Each channel includes 94% HDI (3%-97%) credible intervals.
+- **ROAS Summary** --- A table and bar chart showing the return on ad spend for each channel, with posterior medians and 94% HDI credible intervals.
+- **Adstock Curves** --- Per-channel visualizations of the estimated carryover effect.
+- **Saturation Response Curves** --- Per-channel visualizations showing how the KPI responds to increasing spend, highlighting where diminishing returns begin.
+- **Model Fit** --- Actual versus predicted KPI values over time, so you can visually assess how well the model captures your data.
+- **Posterior Distributions** --- The full posterior distribution plots for every model parameter.
+- **Diagnostics** --- Convergence diagnostics (R-hat, effective sample size), posterior predictive checks, and model comparison metrics.
 
-Read more: [Scenario Planning](../platform-guide/scenario-planning.md)
+### AI Assistant
+
+Available within the Active Model page, the AI Assistant lets you ask questions about your model results in natural language. It generates interactive Marimo notebook dashboards with custom charts, tables, and analyses.
+
+- **Chat interface** on the left panel for entering queries.
+- **Interactive dashboard** on the right panel showing the generated analysis.
+- Example queries: channel contribution waterfalls, ROAS comparisons, monthly breakdowns, spend-response relationships.
+
+Read more: [AI Assistant](../platform-guide/ai-assistant.md) | [Incremental Measurement](../platform-guide/measurement.md)
 
 ---
 
-### Step 4: Optimize (Budget Optimizer)
+## Optimization (Budget Optimizer)
 
 **Purpose:** Automatically find the best budget allocation.
 
-Budget Optimizer is the final workflow step, moving from manual "what if" analysis to algorithmic optimization:
+The Budget Optimizer moves from manual "what if" analysis to algorithmic optimization:
 
-- **Objective Selector** — Choose what you want to maximize (e.g., revenue, conversions) or set a target KPI value.
-- **Budget Constraint** — Enter your total available budget.
-- **Channel Constraints** — Optionally set minimum and maximum spend per channel. For example, you might require at least a baseline level of brand advertising or cap spend on an experimental channel.
-- **Optimization Results** — After clicking **Optimize**, Simba displays:
+- **Objective Selector** --- Choose what you want to maximize (e.g., revenue, conversions) or set a target KPI value.
+- **Budget Constraint** --- Enter your total available budget.
+- **Channel Constraints** --- Optionally set minimum and maximum spend per channel. For example, you might require at least a baseline level of brand advertising or cap spend on an experimental channel.
+- **Optimization Results** --- After clicking **Optimize**, Simba displays:
   - The recommended allocation per channel
   - The expected KPI outcome with credible intervals
   - A comparison against your current allocation showing the estimated improvement
@@ -110,10 +111,22 @@ Read more: [Budget Optimization](../platform-guide/budget-optimization.md)
 
 ---
 
+## Scenario Planner
+
+**Purpose:** Simulate budget changes and forecast outcomes.
+
+The Scenario Planner lets you create and compare hypothetical budget allocations:
+
+- **Budget Sliders** --- Adjust each channel's spend up or down using sliders or direct numeric input. Changes are expressed as absolute values or percentage shifts from the current allocation.
+- **Simulation Output** --- As you adjust budgets, Simba recalculates the predicted KPI using your fitted model. Results include the median prediction and credible intervals.
+- **Scenario Comparison** --- Save multiple scenarios and view them side by side in a comparison table or chart. This is useful for presenting options to stakeholders.
+- **Scenario Library** --- Previously saved scenarios are stored here for reference and re-use.
+
+Read more: [Scenario Planning](../platform-guide/scenario-planning.md)
 
 ---
 
-### Data Pipelines
+## Data Pipelines
 
 **Purpose:** Build repeatable data preparation workflows.
 
@@ -128,52 +141,6 @@ The Data Pipelines feature provides a visual, node-based pipeline builder for cr
 Pipeline outputs can be used directly as data sources when creating models in the Warehouse.
 
 Read more: [Data Pipelines](../platform-guide/data-pipelines.md)
-
----
-
-### AI Assistant
-
-**Purpose:** Generate custom interactive analyses using natural language.
-
-Available within the Active Model results page, the AI Assistant lets you ask questions about your model results in natural language. It generates interactive Marimo notebook dashboards with custom charts, tables, and analyses.
-
-- **Chat interface** on the left panel for entering queries.
-- **Interactive dashboard** on the right panel showing the generated analysis.
-- Example queries: channel contribution waterfalls, ROAS comparisons, monthly breakdowns, spend-response relationships.
-
-Read more: [AI Assistant](../platform-guide/ai-assistant.md)
-
-## The Dashboard
-
-The **Dashboard** is your landing page when you log in. It provides a high-level overview of your project:
-
-- **Recent Models** — A list of your most recent model runs, showing status (running, completed, failed), date, and a link to jump directly to results.
-- **Quick Actions** — Shortcuts to common tasks: upload new data, create a new model, open a recent scenario.
-- **Project Summary** — Key metrics like the number of models run, datasets uploaded, and most recent optimization.
-- **Notifications** — Alerts about completed model runs, audit warnings, or system updates.
-
----
-
-## Model Management
-
-Over time, you will build multiple models — different time periods, different channel sets, different prior configurations. The **Model Management** screen helps you organize and compare them:
-
-- **Model List** — All models in your project, sortable by date, name, status, or KPI.
-- **Model Comparison** — Select two or more completed models and compare their results side by side. This is valuable for understanding how different configurations or data updates affect conclusions.
-- **Model Versioning** — Each run is saved with its full configuration, so you can always return to a previous version or understand what changed between runs.
-- **Clone Model** — Duplicate a model configuration as a starting point for a new run with adjusted settings.
-- **Archive and Delete** — Archive old models to keep your project clean, or delete models you no longer need.
-
----
-
-## Data Management
-
-The **Data** section is where you manage all datasets in your project:
-
-- **Dataset Library** — All uploaded datasets with metadata (upload date, row count, column count, date range).
-- **Upload New Data** — The data upload interface with drag-and-drop support and column mapping.
-- **Data Preview** — View any dataset with summary statistics, distributions, and time-series plots.
-- **Data Audit History** — Review past audit reports for any dataset.
 
 ---
 
@@ -207,7 +174,7 @@ The **Settings** area, accessible from the main navigation menu or the gear icon
 - Active session management
 - SSO configuration (Enterprise)
 
-For details on security infrastructure, see [Security and Compliance](../security/README.md).
+For details on security infrastructure, see [Security and Compliance](../security/security-and-compliance.md).
 
 ---
 
@@ -215,29 +182,24 @@ For details on security infrastructure, see [Security and Compliance](../securit
 
 Here is a summary of the main navigation structure:
 
-| Menu Item | What It Contains |
+| Sidebar Item | What It Contains |
 |---|---|
-| **Dashboard** | Overview, recent models, quick actions, notifications |
-| **Audit** | Data Validator reports and data validation |
-| **Measure** | Model configuration, execution, and results |
-| **Predict** | Scenario Planning and simulation |
-| **Optimize** | Budget Optimizer and allocation recommendations |
-| **Data** | Dataset library, upload, and preview |
-| **Models** | Model list, comparison, versioning, and management |
-| **Settings** | Project, team, billing, profile, and security |
+| **Model Warehouse** | Data upload, model configuration, model list, comparison, and management |
+| **Active Model** | Channel contributions, ROAS, response curves, diagnostics, AI Assistant |
+| **Optimization** | Budget Optimizer and allocation recommendations |
+| **Scenario Planner** | Budget simulation, scenario comparison, and forecasting |
 | **Pipelines** | Data pipeline builder, connectors, transforms, versions |
-| **AI Assistant** | Interactive chat-based analysis (within Active Model) |
 
-The workflow steps (Audit, Measure, Predict, Optimize) also appear as a linear stepper within each model context, making it easy to move forward through the process or jump back to an earlier stage.
+Active Model, Optimization, and Scenario Planner require selecting a model in the Warehouse first.
 
 ---
 
-## Keyboard Shortcuts and Tips
+## Tips
 
-- Use the **project switcher** in the top-left corner to move between projects (Scale and above).
 - The **notification bell** in the top-right corner shows model completion alerts and system messages.
-- Most charts support **hover for details** — hover over any data point to see exact values and credible intervals.
-- **Export buttons** are available on all charts and tables for downloading results as CSV, PNG, or PDF.
+- Most charts support **hover for details** --- hover over any data point to see exact values and credible intervals.
+- **Export buttons** are available on charts and tables for downloading results.
+- Credible intervals throughout the platform use **94% HDI** (3%-97%) by default.
 
 ---
 
@@ -247,7 +209,7 @@ Now that you know your way around the interface:
 
 - Follow the [Quick Start Guide](quick-start-guide.md) to build your first model using this interface.
 - Read about [Data Requirements](../data/data-requirements.md) to prepare your dataset.
-- Explore [Setting Priors](../platform-guide/model-configuration.md) to understand the model configuration options in detail.
+- Explore [Smart Defaults](../platform-guide/smart-defaults.md) to understand how Simba auto-generates model configuration.
 
 For questions about navigating the platform, contact **support@simba-mmm.com**.
 
@@ -255,10 +217,10 @@ For questions about navigating the platform, contact **support@simba-mmm.com**.
 
 ## Related Documentation
 
-- [What is Simba?](what-is-simba.md) — Product overview and positioning
-- [Quick Start Guide](quick-start-guide.md) — Step-by-step first model walkthrough
-- [Account Setup](account-setup.md) — Plans, projects, and team management
-- [Data Validator](../platform-guide/data-auditor.md) — Deep dive on the audit step
-- [Incremental Measurement](../platform-guide/measurement.md) — The modeling methodology
-- [Scenario Planning](../platform-guide/scenario-planning.md) — Simulation and forecasting
-- [Budget Optimization](../platform-guide/budget-optimization.md) — Algorithmic budget allocation
+- [What is Simba?](what-is-simba.md) --- Product overview and positioning
+- [Quick Start Guide](quick-start-guide.md) --- Step-by-step first model walkthrough
+- [Account Setup](account-setup.md) --- Plans, projects, and team management
+- [Data Validator](../platform-guide/data-auditor.md) --- Data validation and quality checks
+- [Incremental Measurement](../platform-guide/measurement.md) --- The modeling methodology
+- [Scenario Planning](../platform-guide/scenario-planning.md) --- Simulation and forecasting
+- [Budget Optimization](../platform-guide/budget-optimization.md) --- Algorithmic budget allocation
