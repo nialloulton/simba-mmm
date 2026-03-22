@@ -1,85 +1,87 @@
-# AI Data Auditor --- Automated Data Validation and Quality Scoring
+# Data Validator --- AI-Powered Data Validation
 
-The AI Data Auditor is the first step in the Simba workflow. Before any model runs, the auditor validates every connected data source, detects problems, and produces a single data health score that tells you whether your data is ready for modeling.
+The Data Validator is an AI-powered validation tool that inspects your uploaded dataset and checks it against the requirements of a Bayesian Marketing Mix Model. It catches problems that would otherwise surface as poor model fit or unreliable results --- issues like missing spend data for key weeks, duplicated rows, multicollinearity between channels, or data leakage.
 
-## What It Does
+> **Note**: The Data Validator is not automatic. You trigger it manually from the Warehouse configuration screen by clicking **Start Validator Agent** after uploading your data file.
 
-The auditor automatically inspects all uploaded or connected datasets and checks them against the requirements of a Bayesian Marketing Mix Model. It catches problems that would otherwise surface as poor model fit or unreliable results --- issues like missing spend data for key weeks, duplicated rows, inconsistent date formats, or sudden spikes that suggest logging errors rather than real performance changes.
+---
 
-## Why It Matters
+## How It Works
 
-Model quality depends entirely on data quality. A model trained on incomplete or corrupted data will produce attribution results and budget recommendations that look plausible but are wrong. The auditor prevents this by flagging issues before they propagate into downstream steps like [Incremental Measurement](./measurement.md) or [Budget Optimization](./budget-optimization.md).
+1. Upload your CSV or Excel file in the Warehouse configuration screen.
+2. Click **Start Validator Agent** in the data source panel.
+3. Choose a model for the validation: **Haiku** (faster, suitable for standard datasets) or **Sonnet** (more thorough, better for complex or messy data).
+4. The validator runs asynchronously. A progress modal shows live status updates as the analysis proceeds.
+5. When complete, a results modal displays all findings organized by severity.
 
-## Data Health Score
+The validator uses Claude AI with a specialized Data Validator skill that runs 10 category-specific checks against your data. Typical validation takes 3 to 10 minutes depending on dataset size and the model selected.
 
-After the audit completes, Simba assigns a **data health score** ranging from 0 to 100. This score reflects the overall readiness of your data for modeling.
+---
 
-| Score Range | Meaning |
+## What It Checks
+
+The validator runs 10 specialized checks across your dataset:
+
+| Category | What It Checks |
 |---|---|
-| 90--100 | Excellent. Data is clean and ready for modeling with high confidence. |
-| 70--89 | Good. Minor issues detected that are unlikely to affect results significantly. Review flagged items. |
-| 50--69 | Fair. Several issues found. Address the flagged problems before relying on model outputs. |
-| Below 50 | Poor. Significant data quality problems. Resolve critical issues before proceeding. |
+| **Schema** | Date and KPI column detection, required columns present, correct data types |
+| **Frequency** | Time series cadence analysis --- confirms consistent weekly or daily intervals |
+| **Alignment** | Media and KPI variable alignment --- date ranges match, no misaligned periods |
+| **Multiplier** | Multiplier column validation for panel or hierarchical data |
+| **Controls** | Control variable checks --- appropriate types, variation, and coverage |
+| **Coverage** | Zero-spend patterns, missing data gaps, and inactive channel periods |
+| **Outliers** | Statistical outlier detection using IQR-based methods on numeric columns |
+| **Multicollinearity** | Variance Inflation Factor (VIF) and correlation analysis between media channels |
+| **Leakage** | Data leakage detection --- variables that could leak future information into the model |
+| **Documentation** | Column naming conventions and documentation quality audit |
 
-The score is a weighted combination of completeness, consistency, freshness, and schema conformance. Each dimension is scored independently so you can see exactly where problems lie.
+---
 
-## Automated Validation Across Data Sources
+## Interpreting Results
 
-The auditor validates each connected source independently and then checks cross-source consistency. Typical checks include:
+The results modal displays findings in three severity levels:
 
-- **Completeness**: Are there gaps in the time series? Missing values for key variables like spend, impressions, or revenue?
-- **Consistency**: Do date ranges align across sources? Do channel names match between spend and performance data?
-- **Freshness**: Is the most recent data point current, or has a data pipeline stopped updating?
-- **Range checks**: Are numeric values within plausible bounds? Negative spend, zero impressions with nonzero clicks, or revenue values orders of magnitude outside historical norms are flagged automatically.
+| Severity | Meaning |
+|---|---|
+| **Errors** | Critical issues that should be resolved before modeling. These indicate problems likely to produce unreliable results (e.g., missing KPI column, severe multicollinearity, data leakage). |
+| **Warnings** | Issues worth investigating but not necessarily blocking. These may affect result quality if unaddressed (e.g., high outlier count in a channel, moderate correlation between channels). |
+| **Info** | Observations and recommendations for improving data quality. Not blocking, but addressing them can improve model accuracy (e.g., column naming suggestions, coverage notes). |
 
-## Real-Time Anomaly Detection
+Each issue includes:
 
-The auditor applies statistical anomaly detection to every numeric column. It identifies:
+- A description of the problem
+- The affected columns or rows
+- A specific recommendation for how to fix it
+- The category it belongs to (schema, outliers, multicollinearity, etc.)
 
-- **Sudden spikes or drops** that deviate significantly from historical patterns, which may indicate tracking errors, campaign misattribution, or data pipeline issues.
-- **Structural breaks** where the statistical properties of a series change abruptly, such as a mean shift in daily impressions that could signal a platform API change.
-- **Outliers** that fall outside expected distributions, flagged with severity levels so you can distinguish between minor noise and critical errors.
+When category-level insights are available, the modal also shows summary findings and action items grouped by validation category.
 
-Detected anomalies are shown inline alongside the affected data, with explanations of why each was flagged and suggested remediation steps.
+---
 
-## Schema Integrity Checks
+## Applying Fixes
 
-Simba expects data in a specific structure. The schema integrity check verifies:
+After reviewing validation results, you can:
 
-- Required columns are present (date, channel identifiers, spend, and target variable at minimum).
-- Column data types are correct (dates are parseable, numeric fields contain numbers, categorical fields have consistent labels).
-- No duplicate rows exist for the same date-channel combination.
-- Column names match the expected naming conventions or have been mapped correctly.
+- **Fix issues externally**: Edit your data file and re-upload it, then re-run the validator to confirm the fixes.
+- **Use the Data Transformer**: From the validation results modal, you can trigger the Data Transformer skill to apply automated fixes for certain issues (e.g., removing outliers, handling missing values, reformatting columns).
 
-Schema violations are reported as blocking errors --- the model will not run until they are resolved.
+Validation results are not stored permanently --- they are displayed in the modal during your session. Re-run the validator after making changes to confirm your data is ready.
 
-## Missing Value Handling
+---
 
-When gaps are detected, the auditor reports the location and extent of missing data and offers handling strategies:
+## Tips for Clean Data
 
-- **Small gaps** (a few isolated missing values in an otherwise complete series) can be interpolated automatically using methods appropriate for time series data.
-- **Systematic gaps** (an entire channel missing data for a stretch of weeks) are flagged for manual review since interpolation would be unreliable.
-- **Structural missingness** (a channel that was not active during part of the modeling window) is handled by marking that channel as inactive for the affected period rather than imputing zeros.
+- **Use consistent date formats** across your file. Mixed formats are the most common cause of schema errors.
+- **Include at least 52 weeks of data** when possible. Short time series reduce model reliability and make outlier detection less accurate.
+- **Ensure spend variation per channel.** Channels with constant spend (no variation) cannot be reliably measured by any model.
+- **Break out platforms individually** (e.g., Facebook and Instagram as separate columns rather than combined "Social") for more granular attribution.
+- **Check for multicollinearity** before modeling. If two channels always spend together, the model cannot distinguish their effects. The validator flags this automatically.
 
-The auditor documents every imputation it applies so you have full transparency into what was changed and why.
+---
 
-## How to Interpret the Audit Results
+## Next Steps
 
-The audit results page shows:
-
-1. **Overall health score** at the top, with a breakdown by dimension.
-2. **Source-by-source status** showing which data sources passed and which have issues.
-3. **Issue list** sorted by severity (critical, warning, informational), each with a description, the affected rows or columns, and a recommended fix.
-4. **Data preview** for each source after any automated cleaning has been applied, so you can verify the results before proceeding.
-
-Review critical issues first. Warnings are worth investigating but may not require action. Informational items are observations that could improve model accuracy if addressed but are not blocking.
-
-## Tips for Improving Data Quality
-
-- **Use consistent date formats and timezones** across all sources. Mixed formats are the most common cause of alignment errors.
-- **Avoid manual edits to raw data files.** Use Simba's cleaning tools or fix issues at the source.
-- **Check for platform-specific quirks.** Some ad platforms report spend with a one-day lag, or aggregate weekend data differently. Align reporting windows before uploading.
-- **Include at least 52 weeks of data** when possible. Short time series reduce model reliability and make it harder for the auditor to distinguish anomalies from normal variation.
-- **Re-run the audit after making changes.** The auditor is designed to be run iteratively until the health score reaches an acceptable level.
-
-Once the audit passes, proceed to [Incremental Measurement](./measurement.md) to begin attribution analysis.
+- [Data Requirements](../data/data-requirements.md) --- What data Simba needs for modeling
+- [Data Preparation](../data/data-preparation.md) --- How to prepare your data before upload
+- [Model Creation Wizard](./model-creation-wizard.md) --- Continue to model setup after validation
+- [Incremental Measurement](./measurement.md) --- Interpreting model results
