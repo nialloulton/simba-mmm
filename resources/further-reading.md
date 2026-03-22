@@ -60,6 +60,6 @@ A curated collection of resources for deeper learning about marketing mix modeli
 
 ---
 
-*Have a resource suggestion? [Let us know](../../issues/new?template=support_question.yml).*
+*Have a resource suggestion? [Let us know](https://github.com/nialloulton/simba-mmm/issues).*
 
 *See also: [Glossary](glossary.md) | [PyMC-Marketing & Simba](pymc-marketing.md) | [Core Concepts](../docs/core-concepts/README.md)*

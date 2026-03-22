@@ -97,7 +97,7 @@ Simba is a no-code Bayesian MMM platform built on **PyMC-Marketing**, the leadin
 
 4. **Optimize** --- Simba's budget optimizer finds the spend allocation that maximizes your expected incremental outcome, subject to constraints you define (minimum spend floors, maximum caps, total budget).
 
-### Glass-Box Transparency
+### Fully Transparent
 
 Simba is not a black box. Every prior, every parameter estimate, and every model diagnostic is visible and inspectable in the UI. You can see the [saturation curves](./saturation-curves.md), examine the [adstock decay](./adstock-effects.md), review convergence diagnostics, and export the full posterior for offline analysis. This transparency is essential for building trust with stakeholders and for scientific rigor.
 
@@ -112,7 +112,7 @@ You do not need to write Python, Stan, or any code to build a production-grade B
 - MMM measures the causal contribution of each marketing channel to business outcomes using aggregate, privacy-safe data.
 - It complements (and in many cases replaces) multi-touch attribution and fills the gaps between experiments.
 - Bayesian MMM --- the approach Simba uses --- provides uncertainty quantification, prior knowledge integration, and superior small-sample performance compared to traditional regression.
-- Simba operationalizes Bayesian MMM through a four-step workflow (Audit, Measure, Predict, Optimize) with full glass-box transparency and no-code configuration.
+- Simba operationalizes Bayesian MMM through a four-step workflow (Audit, Measure, Predict, Optimize) with full transparency and no-code configuration.
 
 ---
 
