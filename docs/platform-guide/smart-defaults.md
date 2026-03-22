@@ -87,7 +87,7 @@ All media channels use the **InverseGamma** distribution by default, which natur
 
 **Switch to custom configuration when:**
 
-- You have lift test results or experimental evidence that should inform specific channels. See [Model Configuration](./model-configuration.md) for how to translate lift test results into prior settings.
+- You have lift test results or experimental evidence that should inform specific channels. Add lift test results in the Model Details step (Step 5) --- they are integrated as likelihood observations, not as prior adjustments.
 - A channel is new or unusual and does not match standard benchmarks (for example, a podcast sponsorship, influencer partnership, or niche platform).
 - The model's posterior distributions are very close to the priors, suggesting the data is not strong enough to update the defaults. In this case, the defaults are effectively becoming your answer, so they need to be set with care.
 - You are modeling a market or category with dynamics that differ significantly from typical benchmarks (for example, luxury goods with very long purchase cycles, or fast-moving consumer goods with extremely short cycles).
