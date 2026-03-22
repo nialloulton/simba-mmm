@@ -67,7 +67,7 @@ Every parameter estimate comes with a **credible interval** --- a range of plaus
 
 ### 2. Prior Knowledge Integration
 
-Have lift test results? Industry benchmarks? Expert intuition about a channel's likely effectiveness? Bayesian MMM lets you encode this knowledge as **priors** that the model combines with observed data. This is especially valuable when data is sparse --- for example, a channel that was only active for a few weeks. See [Priors and Distributions](./priors-and-distributions.md).
+Have industry benchmarks or expert intuition about a channel likely effectiveness? Bayesian MMM lets you encode this knowledge as **priors** that the model combines with observed data. Lift test results are integrated separately as likelihood observations that calibrate the model. This is especially valuable when data is sparse --- for example, a channel that was only active for a few weeks. See [Priors and Distributions](./priors-and-distributions.md).
 
 ### 3. Regularization Without Arbitrary Penalties
 
