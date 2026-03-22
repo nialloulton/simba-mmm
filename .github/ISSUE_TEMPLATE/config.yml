@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation
+    url: https://github.com/nialloulton/simba-mmm/tree/main/docs
+    about: Browse the Simba documentation for guides, tutorials, and reference material.
+  - name: Simba Website
+    url: https://getsimba.ai
+    about: Visit the official Simba website for product information and demos.
+  - name: Email Support
+    url: mailto:support@simba-mmm.com
+    about: Contact us directly for urgent issues or private inquiries.
