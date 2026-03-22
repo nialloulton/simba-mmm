@@ -143,7 +143,6 @@ Power and Box-Cox transformations are advanced options for cases where standard 
 In addition to configuring the decay rate parameter, you can choose the adstock function type for each channel:
 
 - **Geometric** (default): Immediate peak with exponential decay. Appropriate for most channels.
-- **Power Law**: Immediate peak with non-linear decay that varies with accumulation level.
 - **Delayed**: Peak occurs after a configurable delay, then decays. Use for channels where impact builds before converting.
 
 See [Adstock Effects](../core-concepts/adstock-effects.md) for detailed explanations of each type, including when to use each one.

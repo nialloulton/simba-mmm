@@ -235,8 +235,6 @@ The number of time periods it takes for a channel's adstock (carryover) effect t
 
 ## P
 
-### Power Law Adstock
-An adstock formulation where the retention rate varies with the magnitude of accumulated effect. Larger accumulated effects decay faster than smaller ones. Produces a decay curve that drops quickly after heavy spend periods but has a longer tail during low-spend periods. See **Adstock**.
 
 ### Prior Predictive Check
 A validation step for Bayesian models where sample forecasts are generated from the prior distributions (before seeing data) to confirm that the priors produce sensible ranges. Used in VAR modeling to validate that prior configurations are reasonable before committing to a full model fit.
