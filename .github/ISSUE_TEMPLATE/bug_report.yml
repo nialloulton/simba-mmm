@@ -1,0 +1,122 @@
+name: Bug Report
+description: Report a bug or issue with the Simba platform
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting a bug. Please fill out the form below to help us investigate and resolve the issue.
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: How severely does this bug impact your work?
+      options:
+        - Critical — Platform is unusable or data is at risk
+        - High — Major feature is broken, no workaround available
+        - Medium — Feature is impaired but a workaround exists
+        - Low — Minor issue, cosmetic, or edge case
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Platform Area
+      description: Which part of the platform is affected?
+      options:
+        - Data Auditor
+        - Measurement / Attribution
+        - Scenario Planning
+        - Budget Optimization
+        - Model Configuration
+        - Data Upload / Import
+        - Dashboard / Reporting
+        - Account / Authentication
+        - Performance / Speed
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of the bug.
+      placeholder: Describe what happened...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Step-by-step instructions to reproduce the issue.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Configure '...'
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+      placeholder: Describe what should have happened...
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened instead?
+      placeholder: Describe what happened instead...
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots / Screen Recordings
+      description: If applicable, add screenshots or recordings to help explain the issue.
+      placeholder: Drag and drop images here...
+    validations:
+      required: false
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      description: Which browser are you using?
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - Other
+    validations:
+      required: false
+
+  - type: input
+    id: plan
+    attributes:
+      label: Simba Plan
+      description: Which Simba plan are you on?
+      placeholder: e.g., Analyst, Pro, Scale, Enterprise
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other information that might help us investigate.
+      placeholder: Error messages, console logs, data details...
+    validations:
+      required: false

@@ -1,0 +1,55 @@
+name: Support Question
+description: Ask a question or get help with Simba
+title: "[Support]: "
+labels: ["question", "support"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Need help with Simba? Ask your question below. For urgent issues, you can also email support@simba-mmm.com.
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Question Category
+      description: What's your question about?
+      options:
+        - Getting started / Onboarding
+        - Data upload or preparation
+        - Model configuration
+        - Understanding results
+        - Optimization recommendations
+        - Scenario planning
+        - Account or billing
+        - Performance or speed
+        - Best practices
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: Describe your question in as much detail as possible.
+      placeholder: What would you like help with?
+    validations:
+      required: true
+
+  - type: textarea
+    id: tried
+    attributes:
+      label: What Have You Tried?
+      description: Have you already tried anything to resolve this? Checked the docs?
+      placeholder: Describe what you've already attempted...
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Any screenshots, error messages, or other details that would help us help you.
+      placeholder: Add any additional context...
+    validations:
+      required: false
