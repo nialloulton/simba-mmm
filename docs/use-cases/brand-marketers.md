@@ -31,7 +31,7 @@ Don't wait for quarterly reviews. Simba's budget optimizer provides ongoing reco
 ## Typical Workflow
 
 1. **Upload** your weekly media and sales data
-2. **Audit** — Simba's AI Data Auditor validates your data quality
+2. **Audit** — Simba's Data Validator validates your data quality
 3. **Model** — Configure your Bayesian model (or use smart defaults)
 4. **Measure** — See the true incremental impact of each channel
 5. **Plan** — Run scenarios to test budget changes

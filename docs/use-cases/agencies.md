@@ -32,7 +32,7 @@ For agencies managing multiple brands or multi-market clients, Simba's portfolio
 
 Move from quarterly reports to strategic guidance. Simba's scenario planning lets you model budget scenarios collaboratively with clients, showing the projected impact of different allocation strategies before committing spend.
 
-### Glass-Box Credibility
+### Fully Transparent Credibility
 
 When clients ask "how does this work?", you can show them. Simba's transparent Bayesian models build trust and differentiate your agency from competitors using black-box tools.
 

@@ -122,6 +122,55 @@ Performance-based partnerships and affiliate marketing.
 | Spend/Commission | Total cost | Recommended |
 | Clicks | Referral clicks | Good alternative |
 
+### Influencer / Creator
+
+Influencer marketing, brand ambassadors, and creator partnerships.
+
+| Metric | Description | Recommended |
+|--------|-------------|-------------|
+| Spend | Total cost including fees | Recommended |
+| Impressions | Estimated reach/impressions | Good alternative |
+| Engagements | Likes, shares, comments | Supplementary |
+
+**Platforms**: YouTube creators, Instagram influencers, TikTok creators, bloggers, KOLs
+
+### Direct Mail
+
+Physical mail campaigns including catalogs, postcards, and mailshots.
+
+| Metric | Description | Recommended |
+|--------|-------------|-------------|
+| Spend | Total mailing cost | Recommended |
+| Volume | Pieces mailed | Good alternative |
+
+### Mobile / App
+
+Mobile-specific advertising including in-app ads, push notifications, and SMS.
+
+| Metric | Description | Recommended |
+|--------|-------------|-------------|
+| Spend | Media cost | Recommended |
+| Impressions | In-app ad impressions | Good alternative |
+| Sends | Push notifications or SMS sent | Supplementary |
+
+### Cinema
+
+Advertising in movie theaters before screenings.
+
+| Metric | Description | Recommended |
+|--------|-------------|-------------|
+| Spend | Media cost | Recommended |
+| Impressions | Estimated audience impressions | Good alternative |
+
+### Sponsorship / Events
+
+Event sponsorship, sports partnerships, and branded experiences.
+
+| Metric | Description | Recommended |
+|--------|-------------|-------------|
+| Spend | Sponsorship cost | Recommended |
+| Impressions | Estimated reach | Supplementary |
+
 ## Non-Media Variables
 
 In addition to media channels, include these control variables for better model accuracy:

@@ -4,7 +4,7 @@ Good data preparation is the foundation of a reliable marketing mix model. This 
 
 ## Before You Start
 
-Simba's [AI Data Auditor](../platform-guide/data-auditor.md) will automatically detect many data quality issues after upload. However, addressing obvious problems beforehand leads to faster model setup and better results.
+Simba's [Data Validator](../platform-guide/data-auditor.md) can detect many data quality issues after upload. It is not automatic — you trigger it by clicking **Start Validator Agent** in the Warehouse configuration screen. However, addressing obvious problems beforehand leads to faster model setup and better results.
 
 ## Step 1: Consolidate Your Data Sources
 
@@ -37,7 +37,7 @@ All variables must share the same time granularity:
 | Scenario | Recommended Action |
 |----------|-------------------|
 | Channel had zero spend | Enter 0 (not blank) |
-| Data is genuinely missing | Leave blank — Simba's auditor will flag it |
+| Data is genuinely missing | Leave blank — the Data Validator will flag it |
 | Channel didn't exist yet | Enter 0 for periods before launch |
 | Temporary data gap (1–2 periods) | Interpolate if reasonable, or leave blank |
 
@@ -83,16 +83,10 @@ Before uploading to Simba:
 
 ## What Happens Next
 
-After upload, Simba's [AI Data Auditor](../platform-guide/data-auditor.md) will:
-
-1. Validate your data schema
-2. Check for missing values
-3. Detect anomalies
-4. Score your data quality
-5. Provide recommendations for improvement
+After uploading your data, click **Start Validator Agent** in the Warehouse configuration screen to run the [Data Validator](../platform-guide/data-auditor.md). It will run 10 specialized checks across your dataset covering schema integrity, frequency diagnostics, alignment, multiplier logic, controls, coverage, outlier detection, multicollinearity, leakage, and documentation quality — then provide categorized findings and actionable recommendations.
 
 → **Next**: [Data Validation](data-validation.md) | [Data Requirements](data-requirements.md)
 
 ---
 
-*See also: [AI Data Auditor](../platform-guide/data-auditor.md) | [Supported Channels](supported-channels.md)*
+*See also: [Data Validator](../platform-guide/data-auditor.md) | [Supported Channels](supported-channels.md)*

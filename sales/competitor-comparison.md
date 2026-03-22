@@ -16,7 +16,7 @@ Robyn is an open-source MMM package from Meta, built in R.
 | **Uncertainty** | Limited (multi-objective optimization produces multiple solutions) | Full posterior distributions with credible intervals |
 | **Coding required** | Yes (R) | No (UI-based configuration) |
 | **Prior configuration** | Limited | Full Bayesian prior configuration per channel |
-| **Data validation** | Manual | AI-powered Data Auditor |
+| **Data validation** | Manual | AI-powered Data Validator |
 | **Scenario planning** | Basic (manual post-processing) | Built-in with uncertainty bands |
 | **Optimization** | Built-in but deterministic | Risk-adjusted with carryover awareness |
 | **Support** | Community only | Dedicated support + Managed tier |
@@ -32,7 +32,7 @@ Google's open-source MMM offerings for Python.
 |-----------|------------------------|-------|
 | **Approach** | Bayesian (JAX/NumPyro) | Bayesian (PyMC) |
 | **Coding required** | Yes (Python) | No (UI-based) |
-| **Data validation** | Manual | AI-powered Data Auditor |
+| **Data validation** | Manual | AI-powered Data Validator |
 | **Scenario planning** | Manual post-processing | Built-in platform feature |
 | **Optimization** | Manual implementation | Built-in, risk-adjusted |
 | **UI** | None (notebook-based) | Full web application |
@@ -64,12 +64,12 @@ Some organizations build MMM models from scratch using statsmodels, PyMC, Stan, 
 
 | Dimension | Typical SaaS MMM | Simba |
 |-----------|-----------------|-------|
-| **Transparency** | Black-box (proprietary models) | Glass-box (open-source PyMC foundation) |
+| **Transparency** | Black-box (proprietary models) | Fully transparent (open-source PyMC foundation) |
 | **Methodology** | Often proprietary or undisclosed | Bayesian, open-source, peer-reviewed |
 | **Auditability** | Limited — "trust our numbers" | Full — inspect every prior and parameter |
 | **Foundation** | Proprietary code | Open-source PyMC-Marketing |
 | **Vendor lock-in** | High | Low (open-source methodology) |
-| **Data validation** | Basic or manual | AI-powered Data Auditor |
+| **Data validation** | Basic or manual | AI-powered Data Validator |
 
 ## Simba vs. Consulting/Agency Models
 

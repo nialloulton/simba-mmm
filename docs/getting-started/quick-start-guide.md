@@ -4,15 +4,15 @@ This guide walks you through the complete Simba workflow, from signing up to int
 
 **Time required:** Most users complete their first model run within a few hours. The actual computation takes minutes; the majority of your time will be spent reviewing data and results.
 
-**Prerequisites:** A dataset with time-series marketing data (weekly or daily), including spend by channel and a target KPI. See [Data Requirements](../data-preparation/data-requirements.md) for full details.
+**Prerequisites:** A dataset with time-series marketing data (weekly or daily), including spend by channel and a target KPI. See [Data Requirements](../data/data-requirements.md) for full details.
 
 ---
 
 ## Step 1: Create Your Account
 
 1. Go to [getsimba.ai](https://getsimba.ai) and click **Start Free Trial**.
-2. Register with your email or sign in with Google/SSO.
-3. You will land in the **Trial** plan, which gives you a full 14-day free trial with access to core features.
+2. Register with your email or sign in with **Google** or **Microsoft** SSO.
+3. You will land in the **Trial** plan, which gives you a full 28-day free trial with access to core features.
 4. No credit card is required to start.
 
 For detailed information about plans, workspaces, and team setup, see [Account Setup](account-setup.md).
@@ -30,11 +30,11 @@ Simba expects a time-series dataset in CSV format with:
 - A **target KPI column** (e.g., `revenue`, `conversions`, `leads`)
 - Optional: **control variables** (e.g., `price`, `promotions`, `seasonality_flag`, `competitor_activity`)
 
-A clean dataset with 1 to 3 years of weekly data is ideal for most use cases. See [Data Preparation](../data-preparation/data-requirements.md) for a full guide on formatting, granularity, and common pitfalls.
+A clean dataset with 1 to 3 years of weekly data is ideal for most use cases. See [Data Preparation](../data/data-requirements.md) for a full guide on formatting, granularity, and common pitfalls.
 
 ### Upload your data
 
-1. From the dashboard, click **New Model** or navigate to the data upload screen.
+1. From the **Model Warehouse**, click **New Model** or navigate to the data upload screen.
 2. Drag and drop your CSV file or click to browse.
 3. Simba will parse your file and display a preview of the detected columns.
 4. Map your columns: select which column is the date, which are media channels, which is the target KPI, and which are control variables.
@@ -43,9 +43,9 @@ A clean dataset with 1 to 3 years of weekly data is ideal for most use cases. Se
 
 ---
 
-## Step 3: Run the AI Data Auditor
+## Step 3: Run the Data Validator
 
-Before building a model, Simba's **AI Data Auditor** automatically reviews your dataset. This step is part of the **Audit** phase of the Simba workflow.
+Before building a model, Simba's **Data Validator** automatically reviews your dataset. This step is part of the **Audit** phase of the Simba workflow.
 
 The auditor checks for:
 
@@ -57,7 +57,7 @@ The auditor checks for:
 
 You will receive a clear audit report with a health score and specific recommendations. Address any critical issues before proceeding. Many issues can be resolved directly in Simba's data preparation tools.
 
-Read more: [AI Data Auditor](../workflow/ai-data-auditor.md)
+Read more: [Data Validator](../platform-guide/data-auditor.md)
 
 ---
 
@@ -71,7 +71,7 @@ Priors express what you believe about each channel's effect before seeing the da
 
 **Smart Defaults:** Simba auto-generates sensible priors from your historical data. For your first model, **we recommend starting with the smart defaults** and refining later. This gets you to results quickly while maintaining statistical validity.
 
-Read more: [Setting Priors](../model-configuration/setting-priors.md) | [Smart Defaults](../model-configuration/smart-defaults.md)
+Read more: [Setting Priors](../platform-guide/model-configuration.md) | [Smart Defaults](../platform-guide/smart-defaults.md)
 
 ### Adstock (Carryover Effects)
 
@@ -79,7 +79,7 @@ Marketing does not always have an immediate effect. A TV ad aired on Monday may 
 
 Smart defaults will suggest appropriate adstock settings based on channel type and your data patterns.
 
-Read more: [Adstock Settings](../model-configuration/adstock-settings.md)
+Read more: [Adstock Settings](../core-concepts/adstock-effects.md)
 
 ### Saturation (Diminishing Returns)
 
@@ -87,7 +87,7 @@ At some point, spending more on a channel yields diminishing returns. Saturation
 
 Smart defaults estimate saturation parameters from the observed spend ranges in your data.
 
-Read more: [Saturation Curves](../model-configuration/saturation-curves.md)
+Read more: [Saturation Curves](../core-concepts/saturation-curves.md)
 
 ### Running the model
 
@@ -102,15 +102,15 @@ Once you are satisfied with your configuration (or have accepted the smart defau
 
 ## Step 5: Interpret Your Results
 
-When the model finishes, you will land on the **results dashboard**. Here is what to look at first:
+When the model finishes, you will land on the ****Active Model** page**. Here is what to look at first:
 
 ### Channel Contributions
 
-The channel contribution chart shows how much each marketing channel (and baseline/control factors) contributed to your KPI over the modeled period. Unlike deterministic tools, Simba shows you **credible intervals** — the range of plausible contribution values — not just a single number.
+The channel contribution chart shows how much each marketing channel (and baseline/control factors) contributed to your KPI over the modeled period. Unlike deterministic tools, Simba shows you **94% credible intervals (HDI)** — the range of plausible contribution values — not just a single number.
 
 ### Return on Ad Spend (ROAS)
 
-Simba calculates the posterior ROAS for each channel, telling you how much KPI return you get for each unit of spend. Channels with wide credible intervals have more uncertainty — this is honest reporting, not a flaw.
+Simba calculates the posterior ROAS for each channel, telling you how much KPI return you get for each unit of spend. Channels with wide 94% credible intervals (HDI) have more uncertainty — this is honest reporting, not a flaw.
 
 ### Adstock and Saturation Curves
 
@@ -120,7 +120,7 @@ Visualize how each channel's effect decays over time (adstock) and how it respon
 
 Check the model fit, convergence diagnostics, and posterior predictive checks. These tell you whether the model adequately captures your data patterns. Simba highlights any issues and provides plain-language explanations.
 
-Read more: [Interpreting Results](../results/interpreting-results.md) | [Model Diagnostics](../results/model-diagnostics.md)
+Read more: [Interpreting Results](../platform-guide/measurement.md) | [Model Diagnostics](../platform-guide/measurement.md)
 
 ---
 
@@ -135,15 +135,15 @@ With a fitted model, move to the **Predict** phase. Scenario Planning lets you s
 
 This is where Simba moves beyond measurement into decision support. You can test hypotheses before committing real budget.
 
-Read more: [Scenario Planning](../workflow/scenario-planning.md)
+Read more: [Scenario Planning](../platform-guide/scenario-planning.md)
 
 ---
 
 ## Step 7: Optimize Your Budget
 
-The final step is the **Optimize** phase. Budget Intelligence automatically finds the best allocation:
+The final step is the **Optimize** phase. Budget Optimizer automatically finds the best allocation:
 
-1. Navigate to **Budget Intelligence** from the scenario planning screen or main navigation.
+1. Navigate to **Budget Optimizer** from the scenario planning screen or main navigation.
 2. Set your **total budget constraint** (the total amount you have to allocate).
 3. Optionally set **per-channel minimum and maximum spend** constraints (e.g., "TV must be at least 10% of total").
 4. Choose your optimization objective (maximize revenue, conversions, etc.).
@@ -152,7 +152,7 @@ The final step is the **Optimize** phase. Budget Intelligence automatically find
 
 The optimization is grounded in the full posterior distribution of your Bayesian model, meaning it accounts for uncertainty in channel effects rather than optimizing against a single point estimate.
 
-Read more: [Budget Optimization](../workflow/budget-optimization.md)
+Read more: [Budget Optimization](../platform-guide/budget-optimization.md)
 
 ---
 
@@ -160,9 +160,9 @@ Read more: [Budget Optimization](../workflow/budget-optimization.md)
 
 Congratulations — you have built, interpreted, and optimized your first Bayesian marketing mix model. Here are recommended next steps:
 
-- **Refine your priors.** Now that you have seen the results, consider whether the smart defaults align with your domain knowledge. Adjust priors and re-run to see how results change. See [Setting Priors](../model-configuration/setting-priors.md).
-- **Add control variables.** If you did not include price, promotions, or seasonality controls, adding them can improve model accuracy. See [Control Variables](../model-configuration/control-variables.md).
-- **Explore model diagnostics.** Dive deeper into convergence, posterior predictive checks, and sensitivity analysis. See [Model Diagnostics](../results/model-diagnostics.md).
+- **Refine your priors.** Now that you have seen the results, consider whether the smart defaults align with your domain knowledge. Adjust priors and re-run to see how results change. See [Setting Priors](../platform-guide/model-configuration.md).
+- **Add control variables.** If you did not include price, promotions, or seasonality controls, adding them can improve model accuracy. See [Control Variables](../platform-guide/model-configuration.md).
+- **Explore model diagnostics.** Dive deeper into convergence, posterior predictive checks, and sensitivity analysis. See [Model Diagnostics](../platform-guide/measurement.md).
 - **Set up regular updates.** As new data comes in, re-run your model to keep insights current. Simba preserves your configuration for easy re-runs.
 - **Invite your team.** Share results and collaborate on scenarios. See [Account Setup](account-setup.md) for team management.
 - **Explore Data Pipelines.** If you need to combine data from multiple sources or automate data preparation, try the [Data Pipelines](../platform-guide/data-pipelines.md) feature.
@@ -175,11 +175,11 @@ Congratulations — you have built, interpreted, and optimized your first Bayesi
 
 | Issue | Solution |
 |---|---|
-| Data upload fails | Check that your file is a valid CSV with a header row. See [Data Requirements](../data-preparation/data-requirements.md). |
+| Data upload fails | Check that your file is a valid CSV with a header row. See [Data Requirements](../data/data-requirements.md). |
 | Audit flags critical issues | Address the flagged issues in your data before running the model. The audit report includes specific guidance. |
 | Model takes too long | Large datasets or complex configurations increase run time. Try reducing the number of channels or using weekly instead of daily data. |
-| Poor model fit | Review diagnostics and consider adding control variables, adjusting priors, or checking data quality. See [Model Diagnostics](../results/model-diagnostics.md). |
-| Results seem unreasonable | Check your priors and data. Unreasonable results often indicate data issues or overly vague priors. See [Setting Priors](../model-configuration/setting-priors.md). |
+| Poor model fit | Review diagnostics and consider adding control variables, adjusting priors, or checking data quality. See [Model Diagnostics](../platform-guide/measurement.md). |
+| Results seem unreasonable | Check your priors and data. Unreasonable results often indicate data issues or overly vague priors. See [Setting Priors](../platform-guide/model-configuration.md). |
 
 For additional help, contact **support@simba-mmm.com**.
 
@@ -190,5 +190,5 @@ For additional help, contact **support@simba-mmm.com**.
 - [What is Simba?](what-is-simba.md) — Understand the platform and methodology
 - [Account Setup](account-setup.md) — Plans, workspaces, and team management
 - [Platform Overview](platform-overview.md) — Navigate the full interface
-- [Data Requirements](../data-preparation/data-requirements.md) — Detailed data preparation guide
+- [Data Requirements](../data/data-requirements.md) — Detailed data preparation guide
 - [Bayesian Modeling in Marketing](../core-concepts/bayesian-modeling.md) — The theory behind the engine

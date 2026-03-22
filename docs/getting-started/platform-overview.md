@@ -8,11 +8,11 @@ This guide walks you through the Simba interface so you know exactly where to fi
 
 The Simba workflow is the backbone of the interface. It appears as a navigation bar or stepper at the top of your screen, showing where you are in the modeling process.
 
-### Step 1: Audit (AI Data Auditor)
+### Step 1: Audit (Data Validator)
 
 **Purpose:** Validate your data before modeling.
 
-When you upload a dataset, the AI Data Auditor automatically analyzes it and presents a comprehensive audit report. This screen shows:
+When you upload a dataset, the Data Validator automatically analyzes it and presents a comprehensive audit report. This screen shows:
 
 - **Data health score** — An overall assessment of your dataset's readiness for modeling.
 - **Issue breakdown** — Individual checks grouped by severity (critical, warning, informational). Each issue includes an explanation of why it matters and what to do about it.
@@ -23,7 +23,7 @@ You can address issues by editing your data externally and re-uploading, or in s
 
 **Key action:** Review the audit report and resolve any critical issues before proceeding to modeling.
 
-Read more: [AI Data Auditor](../workflow/ai-data-auditor.md)
+Read more: [Data Validator](../platform-guide/data-auditor.md)
 
 ---
 
@@ -48,7 +48,7 @@ This is where you set up how Simba should model your data. The configuration int
 
 - **Smart Defaults Panel** — A summary showing what Simba auto-generated for each setting, with the option to accept all defaults with a single click or customize individually.
 
-Read more: [Setting Priors](../model-configuration/setting-priors.md) | [Adstock Settings](../model-configuration/adstock-settings.md) | [Saturation Curves](../model-configuration/saturation-curves.md) | [Smart Defaults](../model-configuration/smart-defaults.md)
+Read more: [Setting Priors](../platform-guide/model-configuration.md) | [Adstock Settings](../core-concepts/adstock-effects.md) | [Saturation Curves](../core-concepts/saturation-curves.md) | [Smart Defaults](../platform-guide/smart-defaults.md)
 
 #### Model Execution
 
@@ -72,7 +72,7 @@ When the model finishes, you arrive at the results dashboard. This is the most i
 - **Posterior Distributions** — For advanced users, the full posterior distribution plots for every model parameter.
 - **Diagnostics Tab** — Convergence diagnostics (R-hat, effective sample size), posterior predictive checks, and model comparison metrics.
 
-Read more: [Interpreting Results](../results/interpreting-results.md) | [Model Diagnostics](../results/model-diagnostics.md)
+Read more: [Interpreting Results](../platform-guide/measurement.md) | [Model Diagnostics](../platform-guide/measurement.md)
 
 ---
 
@@ -87,15 +87,15 @@ The Scenario Planning screen lets you create and compare hypothetical budget all
 - **Scenario Comparison** — Save multiple scenarios and view them side by side in a comparison table or chart. This is useful for presenting options to stakeholders.
 - **Scenario Library** — Previously saved scenarios are stored here for reference and re-use.
 
-Read more: [Scenario Planning](../workflow/scenario-planning.md)
+Read more: [Scenario Planning](../platform-guide/scenario-planning.md)
 
 ---
 
-### Step 4: Optimize (Budget Intelligence)
+### Step 4: Optimize (Budget Optimizer)
 
 **Purpose:** Automatically find the best budget allocation.
 
-Budget Intelligence is the final workflow step, moving from manual "what if" analysis to algorithmic optimization:
+Budget Optimizer is the final workflow step, moving from manual "what if" analysis to algorithmic optimization:
 
 - **Objective Selector** — Choose what you want to maximize (e.g., revenue, conversions) or set a target KPI value.
 - **Budget Constraint** — Enter your total available budget.
@@ -106,7 +106,7 @@ Budget Intelligence is the final workflow step, moving from manual "what if" ana
   - A comparison against your current allocation showing the estimated improvement
   - A visual breakdown of where budget shifted and why
 
-Read more: [Budget Optimization](../workflow/budget-optimization.md)
+Read more: [Budget Optimization](../platform-guide/budget-optimization.md)
 
 ---
 
@@ -145,11 +145,11 @@ Read more: [AI Assistant](../platform-guide/ai-assistant.md)
 
 ## The Dashboard
 
-The **Dashboard** is your landing page when you log in. It provides a high-level overview of your workspace:
+The **Dashboard** is your landing page when you log in. It provides a high-level overview of your project:
 
 - **Recent Models** — A list of your most recent model runs, showing status (running, completed, failed), date, and a link to jump directly to results.
 - **Quick Actions** — Shortcuts to common tasks: upload new data, create a new model, open a recent scenario.
-- **Workspace Summary** — Key metrics like the number of models run, datasets uploaded, and most recent optimization.
+- **Project Summary** — Key metrics like the number of models run, datasets uploaded, and most recent optimization.
 - **Notifications** — Alerts about completed model runs, audit warnings, or system updates.
 
 ---
@@ -158,17 +158,17 @@ The **Dashboard** is your landing page when you log in. It provides a high-level
 
 Over time, you will build multiple models — different time periods, different channel sets, different prior configurations. The **Model Management** screen helps you organize and compare them:
 
-- **Model List** — All models in your workspace, sortable by date, name, status, or KPI.
+- **Model List** — All models in your project, sortable by date, name, status, or KPI.
 - **Model Comparison** — Select two or more completed models and compare their results side by side. This is valuable for understanding how different configurations or data updates affect conclusions.
 - **Model Versioning** — Each run is saved with its full configuration, so you can always return to a previous version or understand what changed between runs.
 - **Clone Model** — Duplicate a model configuration as a starting point for a new run with adjusted settings.
-- **Archive and Delete** — Archive old models to keep your workspace clean, or delete models you no longer need.
+- **Archive and Delete** — Archive old models to keep your project clean, or delete models you no longer need.
 
 ---
 
 ## Data Management
 
-The **Data** section is where you manage all datasets in your workspace:
+The **Data** section is where you manage all datasets in your project:
 
 - **Dataset Library** — All uploaded datasets with metadata (upload date, row count, column count, date range).
 - **Upload New Data** — The data upload interface with drag-and-drop support and column mapping.
@@ -181,8 +181,8 @@ The **Data** section is where you manage all datasets in your workspace:
 
 The **Settings** area, accessible from the main navigation menu or the gear icon, contains:
 
-### Workspace Settings
-- Workspace name and description
+### Project Settings
+- Project name and description
 - Default currency and date format
 - Default KPI selection
 
@@ -207,7 +207,7 @@ The **Settings** area, accessible from the main navigation menu or the gear icon
 - Active session management
 - SSO configuration (Enterprise)
 
-For details on security infrastructure, see [Security and Compliance](../platform/security-and-compliance.md).
+For details on security infrastructure, see [Security and Compliance](../security/README.md).
 
 ---
 
@@ -218,13 +218,13 @@ Here is a summary of the main navigation structure:
 | Menu Item | What It Contains |
 |---|---|
 | **Dashboard** | Overview, recent models, quick actions, notifications |
-| **Audit** | AI Data Auditor reports and data validation |
+| **Audit** | Data Validator reports and data validation |
 | **Measure** | Model configuration, execution, and results |
 | **Predict** | Scenario Planning and simulation |
-| **Optimize** | Budget Intelligence and allocation recommendations |
+| **Optimize** | Budget Optimizer and allocation recommendations |
 | **Data** | Dataset library, upload, and preview |
 | **Models** | Model list, comparison, versioning, and management |
-| **Settings** | Workspace, team, billing, profile, and security |
+| **Settings** | Project, team, billing, profile, and security |
 | **Pipelines** | Data pipeline builder, connectors, transforms, versions |
 | **AI Assistant** | Interactive chat-based analysis (within Active Model) |
 
@@ -234,7 +234,7 @@ The workflow steps (Audit, Measure, Predict, Optimize) also appear as a linear s
 
 ## Keyboard Shortcuts and Tips
 
-- Use the **workspace switcher** in the top-left corner to move between workspaces (Scale and above).
+- Use the **project switcher** in the top-left corner to move between projects (Scale and above).
 - The **notification bell** in the top-right corner shows model completion alerts and system messages.
 - Most charts support **hover for details** — hover over any data point to see exact values and credible intervals.
 - **Export buttons** are available on all charts and tables for downloading results as CSV, PNG, or PDF.
@@ -246,8 +246,8 @@ The workflow steps (Audit, Measure, Predict, Optimize) also appear as a linear s
 Now that you know your way around the interface:
 
 - Follow the [Quick Start Guide](quick-start-guide.md) to build your first model using this interface.
-- Read about [Data Requirements](../data-preparation/data-requirements.md) to prepare your dataset.
-- Explore [Setting Priors](../model-configuration/setting-priors.md) to understand the model configuration options in detail.
+- Read about [Data Requirements](../data/data-requirements.md) to prepare your dataset.
+- Explore [Setting Priors](../platform-guide/model-configuration.md) to understand the model configuration options in detail.
 
 For questions about navigating the platform, contact **support@simba-mmm.com**.
 
@@ -257,8 +257,8 @@ For questions about navigating the platform, contact **support@simba-mmm.com**.
 
 - [What is Simba?](what-is-simba.md) — Product overview and positioning
 - [Quick Start Guide](quick-start-guide.md) — Step-by-step first model walkthrough
-- [Account Setup](account-setup.md) — Plans, workspaces, and team management
-- [AI Data Auditor](../workflow/ai-data-auditor.md) — Deep dive on the audit step
-- [Incremental Measurement](../workflow/incremental-measurement.md) — The modeling methodology
-- [Scenario Planning](../workflow/scenario-planning.md) — Simulation and forecasting
-- [Budget Optimization](../workflow/budget-optimization.md) — Algorithmic budget allocation
+- [Account Setup](account-setup.md) — Plans, projects, and team management
+- [Data Validator](../platform-guide/data-auditor.md) — Deep dive on the audit step
+- [Incremental Measurement](../platform-guide/measurement.md) — The modeling methodology
+- [Scenario Planning](../platform-guide/scenario-planning.md) — Simulation and forecasting
+- [Budget Optimization](../platform-guide/budget-optimization.md) — Algorithmic budget allocation

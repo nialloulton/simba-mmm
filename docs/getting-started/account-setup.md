@@ -1,6 +1,6 @@
-# Account Setup — Registration, Plans, and Workspace Configuration
+# Account Setup — Registration, Plans, and Project Configuration
 
-This guide covers everything you need to get your Simba account up and running: creating your account, understanding the available plans, configuring your workspace, and setting up team collaboration.
+This guide covers everything you need to get your Simba account up and running: creating your account, understanding the available plans, configuring your project, and setting up team collaboration.
 
 ---
 
@@ -11,15 +11,15 @@ This guide covers everything you need to get your Simba account up and running: 
 1. Visit [getsimba.ai](https://getsimba.ai) and click **Start Free Trial**.
 2. Enter your name, email address, and create a password — or sign up using **Google** or **Microsoft** SSO.
 3. Verify your email address by clicking the confirmation link sent to your inbox.
-4. You will be taken to your new workspace, ready to upload data and start modeling.
+4. You will be taken to your new project, ready to upload data and start modeling.
 
 ### The 14-day free trial
 
-Every new account starts with a **14-day Sandbox trial**. During this period, you have access to core Simba features so you can evaluate the platform with your own data. No credit card is required to begin.
+Every new account starts with a **28-day Trial**. During this period, you have access to core Simba features so you can evaluate the platform with your own data. No credit card is required to begin.
 
 The Sandbox trial includes:
 
-- Data upload and the AI Data Auditor
+- Data upload and the Data Validator
 - Model configuration with smart defaults
 - Model execution and results interpretation
 - Basic scenario planning
@@ -32,12 +32,12 @@ At the end of your trial, you can choose a paid plan to continue. Your data and 
 
 Simba offers several plans designed for different team sizes and use cases. Below is an overview of each tier by features and audience. For current pricing, visit [getsimba.ai](https://getsimba.ai).
 
-### Sandbox (Free Trial)
+### Trial (Free Trial)
 
 **Best for:** Evaluating Simba before committing.
 
-- 14-day full-feature trial
-- Single workspace
+- 28-day full-feature trial
+- Single project
 - Core modeling features
 - Smart defaults
 - Basic scenario planning
@@ -47,11 +47,11 @@ Simba offers several plans designed for different team sizes and use cases. Belo
 
 **Best for:** Individual analysts and small marketing teams running a single brand.
 
-- Single workspace
-- Full AI Data Auditor
+- Single project
+- Full Data Validator
 - Incremental Measurement with complete model configuration (priors, adstock, saturation)
 - Scenario Planning
-- Budget Intelligence optimization
+- Budget Optimizer optimization
 - Email support
 
 ### Pro (Best Value)
@@ -70,7 +70,7 @@ Simba offers several plans designed for different team sizes and use cases. Belo
 **Best for:** Agencies and consultancies managing multiple clients.
 
 - Everything in Pro
-- Multi-workspace support for managing separate client environments
+- Multi-project support for managing separate client environments
 - Team collaboration with role-based access
 - Cross-client reporting capabilities
 - Dedicated onboarding support
@@ -100,29 +100,29 @@ Simba offers several plans designed for different team sizes and use cases. Belo
 
 ---
 
-## Workspace Configuration
+## Project Configuration
 
-A **workspace** is your dedicated environment in Simba. It contains your datasets, model configurations, results, and team members. Each workspace is isolated with its own encrypted storage.
+A **project** is your dedicated environment in Simba. It contains your datasets, model configurations, results, and team members. Each workspace is isolated with its own encrypted storage.
 
-### Setting up your workspace
+### Setting up your project
 
 After account creation, your default workspace is ready to use. To configure it:
 
 1. Navigate to **Settings** from the main menu.
-2. Under **Workspace Settings**, you can:
-   - **Rename your workspace** to reflect your brand or project (e.g., "Acme Corp Q1 2026" or "Client: Greenfield Media").
+2. Under **Project Settings**, you can:
+   - **Rename your project** to reflect your brand or project (e.g., "Acme Corp Q1 2026" or "Client: Greenfield Media").
    - **Set your default currency** for spend data display.
    - **Configure your date format** preference.
    - **Set your default KPI** if you consistently model the same target metric.
 
-### Managing multiple workspaces (Scale, Enterprise, Managed)
+### Managing multiple projects (Scale, Enterprise, Managed)
 
-On the Scale plan and above, you can create and manage multiple workspaces:
+On the Scale plan and above, you can create and manage multiple projects:
 
-1. From the workspace switcher in the top navigation, click **Create New Workspace**.
+1. From the project switcher in the top navigation, click **Create New Project**.
 2. Name the workspace and configure its settings independently.
 3. Each workspace has **isolated data storage** — data uploaded to one workspace is never accessible from another. This is backed by separate AWS S3 buckets per workspace.
-4. Switch between workspaces using the workspace dropdown.
+4. Switch between projects using the workspace dropdown.
 
 This is particularly useful for agencies that need strict data separation between clients.
 
@@ -138,7 +138,7 @@ Team collaboration features are available on Scale, Enterprise, and Managed plan
 2. Click **Invite Member**.
 3. Enter the team member's email address.
 4. Assign a role (see below).
-5. The invited user will receive an email with a link to join your workspace.
+5. The invited user will receive an email with a link to join your project.
 
 ### Roles and permissions
 
@@ -186,7 +186,7 @@ For additional account security, Simba supports TOTP-based two-factor authentica
 
 Once enabled, you will need to provide a code from your authenticator app each time you log in. See [Security Overview](../security/README.md) for more details. Simba works with aggregated marketing data (channel spend, impressions, conversions), which significantly reduces privacy risk by design.
 
-For full details, see [Security and Compliance](../platform/security-and-compliance.md).
+For full details, see [Security and Compliance](../security/README.md).
 
 ---
 
@@ -201,7 +201,7 @@ For full details, see [Security and Compliance](../platform/security-and-complia
 
 ### Downgrading
 
-You can downgrade at any time. The downgrade takes effect at the end of your current billing period. If you are downgrading from a plan with multiple workspaces, you will need to select which workspace to retain.
+You can downgrade at any time. The downgrade takes effect at the end of your current billing period. If you are downgrading from a plan with multiple projects, you will need to select which project to retain.
 
 ### Billing details
 
@@ -226,7 +226,7 @@ You can downgrade at any time. The downgrade takes effect at the end of your cur
 
 - [Quick Start Guide](quick-start-guide.md) — Build your first model
 - [Platform Overview](platform-overview.md) — Learn the interface
-- [Data Requirements](../data-preparation/data-requirements.md) — Prepare your data for upload
-- [Security and Compliance](../platform/security-and-compliance.md) — Detailed security documentation
+- [Data Requirements](../data/data-requirements.md) — Prepare your data for upload
+- [Security and Compliance](../security/README.md) — Detailed security documentation
 
 For any account-related questions, contact **support@simba-mmm.com**.
