@@ -1,4 +1,4 @@
-# What is Simba? — Bayesian Marketing Mix Modeling Platform
+# What is Simba? --- Bayesian Marketing Mix Modeling Platform
 
 Simba is a no-code Bayesian Marketing Mix Modeling (MMM) platform built on [PyMC-Marketing](../core-concepts/bayesian-modeling.md), the leading open-source Bayesian marketing science framework. [Simba](https://getsimba.ai) makes advanced econometric modeling accessible to marketers, analysts, and agencies without requiring programming skills or a PhD in statistics.
 
@@ -9,31 +9,39 @@ Marketing Mix Modeling answers the fundamental question every marketer faces: **
 ## The Problems Simba Solves
 
 ### Attribution is broken
-Last-click and multi-touch attribution models rely on user-level tracking that is increasingly unreliable. Privacy regulations like GDPR, the deprecation of third-party cookies, and platform signal loss (iOS App Tracking Transparency, for example) have made digital attribution less and less trustworthy. MMM sidesteps these issues entirely by working with aggregated data — no cookies, no pixels, no user-level tracking required.
+
+Last-click and multi-touch attribution models rely on user-level tracking that is increasingly unreliable. Privacy regulations like GDPR, the deprecation of third-party cookies, and platform signal loss (iOS App Tracking Transparency, for example) have made digital attribution less and less trustworthy. MMM sidesteps these issues entirely by working with aggregated data --- no cookies, no pixels, no user-level tracking required.
 
 ### Black-box tools erode trust
-Many marketing analytics platforms produce a single point estimate with no explanation of how they arrived at it. When a tool tells you that paid search drove 23% of revenue but cannot explain its assumptions, confidence intervals, or methodology, you are making million-dollar decisions on faith. Simba is a **glass-box** platform: every model assumption, prior distribution, and posterior result is visible and auditable.
+
+Many marketing analytics platforms produce a single point estimate with no explanation of how they arrived at it. When a tool tells you that paid search drove 23% of revenue but cannot explain its assumptions, confidence intervals, or methodology, you are making million-dollar decisions on faith. Simba is a fully transparent platform: every model assumption, prior distribution, and posterior result is visible and auditable.
 
 ### Traditional MMM is slow and expensive
+
 Classic marketing mix modeling engagements involve months of consulting work, custom R or Python code, and six-figure price tags. Simba compresses this into a self-serve workflow that takes days, not months, while preserving the statistical rigor that makes MMM valuable.
 
 ### Optimization is disconnected from measurement
-Most measurement tools stop at telling you what happened. Simba carries the analysis forward into [scenario planning](../workflow/scenario-planning.md) and [budget optimization](../workflow/budget-optimization.md), so you move from insight to action in a single platform.
+
+Most measurement tools stop at telling you what happened. Simba carries the analysis forward into [scenario planning](../platform-guide/scenario-planning.md) and [budget optimization](../platform-guide/budget-optimization.md), so you move from insight to action in a single platform.
 
 ---
 
 ## Who Simba is Built For
 
 ### Brand Marketers and Marketing Leaders
-You need to justify spend, report on channel effectiveness, and make budget decisions with confidence. Simba gives you clear, defensible answers without requiring you to learn Python or Bayesian statistics. Smart defaults and the AI Data Auditor guide you through every step.
+
+You need to justify spend, report on channel effectiveness, and make budget decisions with confidence. Simba gives you clear, defensible answers without requiring you to learn Python or Bayesian statistics. Smart defaults and the Data Validator guide you through every step.
 
 ### Agencies and Consultancies
-You manage multiple clients, each with unique data and channel mixes. Simba's workspace model and the Scale plan are designed for multi-client management. You can deliver rigorous MMM results to clients faster, with transparent methodology that builds trust.
+
+You manage multiple clients, each with unique data and channel mixes. Simba is designed for multi-client management on the Scale plan. You can deliver rigorous MMM results to clients faster, with transparent methodology that builds trust.
 
 ### Data Science and Analytics Teams
-You understand the statistics but want to move faster than building custom PyMC-Marketing pipelines from scratch. Simba gives you a configurable UI for setting [priors](../model-configuration/setting-priors.md), [saturation curves](../model-configuration/saturation-curves.md), and [adstock transformations](../model-configuration/adstock-settings.md) while the PyMC-Marketing engine handles the inference. You get the rigor without the boilerplate.
+
+You understand the statistics but want to move faster than building custom PyMC-Marketing pipelines from scratch. Simba gives you a configurable UI for setting [priors](../core-concepts/priors-and-distributions.md), [saturation curves](../core-concepts/saturation-curves.md), and [adstock transformations](../core-concepts/adstock-effects.md) while the PyMC-Marketing engine handles the inference. You get the rigor without the boilerplate.
 
 ### Performance Marketing Teams
+
 You need to understand the incremental impact of each channel, including those that digital attribution consistently overvalues or undervalues. Simba quantifies true incrementality with Bayesian credible intervals, giving you a statistically grounded basis for optimization.
 
 ---
@@ -43,13 +51,13 @@ You need to understand the incremental impact of each channel, including those t
 | Aspect | Traditional MMM | Simba |
 |---|---|---|
 | **Methodology** | Frequentist regression, often opaque | Bayesian inference via PyMC-Marketing, fully transparent |
-| **Uncertainty** | Single point estimates | Full posterior distributions with credible intervals |
+| **Uncertainty** | Single point estimates | Full posterior distributions with 94% HDI credible intervals |
 | **Prior knowledge** | Ignored or ad hoc | Formally incorporated via configurable prior distributions |
-| **Coding required** | Yes (R, Python, SAS) | No — complete no-code interface |
+| **Coding required** | Yes (R, Python, SAS) | No --- complete no-code interface |
 | **Time to results** | Weeks to months | Days |
-| **Model transparency** | Black box or consultant-dependent | Glass box — every assumption visible |
+| **Model transparency** | Black box or consultant-dependent | Every assumption visible and auditable |
 | **Optimization** | Separate tool or manual process | Built-in scenario planning and budget optimization |
-| **Data validation** | Manual QA | AI Data Auditor automates checks |
+| **Data validation** | Manual QA | AI-powered Data Validator with 10 specialized checks |
 | **Updates** | Expensive re-engagement | Re-run models as new data arrives |
 
 ---
@@ -67,37 +75,46 @@ Learn more about the Bayesian approach in [Bayesian Modeling in Marketing](../co
 
 ---
 
-## Key Capabilities
+## The Simba Workflow
 
-### 1. AI Data Auditor (Audit)
-Before you build a model, Simba's AI Data Auditor examines your dataset for issues that could compromise results. It checks for missing values, outliers, multicollinearity, stationarity concerns, and data formatting problems. You get a clear report with actionable recommendations before any modeling begins.
+Simba is organized around four main areas, accessible from the sidebar navigation:
 
-Read more: [AI Data Auditor](../workflow/ai-data-auditor.md)
+### 1. Model Warehouse
 
-### 2. Incremental Measurement (Measure)
-The core modeling step builds a Bayesian marketing mix model from your data. Simba estimates the incremental contribution of each marketing channel to your KPI, accounting for [adstock effects](../model-configuration/adstock-settings.md) (how marketing impact carries over time) and [saturation](../model-configuration/saturation-curves.md) (diminishing returns at higher spend levels). Results include full posterior distributions, not just point estimates.
+Your central hub for data management and model creation. Upload data (or use [Data Pipelines](../platform-guide/data-pipelines.md) to prepare it), run the **Data Validator** to check for quality issues, configure your model through a 5-step wizard, and manage all your saved models, projects, and portfolios.
 
-Read more: [Incremental Measurement](../workflow/incremental-measurement.md)
+Read more: [Model Creation Wizard](../platform-guide/model-creation-wizard.md) | [Data Validator](../platform-guide/data-auditor.md)
 
-### 3. Scenario Planning (Predict)
-Once your model is built, Scenario Planning lets you ask "what if" questions. What happens if you shift 20% of TV budget to paid social? What is the expected outcome if you increase total spend by 15%? Simba simulates the scenarios using your fitted model and shows the predicted impact with uncertainty bands.
+### 2. Active Model
 
-Read more: [Scenario Planning](../workflow/scenario-planning.md)
+The results hub for your fitted model. Explore channel contributions, response curves, ROAS, coefficients, model diagnostics, and more across multiple analysis tabs. Use the **AI Assistant** to generate custom interactive analyses by asking questions in natural language.
 
-### 4. Budget Intelligence (Optimize)
-Budget Intelligence takes optimization further by algorithmically searching for the budget allocation that maximizes (or targets) your chosen KPI. Instead of manually testing scenarios, you define constraints and objectives, and Simba recommends the optimal channel mix backed by the full Bayesian model.
+Read more: [Incremental Measurement](../platform-guide/measurement.md) | [AI Assistant](../platform-guide/ai-assistant.md)
 
-Read more: [Budget Optimization](../workflow/budget-optimization.md)
+### 3. Scenario Planner
 
-### Smart Defaults
-Simba auto-generates intelligent default configurations — priors, adstock parameters, saturation settings — from your historical data. This means you can run a credible model immediately, then refine settings as you learn more. Smart defaults lower the barrier to entry without sacrificing rigor.
+Create custom budget plans and forecast their revenue impact. Choose between the Monthly Planner (a guided 6-step wizard) or the Advanced Planner (a manual grid editor for granular control). Generate predictions with 95% HDI uncertainty bands.
 
-Read more: [Smart Defaults](../model-configuration/smart-defaults.md)
+Read more: [Scenario Planning](../platform-guide/scenario-planning.md)
+
+### 4. Budget Optimizer
+
+Algorithmically find the optimal budget allocation across channels. Configure risk tolerance, channel constraints, spend timing, and revenue multipliers through a guided wizard. The optimizer maximizes risk-adjusted expected revenue using the full Bayesian posterior.
+
+Read more: [Budget Optimization](../platform-guide/budget-optimization.md)
+
+### Additional Capabilities
+
+- **Smart Defaults** --- Auto-generated prior configurations from your historical data. Run a credible model immediately, then refine as you learn more. Read more: [Smart Defaults](../platform-guide/smart-defaults.md)
+- **VAR Modeling** --- Vector AutoRegression for understanding inter-channel dynamics and long-term brand effects. Read more: [VAR Models](../platform-guide/var-models.md)
+- **Portfolio Analysis** --- Cross-brand comparison and optimization with halo and trademark channel support. Read more: [Portfolio Analysis](../platform-guide/portfolio-analysis.md)
+- **Data Pipelines** --- Visual pipeline builder for repeatable data preparation workflows. Read more: [Data Pipelines](../platform-guide/data-pipelines.md)
 
 ### Security and Compliance
-Your data is protected with AES-256 encryption at rest, TLS 1.3 in transit, isolated AWS S3 storage buckets per workspace, and compliance with GDPR and Cyber Essentials certification standards.
 
-Read more: [Security and Compliance](../platform/security-and-compliance.md)
+Your data is protected with AES-256 encryption at rest, TLS 1.3 in transit, isolated AWS S3 storage per customer, and compliance with GDPR and Cyber Essentials certification standards. Two-factor authentication (2FA) is available for additional account security.
+
+Read more: [Security Overview](../security/README.md)
 
 ---
 
@@ -109,22 +126,22 @@ Simba is not a replacement for your ad platforms, analytics tools, or BI dashboa
 - **Web analytics** (GA4, Adobe Analytics) track on-site behavior.
 - **Simba** tells you the true incremental impact of each channel on your business KPIs, accounts for offline and external factors, and optimizes your budget allocation across all channels.
 
-Simba works with aggregated, time-series data — typically weekly or daily summaries of spend, impressions, and KPIs. You do not need to connect APIs or share user-level data.
+Simba works with aggregated, time-series data --- typically weekly or daily summaries of spend, impressions, and KPIs. You do not need to connect APIs or share user-level data.
 
 ---
 
 ## Next Steps
 
-Ready to get started? Head to the [Quick Start Guide](quick-start-guide.md) and build your first marketing mix model in minutes.
+Ready to get started? Head to the [Quick Start Guide](quick-start-guide.md) and build your first marketing mix model.
 
-Or, if you want to set up your account and workspace first, see [Account Setup](account-setup.md).
+Or, if you want to set up your account first, see [Account Setup](account-setup.md).
 
 ---
 
 ## Related Documentation
 
-- [Quick Start Guide](quick-start-guide.md) — Build your first model step by step
-- [Platform Overview](platform-overview.md) — Navigate the Simba interface
-- [Bayesian Modeling in Marketing](../core-concepts/bayesian-modeling.md) — Understand the methodology
-- [Data Requirements](../data-preparation/data-requirements.md) — What data you need to get started
-- [Pricing and Plans](https://getsimba.ai) — Visit getsimba.ai for current pricing details
+- [Quick Start Guide](quick-start-guide.md) --- Build your first model step by step
+- [Platform Overview](platform-overview.md) --- Navigate the Simba interface
+- [Bayesian Modeling in Marketing](../core-concepts/bayesian-modeling.md) --- Understand the methodology
+- [Data Requirements](../data/data-requirements.md) --- What data you need to get started
+- [Pricing and Plans](../pricing/README.md) --- Plan comparison and pricing details
