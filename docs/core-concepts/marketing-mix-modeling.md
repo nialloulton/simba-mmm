@@ -40,7 +40,7 @@ MTA tells you which touchpoints a converting user encountered. MMM tells you how
 
 Randomized experiments are the gold standard for causal inference on a single channel. If you can run a geo-based holdout test for paid search, the result is a clean estimate of incremental lift.
 
-The limitation is scale: you cannot run simultaneous experiments on every channel every quarter. MMM fills the gap by providing **always-on, cross-channel measurement**. Simba also lets you integrate lift test results as calibration priors, combining the rigor of experiments with the breadth of modeling. See [Incrementality](./incrementality.md) for details.
+The limitation is scale: you cannot run simultaneous experiments on every channel every quarter. MMM fills the gap by providing **always-on, cross-channel measurement**. Simba also lets you integrate lift test results as calibration data, combining the rigor of experiments with the breadth of modeling. See [Incrementality](./incrementality.md) for details.
 
 ---
 

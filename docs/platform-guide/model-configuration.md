@@ -106,7 +106,7 @@ OOH has moderate to strong carryover (repeated exposure over weeks) and moderate
 
 The [Smart Defaults](./smart-defaults.md) are appropriate for most situations. Consider overriding them when:
 
-- **You have lift test results** that provide direct experimental evidence of a channel's effectiveness. Use these to set a more informative prior mean.
+- **You have lift test results** that provide direct experimental evidence of a channel effectiveness. Add these as calibration observations in the Model Details step (Step 5 of the wizard) rather than adjusting priors manually --- Simba integrates lift tests as likelihood observations that constrain the model.
 - **A channel is new** and has no historical data in your dataset. Defaults based on historical data will not be available, so you need to set priors manually based on industry knowledge.
 - **You have strong domain expertise** that contradicts the data-driven defaults. For example, if you know a channel was running a flawed creative for the first six months and the data underestimates its true potential.
 - **The model's posterior is dominated by the prior** rather than the data. This happens when spend variation is too low for the data to update the prior. In that case, the prior effectively becomes the answer, so it needs to be set carefully.

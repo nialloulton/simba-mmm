@@ -63,3 +63,7 @@ A curated collection of resources for deeper learning about marketing mix modeli
 *Have a resource suggestion? [Let us know](https://github.com/nialloulton/simba-mmm/issues).*
 
 *See also: [Glossary](glossary.md) | [PyMC-Marketing & Simba](pymc-marketing.md) | [Core Concepts](../docs/core-concepts/README.md)*
+
+### Lift Test Calibration
+
+- [Lift Test Integration in PyMC-Marketing](https://www.pymc-marketing.io/en/0.16.0/notebooks/mmm/mmm_lift_test.html) --- How lift test observations are integrated as additional likelihood terms in Bayesian MMM, constraining the posterior to be consistent with experimental results.

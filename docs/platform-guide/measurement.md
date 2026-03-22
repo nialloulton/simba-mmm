@@ -31,7 +31,7 @@ Attribution results are shown per channel with **94% Highest Density Intervals (
 
 ## Lift Test Integration
 
-If you have run controlled experiments --- geo-lift tests, conversion lift studies, or randomized holdout tests --- Simba can incorporate those results as Bayesian priors that calibrate the model.
+If you have run controlled experiments --- geo-lift tests, conversion lift studies, or randomized holdout tests --- Simba can incorporate those results as additional likelihood observations that calibrate the model.
 
 Lift tests are configured in **Step 5 (Model Details)** of the model creation wizard. For each lift test, you provide:
 
@@ -42,7 +42,7 @@ Lift tests are configured in **Step 5 (Model Details)** of the model creation wi
 - **Sigma**: The uncertainty around the measurement (auto-calculated or manually set).
 - **Cost mode**: Low, medium, or high confidence in the measurement.
 
-Lift test results inform the model expectations about a channel effectiveness before it sees the observational data. This is especially valuable for channels with limited spend variation in historical data.
+Lift test results are added as likelihood terms in the Bayesian model --- the observed lift constrains the posterior estimates of channel effectiveness to be consistent with experimental evidence. This is especially valuable for channels with limited spend variation in historical data.
 
 Integrating lift tests is optional but recommended. It bridges the gap between observational modeling and experimental evidence, producing more trustworthy attribution.
 
@@ -201,3 +201,9 @@ Contribution groups are saved per model and persist across sessions. Channel col
 - [Budget Optimization](./budget-optimization.md) --- Algorithmic budget allocation
 - [Model Configuration](./model-configuration.md) --- Adjust priors and settings
 - [Exports and Reporting](./exports-reporting.md) --- PDF reports and CSV downloads
+
+---
+
+## Further Reading
+
+- [Lift Test Integration in PyMC-Marketing](https://www.pymc-marketing.io/en/0.16.0/notebooks/mmm/mmm_lift_test.html) --- Technical notebook explaining how lift test observations are integrated into Bayesian MMM models as likelihood terms. This is the approach Simba implements: lift test results constrain the posterior through additional Normal likelihood observations on the channel response curve, rather than modifying the prior distributions directly.
