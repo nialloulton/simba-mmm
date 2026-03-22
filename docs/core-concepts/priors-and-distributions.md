@@ -24,13 +24,25 @@ When a channel was only active for a few weeks, the data alone may not be suffic
 
 ### 4. Transparency
 
-Because Simba is a glass-box platform, every prior is visible and inspectable. Stakeholders can review the assumptions encoded in the model and challenge them if needed. This is far more transparent than the implicit assumptions buried in frequentist model specifications.
+Because Simba is a fully transparent platform, every prior is visible and inspectable. Stakeholders can review the assumptions encoded in the model and challenge them if needed. This is far more transparent than the implicit assumptions buried in frequentist model specifications.
 
 ---
 
 ## Types of Distributions in Simba
 
 Simba supports several probability distributions for specifying priors. Each distribution has different properties that make it suitable for different types of parameters.
+
+### Normal
+
+The **Normal** (Gaussian) distribution is the most common prior distribution, defined on the entire real line. It is symmetric and bell-shaped.
+
+**When Simba uses Normal:**
+- Default prior for channel coefficients and other unconstrained parameters
+- Parameters where both positive and negative values are plausible
+
+**Key parameters:**
+- **mu (mean)** --- The center of the distribution, representing your best guess for the parameter value.
+- **sigma (standard deviation)** --- How uncertain you are. Larger sigma means a wider, more uncertain prior.
 
 ### InverseGamma
 
@@ -178,7 +190,7 @@ You are presenting results to stakeholders and want to show that the conclusions
 
 ---
 
-## Glass-Box Transparency
+## Fully Transparent Prior Configuration
 
 One of Simba's core design principles is that every assumption is visible. The prior configuration panel is a key expression of this principle:
 
@@ -193,10 +205,10 @@ This transparency ensures that no assumption is hidden. Stakeholders can review 
 ## Key Takeaways
 
 - Priors encode your beliefs about model parameters before observing data. They are combined with data to produce posterior distributions.
-- Simba uses distributions including InverseGamma (for variance parameters), TruncatedNormal (for bounded parameters like coefficients and decay rates), HalfNormal, Beta, and LogNormal.
+- Simba uses distributions including Normal (for unconstrained parameters), InverseGamma (for variance parameters), TruncatedNormal (for bounded parameters like coefficients and decay rates), HalfNormal, Beta, and LogNormal.
 - Smart defaults provide weakly informative priors that work well for most use cases. Customize when you have lift test results, domain expertise, or sparse data.
 - Simba's UI provides live visualization and context-sensitive guidance for prior configuration.
-- Glass-box transparency means every prior is visible, inspectable, and auditable.
+- Full transparency means every prior is visible, inspectable, and auditable.
 
 ---
 
