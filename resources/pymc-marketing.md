@@ -60,7 +60,7 @@ While PyMC-Marketing provides the statistical models, Simba adds the enterprise 
 |------------|---------------|-------|
 | Bayesian MMM models | Yes | Yes (powered by PyMC-Marketing) |
 | No-code UI | No (Python required) | Yes |
-| AI Data Auditor | No | Yes |
+| AI Data Validator | No | Yes |
 | Scenario planning | Manual implementation | Built-in |
 | Budget optimization | Manual implementation | Built-in, risk-adjusted |
 | Multi-model management | Manual | Built-in |

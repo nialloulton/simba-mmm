@@ -12,7 +12,7 @@ Marketing teams are drowning in data but starving for insight. The typical measu
 
 ## How Simba Is Different
 
-### 1. Glass-Box Transparency (Not Black-Box)
+### 1. Fully Transparent (Not Black-Box)
 
 Simba is the **only enterprise MMM platform** that exposes the actual probabilistic models driving your results. Built on the open-source PyMC-Marketing framework, every prior, parameter, and assumption is inspectable.
 
@@ -33,9 +33,9 @@ Simba writes the PyMC code so you don't have to. Configure complex Bayesian mode
 
 **Why it matters**: Teams without in-house statisticians can build rigorous models. Teams with statisticians can move faster and focus on interpretation rather than implementation.
 
-### 4. AI-Powered Data Auditing
+### 4. AI-Powered Data Validation
 
-Most MMM tools trust whatever data you give them. Simba's AI Data Auditor validates your data before modeling — detecting anomalies, flagging quality issues, and scoring data health automatically.
+Most MMM tools trust whatever data you give them. Simba's Data Validator validates your data before modeling — detecting anomalies, flagging quality issues, and scoring data health automatically.
 
 **Why it matters**: Prevents the "garbage in, garbage out" problem that undermines so many marketing analytics initiatives.
 
@@ -66,10 +66,10 @@ Built on PyMC-Marketing, the leading open-source library for Bayesian marketing 
 
 | Capability | Traditional MMM | Black-Box Tools | Simba |
 |------------|----------------|-----------------|-------|
-| Transparency | Varies | No | Full glass-box |
+| Transparency | Varies | No | Fully transparent |
 | Methodology | OLS regression | Proprietary | Bayesian (PyMC) |
 | Uncertainty | None or limited | None | Full posterior distributions |
-| Data validation | Manual | Basic | AI-powered auditor |
+| Data validation | Manual | Basic | AI-powered validator |
 | Code required | Yes (R/Python) | No | No |
 | Scenario planning | Separate tool | Limited | Built-in with uncertainty |
 | Optimization | Separate tool | Basic | Risk-adjusted, carryover-aware |

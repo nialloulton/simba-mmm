@@ -15,7 +15,7 @@ Smart defaults aim to be close enough to the true values that the Bayesian model
 
 ## How They Are Generated
 
-The auto-generation process runs during the [AI Data Auditor](./data-auditor.md) step and is refined when you enter the model configuration screen. The process involves:
+The auto-generation process runs during the [Data Validator](./data-auditor.md) step and is refined when you enter the model configuration screen. The process involves:
 
 1. **Spend analysis**: The system examines each channel's spend distribution --- its mean, variance, range, and temporal pattern. Channels with high variance relative to their mean are easier to measure, which influences the prior width.
 
@@ -58,7 +58,7 @@ Avoid the temptation to override every channel simultaneously. Each change inter
 
 The end-to-end workflow for using smart defaults:
 
-1. **Upload data** and run the [AI Data Auditor](./data-auditor.md) to validate quality.
+1. **Upload data** and run the [Data Validator](./data-auditor.md) to validate quality.
 2. **Enter the model configuration screen.** Smart defaults are pre-populated in the configuration grid.
 3. **Review the defaults.** Check that the distribution types, means, saturation, and decay values look reasonable given what you know about your channels.
 4. **Run the model.** The model uses the defaults as priors and updates them with your data to produce posterior estimates.

@@ -128,7 +128,7 @@ Every parameter in the model has a full posterior distribution, not just a point
 ### Principled Model Comparison
 Bayesian methods offer natural tools for comparing model specifications (e.g., with or without a channel, different saturation functions) without relying on fragile hypothesis tests.
 
-### Glass-Box Transparency
+### Fully Transparent
 Simba's UI lets you inspect every prior, posterior, and diagnostic. You can see exactly what the model assumed, how the data updated those assumptions, and how confident the final estimates are.
 
 ---

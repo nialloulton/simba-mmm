@@ -1,93 +1,138 @@
-# Data Validation — How Simba's AI Auditor Validates Your Data
+# Data Validation — How the Data Validator Checks Your Data
 
-Simba includes an AI-powered Data Auditor that automatically validates and scores your data before modeling begins. This ensures your inputs are trustworthy and your model results are reliable.
+Simba includes an AI-powered Data Validator that checks your uploaded dataset against the requirements of a Bayesian Marketing Mix Model. It catches problems that would otherwise surface as poor model fit or unreliable results.
 
 ## Why Data Validation Matters
 
-The principle is simple: **garbage in, garbage out**. If your data contains errors, gaps, or inconsistencies, no statistical model — however sophisticated — can produce reliable insights. Simba's Data Auditor acts as a quality gate between your raw data and your model.
+The principle is simple: **garbage in, garbage out**. If your data contains errors, gaps, or inconsistencies, no statistical model — however sophisticated — can produce reliable insights. The Data Validator acts as a quality gate between your raw data and your model.
 
-## How the Data Auditor Works
+## How the Data Validator Works
 
-When you upload data to Simba, the AI Data Auditor runs a comprehensive validation pipeline:
+The Data Validator is not automatic. After uploading your data in the Warehouse configuration screen, click **Start Validator Agent** to run it. You can choose between Haiku (faster) or Sonnet (more thorough) as the AI model powering the analysis. Validation typically takes 3 to 10 minutes depending on dataset size.
+
+## What It Checks
+
+The validator runs 10 specialized checks across your dataset:
 
 ### 1. Schema Validation
 
-The auditor checks that your data structure is valid:
+Checks that your data structure is valid:
 
 - Date column is present and correctly formatted
-- All columns have headers
-- Data types are consistent (numbers are numbers, dates are dates)
+- KPI (revenue/sales) column detected
+- All columns have headers with consistent data types
 - No structural issues (merged cells, hidden characters, encoding problems)
 
-### 2. Completeness Check
+### 2. Frequency Diagnostics
 
-The auditor identifies gaps in your data:
+Analyzes time series cadence:
+
+- Confirms consistent weekly or daily intervals
+- Detects plan-spreading patterns (e.g., even weekly splits of monthly budgets)
+- Identifies gaps in the date sequence
+
+### 3. Alignment
+
+Checks that media and KPI variables align:
+
+- Date ranges match across all variables
+- No misaligned periods between spend and outcome data
+
+### 4. Multiplier Validation
+
+Validates multiplier columns for panel or hierarchical data:
+
+- Checks multiplier column logic and consistency
+- Verifies scaling relationships
+
+### 5. Controls Validation
+
+Reviews control variables:
+
+- Appropriate variable types and variation
+- Sufficient coverage across the modeling period
+
+### 6. Coverage Analysis
+
+Identifies gaps and inactive periods:
 
 - Missing values by column and time period
-- Gaps in the date sequence (skipped weeks/periods)
+- Zero-spend patterns and inactive channel periods
 - Channels with insufficient variation
-- Periods where all media activity is zero
 
-### 3. Anomaly Detection
+### 7. Outlier Detection
 
-The auditor flags statistical outliers and suspicious patterns:
+Flags statistical outliers using IQR-based methods:
 
-- Unusually high or low values relative to historical patterns
-- Sudden step-changes that may indicate data source issues
-- Repeated identical values that suggest copy-paste errors
-- Negative values where only positive values are expected
+- Unusually high or low values on numeric columns
+- Values that may indicate data errors vs genuine business events
 
-### 4. Source Validation
+### 8. Multicollinearity
 
-Cross-checks across your data sources:
+Analyzes correlation between media channels:
 
-- Verifies consistency between related variables
-- Flags when channel spend and impression data don't align
-- Checks that totals reconcile
+- Variance Inflation Factor (VIF) analysis
+- Pairwise correlation detection between channels
+- Flags channels that always spend together (model cannot distinguish their effects)
 
-## The Data Health Score
+### 9. Leakage Detection
 
-After validation, Simba assigns your dataset a **Data Health Score** from 0–100%:
+Checks for data leakage:
 
-| Score | Rating | Meaning |
-|-------|--------|---------|
-| 90–100% | Excellent | Data is high quality, ready for modeling |
-| 75–89% | Good | Minor issues detected, model will be reliable |
-| 50–74% | Fair | Several issues found, review recommendations |
-| Below 50% | Needs Work | Significant data quality issues, address before modeling |
+- Variables that could leak future information into the model
+- Columns that are derived from the target variable
 
-## Interpreting Audit Results
+### 10. Documentation Audit
 
-The Data Auditor provides actionable results for each issue found:
+Reviews column naming and documentation quality:
 
-- **Issue description** — What was detected
-- **Severity** — How much it impacts model quality
-- **Location** — Which column(s) and row(s) are affected
-- **Recommendation** — Suggested action to resolve the issue
+- Column naming conventions
+- Descriptive header quality
+
+## Interpreting Results
+
+The results modal displays findings in three severity levels:
+
+| Severity | Meaning |
+|----------|---------|
+| **Errors** | Critical issues that should be resolved before modeling — e.g., missing KPI column, severe multicollinearity, data leakage |
+| **Warnings** | Issues worth investigating — e.g., high outlier count, moderate channel correlation |
+| **Info** | Observations and recommendations for improvement — e.g., naming suggestions, coverage notes |
+
+Each issue includes:
+
+- A description of the problem
+- The affected columns and rows
+- A specific recommendation for how to fix it
+- The validation category it belongs to
+
+When category-level insights are available, the modal also shows summary findings and action items grouped by validation category.
 
 ## Common Issues and Fixes
 
 | Issue | Impact | Fix |
 |-------|--------|-----|
+| Missing KPI column | Blocking — model cannot fit without a target | Add a revenue or sales column |
+| High VIF between channels | High — model cannot distinguish channel effects | Consider combining correlated channels or removing one |
+| Plan-spreading pattern | Moderate — inflates contribution estimates | Use actual weekly spend data instead of evenly split monthly budgets |
 | Missing values in media spend | Moderate — gaps reduce model accuracy | Fill with 0 if no spend occurred, or source the missing data |
-| Outlier in revenue | High — can skew model coefficients | Verify if real (e.g., Black Friday) or a data error |
-| Inconsistent time periods | High — breaks time-series alignment | Standardize all data to the same granularity |
-| Low variation in a channel | Low — model can't estimate impact well | Consider combining with similar channels |
+| Outlier in revenue | Moderate — can skew model coefficients | Verify if real (e.g., Black Friday) or a data error; consider adding event flags |
+| Low variation in a channel | Low — model cannot estimate impact well | Consider combining with similar channels |
 
-## Tips for a High Health Score
+## Tips for Clean Validation Results
 
 1. **Prepare data carefully** before upload — see [Data Preparation](data-preparation.md)
 2. **Use zero instead of blank** for periods with no activity
-3. **Verify source data** against original platforms before export
-4. **Include at least 2 years** of history for robust seasonal patterns
-5. **Separate channels** where possible rather than combining
+3. **Include at least 52 weeks** of history for reliable seasonal patterns
+4. **Separate channels** where possible rather than combining
+5. **Check for multicollinearity** — if two channels always spend together, the model cannot distinguish their effects
 
-## Re-Running the Audit
+## Re-Running the Validator
 
-You can re-run the Data Auditor at any time after making changes to your uploaded data. The score updates in real time as data quality improves.
+You can re-run the Data Validator at any time after making changes to your uploaded data by clicking **Start Validator Agent** again. Validation results are displayed in the modal during your session and are not stored permanently.
 
 → **Next**: [Supported Channels](supported-channels.md) | [Data Requirements](data-requirements.md)
 
 ---
 
-*See also: [AI Data Auditor Guide](../platform-guide/data-auditor.md) | [Data Preparation](data-preparation.md)*
+*See also: [Data Validator Guide](../platform-guide/data-auditor.md) | [Data Preparation](data-preparation.md)*

@@ -15,9 +15,9 @@ Simba uses **Bayesian MMM** powered by PyMC-Marketing, which provides causal att
 Simba is built on the open-source [PyMC-Marketing](https://www.pymc-marketing.io/) framework — meaning **full transparency, no black boxes**. You can inspect every prior, every model parameter, and every assumption behind your results.
 
 Key differentiators:
-- **Glass-box transparency** — inspect the actual Bayesian models driving your ROI
+- **Fully transparent** — inspect the actual Bayesian models driving your ROI
 - **No-code interface** — configure complex Bayesian models without writing code
-- **AI Data Auditor** — automated data validation before modeling
+- **Data Validator** — automated data validation before modeling
 - **Scenario planning** — test budget decisions with uncertainty bands before spending
 - **Risk-adjusted optimization** — budget allocation that accounts for diminishing returns and carryover
 
@@ -37,7 +37,7 @@ Simba is built for:
 
 ### Do I need coding or statistics experience?
 
-No. Simba's interface lets you configure Bayesian models, set priors, and run optimizations without writing any code. **Smart defaults** and an **AI Data Auditor** guide you through the process, so you can build reliable models even if you're new to marketing science.
+No. Simba's interface lets you configure Bayesian models, set priors, and run optimizations without writing any code. **Smart defaults** and an **Data Validator** guide you through the process, so you can build reliable models even if you're new to marketing science.
 
 For teams that want deeper statistical control, the platform exposes all model parameters for fine-tuning.
 
@@ -54,7 +54,7 @@ At minimum, you need:
 
 ### Can I try Simba before committing?
 
-Yes — Simba offers a **14-day free trial** where you can explore the full platform with your own data. The trial includes 1 saved model, 4 optimization runs, and 4 scenario planner runs.
+Yes — Simba offers a **28-day free trial** where you can explore the full platform with your own data. The trial includes 10 saved models, 10 optimizations, and 10 scenarios.
 
 → [Start Free Trial](https://getsimba.ai)
 
@@ -81,7 +81,7 @@ PyMC-Marketing is the leading open-source library for Bayesian marketing analyti
 
 → [PyMC-Marketing & Simba](../../resources/pymc-marketing.md)
 
-### How does the AI Data Auditor work?
+### How does the Data Validator work?
 
 The Data Auditor is an intelligent agent that runs automatically when you upload data. It validates your data structure, detects anomalies and missing values, checks schema integrity, and assigns a **Data Health Score** (0–100%) so you know exactly how reliable your inputs are before modeling.
 
@@ -122,13 +122,13 @@ Data is stored in secure AWS infrastructure with per-customer isolation. Enterpr
 
 ### What plans are available?
 
-Simba offers six tiers: **Sandbox** (free trial), **Analyst** (solo modelers), **Pro** (higher throughput), **Scale** (agencies), **Enterprise** (custom security and unlimited scale), and **SIMBA Managed** (done-for-you modeling by PhD statisticians).
+Simba offers four tiers: **Sandbox** (free trial), **Analyst** (solo modelers), **Pro** (higher throughput), **Scale** (agencies), **Enterprise** (custom security and unlimited scale), and **SIMBA Managed** (done-for-you modeling by PhD statisticians).
 
 → [Pricing & Plans](../pricing/README.md)
 
 ### Is there a free trial?
 
-Yes — a 14-day free trial with full platform access, 1 saved model, 4 optimization runs, and 4 scenario planner runs. No setup fees.
+Yes — a 28-day free trial with full platform access, 10 saved models, 10 optimizations, and 10 scenarios. No setup fees.
 
 ### Can I cancel anytime?
 
