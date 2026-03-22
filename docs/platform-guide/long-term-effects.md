@@ -1,75 +1,157 @@
 # Long-Term Effects --- Modeling Lasting Brand Impact
 
-Standard Marketing Mix Models measure short-term media impact: the incremental revenue generated within a few weeks of spend. But some marketing activities --- brand campaigns, sponsorships, sustained awareness efforts --- produce effects that persist for months or longer. The Long-Term Effects module captures this extended impact.
+Standard Marketing Mix Models measure short-term media impact: the incremental revenue generated within a few weeks of spend. But some marketing activities --- brand campaigns, sponsorships, sustained awareness efforts --- produce effects that persist for months or longer. The Long-Term Effects module captures this extended impact using Vector AutoRegression (VAR) to trace how marketing spend flows through brand-building variables (awareness, consideration, equity) to ultimately drive revenue.
 
 > **Availability**: Long-Term Effects is available on the **Pro tier and above**.
+
+---
 
 ## What Long-Term Effects Are
 
 Marketing impact operates on two timescales:
 
 - **Short-term (performance)**: A paid search ad drives a click and a purchase this week. A promotional email generates orders within days. These effects are captured by the standard adstock decay parameters in [Model Configuration](./model-configuration.md).
-- **Long-term (brand building)**: A TV brand campaign gradually shifts consumer perception, making them more likely to purchase in future months. A sponsorship increases unaided awareness that compounds over quarters. These effects extend well beyond the standard adstock window and are not captured by short-term decay parameters alone.
+- **Long-term (brand building)**: A TV brand campaign gradually shifts consumer awareness, making them more likely to purchase in future months. A sponsorship increases brand consideration that compounds over quarters. These effects extend well beyond the standard adstock window.
 
-The Long-Term Effects module adds a second, slower-decaying component to the model for channels where brand-building impact is expected. This lets Simba attribute revenue to both the immediate performance effect and the lasting brand equity contribution of each channel.
+The Long-Term Effects module uses a [VAR model](./var-models.md) to capture these extended dynamics. By modeling the entire system of interactions --- how marketing drives brand metrics, and how brand metrics drive revenue --- Simba quantifies the full, cumulative impact of each channel over a configurable time horizon.
 
-## How Simba Captures Long-Term Impact
+---
 
-The standard Simba model applies a single adstock transformation per channel, with a decay rate typically between 0.1 and 0.7 (effects lasting days to a few weeks). The Long-Term Effects module extends this by adding:
+## How Long-Term Effects Work in Simba
 
-1. **A dual-component response function**: Each eligible channel gets two response pathways --- a short-term component (standard adstock) and a long-term component (slow decay over weeks to months). The model estimates the relative contribution of each pathway.
+Long-term effects are computed using a VAR (Vector AutoRegression) model that is linked to your standard MMM model.
 
-2. **Separate saturation curves**: The short-term and long-term components can have different saturation characteristics. Performance channels may saturate quickly in the short term but continue building brand equity at higher spend levels.
+### 1. Build a VAR Model
 
-3. **Stock variable for brand equity**: The model maintains a latent brand equity variable that accumulates from brand-building spend and decays slowly over time. This stock variable influences base sales, capturing the mechanism by which sustained marketing investment lifts the revenue baseline.
+Create a VAR model that includes your revenue variable alongside brand-building variables such as awareness, brand consideration, or brand equity scores. The VAR estimates how each variable influences every other variable over time through lagged relationships.
 
-The result is a more complete picture of each channel's total contribution --- not just what it delivered this quarter, but how it is building (or eroding) the foundation for future revenue.
+### 2. Configure Long-Run Analysis
 
-## Behavioral Response Modeling
+During VAR setup, you specify:
 
-Long-term effects are grounded in how consumers actually respond to marketing over time:
+- **Base variable**: The primary outcome you care about (typically revenue or sales).
+- **Equity variables**: The brand-building metrics that mediate long-term impact (e.g., awareness, brand consideration, unaided recall).
+- **Horizon**: How many periods to trace cumulative effects (default: 156 weeks / 3 years).
+- **Confidence interval**: The credible interval level for uncertainty bounds (default: 95%).
 
-- **Memory formation and retrieval**: Advertising creates memory traces that influence future purchase decisions. Repeated exposure strengthens these traces. The model captures this through the accumulating brand equity stock.
-- **Consideration set dynamics**: Sustained marketing keeps a brand in the consumer's consideration set. Reducing spend allows competitors to displace the brand. The long-term component models the gradual entry and exit from consideration.
-- **Habit formation**: For repeat-purchase categories, marketing can shift habitual buying behavior over time. Once a habit forms, it persists even after marketing is reduced --- but only up to a point. The decay rate of the long-term component captures how quickly habits erode without reinforcement.
+### 3. C-Multipliers and Impulse Response Functions
 
-## Memory Decay Curves and Seasonal Patterns
+The system computes **C-multipliers** --- the cumulative long-run response of the base variable to a sustained unit change in each channel. This is derived from the VAR Impulse Response Functions (IRFs):
 
-The Long-Term Effects module estimates a **memory decay curve** for each channel's brand-building component. This curve describes how quickly the accumulated brand impact fades after spend is reduced or stopped.
+- For stationary VARs, an analytical formula provides exact long-run multipliers.
+- For non-stationary or complex systems, iterative IRF computation traces effects over the configured horizon.
 
-- **Fast memory decay** (half-life of 4--8 weeks): Typical for digital brand campaigns, online video, and social media awareness efforts. These channels need sustained investment to maintain their long-term contribution.
-- **Slow memory decay** (half-life of 3--6 months): Typical for TV brand campaigns, major sponsorships, and out-of-home advertising. These channels build durable brand equity that persists for months after the campaign ends.
+The C-multiplier tells you: if you permanently increase spend on a channel by 1%, what is the total cumulative percentage change in revenue after all dynamic effects have played out?
 
-**Seasonal patterns** are handled automatically. The model separates seasonal demand fluctuations from long-term brand effects, so a holiday sales spike is attributed to seasonality rather than falsely inflating the brand equity estimate. Similarly, seasonal campaigns (back-to-school, summer) are decomposed into their immediate performance contribution and any lasting brand residue.
+### 4. Path Decomposition
 
-## Interpreting Long-Term vs Short-Term Results
+The total long-run effect of each channel is decomposed into:
 
-When the Long-Term Effects module is active, the [Incremental Measurement](./measurement.md) results page adds new dimensions:
+- **Brand-mediated effects**: Impact that flows through equity variables. For example, TV spend increases awareness, which raises consideration, which drives more revenue. Each equity variable contribution is quantified separately.
+- **Direct effects**: Impact that reaches revenue without going through brand metrics. This captures performance-oriented responses that bypass the brand-building pathway.
 
-### Revenue Decomposition
+This decomposition reveals *how* each channel creates long-term value, not just *how much*.
 
-The decomposition now shows three layers instead of two:
+---
 
-- **Base sales**: Organic demand unrelated to current or past marketing (as before).
-- **Short-term media lift**: Incremental revenue driven by recent marketing activity within the standard adstock window.
-- **Long-term media lift**: Incremental revenue attributable to accumulated brand equity from past marketing investment.
+## Interpreting Long-Term Effects Results
 
-### Channel-Level Breakdown
+When a VAR model with long-run effects is complete, the results page shows five tabs:
 
-For each channel, you see:
+### Tab 1: Elasticities
 
-- **Short-term contribution**: Revenue generated within the standard decay window. This is the same metric as the standard model.
-- **Long-term contribution**: Revenue generated through the brand equity pathway. This may be attributed to spend that occurred weeks or months ago.
-- **Total contribution**: The sum of short-term and long-term effects. This is the channel's complete impact.
+The primary results table showing each channel long-run elasticity:
 
-Some channels may show a small short-term effect but a large long-term effect (brand-building channels), while others may show the opposite (performance channels). This distinction is critical for budget decisions: cutting a channel with strong long-term effects saves money immediately but erodes future revenue over the following months.
+| Channel | Elasticity | 95% CI | Via Awareness | Via Consideration | Direct |
+|---|---|---|---|---|---|
+| TV | 0.046 | [0.031, 0.060] | 65% | 20% | 15% |
+| Search | 0.012 | [0.005, 0.019] | 10% | 5% | 85% |
 
-### Implications for Budget Optimization
+- **Elasticity**: A 1% sustained increase in this channel spend produces an X% cumulative increase in revenue over the analysis horizon.
+- **Confidence interval**: The range of plausible elasticity values, reflecting model uncertainty.
+- **Via columns**: What percentage of the total effect flows through each equity variable.
+- **Direct**: What percentage bypasses brand metrics entirely.
 
-When Long-Term Effects is active, the [Budget Optimization](./budget-optimization.md) module incorporates brand equity dynamics into its recommendations:
+Channels with large via percentages are brand builders. Channels with large direct percentages are performance drivers.
 
-- Channels with strong long-term effects receive higher recommended spend than a short-term-only model would suggest, because their full return is realized over a longer horizon.
-- The optimizer may recommend maintaining baseline spend on brand-building channels even when short-term ROI appears low, because the long-term brand equity contribution justifies the investment.
-- Scenario comparisons in [Scenario Planning](./scenario-planning.md) show both the immediate revenue impact and the projected brand equity trajectory under each scenario, allowing you to evaluate short-term revenue against long-term brand health.
+### Tab 2: Long-Term Multipliers
 
-Understanding the balance between short-term performance and long-term brand building is essential for sustainable marketing investment. The Long-Term Effects module makes this balance visible and quantifiable rather than leaving it to intuition.
+Shows the C-multipliers for each equity variable:
+
+- Format: A 1% sustained increase in the equity variable produces an X% cumulative effect on the base variable over the horizon.
+- Also shows **own persistence** --- how much the base variable amplifies its own shocks over time.
+
+### Tab 3: Path Decomposition
+
+A visual breakdown showing, for each channel:
+
+- The proportion of long-run impact flowing through each equity variable.
+- The proportion of direct impact.
+- Stacked bar charts with percentage attribution for easy comparison across channels.
+
+This is the most actionable view for understanding *why* channels differ in their long-run effectiveness.
+
+### Tab 4: Long-Run ROI (Optional)
+
+When annual spend data is provided, this tab shows:
+
+- Present value factors for long-run returns.
+- Annual spend by channel.
+- Net present value of long-run returns.
+- Long-run ROI accounting for the full cumulative impact, not just short-term returns.
+
+### Tab 5: NPV Scenarios (Optional)
+
+When NPV configuration is provided (change percentage, years, discount rate), this tab shows:
+
+- What happens to revenue NPV under sustained spend changes.
+- Scenario comparisons for different levels of spend increase or decrease.
+- Discounted cumulative returns over the specified time horizon.
+
+---
+
+## Linking VAR to MMM Models
+
+Long-term effects are most valuable when combined with standard MMM results:
+
+1. Build a standard MMM model for channel attribution and short-term optimization.
+2. Build a VAR model with the same data plus brand metrics.
+3. Link the VAR model to the MMM model.
+4. The MMM results page is augmented with long-run elasticities, giving you both short-term attribution and long-term impact in one view.
+
+This linked approach lets you use standard MMM for budget optimization while understanding the long-term brand implications of allocation decisions.
+
+---
+
+## Implications for Budget Optimization
+
+When long-term effects are available, they inform budget decisions:
+
+- **Brand-building channels** (high via-equity percentages) may warrant higher spend than short-term ROAS alone suggests, because their full return materializes over months.
+- **Performance channels** (high direct percentages) deliver most of their value immediately and are well-captured by standard MMM optimization.
+- **Cutting brand spend** saves money immediately but erodes the equity variables that support future revenue. The long-run elasticity quantifies exactly how much future revenue is at risk.
+- **NPV analysis** helps justify brand investment to stakeholders by translating long-run effects into financial terms with appropriate discounting.
+
+---
+
+## Configuration Reference
+
+| Setting | Description | Default |
+|---|---|---|
+| Base variable | Revenue or sales variable | Required |
+| Equity variables | Brand-building metrics (awareness, consideration, etc.) | Required |
+| Horizon | Number of periods for cumulative effects | 156 (3 years) |
+| Confidence interval | Credible interval level | 0.95 (95%) |
+| NPV discount rate | Annual discount rate for NPV calculations | Optional |
+| NPV years | Time horizon for NPV scenarios | Optional |
+| Annual base revenue | For ROI calculation | Optional |
+| Annual spend | Per-channel annual spend for ROI | Optional |
+
+---
+
+## Next Steps
+
+- [VAR Modeling](../core-concepts/var-modeling.md) --- The statistical foundation for long-run effects
+- [VAR Models](./var-models.md) --- Building VAR models in Simba
+- [Budget Optimization](./budget-optimization.md) --- How long-term effects influence allocation
+- [Model Configuration](./model-configuration.md) --- Standard model prior configuration
