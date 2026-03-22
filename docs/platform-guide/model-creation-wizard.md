@@ -99,7 +99,6 @@ Select between:
 Choose the adstock function for each channel:
 
 - **Geometric** (default): Immediate peak with exponential decay.
-- **Power Law**: Immediate peak with non-linear, magnitude-dependent decay.
 - **Delayed**: Peak occurs after a configurable delay, then decays.
 
 See [Adstock Effects](../core-concepts/adstock-effects.md) for detailed explanations.
