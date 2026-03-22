@@ -26,7 +26,7 @@ The **prior** represents what you believe about a parameter before seeing the da
 - How quickly the impact of an ad decays over time ([adstock](./adstock-effects.md))
 - How steeply a channel's response saturates ([saturation curves](./saturation-curves.md))
 
-Priors can be **informative** (expressing strong expectations, such as results from a lift test) or **weakly informative** (expressing only broad constraints, like "this parameter should be positive"). Simba provides smart default priors that work well for most use cases, and you can adjust them when you have domain knowledge. See [Priors and Distributions](./priors-and-distributions.md) for a full guide.
+Priors can be **informative** (expressing strong expectations based on domain knowledge) or **weakly informative** (expressing only broad constraints, like "this parameter should be positive"). Simba provides smart default priors that work well for most use cases, and you can adjust them when you have domain knowledge. See [Priors and Distributions](./priors-and-distributions.md) for a full guide.
 
 ### Step 2: Define the Likelihood
 
@@ -117,7 +117,7 @@ When Simba forecasts outcomes or optimizes budgets, it does not plug in point es
 ## Benefits of Bayesian Modeling in Simba
 
 ### Incorporate Domain Knowledge
-Encode lift test results, industry benchmarks, and expert intuition as informative priors. The model treats this knowledge as evidence, weighting it against the observed data.
+Encode industry benchmarks and expert intuition as informative priors. Lift test results are integrated separately as likelihood observations in the Model Details step. The model treats this knowledge as evidence, weighting it against the observed data.
 
 ### Handle Sparse and Noisy Data
 Short time series, channels with limited history, and noisy signals are all handled more robustly than with frequentist regression.

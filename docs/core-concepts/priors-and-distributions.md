@@ -168,7 +168,7 @@ Manual configuration is worth the effort when:
 
 Suppose a geo-based lift test for paid social showed a 15% incremental lift with a 95% confidence interval of 10% to 20%.
 
-**Action:** Set a TruncatedNormal prior on the paid social coefficient with mu centered on the lift test estimate and sigma reflecting the confidence interval width. Set the lower bound to 0 (assuming positive effect). This tells the model: "I have experimental evidence that paid social's effect is around this range. Weight the data accordingly."
+**Action:** Add the lift test result as a calibration observation in the Model Details step (Step 5 of the wizard). Simba integrates it as a likelihood term that constrains the paid social response curve to be consistent with the experimental result. This is more effective than manually adjusting priors because it lets the model determine the best coefficient values that satisfy both the time-series data and the experimental evidence.
 
 ### Scenario: A Channel Has Limited History
 
@@ -206,7 +206,7 @@ This transparency ensures that no assumption is hidden. Stakeholders can review 
 
 - Priors encode your beliefs about model parameters before observing data. They are combined with data to produce posterior distributions.
 - Simba uses distributions including Normal (for unconstrained parameters), InverseGamma (for variance parameters), TruncatedNormal (for bounded parameters like coefficients and decay rates), HalfNormal, Beta, and LogNormal.
-- Smart defaults provide weakly informative priors that work well for most use cases. Customize when you have lift test results, domain expertise, or sparse data.
+- Smart defaults provide weakly informative priors that work well for most use cases. Customize when you have domain expertise or sparse data. Add lift test results separately via the Model Details step.
 - Simba's UI provides live visualization and context-sensitive guidance for prior configuration.
 - Full transparency means every prior is visible, inspectable, and auditable.
 
