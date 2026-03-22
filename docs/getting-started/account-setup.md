@@ -9,7 +9,7 @@ This guide covers everything you need to get your Simba account up and running: 
 ### Sign up
 
 1. Visit [getsimba.ai](https://getsimba.ai) and click **Start Free Trial**.
-2. Enter your name, email address, and create a password — or sign up using Google SSO.
+2. Enter your name, email address, and create a password — or sign up using **Google** or **Microsoft** SSO.
 3. Verify your email address by clicking the confirmation link sent to your inbox.
 4. You will be taken to your new workspace, ready to upload data and start modeling.
 
@@ -173,7 +173,18 @@ Your data security is a core design principle, not an afterthought:
 - **GDPR compliance** — your data rights are fully respected
 - **Cyber Essentials certification** — independently verified security practices
 
-No user-level or personally identifiable data is required. Simba works with aggregated marketing data (channel spend, impressions, conversions), which significantly reduces privacy risk by design.
+No user-level or personally identifiable data is required.
+
+### Two-Factor Authentication (2FA)
+
+For additional account security, Simba supports TOTP-based two-factor authentication. To enable 2FA:
+
+1. Go to **Settings > Security**.
+2. Click **Enable Two-Factor Authentication**.
+3. Scan the QR code with your authenticator app (Google Authenticator, Authy, 1Password, or similar).
+4. Enter the verification code to confirm setup.
+
+Once enabled, you will need to provide a code from your authenticator app each time you log in. See [Security Overview](../security/README.md) for more details. Simba works with aggregated marketing data (channel spend, impressions, conversions), which significantly reduces privacy risk by design.
 
 For full details, see [Security and Compliance](../platform/security-and-compliance.md).
 

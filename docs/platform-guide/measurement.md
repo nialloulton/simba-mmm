@@ -61,3 +61,60 @@ Focus on the credible intervals, not just point estimates. A channel with a high
 **Seasonal patterns visible in base sales.** This is expected. The model separates seasonal demand from media impact, so you should see base sales rise and fall with natural demand cycles while media contributions reflect actual campaign performance.
 
 After reviewing measurement results, proceed to [Scenario Planning](./scenario-planning.md) to forecast how different budget allocations would affect future revenue.
+
+---
+
+## Model Lifecycle and Status
+
+When you start a model fit, it progresses through a series of statuses:
+
+| Status | Description |
+|---|---|
+| **Pending** | The model is queued and waiting for compute resources. |
+| **Under Way** | Bayesian inference is actively running. You will see a progress indicator with estimated time remaining. |
+| **Complete** | The model has finished fitting successfully. Results are available for review. |
+| **Failed** | The model encountered an error during fitting. Check the error message for details --- common causes include data issues, prior misconfiguration, or convergence problems. |
+| **Revoked** | The model fit was manually cancelled by the user before completion. |
+| **Time Exceeded** | The model fit exceeded the maximum allowed computation time. Consider reducing model complexity (fewer channels, wider priors, or weekly instead of daily data). |
+
+You can navigate away from Simba during model fitting and return when it completes. The model status is visible in the Warehouse and on the Dashboard.
+
+### Recovering from Failed Models
+
+If a model fails, review the error message and consider:
+
+- Checking your data for issues flagged by the AI Data Auditor
+- Adjusting priors that may be too narrow or contradictory
+- Reducing the number of channels or control variables
+- Switching from daily to weekly data granularity to reduce complexity
+
+## Model Cloning
+
+To iterate on a model configuration without starting from scratch, use the **Clone** feature:
+
+1. From the Warehouse or Active Model page, find the model you want to clone.
+2. Click the clone/copy action.
+3. Simba creates a duplicate of the model's full configuration (variable selection, priors, adstock, saturation, and all settings).
+4. Modify any settings you want to change.
+5. Run the cloned model to compare results against the original.
+
+Cloning is useful for A/B testing different prior configurations, testing the impact of adding or removing channels, or creating updated models with fresh data.
+
+## Custom Contribution Groups
+
+By default, Simba shows individual channel contributions in the results dashboard. **Contribution Groups** let you create custom groupings that aggregate channels for higher-level reporting.
+
+For example, you might group:
+
+- Facebook, Instagram, and TikTok into "Paid Social"
+- Google Search and Bing Search into "Paid Search"
+- TV and Radio into "Traditional Media"
+
+To configure contribution groups:
+
+1. Open a completed model's results page.
+2. Navigate to the contribution groups settings.
+3. Create named groups and assign channels to each group.
+4. The contribution charts and tables will update to show both individual channel and grouped views.
+
+Contribution groups are saved per model and persist across sessions.
