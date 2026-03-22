@@ -42,7 +42,7 @@ Simba achieves causal attribution by modeling all channels simultaneously. When 
 
 In practice, many channels are correlated --- brands often increase TV and digital spend during the same campaign flights. This multicollinearity makes it difficult for any model to perfectly separate channel effects. Bayesian MMM handles this better than frequentist alternatives for two reasons:
 
-1. **Priors constrain the solution space.** If lift test data shows paid search ROAS is between 2x and 4x, this observation constrains the model so it will not attribute all of the effect to TV just because the two channels happen to be correlated. See [Priors and Distributions](./priors-and-distributions.md).
+1. **Lift test calibration constrains the solution space.** If lift test data shows paid search ROAS is between 2x and 4x, this observation constrains the model so it will not attribute all of the effect to TV just because the two channels happen to be correlated. See [Priors and Distributions](./priors-and-distributions.md).
 2. **Uncertainty reflects ambiguity.** When two channels are highly correlated, the posterior distributions will be wider, honestly reflecting the difficulty of separating their effects. This prevents overconfident attribution.
 
 ---
@@ -62,8 +62,8 @@ Simba bridges this gap by letting you **calibrate your MMM with lift test result
 This creates a virtuous cycle:
 
 1. Run a lift test on a high-priority channel.
-2. Feed the result into Simba as a calibration prior.
-3. The model uses this anchor to improve estimates for all channels (because better-calibrated priors on one channel reduce ambiguity for correlated channels).
+2. Feed the result into Simba as a calibration observation in the Model Details step.
+3. The model uses this likelihood constraint to improve estimates for all channels (because better-calibrated response curves for one channel reduce ambiguity for correlated channels).
 4. Use model output to prioritize the next lift test.
 
 ---
@@ -122,7 +122,7 @@ A channel's incremental contribution is not static. As spend levels change, comp
 - Incrementality measures the causal impact of marketing --- the conversions that would not have happened without media spend.
 - Simba decomposes outcomes into base demand, seasonal effects, control variables, and incremental media contributions.
 - Bayesian priors and full uncertainty quantification handle correlated channels and sparse data more effectively than frequentist alternatives.
-- Lift test results can be integrated as calibration priors, creating a feedback loop between experiments and modeling.
+- Lift test results can be integrated as likelihood observations, creating a feedback loop between experiments and modeling.
 - Every incrementality estimate in Simba comes with a credible interval, enabling risk-aware decision-making.
 
 ---
