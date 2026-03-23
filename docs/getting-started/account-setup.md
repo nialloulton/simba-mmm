@@ -8,7 +8,7 @@ This guide covers everything you need to get your Simba account up and running: 
 
 ### Sign Up
 
-1. Visit [getsimba.ai](https://getsimba.ai) and click **Start Free Trial**.
+1. Visit [getsimba.ai](https://getsimba.ai) and [book a demo](https://calendly.com/niall-oulton) to get started.
 2. Enter your name, email address, and create a password --- or sign up using **Google** or **Microsoft** SSO.
 3. Verify your email address by clicking the confirmation link sent to your inbox.
 4. You will be taken to your new project, ready to upload data and start modeling.

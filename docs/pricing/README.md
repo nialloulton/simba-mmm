@@ -16,7 +16,7 @@ Simba offers flexible plans designed to match your organization's needs.
 - Dedicated onboarding and success management
 - Custom SLAs and support terms
 
-> [Contact Sales](https://getsimba.ai)
+> [Book a Call](https://calendly.com/niall-oulton)
 
 ### Managed
 
@@ -28,7 +28,7 @@ Simba offers flexible plans designed to match your organization's needs.
 - Strategic consultation on media optimization
 - Ideal for teams without in-house data science resources
 
-> [Book Consultation](https://getsimba.ai)
+> [Book a Call](https://calendly.com/niall-oulton)
 
 ---
 
@@ -36,7 +36,7 @@ Simba offers flexible plans designed to match your organization's needs.
 
 Every new account starts with a **28-day free trial** with access to core platform features. No credit card required.
 
-> [Start Free Trial](https://getsimba.ai)
+> [Book a Demo](https://calendly.com/niall-oulton)
 
 ---
 

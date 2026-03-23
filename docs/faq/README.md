@@ -56,7 +56,7 @@ At minimum, you need:
 
 Yes — Simba offers a **28-day free trial** where you can explore the full platform with your own data. The trial includes 10 saved models, 10 optimizations, and 10 scenarios.
 
-→ [Start Free Trial](https://getsimba.ai)
+→ [Book a Demo](https://calendly.com/niall-oulton)
 
 ## Platform & Technical
 
