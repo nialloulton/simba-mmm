@@ -44,16 +44,28 @@ This is a **mean-variance optimization** framework, similar in spirit to Markowi
 The gamma parameter lets you choose where you want to sit on the risk-return tradeoff:
 
 ![Risk-return tradeoff](./images/optimization-risk-return.png)
-*Left: as gamma increases, the allocation becomes more diversified --- spreading budget more evenly across channels to reduce uncertainty. Right: the efficient frontier shows the tradeoff between expected return and uncertainty. Higher gamma moves you down and to the right (lower return, lower risk).*
+*Left: as gamma increases, the allocation becomes more diversified --- spreading budget more evenly across channels. Right: the efficient frontier shows the tradeoff. Each gamma value corresponds to a point on the frontier --- higher gamma trades expected return for lower uncertainty.*
 
-| Gamma | Behavior | When to Use |
+### The Theory Behind Gamma
+
+The mean-variance framework comes from **Modern Portfolio Theory** (Markowitz, 1952), originally developed for financial portfolio allocation. The core insight transfers directly to media budgets: just as a financial investor balances expected return against portfolio volatility, a media planner balances expected revenue against the uncertainty in the model's predictions.
+
+The objective `maximize(mean - gamma x std)` is equivalent to finding the point on the **efficient frontier** where the slope equals `1/gamma`. The efficient frontier is the set of allocations where no reallocation can increase expected return without also increasing uncertainty (or vice versa). Every point below the frontier is suboptimal --- there exists a frontier allocation with the same risk but higher return.
+
+Gamma controls where you land on this frontier:
+
+| Gamma | Behavior | What It Means |
 |---|---|---|
-| **0** | Risk-neutral --- maximize expected return only | When you trust the model estimates and want the most aggressive allocation |
-| **0.3** | Balanced --- moderate diversification | Good default for most use cases |
-| **0.7** | Conservative --- penalizes uncertain channels | When some channels have wide posterior intervals and you want stability |
-| **> 1.0** | Risk-averse --- strong diversification | When model uncertainty is high or you need predictable outcomes |
+| **0** | Risk-neutral | Maximize expected return only. Concentrates budget in the channels with highest estimated ROI, regardless of how uncertain those estimates are. Best when you trust the model and want maximum upside. |
+| **0.3** | Balanced | Good default. Moderately penalizes uncertain channels, producing a diversified but not timid allocation. |
+| **0.7** | Conservative | Noticeably shifts budget toward channels with tighter posterior intervals. Use when some channels have wide uncertainty (e.g., new channels with limited data). |
+| **> 1.0** | Risk-averse | Strong diversification. Approaches equal allocation across channels. Use when model uncertainty is high overall or when you need predictable quarter-over-quarter performance. |
 
-As gamma increases, the optimizer shifts budget away from channels with wide uncertainty bands toward channels with more reliable estimates, even if those channels have slightly lower expected returns.
+### Why Uncertainty Matters for Budget Decisions
+
+Without gamma, the optimizer would put disproportionate budget into a channel whose coefficient happens to have a high posterior mean --- even if that mean comes with a huge credible interval (e.g., coefficient = 0.3 with 94% HDI of [0.01, 0.8]). That channel might actually be mediocre; the high mean could be driven by a few noisy data points.
+
+With gamma > 0, the optimizer sees the full posterior distribution and naturally avoids over-investing in channels where the model is unsure. This produces allocations that perform well across the range of plausible parameter values, not just at the posterior mean.
 
 ---
 
