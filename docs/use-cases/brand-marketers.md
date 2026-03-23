@@ -40,9 +40,8 @@ Don't wait for quarterly reviews. Simba's budget optimizer provides ongoing reco
 
 ## Recommended Plans
 
-- **Analyst** — Solo marketers or small teams getting started
-- **Pro** — Teams needing multiple models and long-term effects analysis
-- **Enterprise** — Global brands with custom security and integration needs
+- **Enterprise** — Full platform with dedicated support for marketing teams
+- **Managed** — Expert-driven modeling for teams without in-house data science
 
 → [View Plans](../pricing/README.md) | [Get Started](../getting-started/quick-start-guide.md)
 

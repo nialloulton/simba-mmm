@@ -141,7 +141,7 @@ Optimization results are recommendations, not automatic actions. To move from re
 
 ## Portfolio Optimization with Halo and Trademark Effects
 
-When optimizing at the portfolio level (available on Pro tier and above), the optimizer extends beyond single-brand allocation to account for cross-brand effects.
+When optimizing at the portfolio level, the optimizer extends beyond single-brand allocation to account for cross-brand effects.
 
 ### Halo Channel Optimization
 

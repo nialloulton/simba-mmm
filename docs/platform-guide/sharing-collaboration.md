@@ -90,12 +90,7 @@ Instead of sharing models or projects with individual users, you can share with 
 
 Simba uses role-based access control:
 
-| Role | Capabilities |
-|---|---|
-| **Owner** | Full control --- manage billing, team, settings, and all modeling features. |
-| **Admin** | Manage team members, data, and models. Cannot modify billing. |
-| **Analyst** | Upload data, configure and run models, create scenarios, run optimizations. Cannot manage team or settings. |
-| **Viewer** | View results, reports, and dashboards. Cannot modify data or models. |
+Team members can be invited to collaborate on projects. Team collaboration features are available on Enterprise and Managed plans.
 
 ---
 
