@@ -1,6 +1,6 @@
 # VAR Modeling --- Bayesian Vector AutoRegression for Marketing
 
-Vector AutoRegression (VAR) is a multi-equation time series model that captures dynamic interactions between marketing channels. While standard MMM models a single target variable (revenue) as a function of marketing inputs, VAR models the entire system --- every variable predicts and is predicted by every other variable over time.
+Vector AutoRegression (VAR) is a multi-equation time series model that captures dynamic interactions between business outcomes and brand metrics. While standard MMM models a single target variable (revenue) as a function of marketing inputs, VAR models a system of interacting variables --- revenue, brand awareness, brand search, and other brand equity metrics --- while treating media spend as exogenous inputs.
 
 Simba implements a **Bayesian VAR** using PyMC, with Minnesota prior shrinkage, configurable priors, and full posterior inference.
 
@@ -12,17 +12,19 @@ In a standard MMM, the model estimates one equation:
 
 > Revenue = f(TV, Search, Social, Controls, ...)
 
-VAR replaces this with a system of simultaneous equations where each variable is modeled as a function of its own lagged values and the lagged values of all other variables:
+VAR models a system of **endogenous variables** (business outcomes and brand metrics that influence each other) driven by **exogenous inputs** (media spend that you control):
 
-> Revenue(t) = f(Revenue(t-1), TV(t-1), Search(t-1), Social(t-1), ...)
-> TV(t) = f(Revenue(t-1), TV(t-1), Search(t-1), Social(t-1), ...)
-> Search(t) = f(Revenue(t-1), TV(t-1), Search(t-1), Social(t-1), ...)
-> Social(t) = f(Revenue(t-1), TV(t-1), Search(t-1), Social(t-1), ...)
+> Revenue(t) = f(Revenue(t-1), Awareness(t-1), BrandSearch(t-1), ...) + g(TV_spend, Social_spend, ...)
+> Awareness(t) = f(Revenue(t-1), Awareness(t-1), BrandSearch(t-1), ...) + g(TV_spend, Social_spend, ...)
+> BrandSearch(t) = f(Revenue(t-1), Awareness(t-1), BrandSearch(t-1), ...) + g(TV_spend, Social_spend, ...)
 
-This captures **feedback loops and inter-channel dynamics** that a single-equation model cannot.
+The endogenous variables interact through **feedback loops** (e.g., brand awareness drives brand search, which drives revenue, which funds more media). Media spend enters as exogenous inputs --- it affects the system but is not predicted by it.
+
+![VAR structure: exogenous inputs and endogenous system](./images/var-exog-endog-structure.png)
+*Media spend (TV, social, display, YouTube) enters as exogenous one-way inputs. Revenue, brand awareness, and brand search form the endogenous system with feedback loops between them.*
 
 ![Standard MMM vs Bayesian VAR](./images/var-mmm-comparison.png)
-*Left: standard MMM uses one-way arrows from channels to revenue. Right: Bayesian VAR models bidirectional relationships --- every variable predicts every other, capturing cross-channel dynamics and feedback loops.*
+*Left: standard MMM uses one-way arrows from channels to revenue. Right: Bayesian VAR models the interacting system of business outcomes and brand metrics.*
 
 ---
 
@@ -30,9 +32,9 @@ This captures **feedback loops and inter-channel dynamics** that a single-equati
 
 VAR is most valuable when:
 
-- **Channels influence each other.** TV campaigns drive branded search volume. Social media engagement boosts organic traffic. If your marketing ecosystem has these cross-channel dynamics, VAR captures them explicitly.
-- **You want to understand the system.** VAR answers questions like "If I shock TV spend, what happens to search volume three weeks later?" --- questions that standard MMM cannot address.
-- **You suspect feedback effects.** Revenue growth may lead to increased marketing budgets, which in turn drives more revenue. VAR models these bidirectional relationships.
+- **You have brand equity metrics.** Brand awareness surveys, brand search volume, consideration scores, or NPS data alongside revenue. VAR captures how these metrics interact and how media drives them.
+- **You want to understand the system.** VAR answers questions like "If I increase TV spend, what happens to brand awareness, then brand search, then revenue over the next 12 weeks?" --- questions that standard MMM cannot address.
+- **You want long-term effects.** Standard MMM captures direct short-term media effects. VAR captures the full chain: media → brand awareness → brand search → revenue, revealing the total long-term multiplier on each channel.
 
 Standard MMM is better when:
 
@@ -52,11 +54,11 @@ Simba's VAR is a fully Bayesian model fitted with PyMC using NUTS (No U-Turn Sam
 
 Where:
 
-- **Y(t)** is the k-dimensional vector of endogenous variables (log-transformed via log1p).
+- **Y(t)** is the k-dimensional vector of endogenous variables --- revenue, brand awareness, brand search, and other brand equity metrics (log-transformed via log1p).
 - **alpha** is the intercept vector.
-- **A1, ..., Ap** are lag coefficient matrices (p = number of lags, user-configured).
-- **X(t)** is the vector of exogenous variables (media spend, optional).
-- **beta** is the exogenous coefficient matrix.
+- **A1, ..., Ap** are lag coefficient matrices capturing how endogenous variables predict each other (p = number of lags, user-configured).
+- **X(t)** is the vector of exogenous variables --- typically media spend by channel (TV, social, display, etc.). These enter the model as controlled inputs that drive the system but are not predicted by it. Note: brand search can be treated as either endogenous (if it interacts with awareness/revenue) or exogenous depending on your modeling goals.
+- **beta** is the exogenous coefficient matrix (media effects on each endogenous variable).
 - **epsilon(t)** is multivariate Gaussian noise with covariance Sigma.
 
 ### Priors
@@ -133,8 +135,13 @@ This feature is implemented via a dedicated `VarPriorChecker` service. When enab
 VAR and MMM models can be linked in Simba's portfolio view to combine the strengths of both approaches:
 
 1. **Smart matching:** Simba ranks available VAR models by compatibility with your MMM model --- 100% match (same batch and brand), 80% (same brand), 50% (same batch), or no match.
-2. **Long-run multipliers:** Once linked, the VAR's long-run elasticities become channel-specific multipliers applied to MMM coefficients. For example, if the VAR estimates a TV long-run elasticity of 0.03, this translates to a 3x long-term multiplier on the MMM's short-term TV ROI.
+2. **Long-run multipliers:** Once linked, the VAR's long-run elasticities become channel-specific multipliers applied to MMM coefficients. For example, if the VAR estimates a TV long-run elasticity of 0.03, this translates to a 2.5x long-term multiplier on the MMM's short-term TV ROI.
 3. **Toggle view:** The portfolio analysis includes a toggle to switch between short-term (MMM only) and long-term (MMM + VAR multipliers) views.
+
+![Short-term vs long-term ROI by channel](./images/var-longterm-vs-shortterm.png)
+*Illustrative example: channels with strong brand-building effects (TV, YouTube) show the largest long-term multipliers when VAR effects are included. The purple labels show the multiplier each channel receives from VAR long-run elasticities.*
+
+This is where VAR adds the most practical value: it reveals that channels which build brand equity (like TV and video) have much larger total effects than their short-term MMM ROI suggests, because they drive brand awareness and brand search which in turn drive revenue over many weeks.
 
 ---
 
