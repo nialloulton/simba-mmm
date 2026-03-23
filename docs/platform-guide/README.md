@@ -28,7 +28,7 @@ This guide covers every major feature of the Simba MMM platform, organized aroun
 
 - **[Smart Defaults](./smart-defaults.md)** --- Auto-generated starting points derived from historical data and industry benchmarks. Explains when defaults are sufficient and when domain expertise should override them.
 
-- **[Long-Term Effects](./long-term-effects.md)** --- Modeling lasting brand impact beyond immediate performance. Covers memory decay curves, behavioral response, and seasonal patterns. Available on Pro tier and above.
+- **[Long-Term Effects](./long-term-effects.md)** --- Modeling lasting brand impact beyond immediate performance. Covers memory decay curves, behavioral response, and seasonal patterns.
 
 - **[VAR Models](./var-models.md)** --- Building and interpreting Vector AutoRegression models for understanding inter-channel dynamics and system-level marketing effects.
 

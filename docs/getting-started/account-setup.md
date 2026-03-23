@@ -1,94 +1,50 @@
-# Account Setup — Registration, Plans, and Project Configuration
+# Account Setup --- Registration, Plans, and Project Configuration
 
-This guide covers everything you need to get your Simba account up and running: creating your account, understanding the available plans, configuring your project, and setting up team collaboration.
+This guide covers everything you need to get your Simba account up and running: creating your account, understanding the available plans, and configuring your project.
 
 ---
 
 ## Creating Your Account
 
-### Sign up
+### Sign Up
 
 1. Visit [getsimba.ai](https://getsimba.ai) and click **Start Free Trial**.
-2. Enter your name, email address, and create a password — or sign up using **Google** or **Microsoft** SSO.
+2. Enter your name, email address, and create a password --- or sign up using **Google** or **Microsoft** SSO.
 3. Verify your email address by clicking the confirmation link sent to your inbox.
 4. You will be taken to your new project, ready to upload data and start modeling.
 
-### The 14-day free trial
+### The Free Trial
 
-Every new account starts with a **28-day Trial**. During this period, you have access to core Simba features so you can evaluate the platform with your own data. No credit card is required to begin.
+Every new account starts with a **28-day free trial**. During this period, you have access to core Simba features so you can evaluate the platform with your own data. No credit card is required to begin.
 
-The Sandbox trial includes:
+The trial includes:
 
-- Data upload and the Data Validator
-- Model configuration with smart defaults
-- Model execution and results interpretation
-- Basic scenario planning
+- Data upload and the [Data Validator](../data/data-validation.md)
+- Model configuration with [smart defaults](../core-concepts/priors-and-distributions.md)
+- Model fitting and results interpretation
+- [Budget optimization](../core-concepts/budget-optimization.md)
+- [Scenario planning](../core-concepts/saturation-curves.md)
+- [VAR modeling](../core-concepts/var-modeling.md)
 
-At the end of your trial, you can choose a paid plan to continue. Your data and model configurations are preserved when you upgrade.
+At the end of your trial, you can choose a plan to continue. Your data and model configurations are preserved when you upgrade.
 
 ---
 
-## Choosing a Plan
+## Plans
 
-Simba offers several plans designed for different team sizes and use cases. Below is an overview of each tier by features and audience. For current pricing, visit [getsimba.ai](https://getsimba.ai).
-
-### Trial (Free Trial)
-
-**Best for:** Evaluating Simba before committing.
-
-- 28-day full-feature trial
-- Single project
-- Core modeling features
-- Smart defaults
-- Basic scenario planning
-- No credit card required
-
-### Analyst
-
-**Best for:** Individual analysts and small marketing teams running a single brand.
-
-- Single project
-- Full Data Validator
-- Incremental Measurement with complete model configuration (priors, adstock, saturation)
-- Scenario Planning
-- Budget Optimizer optimization
-- Email support
-
-### Pro (Best Value)
-
-**Best for:** Growing marketing teams and performance-focused brands that need the full platform.
-
-- Everything in Analyst
-- Multiple model versions and comparison
-- Advanced model diagnostics
-- Extended data history support
-- Priority support
-- This plan offers the strongest balance of features and value for most marketing teams
-
-### Scale
-
-**Best for:** Agencies and consultancies managing multiple clients.
-
-- Everything in Pro
-- Multi-project support for managing separate client environments
-- Team collaboration with role-based access
-- Cross-client reporting capabilities
-- Dedicated onboarding support
-- Agency-specific workflow features
+Simba currently offers two plans. For current pricing and to discuss which is right for your team, visit [getsimba.ai](https://getsimba.ai) or contact **support@simba-mmm.com**.
 
 ### Enterprise
 
-**Best for:** Large organizations with advanced security, compliance, and customization requirements.
+**Best for:** Organizations that need the full Simba platform with dedicated support.
 
-- Everything in Scale
-- Custom data retention policies
-- Advanced security controls and audit logging
-- SSO and identity provider integration
-- Custom SLAs
-- Dedicated account management
-- API access for integration with existing data infrastructure
+- Full platform access --- data validation, model fitting, optimization, scenario planning, VAR modeling
+- Multi-project support for managing separate brands or markets
+- Team collaboration
+- Dedicated onboarding support
+- Custom SLAs and support terms
 
-### Managed (Simba Managed)
+### Managed
 
 **Best for:** Organizations that want hands-off, expert-driven marketing mix modeling.
 
@@ -96,116 +52,65 @@ Simba offers several plans designed for different team sizes and use cases. Belo
 - Full platform access plus expert model configuration and interpretation
 - Regular reporting cadence tailored to your business
 - Strategic consultation on media optimization
-- Ideal for teams without in-house data science resources or those wanting a second expert opinion alongside their own analysis
+- Ideal for teams without in-house data science resources or those wanting expert oversight alongside their own analysis
+
+### Self-Service Tiers (Coming Soon)
+
+Self-service tiers for individual analysts and smaller teams are coming soon. These will offer different levels of access at various price points. Visit [getsimba.ai](https://getsimba.ai) for updates.
 
 ---
 
 ## Project Configuration
 
-A **project** is your dedicated environment in Simba. It contains your datasets, model configurations, results, and team members. Each workspace is isolated with its own encrypted storage.
+A **project** is your dedicated environment in Simba. It contains your datasets, model configurations, and results.
 
-### Setting up your project
+### Setting Up Your Project
 
-After account creation, your default workspace is ready to use. To configure it:
+After account creation, your default project is ready to use. To configure it:
 
 1. Navigate to **Settings** from the main menu.
 2. Under **Project Settings**, you can:
-   - **Rename your project** to reflect your brand or project (e.g., "Acme Corp Q1 2026" or "Client: Greenfield Media").
+   - **Rename your project** to reflect your brand or client (e.g., "Acme Corp Q1 2026" or "Client: Greenfield Media").
    - **Set your default currency** for spend data display.
    - **Configure your date format** preference.
-   - **Set your default KPI** if you consistently model the same target metric.
 
-### Managing multiple projects (Scale, Enterprise, Managed)
+### Managing Multiple Projects
 
-On the Scale plan and above, you can create and manage multiple projects:
+On plans that support multiple projects, you can create and manage separate environments:
 
 1. From the project switcher in the top navigation, click **Create New Project**.
-2. Name the workspace and configure its settings independently.
-3. Each workspace has **isolated data storage** — data uploaded to one workspace is never accessible from another. This is backed by separate AWS S3 buckets per workspace.
-4. Switch between projects using the workspace dropdown.
+2. Name the project and configure its settings independently.
+3. Each project has **isolated data storage** --- data uploaded to one project is never accessible from another.
+4. Switch between projects using the project dropdown.
 
-This is particularly useful for agencies that need strict data separation between clients.
-
----
-
-## Team Collaboration
-
-### Inviting team members (Scale, Enterprise, Managed)
-
-Team collaboration features are available on Scale, Enterprise, and Managed plans:
-
-1. Go to **Settings > Team Management**.
-2. Click **Invite Member**.
-3. Enter the team member's email address.
-4. Assign a role (see below).
-5. The invited user will receive an email with a link to join your project.
-
-### Roles and permissions
-
-Simba uses role-based access control to manage what team members can do within a workspace:
-
-| Role | Capabilities |
-|---|---|
-| **Owner** | Full control — manage billing, team, settings, and all modeling features |
-| **Admin** | Manage team members, data, and models. Cannot modify billing. |
-| **Analyst** | Upload data, configure and run models, create scenarios, run optimization. Cannot manage team or settings. |
-| **Viewer** | View results, reports, and dashboards. Cannot modify data or models. |
-
-Roles can be updated at any time by the workspace Owner or Admin.
-
-### Sharing results
-
-Within a workspace, all team members can view model results based on their role permissions. To share results with stakeholders outside the platform:
-
-- Export charts and reports as PDF or image files from the results dashboard.
-- Share scenario comparisons as downloadable reports.
-- Enterprise plans support scheduled report delivery via email.
+This is particularly useful for agencies or organizations that need strict data separation between clients or brands.
 
 ---
 
-## Security and Data Protection
-
-Your data security is a core design principle, not an afterthought:
-
-- **AES-256 encryption** for all data at rest
-- **TLS 1.3** for all data in transit
-- **Isolated AWS S3 buckets** per workspace — your data is never co-mingled with other customers
-- **GDPR compliance** — your data rights are fully respected
-- **Cyber Essentials certification** — independently verified security practices
-
-No user-level or personally identifiable data is required.
+## Account Security
 
 ### Two-Factor Authentication (2FA)
 
-For additional account security, Simba supports TOTP-based two-factor authentication. To enable 2FA:
+For additional account security, Simba supports two-factor authentication. To enable 2FA:
 
 1. Go to **Settings > Security**.
 2. Click **Enable Two-Factor Authentication**.
 3. Scan the QR code with your authenticator app (Google Authenticator, Authy, 1Password, or similar).
 4. Enter the verification code to confirm setup.
 
-Once enabled, you will need to provide a code from your authenticator app each time you log in. See [Security Overview](../security/README.md) for more details. Simba works with aggregated marketing data (channel spend, impressions, conversions), which significantly reduces privacy risk by design.
+Once enabled, you will need to provide a code from your authenticator app each time you log in.
 
-For full details, see [Security and Compliance](../security/README.md).
+### Single Sign-On (SSO)
+
+Simba supports sign-in via **Google** and **Microsoft** accounts. If you sign up with SSO, your account is automatically linked --- no separate password is needed.
+
+For full details on Simba's security practices, see [Security and Compliance](../security/README.md).
 
 ---
 
-## Upgrading, Downgrading, and Billing
+## Billing
 
-### Upgrading your plan
-
-1. Go to **Settings > Billing**.
-2. Click **Change Plan**.
-3. Select your new plan and confirm.
-4. Your new features are available immediately. You will be charged the prorated difference for the current billing period.
-
-### Downgrading
-
-You can downgrade at any time. The downgrade takes effect at the end of your current billing period. If you are downgrading from a plan with multiple projects, you will need to select which project to retain.
-
-### Billing details
-
-- Plans are billed monthly or annually (annual billing includes a discount — see [getsimba.ai](https://getsimba.ai) for details).
+- Plans are billed monthly or annually (annual billing includes a discount).
 - Manage payment methods and view invoices in **Settings > Billing**.
 - For Enterprise and Managed plan billing, contact your account manager or email **support@simba-mmm.com**.
 
@@ -216,17 +121,16 @@ You can downgrade at any time. The downgrade takes effect at the end of your cur
 | Issue | Solution |
 |---|---|
 | Did not receive verification email | Check your spam folder. If not found, click "Resend verification" on the login page. |
-| Cannot access workspace after invitation | Ensure you are logged in with the email address that received the invitation. |
 | Trial expired before evaluation was complete | Contact **support@simba-mmm.com** to discuss an extension. |
-| Need to transfer workspace ownership | Go to Settings > Team Management and assign the Owner role to another team member. |
+| Need to transfer project ownership | Contact **support@simba-mmm.com**. |
 
 ---
 
 ## Next Steps
 
-- [Quick Start Guide](quick-start-guide.md) — Build your first model
-- [Platform Overview](platform-overview.md) — Learn the interface
-- [Data Requirements](../data/data-requirements.md) — Prepare your data for upload
-- [Security and Compliance](../security/README.md) — Detailed security documentation
+- [Quick Start Guide](./quick-start-guide.md) --- Build your first model.
+- [Platform Overview](./platform-overview.md) --- Learn the interface.
+- [Data Requirements](../data/data-requirements.md) --- Prepare your data for upload.
+- [Security and Compliance](../security/README.md) --- Detailed security documentation.
 
 For any account-related questions, contact **support@simba-mmm.com**.

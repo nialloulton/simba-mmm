@@ -83,13 +83,7 @@ See [Sharing and Collaboration](./sharing-collaboration.md).
 
 ## Tier Availability
 
-| Tier | Portfolios Allowed |
-|------|-------------------|
-| Trial | 0 |
-| Analyst | 0 |
-| Pro | 1 |
-| Scale | 2 |
-| Enterprise | Unlimited |
+Portfolio analysis is available on Enterprise and Managed plans. For details, see [Pricing](../pricing/README.md).
 
 ---
 

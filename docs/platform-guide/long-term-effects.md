@@ -2,7 +2,7 @@
 
 Standard Marketing Mix Models measure short-term media impact: the incremental revenue generated within a few weeks of spend. But some marketing activities --- brand campaigns, sponsorships, sustained awareness efforts --- produce effects that persist for months or longer. The Long-Term Effects module captures this extended impact using Vector AutoRegression (VAR) to trace how marketing spend flows through brand-building variables (awareness, consideration, equity) to ultimately drive revenue.
 
-> **Availability**: Long-Term Effects is available on the **Pro tier and above**.
+> **Availability**: Long-Term Effects is available on Enterprise and Managed plans. See [Pricing](../pricing/README.md).
 
 ---
 

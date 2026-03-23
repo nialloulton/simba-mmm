@@ -153,26 +153,22 @@ The **Settings** area, accessible from the main navigation menu or the gear icon
 - Default currency and date format
 - Default KPI selection
 
-### Team Management (Scale, Enterprise, Managed)
+### Team Management
 - Invite and remove team members
-- Assign and update roles
 - View team activity
 
 ### Billing
 - Current plan and usage
-- Upgrade or downgrade plan
 - Payment method management
 - Invoice history
 
 ### Profile
 - Update your name, email, and password
 - Notification preferences
-- API key management (Enterprise)
 
 ### Security
 - Two-factor authentication setup
 - Active session management
-- SSO configuration (Enterprise)
 
 For details on security infrastructure, see [Security and Compliance](../security/security-and-compliance.md).
 

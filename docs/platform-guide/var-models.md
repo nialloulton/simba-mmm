@@ -84,14 +84,9 @@ VAR models can be linked to standard MMM models for comparison:
 
 ---
 
-## Tier Availability
+## Availability
 
-| Tier | VAR Enabled |
-|------|-------------|
-| Trial | Yes |
-| Analyst | No |
-| Pro | Yes |
-| Scale | Yes |
+VAR modeling is included in the free trial and in Enterprise and Managed plans. For details, see [Pricing](../pricing/README.md).
 
 ---
 
