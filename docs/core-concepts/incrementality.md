@@ -2,7 +2,7 @@
 
 Not every sale that follows an ad was caused by that ad. Incrementality measurement answers the most important question in marketing analytics: **"How many conversions would I have lost if I had not spent on this channel?"**
 
-Simba's Bayesian MMM is designed from the ground up to isolate incremental impact, separating organic demand from media-driven lift across every channel in your mix.
+Simba's Bayesian MMM isolates incremental impact by decomposing your outcome variable into its constituent parts --- base demand, seasonal patterns, control variable effects, and the incremental contribution of each media channel.
 
 ---
 
@@ -10,120 +10,115 @@ Simba's Bayesian MMM is designed from the ground up to isolate incremental impac
 
 Incrementality is the difference between what happened and what **would have happened** in the absence of a marketing activity. It is the causal effect of your spend.
 
-Consider this scenario: your company generated 10,000 conversions last month while spending $500K across five channels. How many of those conversions were caused by the marketing spend, and how many would have occurred anyway --- from brand awareness, word of mouth, direct traffic, or seasonal demand?
+Consider this scenario: your company generated $683K in revenue last week while spending across four media channels. How much of that revenue was caused by the media, and how much would have occurred anyway --- from brand equity, repeat purchasing, seasonal demand, or pricing?
 
-The conversions that would have happened regardless are your **base** (or organic) demand. The conversions above that baseline, caused by your marketing activities, are the **incremental lift**. Incrementality measurement is the process of estimating this lift for each channel.
-
----
-
-## Base Sales vs. Incremental Lift
-
-Every outcome in your data can be decomposed into components:
-
-- **Base (organic) demand** --- Sales driven by brand equity, repeat purchasing, direct navigation, and other factors unrelated to current media spend. This is what you would observe if you turned off all paid media.
-- **Seasonality and trend** --- Predictable patterns driven by time of year, holidays, or long-term growth trends. See [Seasonality](./seasonality.md).
-- **Control variables** --- External factors you include in the model, such as pricing, promotions, competitor activity, or economic indicators.
-- **Incremental media contributions** --- The causal lift from each marketing channel, after accounting for [saturation](./saturation-curves.md) and [adstock](./adstock-effects.md) effects.
-
-Simba's model estimates each of these components simultaneously, producing a full decomposition of your outcome variable. The media contributions are your incremental effects.
+The revenue that would have happened regardless is your **base demand**. The revenue above that baseline, caused by your marketing activities, is the **incremental lift**. Incrementality measurement is the process of estimating this lift for each channel.
 
 ---
 
-## Causal Attribution Across Channels
+## The Decomposition
 
-A key strength of MMM-based incrementality is that it attributes outcomes **causally** rather than by association. Here is the difference:
+Simba decomposes every observation into additive components, each estimated simultaneously in a single Bayesian model:
 
-- **Correlational attribution** (e.g., last-click): "The user clicked a paid search ad before converting, so paid search gets credit." This ignores the possibility that the user would have converted anyway.
+![Revenue decomposition](./images/incrementality-decomposition.png)
+*Stacked area showing how total observed revenue breaks down into base demand (intercept + trend), seasonality, control variable effects, and incremental media contributions from each channel. The media layers at the top represent the causal lift from marketing.*
+
+The components are:
+
+- **Base demand (intercept + trend)** --- The level of outcome you would expect with zero media spend. This captures brand equity, repeat purchase behavior, distribution, and other non-media factors. When the dynamic baseline (trend) is enabled, base = intercept + trend. When disabled, base = intercept alone.
+- **Seasonality** --- Predictable time-based patterns modeled via [Fourier features](./seasonality.md). Separated explicitly so that holiday spikes are not mistakenly attributed to media channels that ramp up at the same time.
+- **Control variables** --- External factors included in the model (pricing, promotions, distribution changes). These can have positive or negative effects.
+- **Incremental media contributions** --- The causal lift from each marketing channel, after accounting for [saturation](./saturation-curves.md) and [adstock](./adstock-effects.md) effects. These are the incremental effects.
+
+![Contribution waterfall](./images/incrementality-waterfall.png)
+*Waterfall chart showing how each component adds up to total revenue. The bracket at the bottom highlights the total incremental media contribution across all channels.*
+
+---
+
+## How Contributions Are Calculated
+
+Each media channel's incremental contribution is computed directly from the fitted model parameters:
+
+> **contribution(t) = coefficient x tanh( adstocked_spend(t) / (scalar x alpha) )**
+
+This is the channel's [saturation-transformed](./saturation-curves.md), [adstock-adjusted](./adstock-effects.md) spend multiplied by the estimated coefficient. The contribution is computed at every time period, giving a full time series of incremental lift.
+
+![Contribution formula pipeline](./images/incrementality-formula-pipeline.png)
+*The four-step pipeline: raw spend is smoothed by adstock (carryover), compressed by tanh saturation (diminishing returns), then scaled by the posterior coefficient to produce the channel's incremental revenue contribution per period.*
+
+Key details:
+
+- **Adstock** spreads each period's spend across subsequent periods (geometric or delayed decay), reflecting the fact that advertising effects persist beyond the week of exposure.
+- **Saturation** (tanh) compresses spend into the 0--1 range, capturing diminishing returns --- the first dollar is more effective than the hundred-thousandth.
+- **Coefficient** scales the saturated effect into revenue units. It is estimated from the posterior distribution, reflecting both the data and any prior information.
+- **Contributions are posterior means** --- averaged across all posterior samples from the MCMC chains. Coefficient-level uncertainty is captured via the 94% HDI (3rd to 97th percentile) on the coefficient summaries.
+
+---
+
+## Causal Attribution vs. Correlational Attribution
+
+A key strength of MMM-based incrementality is that it attributes outcomes **causally** rather than by association:
+
+- **Correlational attribution** (e.g., last-click): "The user clicked a paid search ad before converting, so paid search gets credit." This ignores the possibility that the user would have converted anyway --- perhaps driven by a TV ad they saw earlier that week.
 - **Causal attribution** (MMM): "Controlling for all other channels, seasonality, and baseline demand, the observed variation in paid search spend is associated with X additional conversions." This isolates the effect of the channel from confounding factors.
 
 Simba achieves causal attribution by modeling all channels simultaneously. When the model estimates the effect of TV spend, it holds paid search, social, display, and every other channel constant. This controls for the fact that channels often scale up and down together (e.g., during a product launch) and prevents double-counting.
 
 ### Handling Correlated Channels
 
-In practice, many channels are correlated --- brands often increase TV and digital spend during the same campaign flights. This multicollinearity makes it difficult for any model to perfectly separate channel effects. Bayesian MMM handles this better than frequentist alternatives for two reasons:
+In practice, many channels are correlated --- brands often increase TV and digital spend during the same campaign flights. This multicollinearity makes it difficult for any model to perfectly separate channel effects. Bayesian MMM handles this better than frequentist alternatives:
 
-1. **Lift test calibration constrains the solution space.** If lift test data shows paid search ROAS is between 2x and 4x, this observation constrains the model so it will not attribute all of the effect to TV just because the two channels happen to be correlated. See [Priors and Distributions](./priors-and-distributions.md).
-2. **Uncertainty reflects ambiguity.** When two channels are highly correlated, the posterior distributions will be wider, honestly reflecting the difficulty of separating their effects. This prevents overconfident attribution.
+1. **Priors regularize the solution.** [Smart priors](./priors-and-distributions.md) based on industry benchmarks and channel characteristics keep coefficient estimates within plausible ranges, even when channels are correlated.
+2. **Lift test calibration constrains the model.** If a lift test shows paid search ROAS is between 2x and 4x, this [likelihood observation](./priors-and-distributions.md) constrains the model so it will not attribute all of the correlated effect to TV.
+3. **Uncertainty reflects ambiguity.** When two channels are highly correlated, the posterior distributions will be wider, honestly reflecting the difficulty of separating their effects. This prevents overconfident attribution.
 
 ---
 
-## Lift Test Integration for Validation
+## Lift Test Integration
 
 Lift tests (also called incrementality tests, geo tests, or holdout experiments) are randomized experiments that measure the causal effect of a single channel by comparing a treatment group (exposed to ads) with a control group (not exposed).
 
-While lift tests are the gold standard for single-channel causal measurement, they have practical limitations:
+While lift tests are the gold standard for single-channel causal measurement, they have practical limitations --- you can only test one or two channels at a time, and running them continuously is impractical.
 
-- You can only test one or two channels at a time.
-- Tests require sufficient duration and sample size.
-- Running them on every channel every quarter is logistically impractical.
-
-Simba bridges this gap by letting you **calibrate your MMM with lift test results**. When you have a lift test result for a channel, you can add it as a likelihood observation that calibrates the model. The model then combines this experimental evidence with the observational data through the likelihood function, producing posterior estimates that are consistent with both the time-series patterns and the experimental results.
+Simba bridges this gap by letting you **calibrate the model with lift test results**. When you add a lift test result in the Model Details step, it enters the model as an additional likelihood term (not a prior). The model then combines this experimental evidence with the observational time-series data, producing posterior estimates that are consistent with both.
 
 This creates a virtuous cycle:
 
 1. Run a lift test on a high-priority channel.
-2. Feed the result into Simba as a calibration observation in the Model Details step.
-3. The model uses this likelihood constraint to improve estimates for all channels (because better-calibrated response curves for one channel reduce ambiguity for correlated channels).
+2. Add the result as a calibration observation in the Model Details step.
+3. The model uses this likelihood constraint to improve estimates for all channels (because a better-calibrated response curve for one channel reduces ambiguity for correlated channels).
 4. Use model output to prioritize the next lift test.
-
----
-
-## How Simba Separates Organic from Media-Driven Outcomes
-
-Simba's decomposition engine isolates incrementality through several mechanisms working together:
-
-### Baseline Estimation
-
-The model includes an intercept and trend component that captures organic demand --- the level of outcome you would expect with zero media spend. This baseline absorbs brand equity, repeat purchase behavior, and other non-media factors.
-
-### Seasonal Controls
-
-Seasonal patterns --- holiday spikes, summer lulls, back-to-school peaks --- are modeled explicitly so they are not mistakenly attributed to media channels that happen to ramp up during the same periods. See [Seasonality](./seasonality.md).
-
-### Saturation and Adstock Transformations
-
-Raw spend or impression data is transformed through [saturation functions](./saturation-curves.md) and [adstock decay](./adstock-effects.md) before entering the model. These transformations capture the nonlinear, time-lagged nature of advertising effects, producing more accurate incrementality estimates than models that treat media spend as a simple linear input.
-
-### Bayesian Posterior Decomposition
-
-After the model is fitted, Simba computes the contribution of each component by evaluating the model with and without each channel's transformed spend. The difference is the channel's incremental contribution. Because this is done using the full posterior distribution, every contribution estimate comes with a [credible interval](./bayesian-modeling.md) that quantifies uncertainty.
-
-### Contribution Waterfall
-
-Simba visualizes the decomposition as a contribution waterfall chart, showing:
-
-- Base demand
-- Seasonal effects
-- Each channel's incremental contribution (with uncertainty bands)
-- Total predicted outcome
-
-This makes it easy for stakeholders to see how much of the business is driven by media versus organic demand.
 
 ---
 
 ## Practical Considerations
 
-### What "Incremental" Does Not Mean
+### Media Contributions Are Non-Negative
 
-Incrementality is not the same as last-touch attribution, first-touch attribution, or any rule-based model. It is a **counterfactual** concept: what would have happened if you had not spent? This is a fundamentally different (and more useful) question than "which touchpoint did the user interact with last?"
+In Simba's model, media channel coefficients use priors that enforce non-negative values (InverseGamma or positive-bounded distributions). This means media contributions are always zero or positive --- the model will not estimate that spending on a channel actively hurts revenue.
 
-### Incrementality Can Be Negative
+This is a deliberate modeling choice: if a channel truly has zero incremental value, its coefficient will be estimated near zero (with the contribution shrinking accordingly). If you believe a channel may have a genuinely negative effect, this would need to be investigated outside the standard MMM framework.
 
-It is possible for a channel to have a negative incremental effect --- meaning the spend actively reduced conversions. This can happen with over-frequency (ad fatigue), poor creative, or audiences that find the ads intrusive. Simba's Bayesian framework will surface these effects when the data supports them.
+Control variables (pricing, promotions, competitor activity) can have negative coefficients and contributions, reflecting that a price increase may reduce sales or a competitor's campaign may draw away customers.
 
 ### Incrementality Changes Over Time
 
-A channel's incremental contribution is not static. As spend levels change, competitors adjust, and audiences evolve, incrementality shifts. Simba supports regular model refreshes so your incrementality estimates stay current.
+A channel's incremental contribution is not static. As spend levels change, competitors adjust, and audiences evolve, incrementality shifts. The contribution formula makes this clear: at higher spend levels, saturation compresses the effect, reducing the incremental value of each additional dollar. Regular model refreshes keep estimates current.
+
+### What "Incremental" Does Not Mean
+
+Incrementality is not the same as last-touch attribution, first-touch attribution, or any rule-based model. It is a **counterfactual** concept: what would have happened if you had not spent? This is a fundamentally different question than "which touchpoint did the user interact with last?"
 
 ---
 
 ## Key Takeaways
 
-- Incrementality measures the causal impact of marketing --- the conversions that would not have happened without media spend.
-- Simba decomposes outcomes into base demand, seasonal effects, control variables, and incremental media contributions.
-- Bayesian priors and full uncertainty quantification handle correlated channels and sparse data more effectively than frequentist alternatives.
-- Lift test results can be integrated as likelihood observations, creating a feedback loop between experiments and modeling.
-- Every incrementality estimate in Simba comes with a credible interval, enabling risk-aware decision-making.
+- Incrementality measures the causal impact of marketing --- the revenue that would not have occurred without media spend.
+- Simba decomposes outcomes into base demand (intercept + trend), seasonality, control variables, and incremental media contributions.
+- Each channel's contribution is computed as `coefficient x tanh(adstocked_spend / (scalar x alpha))` --- the full adstock + saturation + coefficient pipeline.
+- Media contributions are always non-negative (positive-bounded priors). Control variables can have negative effects.
+- Lift test results enter the model as likelihood observations, calibrating the response curves and reducing ambiguity between correlated channels.
+- Coefficient estimates include 94% HDI uncertainty bands. Contributions are reported as posterior means.
 
 ---
 
@@ -131,4 +126,5 @@ A channel's incremental contribution is not static. As spend levels change, comp
 
 - [Saturation Curves](./saturation-curves.md) --- Learn how diminishing returns affect incrementality.
 - [Adstock Effects](./adstock-effects.md) --- Understand how carryover impacts the timing of incremental lift.
-- [Bayesian Modeling](./bayesian-modeling.md) --- Dive deeper into the statistical foundation.
+- [Priors and Distributions](./priors-and-distributions.md) --- How priors and lift tests shape contribution estimates.
+- [Bayesian Modeling](./bayesian-modeling.md) --- The statistical foundation.
