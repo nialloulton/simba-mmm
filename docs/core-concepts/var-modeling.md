@@ -64,6 +64,9 @@ The lag order p is user-configured and determines how many past periods the mode
 
 A VAR with k endogenous variables and p lags has k x k x p lag coefficients plus k x m exogenous coefficients. For a modest system of 3 endogenous variables, 5 media channels, and 3 lags, that is already 42 parameters --- often more than a typical marketing dataset (52--104 weeks) can reliably estimate without regularization.
 
+![Why Minnesota priors matter for noisy brand data](./images/var-minnesota-explained.png)
+*Top-left: brand awareness (from surveys) is far noisier than revenue --- small samples, measurement gaps, and survey-to-survey variation. Top-right: without Minnesota priors, this noise produces unstable, oscillating IRFs with wide uncertainty; with Minnesota, the IRF is smooth and actionable. Bottom-left: the three shrinkage principles. Bottom-right: Minnesota priors produce tighter long-run multiplier estimates, turning unreliable ranges into actionable numbers.*
+
 The **Minnesota prior** (originally developed at the Federal Reserve Bank of Minneapolis) provides structured regularization by encoding three intuitive beliefs about time series:
 
 ### 1. Own Persistence
@@ -160,13 +163,62 @@ The model requires at least **lags + 10 observations**. In practice, 52+ weeks i
 
 ## Data Transformations
 
-All endogenous variables are transformed via **log1p** (robust to zeros). Exogenous variables default to log1p but support configurable transforms: asinh, log, log_shift, per_k, z-score, min-max, and index100. Results are converted back to percent-per-percent elasticities for interpretability.
+Raw marketing data is rarely suitable for direct use in a VAR. Revenue might range from $100K to $500K, awareness from 20% to 50%, and TV spend from $0 to $200K --- wildly different scales with different distributional properties. Transformations address three problems at once.
+
+![Why log1p transformation](./images/var-transforms-explained.png)
+*Top row: raw revenue and awareness data. Bottom row: the three benefits of log1p --- it handles zeros safely (unlike log), stabilizes variance across scales, and produces coefficients that are directly interpretable as elasticities.*
+
+### Why log1p Is the Default
+
+All endogenous variables are automatically transformed via **log1p(x) = log(1 + x)**. This is the default for good reason:
+
+- **Zero-safe.** Marketing data frequently contains zeros --- a channel had no spend, a survey week was missed, brand search was zero in a low-activity period. Standard log(x) produces negative infinity at zero; log1p(0) = 0, keeping the data clean.
+- **Variance stabilization.** Raw revenue might have a standard deviation of $50K while awareness has a standard deviation of 5 points. After log1p, both series have comparable variance, which prevents the VAR from being dominated by whichever variable happens to have the largest absolute scale.
+- **Elasticity interpretation.** When both Y and X are log-transformed, the VAR coefficients become **elasticities** --- a coefficient of 0.3 means "a 1% increase in X is associated with a 0.3% change in Y." This is far more interpretable than raw-unit coefficients, and it is the natural language of marketing effectiveness ("a 10% increase in TV spend produces a 3% long-run increase in revenue").
+
+### Available Transforms for Exogenous Variables
+
+Exogenous variables (media spend) default to log1p but support alternative transforms when the data warrants it:
+
+| Transform | Formula | When to Use |
+|---|---|---|
+| **log1p** (default) | log(1 + x) | Most media spend data --- handles zeros, produces elasticities |
+| **asinh** | asinh(x) | Similar to log but handles negative values (e.g., net spend adjustments) |
+| **z-score** | (x - mean) / std | When you want standardized units rather than elasticities |
+| **min-max** | (x - min) / (max - min) | Scale to 0--1 range |
+| **index100** | x / mean x 100 | Index relative to mean (useful for comparing across channels) |
+| **per_k** | x / 1000 | Simple rescaling to thousands |
+
+### Back-Transformation for Reporting
+
+All VAR outputs (impulse responses, long-run effects, elasticities) are automatically converted back to **percent-per-percent** terms, accounting for the transformation applied to each variable. This means you always see results in interpretable business units, regardless of which transform was used internally.
 
 ---
 
 ## Prior Predictive Checking
 
-Before fitting a VAR model, **prior predictive checks** can validate that your priors produce sensible forecast ranges. This generates sample forecasts from the prior distributions (before seeing data). If the forecasts show unreasonable values --- revenue going negative, awareness exploding --- you know to adjust priors before committing to a full model fit.
+Prior predictive checking is a validation step that answers a critical question before you commit to a full model fit: **"Do my priors produce forecasts that make business sense?"**
+
+The idea is simple: sample from the prior distributions (without seeing any data) and generate forecasts. If those forecasts look reasonable --- revenue stays within plausible bounds, awareness does not go negative or explode to 100% --- your priors are well-specified. If they produce nonsense, you need to tighten or adjust priors before fitting.
+
+![Prior predictive checking](./images/var-prior-predictive.png)
+*Left: bad priors produce forecasts that explode or collapse --- revenue at $1M+ or near zero. These priors are too wide and would waste computation or produce unstable posteriors. Right: good priors keep all forecast draws within a plausible business range, confirming the model is safe to fit.*
+
+### Why This Matters for VAR
+
+Prior predictive checking is especially valuable for VAR because:
+
+- **VAR has many parameters.** With k endogenous variables and p lags, there are k x k x p coefficients. If even a few priors are miscalibrated, the system can produce explosive or oscillating forecasts.
+- **Feedback loops amplify errors.** In a single-equation model, a bad prior on one coefficient produces a bad estimate for that coefficient. In a VAR, a bad prior on the awareness → revenue coefficient propagates through the entire system, affecting all impulse responses and long-run effects.
+- **Brand metrics have unfamiliar scales.** You might have strong intuition about revenue ranges but less about what a "reasonable" awareness coefficient looks like. Prior predictive checking lets you validate the combined effect of all priors without needing to reason about each one individually.
+
+### How to Use It
+
+1. Configure your VAR model (endogenous variables, exogenous media, lags, priors).
+2. Run prior predictive checks before fitting.
+3. Inspect the forecast draws: are they within plausible business ranges?
+4. If not, adjust priors (typically tightening the Minnesota shrinkage or narrowing intercept bounds) and re-check.
+5. Once the prior predictive looks sensible, fit the full model.
 
 ---
 
