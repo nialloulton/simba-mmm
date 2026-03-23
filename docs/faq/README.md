@@ -108,15 +108,15 @@ Simba is **Cyber Essentials certified** and fully **GDPR compliant**. Your data 
 
 ### Is Simba GDPR compliant?
 
-Yes. Simba is fully compliant with GDPR and the UK Data Protection Act. We practice strict data minimization, provide full data subject rights (access, rectification, erasure, portability), and use Standard Contractual Clauses for any international data transfers.
+Yes. Simba is compliant with applicable data protection regulations. We practice strict data minimization and work with aggregated marketing data only --- no personally identifiable information is required.
 
-→ [Compliance Details](../security/compliance.md)
+→ [Security Overview](../security/README.md)
 
 ### Where is my data stored?
 
-Data is stored in secure AWS infrastructure with per-customer isolation. Enterprise customers can discuss dedicated hosting arrangements for specific data residency requirements.
+Your data is stored in isolated, encrypted infrastructure with per-customer separation. Enterprise customers can discuss custom hosting arrangements for specific data residency requirements.
 
-→ [Data Sovereignty](../security/data-sovereignty.md)
+→ [Security Overview](../security/README.md)
 
 ## Pricing & Plans
 
