@@ -132,17 +132,9 @@ When reviewing results, keep in mind:
 
 ---
 
-## Tier Availability
+## Availability
 
-Portfolio features, including halo and trademark channel modeling, are available on **Pro tier and above**:
-
-| Tier | Portfolio / Halo Support |
-|---|---|
-| Trial | No |
-| Analyst | No |
-| Pro | 1 portfolio |
-| Scale | 2 portfolios |
-| Enterprise | Unlimited |
+Portfolio features, including halo and trademark channel modeling, are available on Enterprise and Managed plans. For details, see [Pricing](../pricing/README.md).
 
 ---
 

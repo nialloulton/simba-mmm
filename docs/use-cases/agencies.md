@@ -14,7 +14,7 @@ Marketing and media agencies face unique complexities in marketing measurement:
 
 ### Manage Multiple Clients in One Platform
 
-Simba's Scale tier is built for agencies. Manage up to 10 saved models, run unlimited cross-client optimizations, and leverage portfolio modeling across brands.
+Simba's Enterprise plan supports agencies with multi-project environments, cross-client optimizations, and portfolio modeling across brands.
 
 ### Consistent Methodology, Client-Specific Results
 
@@ -47,9 +47,8 @@ When clients ask "how does this work?", you can show them. Simba's transparent B
 
 ## Recommended Plans
 
-- **Scale** — 10 models, 2 portfolio models, unlimited optimizations and fits
-- **Enterprise** — Unlimited scale with SSO, custom integrations, and dedicated support
-- **SIMBA Managed** — Full model development and strategy audits by PhD statisticians
+- **Enterprise** — Full platform with multi-project support, team collaboration, and dedicated support
+- **Managed** — Full model development and strategy audits by PhD statisticians
 
 → [View Plans](../pricing/README.md) | [Portfolio Modeling](portfolio-modeling.md)
 
