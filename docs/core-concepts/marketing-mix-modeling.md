@@ -10,6 +10,9 @@ At its core, MMM is a regression-based framework that decomposes an outcome vari
 
 The output is a set of **channel-level contribution estimates**: how much of your total outcome can be attributed to TV, paid search, social media, out-of-home, email, or any other channel in your mix.
 
+![Revenue decomposition showing base sales and channel contributions](./images/revenue-decomposition.png)
+*MMM decomposes total revenue into base sales (organic demand) and the incremental contribution of each marketing channel.*
+
 ### A Brief History
 
 MMM originated in the consumer packaged goods (CPG) industry in the 1960s and 1970s. Brands like Procter & Gamble and Unilever used econometric models to measure the effectiveness of television and print advertising. For decades, these models were the province of large enterprises with dedicated analytics teams and expensive consulting engagements.
@@ -33,6 +36,8 @@ Two forces have driven MMM's modern renaissance:
 | **Channel coverage** | All channels including offline (TV, OOH, radio) | Digital channels only |
 | **Time horizon** | Weeks to years | Real-time to days |
 | **Causal rigor** | Controls for confounders statistically | Relies on last-click or heuristic rules |
+
+![MMM vs other measurement approaches](./images/mmm-vs-other-approaches.png)
 
 MTA tells you which touchpoints a converting user encountered. MMM tells you how much each channel **caused** conversions to increase. These are fundamentally different questions, and for budget allocation the causal question is the one that matters.
 
@@ -79,6 +84,9 @@ Marketing datasets are often short --- one to three years of weekly data means 5
 
 ### 5. Coherent Probabilistic Predictions
 
+![Bayesian vs frequentist MMM comparison](./images/bayesian-vs-frequentist.png)
+*Traditional MMM gives point estimates with error bars. Bayesian MMM (Simba) provides full posterior distributions showing the complete range of plausible values for each channel, with 94% HDI intervals.*
+
 Bayesian MMM produces full predictive distributions, not just point forecasts. When Simba's optimizer recommends a budget allocation, it can quantify the probability that the recommendation will outperform the status quo.
 
 ---
@@ -88,6 +96,9 @@ Bayesian MMM produces full predictive distributions, not just point forecasts. W
 Simba is a no-code Bayesian MMM platform built on **PyMC-Marketing**, the leading open-source library for marketing science. Here is how the platform brings MMM to life:
 
 ### The Four-Step Workflow
+
+![Simba four-step workflow](./images/simba-workflow.png)
+
 
 1. **Audit** --- Upload your data and Simba validates it automatically: checking for missing values, date gaps, outliers, and structural issues. The platform surfaces potential problems before you build a model.
 
