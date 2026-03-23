@@ -37,7 +37,7 @@ Simba organizes your entire marketing measurement journey into four stages:
 
 - Browse the [Core Concepts](../core-concepts/) section for deeper theory and methodology.
 - Check the [Data Preparation](../data-preparation/) guides before uploading your first dataset.
-- Contact support at **support@simba-mmm.com** for any questions.
+- Contact support at **info@1749.io** for any questions.
 
 ---
 
