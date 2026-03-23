@@ -2,6 +2,8 @@
 
 This guide walks you through the complete Simba workflow, from signing up to interpreting your first optimized budget recommendation. By the end, you will have a working Bayesian marketing mix model with actionable channel-level insights.
 
+![Quick start steps](./images/quick-start-steps.png)
+
 **Time required:** Most users complete their first model run within a few hours. The actual computation takes minutes; the majority of your time will be spent reviewing data and results.
 
 **Prerequisites:** A dataset with time-series marketing data (weekly or daily), including spend by channel and a target KPI. See [Data Requirements](../data/data-requirements.md) for full details.
@@ -10,12 +12,12 @@ This guide walks you through the complete Simba workflow, from signing up to int
 
 ## Step 1: Create Your Account
 
-1. Go to [getsimba.ai](https://getsimba.ai) and click **Start Free Trial**.
+1. Go to [getsimba.ai](https://getsimba.ai) and [book a demo](https://calendly.com/niall-oulton) to get started.
 2. Register with your email or sign in with **Google** or **Microsoft** SSO.
 3. You will land in the **Trial** plan, which gives you a full 28-day free trial with access to core features.
 4. No credit card is required to start.
 
-For detailed information about plans, workspaces, and team setup, see [Account Setup](account-setup.md).
+For detailed information about plans, projects, and team setup, see [Account Setup](account-setup.md).
 
 ---
 
@@ -75,7 +77,7 @@ Read more: [Setting Priors](../platform-guide/model-configuration.md) | [Smart D
 
 ### Adstock (Carryover Effects)
 
-Marketing does not always have an immediate effect. A TV ad aired on Monday may drive searches and conversions throughout the week. Adstock parameters control how each channel's effect decays over time. Simba provides geometric and Weibull adstock options, configurable per channel via the UI.
+Marketing does not always have an immediate effect. A TV ad aired on Monday may drive searches and conversions throughout the week. Adstock parameters control how each channel's effect decays over time. Simba provides geometric and delayed adstock options, configurable per channel via the UI.
 
 Smart defaults will suggest appropriate adstock settings based on channel type and your data patterns.
 
@@ -83,7 +85,7 @@ Read more: [Adstock Settings](../core-concepts/adstock-effects.md)
 
 ### Saturation (Diminishing Returns)
 
-At some point, spending more on a channel yields diminishing returns. Saturation curves model this effect. Simba uses logistic and Hill saturation functions, configurable per channel.
+At some point, spending more on a channel yields diminishing returns. Saturation curves model this effect. Simba uses the tanh saturation function, configurable per channel.
 
 Smart defaults estimate saturation parameters from the observed spend ranges in your data.
 
@@ -102,7 +104,7 @@ Once you are satisfied with your configuration (or have accepted the smart defau
 
 ## Step 5: Interpret Your Results
 
-When the model finishes, you will land on the ****Active Model** page**. Here is what to look at first:
+When the model finishes, you will land on the **Active Model** page. Here is what to look at first:
 
 ### Channel Contributions
 
@@ -181,14 +183,14 @@ Congratulations — you have built, interpreted, and optimized your first Bayesi
 | Poor model fit | Review diagnostics and consider adding control variables, adjusting priors, or checking data quality. See [Model Diagnostics](../platform-guide/measurement.md). |
 | Results seem unreasonable | Check your priors and data. Unreasonable results often indicate data issues or overly vague priors. See [Setting Priors](../platform-guide/model-configuration.md). |
 
-For additional help, contact **support@simba-mmm.com**.
+For additional help, contact **info@1749.io**.
 
 ---
 
 ## Related Documentation
 
 - [What is Simba?](what-is-simba.md) — Understand the platform and methodology
-- [Account Setup](account-setup.md) — Plans, workspaces, and team management
+- [Account Setup](account-setup.md) — Plans, projects, and team management
 - [Platform Overview](platform-overview.md) — Navigate the full interface
 - [Data Requirements](../data/data-requirements.md) — Detailed data preparation guide
 - [Bayesian Modeling in Marketing](../core-concepts/bayesian-modeling.md) — The theory behind the engine
