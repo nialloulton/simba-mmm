@@ -64,6 +64,9 @@ The lag order p is user-configured and determines how many past periods the mode
 
 A VAR with k endogenous variables and p lags has k x k x p lag coefficients plus k x m exogenous coefficients. For a modest system of 3 endogenous variables, 5 media channels, and 3 lags, that is already 42 parameters --- often more than a typical marketing dataset (52--104 weeks) can reliably estimate without regularization.
 
+![Why Minnesota priors matter for noisy brand data](./images/var-minnesota-explained.png)
+*Top-left: brand awareness (from surveys) is far noisier than revenue --- small samples, measurement gaps, and survey-to-survey variation. Top-right: without Minnesota priors, this noise produces unstable, oscillating IRFs with wide uncertainty; with Minnesota, the IRF is smooth and actionable. Bottom-left: the three shrinkage principles. Bottom-right: Minnesota priors produce tighter long-run multiplier estimates, turning unreliable ranges into actionable numbers.*
+
 The **Minnesota prior** (originally developed at the Federal Reserve Bank of Minneapolis) provides structured regularization by encoding three intuitive beliefs about time series:
 
 ### 1. Own Persistence
