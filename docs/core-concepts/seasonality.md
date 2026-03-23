@@ -67,65 +67,60 @@ Where **t** is the normalized time variable and **p** is the period (365.25 days
 Each Fourier coefficient has an independent **Normal(0, 10)** prior, where 10 is the default `seasonality_prior_scale`. This weakly informative prior allows the model to learn the seasonal pattern from data without imposing a specific shape.
 
 ![Seasonal components in Simba](./images/seasonality-components.png)
-*Top left: individual Fourier terms (cosine and sine pairs) at different frequencies. Top right: how the number of terms affects the fitted shape --- n=2 captures only broad trends, n=10 (default) can fit sharp holiday spikes. Bottom left: annual and weekly seasonality combined for daily data. Bottom right: event effects are GP-smoothed for realistic temporal spread.*
+*Top left: individual Fourier terms (cosine and sine pairs) at different frequencies. Top right: how the number of terms affects the fitted shape --- n=2 (default) captures broad annual trends, while higher values can fit sharper peaks. Bottom left: annual and weekly seasonality combined for daily data. Bottom right: event effects are GP-smoothed for realistic temporal spread.*
 
 ### Annual Seasonality
 
 Annual seasonality captures patterns that repeat on a yearly cycle. Simba uses:
 
 - **Period:** 365.25 days (accounting for leap years), normalized by the training data span.
-- **Default terms:** n = 10, producing 20 features (10 cosine + 10 sine).
-- **Always enabled** for all data frequencies.
+- **Default terms:** n = 2, producing 4 features (2 cosine + 2 sine).
+- **Opt-in:** Seasonality must be enabled via the checkbox in the model configuration. It is not enabled by default.
+- **Configurable:** The number of Fourier terms can be adjusted from 1 to 25 in the Advanced Options panel.
 
 The number of terms controls the smoothness:
 
-- **Fewer terms (n=2--3)** produce smooth curves that capture broad annual trends (e.g., gradual summer increase).
-- **More terms (n=8--10)** allow the model to fit sharper, more localized effects (e.g., a sharp holiday spike).
-- **Default (n=10)** is calibrated to capture most important seasonal patterns without overfitting.
+- **Fewer terms (n=2, the default)** produce smooth curves that capture broad annual trends (e.g., gradual summer increase, winter decrease). This is a deliberately conservative default that avoids overfitting.
+- **Moderate terms (n=5--6)** capture sharper seasonal patterns like back-to-school and holiday peaks.
+- **More terms (n=8--10)** allow the model to fit very localized effects (e.g., a sharp single-week spike), but risk overfitting to noise.
 
 ### Weekly Seasonality
 
 Weekly seasonality captures day-of-week patterns (e.g., higher sales on weekends). It is **only available for daily data** --- weekly or monthly aggregated data cannot identify within-week patterns.
 
 - **Period:** 7 days, normalized by the training data span.
-- **Terms:** Configurable, typically 3--5.
-- **Combined:** When both annual and weekly seasonality are enabled (daily data), their effects are summed.
+- **Default terms:** n = 3 when enabled (configurable from 1 to 7). Three terms are usually sufficient to capture day-of-week effects.
+- **Opt-in:** Disabled by default. Must be explicitly enabled via a separate checkbox that only appears for daily data.
+- **Combined:** When both annual and weekly seasonality are enabled, their effects are summed.
 
 ---
 
-## Trend Modeling
+## Trend Modeling (Dynamic Baseline)
 
-In addition to seasonality, Simba models long-term trends --- gradual shifts in the baseline that occur over months or years. Three trend types are available:
+In addition to seasonality, Simba can model long-term trends --- gradual shifts in the baseline that occur over months or years. In the UI, this is called **"Include Dynamic Baseline"** and is enabled via a checkbox in the model configuration.
 
-![Three trend types available in Simba](./images/seasonality-trend-types.png)
-*Left: Gaussian Random Walk tracks irregular shifts but can be noisy. Center: HSGP with Matern52 kernel (default) produces smooth, flexible trends. Right: piecewise linear identifies distinct growth phases separated by changepoints.*
+### Opt-In Behavior
 
-### Smooth HSGP Trend (Default)
+Trend is **disabled by default**. When disabled, the model uses a fixed intercept estimated as a TruncatedNormal centered on the dependent variable mean. When enabled, the intercept is set to zero and the trend component absorbs the baseline level.
 
-The default trend type (`smooth_lltrend`) uses a **Hilbert Space Gaussian Process** with a Matern52 kernel. It produces smooth, flexible trend curves that can capture gradual growth, plateaus, and gentle reversals without overfitting to noise.
+### Smooth HSGP Trend
+
+When trend is enabled, Simba uses a **Hilbert Space Gaussian Process** with a Matern52 kernel (`smooth_lltrend`). This is the only trend type available through the UI. It produces smooth, flexible trend curves that can capture gradual growth, plateaus, and gentle reversals without overfitting to noise.
+
+![Trend modeling with HSGP](./images/seasonality-trend-types.png)
+*The smooth HSGP trend (center) is the approach used in the UI. It captures gradual baseline shifts without overfitting. The other trend types (Gaussian Random Walk and piecewise linear) exist in the backend but are not exposed in the UI.*
 
 Key features:
 - Includes a learned mean function with optional weak linear trend component.
 - Uses sigmoid scaling with a learned baseline share parameter (kappa = 4.0).
 - Estimates the empirical slope from data to inform the trend direction.
 
-This is the recommended trend type for most use cases.
+### Other Trend Types (Backend Only)
 
-### Gaussian Random Walk Trend
+The backend supports two additional trend types that are not currently exposed in the UI:
 
-The `lltrend` type models the baseline as a **Gaussian Random Walk** passed through a softplus (log1pexp) transformation to ensure positivity. It is more flexible than the HSGP trend but can also be noisier, potentially absorbing patterns that should be attributed to media or seasonality.
-
-### Piecewise Linear Trend (Changepoint)
-
-The `changepoint` type fits a **piecewise linear trend** with Laplace-distributed changepoint magnitudes (similar to Prophet's approach). It models the trend as a series of linear segments connected at changepoints.
-
-- **Default changepoints:** 8, spread across the first 80% of the data.
-- **Changepoint prior scale:** 0.05 (Laplace), encouraging sparse changes.
-- Best suited when you expect distinct growth phases or structural breaks.
-
-### When Trend Is Enabled
-
-When trend is enabled, the intercept is set to zero (the trend component absorbs the baseline level). When trend is disabled, the intercept is estimated as a TruncatedNormal centered on the dependent variable mean.
+- **Gaussian Random Walk (`lltrend`):** Models the baseline as a random walk passed through a softplus transformation. More flexible but noisier.
+- **Piecewise Linear (`changepoint`):** Fits a piecewise linear trend with Laplace-distributed changepoint magnitudes (8 changepoints across the first 80% of data). Best for distinct growth phases.
 
 ---
 
@@ -162,10 +157,10 @@ Simba automatically detects the frequency of your data by analyzing the gaps bet
 
 | Detected Periodicity | Typical Gap | Annual Seasonality | Weekly Seasonality |
 |---|---|---|---|
-| **Daily** | ~1 day | Yes (n=10) | Yes (configurable) |
-| **Weekly** | ~7 days | Yes (n=10) | No |
-| **Monthly** | ~30 days | Yes (n=10) | No |
-| **Irregular** | Variable | Yes (n=10) | No |
+| **Daily** | ~1 day | Yes (default n=2) | Available (default n=3, opt-in) |
+| **Weekly** | ~7 days | Yes (default n=2) | No |
+| **Monthly** | ~30 days | Yes (default n=2) | No |
+| **Irregular** | Variable | Yes (default n=2) | No |
 
 Periodicity also affects default effect periods for media channels (45 for daily, 6 for weekly, 2 for monthly) and event smoothing kernel parameters.
 
@@ -173,23 +168,24 @@ Periodicity also affects default effect periods for media channels (45 for daily
 
 ## Automatic vs. Manual Seasonality Configuration
 
-### Automatic Handling
+### Default Behavior
 
-For most users, Simba's default seasonality configuration is sufficient. The platform automatically:
+Both seasonality and trend are **opt-in features** --- they are disabled by default in the UI and must be explicitly enabled via checkboxes. When enabled with default settings, the platform:
 
 1. Detects the frequency of your data (daily, weekly, monthly, or irregular).
-2. Selects 10 Fourier terms for annual seasonality (and weekly seasonality for daily data).
+2. Uses 2 Fourier terms for annual seasonality (conservative default that captures broad annual patterns).
 3. Fits the seasonal component jointly with channel effects, [saturation](./saturation-curves.md), and [adstock](./adstock-effects.md).
-4. Uses the default smooth HSGP trend.
+4. Uses the smooth HSGP trend if the dynamic baseline checkbox is also enabled.
 
 ### Manual Adjustments
 
-Power users can adjust seasonality settings when needed:
+These settings are available in the Advanced Options panel:
 
-- **Number of Fourier terms.** If the fitted seasonal pattern is too smooth (missing known peaks) or too jagged (fitting noise), you can increase or decrease the number of terms.
+- **Number of Fourier terms (annual).** Adjustable from 1 to 25. If the fitted seasonal pattern is too smooth (missing known peaks), increase the number of terms. Default is 2.
+- **Weekly seasonality.** For daily data only. Enable via checkbox, then configure the number of terms (default 3, range 1--7).
 - **Event indicators.** Add specific dates for holidays or events that are important to your business, using the country-based holiday selector or custom date entry.
-- **Trend type.** Switch between smooth HSGP (default), Gaussian Random Walk, or piecewise linear depending on the nature of your baseline dynamics.
 - **Seasonality prior scale.** Adjust the prior standard deviation (default 10) to control how much the seasonal component can vary. Smaller values produce more conservative seasonal patterns.
+- **Dynamic baseline (trend).** Enable via checkbox to model long-term baseline shifts using the smooth HSGP approach.
 
 ---
 
@@ -215,11 +211,12 @@ The seasonal component works together with the trend and intercept to define the
 
 - Seasonal effects are recurring, time-based patterns in demand that exist independently of marketing activity.
 - Failing to model seasonality leads to inflated channel contributions during peak seasons and underestimated contributions during off-peak periods.
-- Simba uses **Fourier-based seasonality** with default n=10 terms (20 features) and Normal(0, 10) priors to flexibly capture annual patterns. Weekly seasonality is available for daily data only.
-- **Three trend types** are available: smooth HSGP (default, recommended), Gaussian Random Walk, and piecewise linear with changepoints.
+- Simba uses **Fourier-based seasonality** with default n=2 terms (4 features) and Normal(0, 10) priors. Configurable up to 25 terms. Weekly seasonality (default n=3) is available for daily data only.
+- Both seasonality and trend are **opt-in** --- disabled by default, enabled via checkboxes in the UI.
+- **Trend** uses smooth HSGP (Matern52 kernel) when enabled. Other trend types exist in the backend but are not exposed in the UI.
 - **Event effects** are modeled as GP-smoothed one-hot indicators with hierarchical Normal weights, not simple binary dummies.
 - The model equation is fully additive: outcome = intercept + trend + seasonality + media + controls + events + noise.
-- Automatic configuration works well for most use cases. Manual adjustments are available for the number of Fourier terms, trend type, event dates, and seasonality prior scale.
+- Manual adjustments are available for the number of Fourier terms, weekly seasonality, event dates, seasonality prior scale, and dynamic baseline.
 
 ---
 
