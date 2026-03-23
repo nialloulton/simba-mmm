@@ -20,19 +20,9 @@ Simba meters the following actions:
 
 ---
 
-## Limits by Tier
+## Limits
 
-| Resource | Trial | Analyst | Pro | Scale |
-|----------|-------|---------|-----|-------|
-| Saved models | 10 | 1 | 5 | 10 |
-| Model fits/period | 10 | 1 | 5 | Unlimited |
-| Optimizations/period | 10 | 6 | 8 | Unlimited |
-| Scenarios/period | 10 | 6 | 8 | Unlimited |
-| Refits/period | 0 | 1 | 5 | Unlimited |
-| VAR models | Yes | No | Yes | Yes |
-| Portfolios | 0 | 0 | 1 | 2 |
-
-Enterprise and Managed tiers have unlimited usage across all categories.
+Usage limits vary by plan. Enterprise and Managed plans have full access across all features. The free trial provides generous limits for evaluation. Self-service tiers with specific usage limits are coming soon --- see [Pricing](../pricing/README.md) for updates.
 
 ---
 

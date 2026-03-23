@@ -122,7 +122,7 @@ Data is stored in secure AWS infrastructure with per-customer isolation. Enterpr
 
 ### What plans are available?
 
-Simba offers four tiers: **Sandbox** (free trial), **Analyst** (solo modelers), **Pro** (higher throughput), **Scale** (agencies), **Enterprise** (custom security and unlimited scale), and **SIMBA Managed** (done-for-you modeling by PhD statisticians).
+Simba currently offers **Enterprise** (full platform with dedicated support) and **Managed** (done-for-you modeling by PhD statisticians). Self-service tiers for individual analysts and smaller teams are coming soon.
 
 → [Pricing & Plans](../pricing/README.md)
 

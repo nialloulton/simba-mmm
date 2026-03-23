@@ -222,14 +222,9 @@ Prior predictive checking is especially valuable for VAR because:
 
 ---
 
-## Tier Availability
+## Availability
 
-| Tier | VAR Available |
-|---|---|
-| Trial | Yes |
-| Analyst | No |
-| Pro | Yes |
-| Scale | Yes |
+VAR modeling is included in the free trial and in Enterprise and Managed plans. For details, see [Pricing](../pricing/README.md).
 
 ---
 
