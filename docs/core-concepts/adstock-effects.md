@@ -30,6 +30,9 @@ Where **decay_rate** (often denoted as lambda) is a value between 0 and 1 that c
 - **Decay rate close to 0** --- The effect fades almost immediately. Nearly all impact occurs in the same week as the spend.
 - **Decay rate close to 1** --- The effect persists for a long time. Spend in Week 1 still has meaningful influence many weeks later.
 
+![Geometric decay curves at different rates](./images/geometric-decay-curves.png)
+*How different decay rates affect the persistence of advertising impact. Higher decay rates mean longer-lasting effects.*
+
 ### Half-Life
 
 A more intuitive way to think about decay is through the **half-life** --- the number of periods it takes for the carryover effect to drop to 50% of its initial value. For geometric decay:
@@ -85,6 +88,8 @@ Email campaigns have **very short decay** --- the effect is concentrated in the 
 | Radio | 1--3 weeks | Moderate |
 | Print | 1--2 weeks | Moderate |
 
+![Typical adstock half-life by channel type](./images/channel-decay-profiles.png)
+
 These are general guidelines. Your specific results will depend on your brand, creative, audience, and market conditions.
 
 ---
@@ -123,6 +128,9 @@ Adstock and [saturation](./saturation-curves.md) are applied sequentially in Sim
 
 1. **Adstock first**: Raw weekly spend is spread across multiple weeks using the decay function.
 2. **Saturation second**: The adstocked (time-distributed) spend is passed through the saturation function to model diminishing returns.
+
+![The adstock to saturation pipeline](./images/adstock-saturation-pipeline.png)
+*Raw spend is first smoothed by adstock carryover, then passed through the tanh saturation function to model diminishing returns.*
 
 This ordering matters. Heavy spend concentrated in a single week would hit the saturation ceiling hard if saturation were applied first. By distributing the spend across weeks via adstock before applying saturation, the model captures the reality that carryover effectively smooths out spend spikes, which can increase total channel effectiveness.
 
@@ -186,6 +194,9 @@ Models a delayed peak effect --- the maximum impact does not occur immediately b
 - **Peak timing**: Delayed by one or more periods. The **theta** parameter controls how many periods after spend the peak effect occurs.
 - **Decay shape**: Bell-shaped. The effect ramps up, peaks at theta, then decays. The **alpha** parameter controls how quickly the effect fades after the peak.
 - **Best for**: Channels where the impact takes time to materialize: brand-building TV campaigns (awareness builds over repeated exposures before driving action), sponsorships, content marketing, and PR where the purchase decision has a natural lag.
+
+![Geometric vs delayed adstock comparison](./images/geometric-vs-delayed.png)
+*Geometric adstock peaks immediately and decays; delayed adstock builds to a peak before decaying.*
 
 ### Choosing the Right Adstock Type
 
