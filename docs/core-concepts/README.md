@@ -24,7 +24,9 @@ How advertising impact carries over time, why different channels have different 
 ### [Priors and Distributions](./priors-and-distributions.md)
 A practical guide to Bayesian priors in Simba, including the distribution types available (InverseGamma, TruncatedNormal, and more), smart defaults, and when to bring your own domain expertise.
 
-### [VAR Modeling](./var-modeling.md)What Vector AutoRegression (VAR) is, how it differs from standard MMM, and when to use it for understanding inter-channel dynamics and system-level marketing effects.### [Halo Effects](./halo-effects.md)How advertising for one brand can lift sales of related brands in a portfolio, and how Simba models cross-brand marketing impact through halo channels and trademark channels.
+### [VAR Modeling](./var-modeling.md) 
+What Vector AutoRegression (VAR) is, how it differs from standard MMM, and when to use it for understanding inter-channel dynamics and system-level marketing effects.### [Halo Effects](./halo-effects.md)How advertising for one brand can lift sales of related brands in a portfolio, and how Simba models cross-brand marketing impact through halo channels and trademark channels.
+
 ### [Seasonality](./seasonality.md)
 How seasonal patterns influence marketing measurement and how Simba accounts for holidays, cyclical demand, and time-based trends automatically.
 
