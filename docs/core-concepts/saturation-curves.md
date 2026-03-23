@@ -19,53 +19,75 @@ Ignoring diminishing returns leads to dramatically wrong conclusions. A linear m
 
 ---
 
-## Linear vs. Saturation Functions
+## The tanh Saturation Function
 
-### The Linear (Wrong) Assumption
+Simba uses the **hyperbolic tangent (tanh)** saturation function to model diminishing returns. The function takes the adstocked spend for a channel and maps it to a value between 0 and 1, representing the fraction of maximum possible effect.
 
-A linear model assumes that the relationship between spend and outcome is a straight line: every additional dollar produces the same incremental effect. This is the default in simple regression models and is almost never true for marketing data.
+### The Formula
 
-### The Saturation (Correct) Approach
+The exact formula implemented in Simba is:
 
-A saturation function maps raw spend to an "effective" spend value that accounts for diminishing returns. The function starts steep (low spend, high marginal return) and flattens as spend increases (high spend, low marginal return).
+> **effective_spend = tanh( x / (scalar x alpha) )**
 
-Simba uses the **hyperbolic tangent (tanh)** saturation function, which has the form:
+Where:
 
-> effective_spend = tanh(spend / scale)
+- **x** is the adstocked spend (after carryover effects have been applied --- see [Adstock Effects](./adstock-effects.md)).
+- **scalar** is the saturation scale parameter, set to the **maximum observed activity** for the channel in your data. It anchors the curve to your data's scale.
+- **alpha** is the saturation shape parameter, which controls how quickly the curve bends. It follows a **Gamma prior with a fixed mean of 1.7** and a standard deviation (alpha_sd) that varies by channel.
 
-Where **scale** is a parameter that controls how quickly the curve saturates. The tanh function has several desirable properties:
+The product `scalar x alpha` acts as the effective half-saturation point --- the spend level at which the tanh function reaches approximately 0.76 (tanh(1) = 0.76). Smaller values of this product mean the channel saturates faster; larger values mean it can absorb more spend before flattening.
 
-- It starts at zero when spend is zero.
-- It rises steeply for small values of spend relative to the scale parameter.
-- It approaches an asymptote (maximum effect) as spend increases.
-- It is smooth and differentiable everywhere, which is important for stable model fitting and optimization.
+![The tanh saturation function](./images/saturation-function-shapes.png)
+*Left: varying alpha with a fixed scalar shows how the shape parameter controls curvature. Center: varying scalar shifts the curve along the spend axis. Right: the tanh curve versus a linear assumption --- the shaded area represents overstated effect from ignoring diminishing returns.*
+
+### Numerical Stability
+
+The implementation includes two safeguards for numerical stability:
+
+- A small epsilon (1e-9) is added to the denominator to prevent division by zero.
+- The argument to tanh is clipped to the range [-20, 20] before evaluation, preventing floating-point overflow.
+
+These are implementation details that do not affect the mathematical interpretation of the curve.
 
 ---
 
-## How Saturation Parameters Work in Simba
+## The Two Saturation Parameters
 
-The saturation function in Simba is controlled by parameters that determine the **shape** of the diminishing returns curve for each channel. The key concept is the **scale** parameter (sometimes called the half-saturation point):
+Unlike simpler formulations that use a single "scale" parameter, Simba's tanh function uses two distinct parameters that serve complementary roles.
 
-- **Small scale value** --- The channel saturates quickly. Even moderate spend levels are close to the maximum possible effect. This is typical of niche channels with small target audiences.
-- **Large scale value** --- The channel can absorb more spend before diminishing returns become severe. This is typical of broad-reach channels like TV or large digital platforms.
+### Scalar (Scale)
 
-### Channel-Specific Saturation
+The **scalar** parameter anchors the saturation curve to the scale of your data. During model fitting, it is set to the **maximum observed value** for each channel. This means:
 
-Different channels saturate at different rates. For example:
+- A channel with a maximum weekly spend of $100K will have scalar = 100,000.
+- A channel with a maximum weekly spend of $5K will have scalar = 5,000.
 
-- **Paid search (brand terms)** typically saturates quickly because the audience searching for your brand name is finite and the first few positions capture most clicks.
-- **Video (YouTube, CTV)** may have a larger saturation point because the available audience is vast and frequency can build over time before fatigue sets in.
-- **Out-of-home (OOH)** can have a gradual saturation curve because coverage increases with more placements across a metro area.
+The scalar is **not estimated** by the model --- it is fixed from your data. In the UI, the "Saturation" column in the prior table displays this value, and you can adjust it if you have reason to believe the channel's potential range extends beyond the historical maximum (for example, if you plan to significantly increase spend).
 
-Simba estimates saturation parameters from your data, but you can also set informative priors based on domain knowledge. If you know from experience that a channel saturates quickly, you can encode that expectation. See [Priors and Distributions](./priors-and-distributions.md).
+### Alpha (Shape)
+
+The **alpha** parameter controls the curvature of the saturation function. It determines how quickly the channel transitions from the efficient (steep) region to the saturated (flat) region:
+
+- **Smaller alpha** (e.g., 0.8--1.2) --- The channel saturates quickly. Even moderate spend levels are near maximum effect. Typical of niche channels with small target audiences.
+- **Larger alpha** (e.g., 2.0--4.0) --- The channel can absorb more spend before diminishing returns become severe. Typical of broad-reach channels like TV or large digital platforms.
+
+Alpha is **estimated by the model** using a Gamma prior:
+
+- **Prior mean:** Fixed at **1.7** across all channels.
+- **Prior standard deviation (alpha_sd):** Varies by channel based on smart prior calculations. You can adjust this in the UI's "Diminishing Return" (or "alpha_sd") column.
+
+A wider alpha_sd gives the model more freedom to learn the saturation shape from data. A narrow alpha_sd constrains the model to stay close to the prior mean of 1.7.
 
 ---
 
 ## Interpreting Saturation Curves
 
-Simba visualizes the fitted saturation curve for each channel, showing the relationship between spend and modeled effect. Here is how to read these curves:
+Simba visualizes the fitted saturation curve for each channel, showing the relationship between spend and modeled effect.
 
-### The Steep Region (Low Spend)
+![Saturation zones and marginal returns](./images/saturation-marginal-returns.png)
+*Left: the saturation curve with three spend zones highlighted. Right: the marginal return curve (the derivative of the saturation function) shows the incremental effect of each additional dollar.*
+
+### The Efficient Zone (Low Spend)
 
 The initial steep portion of the curve represents the range where your spend is most efficient. Each additional dollar generates a large incremental effect. If your current spend for a channel falls in this region, there may be opportunity to increase investment profitably.
 
@@ -73,63 +95,103 @@ The initial steep portion of the curve represents the range where your spend is 
 
 The middle portion of the curve is where diminishing returns begin to take hold. Spend is still productive but less efficient than at lower levels. Many well-optimized channels operate in this zone.
 
-### The Flat Region (High Spend)
+### The Saturated Zone (High Spend)
 
 When the curve flattens, additional spend produces very little incremental effect. If a channel's current spend falls in this region, the model is suggesting that the budget would generate more return if reallocated to a less-saturated channel.
 
 ### Marginal Return Curves
 
-In addition to the saturation curve itself, Simba can display the **marginal return curve** --- the derivative of the saturation function, showing the incremental effect of one additional dollar at each spend level. This is directly useful for budget optimization: you want to allocate budget such that the marginal return is equalized across all channels.
+The **marginal return curve** --- the derivative of the saturation function --- shows the incremental effect of one additional dollar at each spend level. This is directly used by Simba's optimizer: it allocates budget such that the marginal return per dollar is equalized across all channels, maximizing total incremental outcome for a given budget.
+
+---
+
+## Channel-Specific Saturation
+
+Different channels saturate at different rates because they have different audience sizes, frequency dynamics, and competitive environments.
+
+![Channel-specific saturation profiles](./images/saturation-channel-profiles.png)
+*Illustrative saturation profiles for four channel types. Brand search saturates quickly (small scalar, low alpha) while TV has a long runway before diminishing returns (large scalar, high alpha).*
+
+Typical patterns:
+
+- **Paid search (brand terms)** saturates quickly because the audience searching for your brand name is finite and the first few positions capture most clicks.
+- **Paid social** has moderate saturation, with creative fatigue and frequency caps limiting reach at higher spend levels.
+- **Video (YouTube, CTV)** may have a larger saturation point because the available audience is vast and frequency can build over time before fatigue sets in.
+- **TV** often has the largest saturation point because of its massive reach potential, though this varies significantly by market and category.
+
+Simba estimates the saturation parameters from your data, with alpha_sd controlling how much freedom the model has to deviate from the prior mean of 1.7. If you have domain knowledge about a channel's saturation behavior, you can adjust the scalar and alpha_sd in the prior table. See [Priors and Distributions](./priors-and-distributions.md).
+
+---
+
+## The Transformation Pipeline: Adstock Then Saturation
+
+A critical aspect of Simba's model is the **order of operations**. For each media channel, the transformation pipeline is:
+
+1. **Adstock (carryover)** is applied first, spreading each period's spend across subsequent periods according to the channel's decay rate.
+2. **Saturation (diminishing returns)** is applied to the adstocked values, mapping them to the 0--1 range via the tanh function.
+3. The saturated values are multiplied by the channel **coefficient** to produce the channel's contribution to the outcome.
+
+![The adstock-then-saturation pipeline](./images/saturation-pipeline.png)
+*Left: raw weekly spend shows concentrated bursts. Center: after geometric adstock (decay=0.6), spend is smoothed across weeks. Right: after tanh saturation, the peaks are compressed --- high-spend weeks produce less incremental effect per dollar than low-spend weeks.*
+
+This ordering matters because adstock smooths out spend spikes before saturation is applied. A heavy spend week is partially spread over subsequent weeks, which moderates the apparent diminishing returns. If saturation were applied first, the heavy spend week would be aggressively capped, and the subsequent carryover would be much smaller.
 
 ---
 
 ## Configuring Saturation in Model Setup
 
-When setting up a model in Simba, you configure saturation as part of the channel specification. The platform offers two approaches:
+When setting up a model in Simba, you configure saturation as part of the channel prior specification.
 
 ### Smart Defaults
 
-For most channels, Simba's smart defaults provide reasonable saturation priors based on the scale of your data. The model will estimate the saturation parameters from the data, with the priors providing gentle regularization to prevent extreme values.
+Simba's smart priors automatically calculate saturation parameters for each channel:
+
+- **Scalar** is pre-populated with the **average** non-zero activity level for the channel in the UI (the backend will use the channel's maximum value during model fitting).
+- **Alpha_sd** (labeled "Diminishing Return" in the prior table) is calculated based on a scale factor (starting from 1.7, adjusted for cost share and spend variability) multiplied by 0.15, with an activation frequency penalty for sparse channels. It is capped at `scale x 0.25`.
 
 ### Manual Prior Configuration
 
-If you have strong domain knowledge about a channel's saturation behavior, you can adjust the prior on the scale parameter. For example:
+If you have strong domain knowledge about a channel's saturation behavior, you can adjust:
 
-- If you know from past analysis that a channel saturates quickly, set a prior with a smaller mean for the scale parameter.
-- If you believe a channel can absorb significantly more spend before saturating, widen the prior or increase the mean.
+| UI Field | Parameter | Effect |
+|---|---|---|
+| **Saturation** | scalar | Shifts the curve along the spend axis. Increase if you expect to scale spend well beyond historical levels. |
+| **Diminishing Return / alpha_sd** | alpha_sd | Controls how much the model can deviate from the alpha mean of 1.7. Wider values give the model more freedom. |
 
-Simba's UI lets you visualize the implied prior saturation curve before fitting the model, so you can confirm that your prior expectations are reasonable.
+### Coefficient Adjustment for Saturation
 
-### Interaction with Adstock
-
-Saturation and [adstock](./adstock-effects.md) work together in Simba's model. The order of operations matters: typically, adstock (carryover) is applied first, spreading a week's spend across multiple weeks, and then saturation is applied to the adstocked values. This means that a heavy spend week is partially spread out over subsequent weeks before the saturation function is applied, which can moderate the apparent diminishing returns.
+An important detail of smart prior calculation: channel coefficient priors are **pre-adjusted for expected saturation**. Specifically, the coefficient mean is divided by `tanh(avg_spend / (max_spend x scale))`. This means the coefficient reflects the linear-equivalent effect at historical spend levels, so the posterior coefficient is interpretable as the effect per unit of saturated media.
 
 ---
 
 ## Why Saturation Matters for Optimization
 
-Saturation curves are the single most important input to budget optimization. Without them, an optimizer would simply recommend putting all budget into the channel with the highest average ROAS --- which ignores the fact that ROAS declines as spend increases.
+Saturation curves are the single most important input to [budget optimization](../platform-guide/budget-optimization.md). Without them, an optimizer would simply recommend putting all budget into the channel with the highest average ROAS --- which ignores the fact that ROAS declines as spend increases.
 
-With saturation curves, Simba's optimizer can:
+Simba's optimizer evaluates the full response curve (adstock + saturation + coefficient) across **all posterior samples** to account for parameter uncertainty. It can:
 
 1. Identify channels that are **under-saturated** (spending in the steep part of the curve) and recommend increasing investment.
 2. Identify channels that are **over-saturated** (spending in the flat part of the curve) and recommend shifting budget elsewhere.
 3. Find the **optimal allocation** where the marginal return per dollar is equalized across all channels, maximizing total incremental outcome for a given budget.
+
+The optimizer uses the exact same tanh function and posterior parameter samples as the fitted model, so the response curves used for optimization are fully consistent with the model's estimates.
 
 ---
 
 ## Key Takeaways
 
 - Diminishing returns are a universal feature of marketing spend. Linear models ignore this and produce misleading results.
-- Simba uses the tanh saturation function to model how channel effectiveness decreases as spend increases.
-- Each channel has its own saturation parameters, reflecting its unique audience size, frequency dynamics, and competitive environment.
-- Saturation curves are directly interpretable: the steep region indicates efficient spend, the flat region indicates waste.
-- Saturation is the foundation of budget optimization --- it tells the optimizer where the next dollar will generate the most return.
+- Simba uses the **tanh saturation function**: `tanh(x / (scalar x alpha))`, where scalar anchors to data scale and alpha controls curvature.
+- **Alpha** follows a Gamma prior with a fixed mean of **1.7** and channel-specific standard deviation (alpha_sd).
+- **Scalar** is fixed from data (max observed activity per channel), not estimated.
+- Adstock is applied **before** saturation --- this order smooths spend spikes before diminishing returns are applied.
+- The **marginal return curve** (derivative of saturation) is what the optimizer uses to equalize returns across channels.
+- Saturation curves are fully interpretable: the steep region indicates efficient spend, the flat region indicates waste.
 
 ---
 
 ## Next Steps
 
-- [Adstock Effects](./adstock-effects.md) --- Understand how saturation interacts with carryover dynamics.
-- [Priors and Distributions](./priors-and-distributions.md) --- Learn how to set priors on saturation parameters.
+- [Adstock Effects](./adstock-effects.md) --- Understand how carryover is applied before saturation.
+- [Priors and Distributions](./priors-and-distributions.md) --- Learn how to configure alpha_sd and other saturation priors.
 - [Incrementality](./incrementality.md) --- See how saturation feeds into incremental contribution estimates.
