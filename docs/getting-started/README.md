@@ -1,44 +1,40 @@
 # Getting Started with Simba
 
-Welcome to Simba, the Bayesian Marketing Mix Modeling platform built on [PyMC-Marketing](../core-concepts/bayesian-modeling.md) by [PyMC Labs](https://www.pymc-labs.com/). Whether you are a brand marketer looking for clear ROI answers, an agency managing multiple clients, or a data team seeking transparent statistical models, this section will guide you from sign-up to your first optimized budget recommendation.
-
-Simba replaces black-box attribution tools with a glass-box approach: every assumption is visible, every prior is configurable, and every result comes with uncertainty intervals you can trust. No code required.
+Simba is a fully transparent Bayesian Marketing Mix Modeling platform. Every assumption is visible, every prior is configurable, and every result comes with calibrated uncertainty intervals. No code required.
 
 ---
 
 ## In This Section
 
-### [What is Simba?](what-is-simba.md)
-Learn what Simba does, who it is built for, how it differs from traditional marketing mix modeling tools, and why Bayesian inference matters for marketing measurement.
-
-### [Quick Start Guide](quick-start-guide.md)
-A step-by-step walkthrough that takes you from signing up to running your first model and interpreting the results. The fastest path to actionable marketing insights.
-
-### [Account Setup](account-setup.md)
-Everything you need to know about registration, choosing the right plan, configuring your workspace, and inviting your team.
-
-### [Platform Overview](platform-overview.md)
-A guided tour of the Simba interface covering the four-step workflow, dashboard, model management, and where to find every key feature.
+| Guide | Description |
+|---|---|
+| [What is Simba?](./what-is-simba.md) | What Simba does, who it is for, and how it differs from traditional MMM tools |
+| [Quick Start Guide](./quick-start-guide.md) | Step-by-step from sign-up to your first optimized budget recommendation |
+| [Account Setup](./account-setup.md) | Registration, plans (Enterprise and Managed), and project configuration |
+| [Platform Overview](./platform-overview.md) | Navigating the interface --- every tab, wizard step, and feature location |
 
 ---
 
-## The Simba Workflow at a Glance
+## The Simba Platform
 
-Simba organizes your entire marketing measurement journey into four stages:
+![The Simba platform](./images/simba-platform-workflow.png)
 
-1. **Audit** — The AI Data Auditor validates your data, flags issues, and confirms readiness.
-2. **Measure** — Incremental Measurement builds your Bayesian marketing mix model and quantifies channel contributions.
-3. **Predict** — Scenario Planning lets you simulate future budget allocations and forecast outcomes.
-4. **Optimize** — Budget Intelligence recommends the optimal spend mix to maximize your KPI.
+Simba is organized around four main areas:
+
+1. **Model Warehouse** --- Upload your data, run the Data Validator, configure your model through a 5-step wizard, and manage saved models and portfolios.
+2. **Active Model** --- Analyze your fitted model: channel contributions, response curves, ROAS, coefficient posteriors with 94% HDI, and diagnostics.
+3. **Optimization** --- Find the optimal budget allocation across channels, with risk-adjusted recommendations using the full posterior distribution.
+4. **Scenario Planner** --- Simulate "what-if" budget scenarios and forecast their revenue impact.
 
 ---
 
 ## Need Help?
 
-- Browse the [Core Concepts](../core-concepts/) section for deeper theory and methodology.
-- Check the [Data Preparation](../data-preparation/) guides before uploading your first dataset.
-- Contact support at **support@simba-mmm.com** for any questions.
+- [Core Concepts](../core-concepts/) --- Bayesian methodology, saturation, adstock, priors, and more
+- [Data Guide](../data/) --- Data requirements, preparation, and validation
+- [FAQ](../faq/) --- Common questions answered
+- Contact **info@1749.io** or [book a call](https://calendly.com/niall-oulton)
 
 ---
 
-**Next step:** Start with [What is Simba?](what-is-simba.md) to understand the platform, or jump straight to the [Quick Start Guide](quick-start-guide.md) if you are ready to build your first model.
+**Next step:** [What is Simba?](./what-is-simba.md) to understand the platform, or [Quick Start Guide](./quick-start-guide.md) to build your first model.
