@@ -60,13 +60,13 @@ Non-marketing factors that influence your target variable:
 - **Economic indicators** --- Consumer confidence, unemployment, GDP
 - **Weather** --- Temperature, precipitation (for weather-sensitive products)
 
-### 4. Multiplier Variables (Optional)
+### 4. Multiplier Variable
 
-If your target variable is units or volume rather than revenue, you can include a **multiplier variable** (e.g., average price) that Simba uses to construct revenue. Recognized keywords: price, avg_price, multiplier, conversion.
+If your target variable is units or volume rather than revenue, you need a **multiplier variable** (e.g., average price) so Simba can construct revenue. This is required when your KPI is not already in revenue terms. Recognized keywords: price, avg_price, multiplier, conversion.
 
-### 5. Hierarchy Columns (Optional)
+### 5. Hierarchy Column
 
-For portfolio modeling across brands, regions, or segments, you can include hierarchy columns. Recognized keywords: brand, market, region, category, segment, geography.
+For portfolio modeling across brands, regions, or segments, you need a **hierarchy column** that identifies which entity each row belongs to. This is required for multi-brand or multi-region models. Recognized keywords: brand, market, region, category, segment, geography.
 
 ---
 
