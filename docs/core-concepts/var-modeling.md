@@ -1,6 +1,6 @@
 # VAR Modeling --- Bayesian Vector AutoRegression for Marketing
 
-Vector AutoRegression (VAR) is a multi-equation time series model that captures dynamic interactions between marketing channels. While standard MMM models a single target variable (revenue) as a function of marketing inputs, VAR models the entire system --- every variable predicts and is predicted by every other variable over time.
+Vector AutoRegression (VAR) is a multi-equation time series model that captures dynamic interactions between business outcomes and brand metrics. While standard MMM models a single target variable (revenue) as a function of marketing inputs, VAR models a system of interacting variables --- revenue, brand awareness, brand search, and other brand equity metrics --- while treating media spend as exogenous inputs.
 
 Simba implements a **Bayesian VAR** using PyMC, with Minnesota prior shrinkage, configurable priors, and full posterior inference.
 
@@ -12,17 +12,19 @@ In a standard MMM, the model estimates one equation:
 
 > Revenue = f(TV, Search, Social, Controls, ...)
 
-VAR replaces this with a system of simultaneous equations where each variable is modeled as a function of its own lagged values and the lagged values of all other variables:
+VAR models a system of **endogenous variables** (business outcomes and brand metrics that influence each other) driven by **exogenous inputs** (media spend that you control):
 
-> Revenue(t) = f(Revenue(t-1), TV(t-1), Search(t-1), Social(t-1), ...)
-> TV(t) = f(Revenue(t-1), TV(t-1), Search(t-1), Social(t-1), ...)
-> Search(t) = f(Revenue(t-1), TV(t-1), Search(t-1), Social(t-1), ...)
-> Social(t) = f(Revenue(t-1), TV(t-1), Search(t-1), Social(t-1), ...)
+> Revenue(t) = f(Revenue(t-1), Awareness(t-1), BrandSearch(t-1), ...) + g(TV_spend, Social_spend, ...)
+> Awareness(t) = f(Revenue(t-1), Awareness(t-1), BrandSearch(t-1), ...) + g(TV_spend, Social_spend, ...)
+> BrandSearch(t) = f(Revenue(t-1), Awareness(t-1), BrandSearch(t-1), ...) + g(TV_spend, Social_spend, ...)
 
-This captures **feedback loops and inter-channel dynamics** that a single-equation model cannot.
+The endogenous variables interact through **feedback loops** (e.g., brand awareness drives brand search, which drives revenue, which funds more media). Media spend enters as exogenous inputs --- it affects the system but is not predicted by it.
+
+![VAR structure: exogenous inputs and endogenous system](./images/var-exog-endog-structure.png)
+*Media spend (TV, social, display, YouTube) enters as exogenous one-way inputs. Revenue, brand awareness, and brand search form the endogenous system with feedback loops between them.*
 
 ![Standard MMM vs Bayesian VAR](./images/var-mmm-comparison.png)
-*Left: standard MMM uses one-way arrows from channels to revenue. Right: Bayesian VAR models bidirectional relationships --- every variable predicts every other, capturing cross-channel dynamics and feedback loops.*
+*Left: standard MMM uses one-way arrows from channels to revenue. Right: Bayesian VAR models the interacting system of business outcomes and brand metrics.*
 
 ---
 
@@ -30,9 +32,9 @@ This captures **feedback loops and inter-channel dynamics** that a single-equati
 
 VAR is most valuable when:
 
-- **Channels influence each other.** TV campaigns drive branded search volume. Social media engagement boosts organic traffic. If your marketing ecosystem has these cross-channel dynamics, VAR captures them explicitly.
-- **You want to understand the system.** VAR answers questions like "If I shock TV spend, what happens to search volume three weeks later?" --- questions that standard MMM cannot address.
-- **You suspect feedback effects.** Revenue growth may lead to increased marketing budgets, which in turn drives more revenue. VAR models these bidirectional relationships.
+- **You have brand equity metrics.** Brand awareness surveys, brand search volume, consideration scores, or NPS data alongside revenue. VAR captures how these metrics interact and how media drives them.
+- **You want to understand the system.** VAR answers questions like "If I increase TV spend, what happens to brand awareness, then brand search, then revenue over the next 12 weeks?" --- questions that standard MMM cannot address.
+- **You want long-term effects.** Standard MMM captures direct short-term media effects. VAR captures the full chain: media → brand awareness → brand search → revenue, revealing the total long-term multiplier on each channel.
 
 Standard MMM is better when:
 
@@ -52,27 +54,60 @@ Simba's VAR is a fully Bayesian model fitted with PyMC using NUTS (No U-Turn Sam
 
 Where:
 
-- **Y(t)** is the k-dimensional vector of endogenous variables (log-transformed via log1p).
+- **Y(t)** is the k-dimensional vector of endogenous variables --- revenue, brand awareness, brand search, and other brand equity metrics (log-transformed via log1p).
 - **alpha** is the intercept vector.
-- **A1, ..., Ap** are lag coefficient matrices (p = number of lags, user-configured).
-- **X(t)** is the vector of exogenous variables (media spend, optional).
-- **beta** is the exogenous coefficient matrix.
+- **A1, ..., Ap** are lag coefficient matrices capturing how endogenous variables predict each other (p = number of lags, user-configured).
+- **X(t)** is the vector of exogenous variables --- typically media spend by channel (TV, social, display, etc.). These enter the model as controlled inputs that drive the system but are not predicted by it. Note: brand search can be treated as either endogenous (if it interacts with awareness/revenue) or exogenous depending on your modeling goals.
+- **beta** is the exogenous coefficient matrix (media effects on each endogenous variable).
 - **epsilon(t)** is multivariate Gaussian noise with covariance Sigma.
 
-### Priors
+---
 
-The Bayesian VAR uses informative priors to regularize estimation:
+## Why Minnesota Priors Matter
 
-- **Lag coefficients:** Normal priors with optional **Minnesota prior shrinkage** --- a structured approach where own-lag coefficients are centered near 0.9 (persistence), cross-variable coefficients are shrunk toward zero, and higher lags are shrunk more aggressively. Shrinkage parameters: lambda_overall=0.2, lambda_cross=0.1.
+A VAR with k endogenous variables and p lags has k x k x p lag coefficients plus k x m exogenous coefficients. For a modest system of 4 endogenous variables, 6 media channels, and 3 lags, that is already 72 parameters --- far more than a typical marketing dataset (52--104 weeks) can reliably estimate without regularization.
+
+The **Minnesota prior** (originally developed at the Federal Reserve Bank of Minneapolis) solves this by encoding three intuitive beliefs:
+
+### 1. Own Persistence
+
+Each variable's best predictor is its own recent past. The prior centers **own-lag-1 coefficients near 0.9**, expressing the belief that revenue this week is likely close to revenue last week. This encodes the fact that marketing time series are typically persistent and slow-moving.
+
+### 2. Cross-Variable Shrinkage
+
+The effect of *other* variables on a given variable is expected to be small. Cross-variable coefficients are shrunk toward zero with a tighter prior (lambda_cross = 0.1, versus lambda_overall = 0.2 for own effects). This prevents the model from overfitting to spurious correlations between variables --- a major risk with unrestricted VARs.
+
+### 3. Lag Decay
+
+Higher-order lags are less informative than recent lags. The Minnesota prior shrinks coefficients for lag 2, 3, ... progressively more aggressively, following the formula:
+
+> **sigma(i,j,l) = lambda / l^delta x (sigma_yi / sigma_yj) x cross_tightness**
+
+Where l is the lag order and delta = 1.0 controls how fast the shrinkage increases. The ratio sigma_yi / sigma_yj accounts for scale differences between variables.
+
+### Why This Matters for Marketing
+
+Without Minnesota priors, a Bayesian VAR on marketing data would face severe overfitting: too many parameters, too little data, and highly correlated media channels. The Minnesota prior provides principled regularization that:
+
+- Keeps the model stable and interpretable even with limited data.
+- Allows the data to override the prior where the evidence is strong (e.g., a clear TV → brand search relationship).
+- Produces more reliable impulse response functions and long-run multipliers.
+
+### Other Priors
+
 - **Intercepts:** Normal(0, 0.5) or TruncatedNormal with bounds.
 - **Exogenous coefficients:** Normal(0, 0.5) with optional sign constraints (e.g., media effects constrained to be positive).
 - **Noise covariance:** LKJ Cholesky decomposition (eta=2.0) for multivariate case, or independent HalfNormal per equation for diagonal case.
 
-### Data Transformations
+---
+
+## Data Transformations
 
 All endogenous variables are automatically transformed via **log1p** (robust to zeros). Exogenous variables default to log1p but support configurable transforms: asinh, log, log_shift, per_k, z-score, min-max, and index100. Results are converted back to percent-per-percent elasticities for interpretability.
 
-### Sampling Configuration
+---
+
+## Sampling Configuration
 
 Default sampling parameters:
 - **Draws:** 2,000 posterior samples
@@ -87,7 +122,7 @@ Default sampling parameters:
 
 ### Impulse Response Functions (IRFs)
 
-An IRF traces how a one-unit shock to one variable propagates through the entire system over time. For example, an IRF for TV → Revenue shows the cumulative revenue impact of a one-unit increase in TV spend, accounting for all the indirect pathways (TV → search → revenue, TV → awareness → revenue, etc.).
+An IRF traces how a one-unit shock to one variable propagates through the entire system over time. For example, an IRF for TV → Revenue shows the cumulative revenue impact of a one-unit increase in TV spend, accounting for all the indirect pathways (TV → awareness → brand search → revenue, etc.).
 
 ![Impulse Response Functions](./images/var-irf-examples.png)
 *Three IRF examples. Left: TV spend shock has a strong revenue effect peaking at lag 2-3, then decaying. Center: the same TV shock drives brand search volume with a delayed build. Right: social spend has a fast-decaying revenue effect. Shaded bands show posterior uncertainty.*
@@ -133,8 +168,13 @@ This feature is implemented via a dedicated `VarPriorChecker` service. When enab
 VAR and MMM models can be linked in Simba's portfolio view to combine the strengths of both approaches:
 
 1. **Smart matching:** Simba ranks available VAR models by compatibility with your MMM model --- 100% match (same batch and brand), 80% (same brand), 50% (same batch), or no match.
-2. **Long-run multipliers:** Once linked, the VAR's long-run elasticities become channel-specific multipliers applied to MMM coefficients. For example, if the VAR estimates a TV long-run elasticity of 0.03, this translates to a 3x long-term multiplier on the MMM's short-term TV ROI.
+2. **Long-run multipliers:** Once linked, the VAR's long-run elasticities become channel-specific multipliers applied to MMM coefficients. For example, if the VAR estimates a TV long-run elasticity of 0.03, this translates to a 2.5x long-term multiplier on the MMM's short-term TV ROI.
 3. **Toggle view:** The portfolio analysis includes a toggle to switch between short-term (MMM only) and long-term (MMM + VAR multipliers) views.
+
+![Short-term vs long-term ROI by channel](./images/var-longterm-vs-shortterm.png)
+*Illustrative example: channels with strong brand-building effects (TV, YouTube) show the largest long-term multipliers when VAR effects are included. The purple labels show the multiplier each channel receives from VAR long-run elasticities.*
+
+This is where VAR adds the most practical value: it reveals that channels which build brand equity (like TV and video) have much larger total effects than their short-term MMM ROI suggests, because they drive brand awareness and brand search which in turn drive revenue over many weeks.
 
 ---
 
@@ -142,15 +182,25 @@ VAR and MMM models can be linked in Simba's portfolio view to combine the streng
 
 ### Lag Selection
 
-The number of lags (p) is **user-configured** in the model setup. There is no automatic lag order selection (AIC/BIC). Choose lags based on domain knowledge:
+The number of lags (p) is **user-configured** in the model setup. There is no automatic lag order selection (AIC/BIC). The lag order determines how many past periods each variable uses to predict the current period.
 
-- **1--2 lags** for weekly data with fast-responding channels.
-- **3--4 lags** for weekly data with channels that have longer carryover.
-- **Higher lags** require proportionally more data.
+Practical guidance:
+
+- **1--2 lags** for weekly data when you expect effects to materialize quickly (e.g., paid search → conversions).
+- **3--4 lags** for weekly data when you expect slower brand-building dynamics (e.g., TV → brand awareness → revenue may take several weeks).
+- **Higher lags** capture longer memory but require proportionally more data and increase the number of parameters. With Minnesota priors, the higher-lag coefficients are automatically shrunk, so the risk of overfitting is managed.
 
 ### Minimum Data
 
-The model requires at least **lags + 10 observations**. For example, a 4-lag model on weekly data needs at least 14 weeks. In practice, 52+ weeks is recommended for reliable estimates.
+The model requires at least **lags + 10 observations**. For example, a 4-lag model on weekly data needs at least 14 weeks. In practice, 52+ weeks is recommended for reliable estimates, and 104+ weeks is ideal if you want stable long-run multipliers.
+
+### Choosing Endogenous vs. Exogenous Variables
+
+A key modeling decision is which variables to treat as endogenous (part of the feedback system) and which to treat as exogenous (one-way inputs):
+
+- **Endogenous (typical):** Revenue, brand awareness, brand search volume, consideration, NPS, or any brand equity metric that you believe interacts with other business outcomes.
+- **Exogenous (typical):** Media spend by channel (TV, social, display, etc.) --- these are controlled inputs that you set, not outcomes of the system.
+- **Flexible:** Brand search can go either way. If branded search volume responds to other media (e.g., TV drives brand search) and also drives revenue, treat it as endogenous. If it is purely a media input you control, treat it as exogenous.
 
 ---
 
@@ -164,6 +214,13 @@ VAR modeling is available on the following tiers:
 | Analyst | No |
 | Pro | Yes |
 | Scale | Yes |
+
+---
+
+## References
+
+- Danaher, P.J. & van Heerde, H.J. (2018). Delusion in attribution: Caveats in using attribution for multimedia budget allocation. *Journal of Marketing Research*, 55(5), 667-685.
+- [Bayesian Vector Autoregressive Models for Marketing](https://www.sciencedirect.com/science/article/abs/pii/S0167811621000495) --- Foundational reference on Bayesian VAR applications in marketing, covering long-run effects, impulse responses, and the role of Minnesota priors in marketing systems.
 
 ---
 
