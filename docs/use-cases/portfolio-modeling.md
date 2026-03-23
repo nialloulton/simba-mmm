@@ -53,4 +53,4 @@ A global CPG brand running in 8 markets can compare TV effectiveness across mark
 
 ---
 
-*See also: [Budget Optimization](../platform-guide/budget-optimization.md) | [Scale Plan](../pricing/README.md)*
+*See also: [Budget Optimization](../platform-guide/budget-optimization.md) | [Pricing](../pricing/README.md)*
