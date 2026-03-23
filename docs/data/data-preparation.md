@@ -3,7 +3,7 @@
 Good data preparation is the foundation of a reliable marketing mix model. This guide covers best practices for cleaning, formatting, and structuring your data before uploading it to Simba.
 
 ![Data preparation workflow](./images/data-prep-workflow.png)
-*Left: the four preparation steps. Right: key requirements to keep in mind --- date is detected by column name (not position), CSV only, no negatives in spend, and multiplier/hierarchy are always required.*
+*The four key steps for preparing your data before uploading to Simba.*
 
 ---
 
