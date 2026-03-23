@@ -20,7 +20,10 @@ These patterns exist independently of your marketing activity. They represent ch
 
 ## Why Seasonality Matters for Marketing Measurement
 
-If your model does not account for seasonal effects, it will **confuse seasonality with marketing effectiveness**. This leads to two serious errors:
+If your model does not account for seasonal effects, it will confuse seasonality with marketing effectiveness.
+
+![Why seasonality matters for accurate media attribution](./images/seasonality-attribution.png)
+*Left: without seasonality controls, the holiday sales surge is wrongly attributed to media spend, inflating channel effectiveness. Right: with seasonality properly modeled, seasonal demand is separated and media contributions are accurately measured.*
 
 ### Error 1: Inflating Channel Contributions
 
@@ -34,38 +37,137 @@ In both cases, the root cause is the same: the model cannot distinguish between 
 
 ---
 
-## How Simba Handles Seasonal Patterns
+## The Model Equation
 
-Simba incorporates seasonality directly into the model structure, ensuring that seasonal demand is separated from media-driven outcomes before channel effects are estimated.
+To understand how seasonality fits into the full model, here is the additive structure Simba uses:
 
-### Fourier-Based Seasonality
+> **outcome = intercept + trend + seasonality + media_contributions + control_variables + event_effects + noise**
 
-Simba models seasonal patterns using **Fourier features** --- pairs of sine and cosine functions at different frequencies that, when combined, can represent any periodic pattern. This is the same approach used in the widely adopted Prophet forecasting framework and in PyMC-Marketing.
+Each component is estimated jointly in a single Bayesian model, meaning they are all identified simultaneously rather than sequentially. This avoids the "residual fitting" problems that arise when components are estimated one at a time.
 
-The key advantage of Fourier-based seasonality is flexibility. Rather than hard-coding specific holiday dates or assuming a fixed seasonal shape, the model learns the seasonal pattern from your data. It can capture:
+![Additive model decomposition](./images/seasonality-decomposition.png)
+*The model decomposes observed sales into additive components: baseline (intercept + trend), seasonal patterns (Fourier series), media contributions, and event effects. Each component is estimated jointly.*
 
-- Smooth annual cycles (e.g., gradual summer increase, gradual winter decrease)
-- Sharp holiday spikes (e.g., Black Friday)
-- Complex multi-modal patterns (e.g., back-to-school and holiday peaks in the same year)
+---
 
-The number of Fourier terms controls the **smoothness** of the seasonal pattern:
+## Fourier-Based Seasonality
 
-- **Fewer terms** produce smoother seasonal curves that capture broad annual trends.
-- **More terms** allow the model to fit sharper, more localized seasonal effects.
+Simba models seasonal patterns using **Fourier features** --- pairs of sine and cosine functions at different frequencies that, when combined, can represent any periodic pattern.
 
-Simba's defaults are calibrated to capture the most important seasonal patterns without overfitting to noise.
+### How Fourier Features Work
 
-### Trend Components
+The Fourier basis for seasonality generates **2n features from n terms**:
 
-In addition to seasonality, Simba models **long-term trends** --- gradual upward or downward shifts in your baseline that occur over months or years. This could reflect organic brand growth, market expansion, competitive dynamics, or macroeconomic conditions.
+For each term k = 1, 2, ..., n:
+- cos(2pi x k x t / p)
+- sin(2pi x k x t / p)
 
-By modeling trend separately from seasonality and media effects, the model avoids attributing gradual growth to whatever channels happened to be active during the growth period.
+Where **t** is the normalized time variable and **p** is the period (365.25 days for annual seasonality, 7 days for weekly seasonality).
 
-### Holiday and Event Effects
+Each Fourier coefficient has an independent **Normal(0, 10)** prior, where 10 is the default `seasonality_prior_scale`. This weakly informative prior allows the model to learn the seasonal pattern from data without imposing a specific shape.
 
-For known events with outsized impact (e.g., Black Friday, Prime Day), Simba supports **event indicators** --- binary or weighted variables that flag specific dates. These allow the model to capture sharp, short-duration effects that Fourier terms alone might smooth over.
+![Seasonal components in Simba](./images/seasonality-components.png)
+*Top left: individual Fourier terms (cosine and sine pairs) at different frequencies. Top right: how the number of terms affects the fitted shape --- n=2 captures only broad trends, n=10 (default) can fit sharp holiday spikes. Bottom left: annual and weekly seasonality combined for daily data. Bottom right: event effects are GP-smoothed for realistic temporal spread.*
 
-You can configure event indicators through the UI by specifying dates and, optionally, the expected duration of each event's impact.
+### Annual Seasonality
+
+Annual seasonality captures patterns that repeat on a yearly cycle. Simba uses:
+
+- **Period:** 365.25 days (accounting for leap years), normalized by the training data span.
+- **Default terms:** n = 10, producing 20 features (10 cosine + 10 sine).
+- **Always enabled** for all data frequencies.
+
+The number of terms controls the smoothness:
+
+- **Fewer terms (n=2--3)** produce smooth curves that capture broad annual trends (e.g., gradual summer increase).
+- **More terms (n=8--10)** allow the model to fit sharper, more localized effects (e.g., a sharp holiday spike).
+- **Default (n=10)** is calibrated to capture most important seasonal patterns without overfitting.
+
+### Weekly Seasonality
+
+Weekly seasonality captures day-of-week patterns (e.g., higher sales on weekends). It is **only available for daily data** --- weekly or monthly aggregated data cannot identify within-week patterns.
+
+- **Period:** 7 days, normalized by the training data span.
+- **Terms:** Configurable, typically 3--5.
+- **Combined:** When both annual and weekly seasonality are enabled (daily data), their effects are summed.
+
+---
+
+## Trend Modeling
+
+In addition to seasonality, Simba models long-term trends --- gradual shifts in the baseline that occur over months or years. Three trend types are available:
+
+![Three trend types available in Simba](./images/seasonality-trend-types.png)
+*Left: Gaussian Random Walk tracks irregular shifts but can be noisy. Center: HSGP with Matern52 kernel (default) produces smooth, flexible trends. Right: piecewise linear identifies distinct growth phases separated by changepoints.*
+
+### Smooth HSGP Trend (Default)
+
+The default trend type (`smooth_lltrend`) uses a **Hilbert Space Gaussian Process** with a Matern52 kernel. It produces smooth, flexible trend curves that can capture gradual growth, plateaus, and gentle reversals without overfitting to noise.
+
+Key features:
+- Includes a learned mean function with optional weak linear trend component.
+- Uses sigmoid scaling with a learned baseline share parameter (kappa = 4.0).
+- Estimates the empirical slope from data to inform the trend direction.
+
+This is the recommended trend type for most use cases.
+
+### Gaussian Random Walk Trend
+
+The `lltrend` type models the baseline as a **Gaussian Random Walk** passed through a softplus (log1pexp) transformation to ensure positivity. It is more flexible than the HSGP trend but can also be noisier, potentially absorbing patterns that should be attributed to media or seasonality.
+
+### Piecewise Linear Trend (Changepoint)
+
+The `changepoint` type fits a **piecewise linear trend** with Laplace-distributed changepoint magnitudes (similar to Prophet's approach). It models the trend as a series of linear segments connected at changepoints.
+
+- **Default changepoints:** 8, spread across the first 80% of the data.
+- **Changepoint prior scale:** 0.05 (Laplace), encouraging sparse changes.
+- Best suited when you expect distinct growth phases or structural breaks.
+
+### When Trend Is Enabled
+
+When trend is enabled, the intercept is set to zero (the trend component absorbs the baseline level). When trend is disabled, the intercept is estimated as a TruncatedNormal centered on the dependent variable mean.
+
+---
+
+## Event and Holiday Effects
+
+For known events with outsized impact (e.g., Black Friday, Prime Day, Christmas), Simba supports **event indicators** that capture sharp, short-duration effects that Fourier terms alone might smooth over.
+
+### How Events Are Modeled
+
+Events are not simply binary dummy variables. Simba uses a more sophisticated approach:
+
+1. **One-hot encoding:** Each event date is encoded as a one-hot vector aligned to the data's time periods.
+2. **Hierarchical weights:** Event effects share a hierarchical prior: each event's weight is drawn from Normal(mu_weight, sigma_weight), where mu_weight ~ Normal(0, 1) and sigma_weight ~ HalfNormal(1). This pools information across events while allowing individual variation.
+3. **GP smoothing:** The event effects are convolved with a **Matern32 Gaussian Process kernel** to produce realistic temporal spread --- events affect nearby periods, not just the exact date.
+
+The smoothing length depends on data frequency:
+- **Weekly data:** Convolution length of approximately 4 periods (lower=1, upper=3).
+- **Daily data:** Convolution length of approximately 28 periods (lower=7, upper=21).
+- **Monthly data:** Convolution length of approximately 0.8 periods (lower=0.2, upper=1).
+
+### Configuring Events in the UI
+
+Simba's holiday selector provides:
+
+- **Country-based holiday lookup** using ISO 3166-1 country codes (powered by the `date-holidays` library). Select your country and Simba will populate standard holidays.
+- **Custom event dates** that you can add manually for business-specific events (e.g., product launches, sales events).
+- **Automatic period alignment** --- holidays are "snapped" to the correct period boundary for your data frequency (daily or weekly).
+
+---
+
+## Periodicity Detection
+
+Simba automatically detects the frequency of your data by analyzing the gaps between consecutive dates:
+
+| Detected Periodicity | Typical Gap | Annual Seasonality | Weekly Seasonality |
+|---|---|---|---|
+| **Daily** | ~1 day | Yes (n=10) | Yes (configurable) |
+| **Weekly** | ~7 days | Yes (n=10) | No |
+| **Monthly** | ~30 days | Yes (n=10) | No |
+| **Irregular** | Variable | Yes (n=10) | No |
+
+Periodicity also affects default effect periods for media channels (45 for daily, 6 for weekly, 2 for monthly) and event smoothing kernel parameters.
 
 ---
 
@@ -75,43 +177,19 @@ You can configure event indicators through the UI by specifying dates and, optio
 
 For most users, Simba's default seasonality configuration is sufficient. The platform automatically:
 
-1. Detects the frequency of your data (daily, weekly, monthly).
-2. Selects an appropriate number of Fourier terms for annual and, if applicable, weekly seasonality.
-3. Fits the seasonal component as part of the full model, jointly estimating seasonality alongside channel effects, [saturation](./saturation-curves.md), and [adstock](./adstock-effects.md).
+1. Detects the frequency of your data (daily, weekly, monthly, or irregular).
+2. Selects 10 Fourier terms for annual seasonality (and weekly seasonality for daily data).
+3. Fits the seasonal component jointly with channel effects, [saturation](./saturation-curves.md), and [adstock](./adstock-effects.md).
+4. Uses the default smooth HSGP trend.
 
 ### Manual Adjustments
 
 Power users can adjust seasonality settings when needed:
 
 - **Number of Fourier terms.** If the fitted seasonal pattern is too smooth (missing known peaks) or too jagged (fitting noise), you can increase or decrease the number of terms.
-- **Event indicators.** Add specific dates for holidays or events that are important to your business.
-- **Disabling seasonality.** In rare cases where your data has no meaningful seasonal pattern (e.g., a B2B SaaS product with stable monthly demand), you can simplify the model by reducing or removing seasonality components.
-
----
-
-## Examples of Seasonal Effects Across Industries
-
-### Retail and E-Commerce
-
-Retail businesses experience the most pronounced seasonal patterns. The holiday shopping season (November through December) can account for 20% to 40% of annual revenue. Black Friday and Cyber Monday create massive single-day spikes. Back-to-school drives a secondary peak in August and September.
-
-Without seasonality controls, a model would attribute the Q4 sales surge to the heavy advertising that typically accompanies it, dramatically overstating media effectiveness.
-
-### Travel and Hospitality
-
-Travel demand follows strong seasonal patterns: summer peaks for leisure travel, holiday peaks for family visits, and business travel lulls in December and August. Airlines and hotels that increase advertising during peak season need their MMM to separate seasonal demand from ad-driven bookings.
-
-### Financial Services
-
-Tax preparation services see demand concentrated in January through April. Insurance open enrollment drives a predictable spike. Wealth management sees elevated activity at year-end. These patterns must be modeled explicitly to avoid misattributing cyclical demand to marketing.
-
-### Food and Beverage
-
-Quick-service restaurants may see weekly seasonality (higher sales on Fridays and weekends), monthly patterns (payday effects), and annual cycles (summer drink promotions, holiday catering). Fast-moving consumer goods (FMCG) brands face similar dynamics in grocery.
-
-### Consumer Technology
-
-Product launch cycles create predictable demand patterns --- new smartphone launches in September, gaming console releases in Q4, and back-to-school laptop demand in August. These interact with marketing campaigns and must be modeled separately.
+- **Event indicators.** Add specific dates for holidays or events that are important to your business, using the country-based holiday selector or custom date entry.
+- **Trend type.** Switch between smooth HSGP (default), Gaussian Random Walk, or piecewise linear depending on the nature of your baseline dynamics.
+- **Seasonality prior scale.** Adjust the prior standard deviation (default 10) to control how much the seasonal component can vary. Smaller values produce more conservative seasonal patterns.
 
 ---
 
@@ -129,17 +207,7 @@ Channels that ramp up spend during peak seasons may appear to saturate faster if
 
 ### Seasonality and Baseline
 
-The seasonal component works together with the trend and intercept to define the full **baseline** --- the level of outcome you would expect with zero media spend. This baseline is the reference point against which all incremental contributions are measured.
-
----
-
-## Diagnosing Seasonal Fit
-
-After fitting a model, Simba provides tools to assess whether the seasonal component is capturing the right patterns:
-
-- **Seasonal decomposition plot.** Visualizes the estimated seasonal pattern over the observed time period, letting you confirm that known peaks and troughs are captured.
-- **Residual analysis.** If the model residuals show systematic patterns by time of year, it may indicate that the seasonal component needs more flexibility (more Fourier terms or event indicators).
-- **Posterior predictive checks.** Comparing the model's predictions to actual data across different seasons confirms that the model reproduces known seasonal dynamics.
+The seasonal component works together with the trend and intercept to define the full baseline --- the level of outcome you would expect with zero media spend. This baseline is the reference point against which all incremental contributions are measured.
 
 ---
 
@@ -147,9 +215,11 @@ After fitting a model, Simba provides tools to assess whether the seasonal compo
 
 - Seasonal effects are recurring, time-based patterns in demand that exist independently of marketing activity.
 - Failing to model seasonality leads to inflated channel contributions during peak seasons and underestimated contributions during off-peak periods.
-- Simba uses Fourier-based seasonality to flexibly capture annual and weekly patterns, supplemented by event indicators for known holidays and events.
-- Automatic seasonality configuration works well for most use cases. Manual adjustments are available for power users.
-- Proper seasonality modeling is a prerequisite for accurate incrementality estimation and realistic saturation curves.
+- Simba uses **Fourier-based seasonality** with default n=10 terms (20 features) and Normal(0, 10) priors to flexibly capture annual patterns. Weekly seasonality is available for daily data only.
+- **Three trend types** are available: smooth HSGP (default, recommended), Gaussian Random Walk, and piecewise linear with changepoints.
+- **Event effects** are modeled as GP-smoothed one-hot indicators with hierarchical Normal weights, not simple binary dummies.
+- The model equation is fully additive: outcome = intercept + trend + seasonality + media + controls + events + noise.
+- Automatic configuration works well for most use cases. Manual adjustments are available for the number of Fourier terms, trend type, event dates, and seasonality prior scale.
 
 ---
 
@@ -158,3 +228,4 @@ After fitting a model, Simba provides tools to assess whether the seasonal compo
 - [Incrementality](./incrementality.md) --- See how seasonality separation improves causal attribution.
 - [Marketing Mix Modeling](./marketing-mix-modeling.md) --- Understand how seasonality fits into the full model structure.
 - [Priors and Distributions](./priors-and-distributions.md) --- Learn how seasonal component priors work.
+- [Saturation Curves](./saturation-curves.md) --- See how proper seasonality avoids saturation artifacts.
