@@ -56,7 +56,7 @@ At minimum, you need:
 
 Yes — Simba offers a **28-day free trial** where you can explore the full platform with your own data. The trial includes 10 saved models, 10 optimizations, and 10 scenarios.
 
-→ [Start Free Trial](https://getsimba.ai)
+→ [Book a Demo](https://calendly.com/niall-oulton)
 
 ## Platform & Technical
 
@@ -140,9 +140,9 @@ Yes. All plans can be cancelled at any time with no cancellation fees.
 
 - **Documentation**: Browse this repository for guides and tutorials
 - **GitHub Issues**: [Report a bug](../../../issues/new?template=bug_report.yml) or [ask a question](../../../issues/new?template=support_question.yml)
-- **Email**: support@simba-mmm.com
+- **Email**: info@1749.io
 - **Website**: [getsimba.ai](https://getsimba.ai)
 
 ---
 
-*Can't find what you're looking for? [Ask us a question](../../../issues/new?template=support_question.yml) or email support@simba-mmm.com.*
+*Can't find what you're looking for? [Ask us a question](../../../issues/new?template=support_question.yml) or email info@1749.io.*
