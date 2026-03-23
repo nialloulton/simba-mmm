@@ -82,6 +82,9 @@ While lift tests are the gold standard for single-channel causal measurement, th
 
 Simba bridges this gap by letting you **calibrate the model with lift test results**. When you add a lift test result in the Model Details step, it enters the model as an additional likelihood term (not a prior). The model then combines this experimental evidence with the observational time-series data, producing posterior estimates that are consistent with both.
 
+![How lift tests calibrate the Bayesian model](./images/incrementality-lift-test.png)
+*Left: a lift test produces a measured lift (e.g., +15% with a confidence interval). Center: this enters the Bayesian model as a likelihood observation alongside the time-series data, constraining the response curve for that channel. Right: the resulting posterior is calibrated to be consistent with both the experiment and the observational data --- improving estimates for all channels.*
+
 This creates a virtuous cycle:
 
 1. Run a lift test on a high-priority channel.
