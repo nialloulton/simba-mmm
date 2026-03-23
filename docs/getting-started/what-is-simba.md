@@ -34,7 +34,7 @@ You need to justify spend, report on channel effectiveness, and make budget deci
 
 ### Agencies and Consultancies
 
-You manage multiple clients, each with unique data and channel mixes. Simba is designed for multi-client management on the Scale plan. You can deliver rigorous MMM results to clients faster, with transparent methodology that builds trust.
+You manage multiple clients, each with unique data and channel mixes. Simba supports multi-project environments with isolated data per client, so you can deliver rigorous MMM results faster with transparent methodology that builds trust.
 
 ### Data Science and Analytics Teams
 
@@ -93,7 +93,7 @@ Read more: [Incremental Measurement](../platform-guide/measurement.md) | [AI Ass
 
 ### 3. Scenario Planner
 
-Create custom budget plans and forecast their revenue impact. Choose between the Monthly Planner (a guided 6-step wizard) or the Advanced Planner (a manual grid editor for granular control). Generate predictions with 95% HDI uncertainty bands.
+Create custom budget plans and forecast their revenue impact. Choose between the Monthly Planner (a guided 6-step wizard) or the Advanced Planner (a manual grid editor for granular control). Generate predictions with 94% HDI (3%-97%) uncertainty bands.
 
 Read more: [Scenario Planning](../platform-guide/scenario-planning.md)
 
@@ -112,7 +112,7 @@ Read more: [Budget Optimization](../platform-guide/budget-optimization.md)
 
 ### Security and Compliance
 
-Your data is protected with AES-256 encryption at rest, TLS 1.3 in transit, isolated AWS S3 storage per customer, and compliance with GDPR and Cyber Essentials certification standards. Two-factor authentication (2FA) is available for additional account security.
+Your data is protected with enterprise-grade encryption, isolated storage per customer, and compliance with applicable data protection standards. Two-factor authentication (2FA) and SSO (Google, Microsoft) are available for account security.
 
 Read more: [Security Overview](../security/README.md)
 

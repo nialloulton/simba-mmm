@@ -6,6 +6,9 @@ This guide walks you through the Simba interface so you know exactly where to fi
 
 ## Navigation Structure
 
+![Simba navigation map](./images/navigation-map.png)
+*The four main areas and their sub-sections. Model Warehouse contains the 5-step configuration wizard; Active Model shows 7 analysis tabs for MMM models.*
+
 Simba uses a left sidebar for primary navigation. The four main sections are:
 
 1. **Model Warehouse** --- Your entry point and model management hub
@@ -170,7 +173,7 @@ The **Settings** area, accessible from the main navigation menu or the gear icon
 - Two-factor authentication setup
 - Active session management
 
-For details on security infrastructure, see [Security and Compliance](../security/security-and-compliance.md).
+For details on security infrastructure, see [Security and Compliance](../security/README.md).
 
 ---
 
@@ -207,7 +210,7 @@ Now that you know your way around the interface:
 - Read about [Data Requirements](../data/data-requirements.md) to prepare your dataset.
 - Explore [Smart Defaults](../platform-guide/smart-defaults.md) to understand how Simba auto-generates model configuration.
 
-For questions about navigating the platform, contact **support@simba-mmm.com**.
+For questions about navigating the platform, contact **info@1749.io**.
 
 ---
 
