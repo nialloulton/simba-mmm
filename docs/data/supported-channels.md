@@ -1,200 +1,128 @@
-# Supported Channels — Media Types You Can Model in Simba
+# Supported Channels --- Media Types You Can Model in Simba
 
-Simba supports a wide range of media channels and marketing activities in your marketing mix model. This guide covers all supported channel types, recommended metrics for each, and tips for getting the best results.
-
-## Overview
-
-Simba can model any marketing channel where you have time-series data on spend or activity. The platform's Bayesian framework automatically handles the unique characteristics of each channel — including different saturation rates, decay patterns, and response curves.
-
-## Channel Categories
-
-### Television (TV)
-
-TV remains one of the most impactful (and expensive) media channels. Simba handles both linear and connected TV.
-
-| Metric | Description | Recommended |
-|--------|-------------|-------------|
-| GRPs | Gross Rating Points | Best for traditional TV |
-| Spend | Total media cost | Universal fallback |
-| TRPs | Target Rating Points | For targeted buys |
-| Impressions | Delivered impressions | For connected/streaming TV |
-
-**Typical characteristics**: High saturation potential, longer decay (ads remembered for weeks), significant carryover effects.
-
-### Digital / Online Display
-
-Programmatic display, native ads, and banner advertising.
-
-| Metric | Description | Recommended |
-|--------|-------------|-------------|
-| Impressions | Ad impressions served | Recommended |
-| Spend | Media cost | Good alternative |
-| Clicks | Click-throughs | Supplementary |
-| Viewable impressions | MRC-viewable impressions | Premium metric |
-
-**Typical characteristics**: Moderate saturation, shorter decay than TV, highly measurable.
-
-### Paid Social
-
-Social media advertising across platforms.
-
-| Metric | Description | Recommended |
-|--------|-------------|-------------|
-| Impressions | Total impressions | Recommended |
-| Spend | Media cost | Good alternative |
-| Reach | Unique users reached | For awareness campaigns |
-| Engagements | Likes, shares, comments | Supplementary |
-
-**Platforms**: Facebook/Meta, Instagram, TikTok, LinkedIn, X (Twitter), Pinterest, Snapchat
-
-**Tip**: Break out platforms individually rather than combining into one "Social" variable. This gives you per-platform ROI and optimization insights.
-
-### Paid Search (SEM)
-
-Search engine marketing including branded and non-branded search.
-
-| Metric | Description | Recommended |
-|--------|-------------|-------------|
-| Spend | Media cost | Recommended |
-| Clicks | Search ad clicks | Good alternative |
-| Impressions | Search ad impressions | Supplementary |
-
-**Tip**: Separate branded search from non-branded. Branded search often captures existing demand rather than creating it.
-
-### Out-of-Home (OOH)
-
-Billboards, transit ads, street furniture, and digital OOH.
-
-| Metric | Description | Recommended |
-|--------|-------------|-------------|
-| Spend | Media cost | Recommended |
-| Impressions | Estimated impressions | Good alternative |
-| Panels/Faces | Number of active placements | Supplementary |
-
-**Typical characteristics**: Long decay, high geographic variation, harder to measure precisely.
-
-### Video / YouTube
-
-Online video advertising including pre-roll, mid-roll, and bumper ads.
-
-| Metric | Description | Recommended |
-|--------|-------------|-------------|
-| Impressions | Video ad impressions | Recommended |
-| Spend | Media cost | Good alternative |
-| Completed views | Full video views | Premium metric |
-
-### Audio / Podcasts / Radio
-
-Audio advertising across radio, streaming, and podcasts.
-
-| Metric | Description | Recommended |
-|--------|-------------|-------------|
-| Spend | Media cost | Recommended |
-| Impressions | Estimated listens/impressions | Good alternative |
-| GRPs | For traditional radio | Industry standard |
-
-### Email Marketing
-
-Direct email campaigns and newsletters.
-
-| Metric | Description | Recommended |
-|--------|-------------|-------------|
-| Sends | Emails sent | Recommended |
-| Opens | Email opens | Supplementary |
-| Clicks | Email click-throughs | Supplementary |
-
-### Print
-
-Magazine and newspaper advertising.
-
-| Metric | Description | Recommended |
-|--------|-------------|-------------|
-| Spend | Media cost | Recommended |
-| Insertions | Number of ad placements | Good alternative |
-| Circulation | Publication circulation | Supplementary |
-
-### Affiliate / Partnerships
-
-Performance-based partnerships and affiliate marketing.
-
-| Metric | Description | Recommended |
-|--------|-------------|-------------|
-| Spend/Commission | Total cost | Recommended |
-| Clicks | Referral clicks | Good alternative |
-
-### Influencer / Creator
-
-Influencer marketing, brand ambassadors, and creator partnerships.
-
-| Metric | Description | Recommended |
-|--------|-------------|-------------|
-| Spend | Total cost including fees | Recommended |
-| Impressions | Estimated reach/impressions | Good alternative |
-| Engagements | Likes, shares, comments | Supplementary |
-
-**Platforms**: YouTube creators, Instagram influencers, TikTok creators, bloggers, KOLs
-
-### Direct Mail
-
-Physical mail campaigns including catalogs, postcards, and mailshots.
-
-| Metric | Description | Recommended |
-|--------|-------------|-------------|
-| Spend | Total mailing cost | Recommended |
-| Volume | Pieces mailed | Good alternative |
-
-### Mobile / App
-
-Mobile-specific advertising including in-app ads, push notifications, and SMS.
-
-| Metric | Description | Recommended |
-|--------|-------------|-------------|
-| Spend | Media cost | Recommended |
-| Impressions | In-app ad impressions | Good alternative |
-| Sends | Push notifications or SMS sent | Supplementary |
-
-### Cinema
-
-Advertising in movie theaters before screenings.
-
-| Metric | Description | Recommended |
-|--------|-------------|-------------|
-| Spend | Media cost | Recommended |
-| Impressions | Estimated audience impressions | Good alternative |
-
-### Sponsorship / Events
-
-Event sponsorship, sports partnerships, and branded experiences.
-
-| Metric | Description | Recommended |
-|--------|-------------|-------------|
-| Spend | Sponsorship cost | Recommended |
-| Impressions | Estimated reach | Supplementary |
-
-## Non-Media Variables
-
-In addition to media channels, include these control variables for better model accuracy:
-
-| Variable | Examples |
-|----------|----------|
-| **Pricing** | Price index, discount depth, promotional flags |
-| **Distribution** | Store count, availability score |
-| **Seasonality** | Holiday flags, season indicators |
-| **Competition** | Competitor spend, share of voice |
-| **Economic** | Consumer confidence, unemployment rate |
-| **Weather** | Temperature, precipitation |
-| **Events** | Major events, cultural moments |
-
-## Best Practices
-
-1. **Use the most granular channel breakdowns available** — "Meta Impressions" is more useful than "Social Spend"
-2. **Be consistent** — use the same metric type (spend or impressions) for channels of the same type where possible
-3. **Include zero-spend periods** — these help the model isolate the impact of active spend
-4. **Don't combine dissimilar channels** — TV and digital have very different decay and saturation characteristics
-5. **Include at least 3 channels** — models with more channels produce richer attribution insights
-
-→ **Next**: [Data Requirements](data-requirements.md) | [Model Configuration](../platform-guide/model-configuration.md)
+Simba can model any marketing channel where you have time-series data on spend or activity. The platform's semantic matcher auto-detects channel types from your column names, and the Bayesian framework handles the unique characteristics of each channel --- different [saturation](../core-concepts/saturation-curves.md) rates, [decay](../core-concepts/adstock-effects.md) patterns, and response curves.
 
 ---
 
-*See also: [Data Preparation](data-preparation.md) | [Saturation Curves](../core-concepts/saturation-curves.md) | [Adstock Effects](../core-concepts/adstock-effects.md)*
+## Channel Categories
+
+Simba's semantic matcher recognizes **15 channel categories** from column name keywords. You do not need to manually classify channels --- naming your columns descriptively (e.g., `tv_spend`, `facebook_impressions`) is sufficient.
+
+![15 channel categories auto-detected by Simba](./images/channels-categories.png)
+*Simba's semantic matcher auto-classifies media columns into 15 categories based on keywords in the column name.*
+
+| Category | Recognized Keywords |
+|---|---|
+| **TV** | tv, television, ctv, ottv, linear, broadcast, cable, satellite, connected |
+| **Digital / Display** | digital, online, web, programmatic, display, banner, native, dsp |
+| **Social** | social, facebook, fb, instagram, ig, tiktok, linkedin, snapchat, pinterest, meta, whatsapp |
+| **Search** | search, sem, ppc, google, bing, paid_search, paidsearch, adwords |
+| **Video** | video, youtube, yt, vimeo, streaming, ott, vod, preroll, midroll |
+| **Radio / Audio** | radio, audio, podcast, spotify, pandora, streaming_audio, siriusxm, iheartradio |
+| **Print** | print, newspaper, magazine, press, publication, periodical |
+| **OOH** | ooh, outdoor, billboard, transit, dooh, poster, street, outofhome |
+| **Email** | email, edm, newsletter, mailchimp, mail |
+| **Influencer** | influencer, creator, ambassador, kol, blogger |
+| **Affiliate** | affiliate, partner, referral, cpa |
+| **Direct Mail** | direct, dm, direct_mail, mailshot, directmail |
+| **Mobile / App** | mobile, app, sms, push, notification, inapp, mobileapp |
+| **Cinema** | cinema, theater, movie, theatre |
+| **Sponsorship** | sponsor, sponsorship, event, partnership |
+
+---
+
+## Metric Types
+
+Each media channel requires a **media variable** (the activity metric) paired with a **cost variable** (the spend). The media variable metric type affects the default saturation scalar.
+
+Simba's metric type dropdown offers four options:
+
+| Metric Type | Default Scalar | Best For |
+|---|---|---|
+| **Spend** | 100,000 | When spend is your primary activity metric |
+| **Impressions** | 1,000,000 | Digital display, social, video --- where impression counts are available |
+| **GRPs** | 300 | Traditional TV and radio --- the industry standard for reach measurement |
+| **Clicks** | 100,000,000 | Paid search and display --- where click data is primary |
+
+The metric type **does not change the model structure** --- it only sets the default saturation scalar (which you can override). All metrics flow through the same [adstock + saturation + coefficient](../core-concepts/incrementality.md) pipeline. Smart priors are calculated from cost shares and channel activity patterns, not from the metric type.
+
+**Tip:** Use the most granular metric available. Impressions are generally more informative than spend because they reflect actual media delivery rather than cost, which can fluctuate due to CPM changes.
+
+---
+
+## Typical Channel Behavior
+
+Different channel types have characteristic saturation and decay patterns. These are not hard-coded --- the model estimates them from your data --- but they reflect common patterns that smart priors are calibrated around.
+
+![Typical saturation and decay profiles](./images/channels-saturation-decay.png)
+*Left: channels like TV and OOH can absorb more spend before saturating (large scalar x alpha), while search saturates quickly (small scalar). Right: TV and OOH effects persist for many weeks (high decay rate), while search and display effects fade quickly.*
+
+### High Saturation, Slow Decay
+
+**TV, OOH, Cinema:** These broad-reach channels can absorb substantial spend before diminishing returns set in. Their effects persist for weeks --- a TV ad seen today may influence a purchase decision two or three weeks later. Typical decay rates: 0.7--0.9.
+
+### Moderate Saturation, Moderate Decay
+
+**Social, Video/YouTube, Radio/Audio, Influencer:** These channels have a moderate capacity for spend and effects that last one to three weeks. Social and video can build frequency over time before fatigue sets in. Typical decay rates: 0.5--0.7.
+
+### Fast Saturation, Fast Decay
+
+**Search, Display, Affiliate, Email:** Performance channels that drive immediate response. They saturate quickly because the available audience at any point in time is limited. Effects are concentrated in the week of exposure with little carryover. Typical decay rates: 0.2--0.5.
+
+---
+
+## Required Data Structure
+
+For each media channel, you need **two columns** in your CSV:
+
+1. **Media variable** --- The activity metric (impressions, GRPs, clicks, or spend-as-activity).
+2. **Cost variable** --- The spend in currency for that channel in that period.
+
+These are linked in the variable selection step. A cost variable must pair with a media variable --- two cost columns cannot link together, and two media columns cannot link together.
+
+### Example Column Naming
+
+| Column Name | Auto-Detected As |
+|---|---|
+| `tv_grps` | TV media variable (GRP metric) |
+| `tv_spend` | TV cost variable |
+| `facebook_impressions` | Social media variable (Impressions metric) |
+| `facebook_spend` | Social cost variable |
+| `google_search_clicks` | Search media variable (Clicks metric) |
+| `google_search_cost` | Search cost variable |
+
+---
+
+## Control Variables
+
+In addition to media channels, include **control variables** for non-media factors that influence your KPI. These are classified separately from media and use linear effects (not saturation/adstock).
+
+| Variable Type | Examples | Smart Prior Default |
+|---|---|---|
+| **Pricing** | Price index, discount depth, promotional flags | Negative effect (price up = sales down) |
+| **Distribution** | Store count, availability score | Positive effect |
+| **Promotions** | Promotion flag (0/1), discount percentage | Positive effect |
+| **Competition** | Competitor spend, share of voice | Negative effect |
+| **Economic** | Consumer confidence, unemployment rate | Varies |
+| **Weather** | Temperature, precipitation | Varies |
+
+**Note on holidays and events:** Do not include holiday flags as data columns. Events and holidays are configured directly in Simba's model setup via the Holiday Selector, which provides country-based holiday lookup and GP-smoothed event effects. See [Seasonality](../core-concepts/seasonality.md).
+
+---
+
+## Best Practices
+
+1. **Use granular channel breakdowns** --- "Meta Impressions" and "TikTok Impressions" as separate channels is more useful than a combined "Social Spend." Per-platform breakdowns give you per-platform ROI and optimization insights.
+2. **Separate branded from non-branded search** --- Branded search often captures existing demand (driven by other channels like TV) rather than creating new demand. Modeling it separately avoids inflating search attribution.
+3. **Include zero-spend periods** --- Weeks where a channel had no activity are valuable signal for the model. Enter them as 0 (not blank). See [Data Preparation](./data-preparation.md).
+4. **Be consistent within channel** --- Use the same metric type (impressions or GRPs) for a channel across all time periods.
+5. **Pair every media variable with a cost variable** --- Both are required for each channel.
+
+---
+
+## Next Steps
+
+- [Data Requirements](./data-requirements.md) --- Full data format and requirements.
+- [Data Preparation](./data-preparation.md) --- Cleaning and formatting best practices.
+- [Saturation Curves](../core-concepts/saturation-curves.md) --- How each channel's diminishing returns are modeled.
+- [Adstock Effects](../core-concepts/adstock-effects.md) --- How carryover differs by channel type.
