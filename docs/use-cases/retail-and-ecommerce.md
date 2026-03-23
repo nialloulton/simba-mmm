@@ -52,9 +52,8 @@ Simba helps retail brands answer questions like:
 
 ## Recommended Plans
 
-- **Pro** — Multiple models for different product categories or markets
-- **Scale** — Portfolio modeling across brands or store groups
-- **Enterprise** — Custom integrations with retail data systems
+- **Enterprise** --- Full platform with multi-project support for different product categories or markets, portfolio modeling across brands.
+- **Managed** --- Expert-driven modeling by PhD statisticians, ideal for retail teams without in-house data science.
 
 → [View Plans](../pricing/README.md) | [Quick Start Guide](../getting-started/quick-start-guide.md)
 
