@@ -1,47 +1,47 @@
 # Core Concepts
 
-Welcome to the Simba core concepts library. These pages explain the statistical and marketing foundations behind Simba's Bayesian Marketing Mix Modeling platform. Whether you are a marketing analyst building your first model or a data scientist fine-tuning priors, these guides will give you the conceptual grounding you need.
+These pages explain the statistical and marketing foundations behind Simba's Bayesian Marketing Mix Modeling platform. Whether you are a marketing analyst building your first model or a data scientist fine-tuning priors, these guides will give you the conceptual grounding you need.
 
 ---
 
 ## Concept Guides
 
 ### [Marketing Mix Modeling (MMM)](./marketing-mix-modeling.md)
-What Marketing Mix Modeling is, how it differs from multi-touch attribution, and why Bayesian MMM is the gold standard for measuring media effectiveness across channels.
+What Marketing Mix Modeling is, how it differs from multi-touch attribution, and why Bayesian MMM built on PyMC is the standard for measuring media effectiveness across channels.
 
 ### [Bayesian Modeling](./bayesian-modeling.md)
-The statistical engine behind Simba. Learn how Bayesian inference works, why it outperforms traditional regression for marketing measurement, and how uncertainty quantification gives you confidence in every decision.
+The statistical foundation behind Simba. How prior distributions combine with observed data via the likelihood to produce posterior estimates, and why uncertainty quantification matters for marketing decisions.
 
 ### [Incrementality](./incrementality.md)
-How Simba separates organic demand from media-driven lift so you can measure the true causal impact of every marketing dollar.
+How Simba decomposes revenue into base demand, seasonality, controls, and incremental media contributions. Covers the contribution formula (`coefficient x tanh(adstocked / (scalar x alpha))`), lift test calibration, and the difference between causal and correlational attribution.
 
 ### [Saturation Curves](./saturation-curves.md)
-Understanding diminishing returns in media spend, how the tanh saturation function works, and how to interpret and configure saturation parameters in Simba.
+Understanding diminishing returns in media spend. The tanh saturation function uses two parameters --- scalar (anchored to data scale) and alpha (shape, Gamma prior with mean 1.7) --- to model how each channel's effectiveness decreases as spend increases.
 
 ### [Adstock Effects](./adstock-effects.md)
-How advertising impact carries over time, why different channels have different decay rates, and how to configure carryover parameters for accurate measurement.
+How advertising impact carries over time. Simba supports geometric decay (peak at exposure, exponential decline) and delayed adstock (bell-shaped peak at a configurable lag). Adstock is always applied before saturation.
 
 ### [Priors and Distributions](./priors-and-distributions.md)
-A practical guide to Bayesian priors in Simba, including the distribution types available (InverseGamma, TruncatedNormal, and more), smart defaults, and when to bring your own domain expertise.
-
-### [VAR Modeling](./var-modeling.md) 
-What Vector AutoRegression (VAR) is, how it differs from standard MMM, and when to use it for understanding inter-channel dynamics and system-level marketing effects.
-
-### [Halo Effects](./halo-effects.md)
-How advertising for one brand can lift sales of related brands in a portfolio, and how Simba models cross-brand marketing impact through halo channels and trademark channels.
+The four user-selectable distributions (Normal, InverseGamma, TruncatedNormal, TVP) plus internally used Beta and Gamma priors. Covers smart defaults derived from industry benchmarks, halo and trademark channel adjustments, and how lift tests enter as likelihood observations rather than priors.
 
 ### [Seasonality](./seasonality.md)
-How seasonal patterns influence marketing measurement and how Simba accounts for holidays, cyclical demand, and time-based trends automatically.
+Fourier-based seasonality (default n=2 terms), three trend types (smooth HSGP is the only one in the UI), and GP-smoothed event effects with hierarchical weights. Both seasonality and trend are opt-in features.
+
+### [VAR Modeling](./var-modeling.md)
+Bayesian Vector AutoRegression for capturing long-term brand effects. Models the endogenous system (revenue, brand awareness, brand search) driven by exogenous media spend, with Minnesota prior shrinkage to stabilize estimates from noisy brand data. Produces impulse response functions, variance decomposition, and long-run multipliers that enhance MMM ROI estimates.
+
+### [Halo Effects](./halo-effects.md)
+How advertising for one brand can lift sales of related brands in a portfolio. Halo channels receive a fixed small coefficient (0.005), while trademark channels receive a 75% reduction in their calculated prior.
 
 ---
 
 ## How These Concepts Fit Together
 
-Simba's four-step workflow --- **Audit, Measure, Predict, Optimize** --- draws on every concept above:
+Simba's workflow moves through four main areas --- **Model Warehouse, Active Model, Optimization, and Scenario Planner** --- and draws on every concept above:
 
-1. **Audit** --- Your data is validated and prepared. Seasonality patterns and baseline trends are identified.
-2. **Measure** --- A Bayesian model is fitted using the priors, saturation curves, and adstock structures you configure. The result is a full posterior distribution over every parameter, giving you incrementality estimates with calibrated uncertainty.
-3. **Predict** --- The fitted model forecasts future outcomes under different spend scenarios, respecting saturation limits and carryover dynamics.
-4. **Optimize** --- Simba's optimizer recommends budget allocations that maximize incremental return, informed by every concept on this page.
+1. **Model Warehouse** --- Upload and validate your data with the Data Validator. Configure media channels, control variables, priors, saturation, adstock, seasonality, and events. Fit the Bayesian model.
+2. **Active Model** --- Review the fitted model: contribution decomposition, response curves, coefficient posteriors with 94% HDI, and model diagnostics. Optionally link a VAR model for long-term multipliers.
+3. **Optimization** --- The optimizer uses the fitted saturation curves and response functions to recommend budget allocations that maximize incremental return, equalizing marginal returns across channels.
+4. **Scenario Planner** --- Forecast outcomes under different spend scenarios, respecting saturation limits, carryover dynamics, and seasonal patterns.
 
 Each concept page is self-contained, but reading them in the order listed above will give you the most coherent understanding of the platform.
