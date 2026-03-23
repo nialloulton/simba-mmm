@@ -33,15 +33,4 @@ Bayesian Vector AutoRegression for capturing long-term brand effects. Models the
 ### [Halo Effects](./halo-effects.md)
 How advertising for one brand can lift sales of related brands in a portfolio. Halo channels receive a fixed small coefficient (0.005), while trademark channels receive a 75% reduction in their calculated prior.
 
----
-
-## How These Concepts Fit Together
-
-Simba's workflow moves through four main areas --- **Model Warehouse, Active Model, Optimization, and Scenario Planner** --- and draws on every concept above:
-
-1. **Model Warehouse** --- Upload and validate your data with the Data Validator. Configure media channels, control variables, priors, saturation, adstock, seasonality, and events. Fit the Bayesian model.
-2. **Active Model** --- Review the fitted model: contribution decomposition, response curves, coefficient posteriors with 94% HDI, and model diagnostics. Optionally link a VAR model for long-term multipliers.
-3. **Optimization** --- The optimizer uses the fitted saturation curves and response functions to recommend budget allocations that maximize incremental return, equalizing marginal returns across channels.
-4. **Scenario Planner** --- Forecast outcomes under different spend scenarios, respecting saturation limits, carryover dynamics, and seasonal patterns.
-
-Each concept page is self-contained, but reading them in the order listed above will give you the most coherent understanding of the platform.
+Each concept page is self-contained, but reading them in the order listed above will give you the most coherent understanding of how the pieces fit together.
