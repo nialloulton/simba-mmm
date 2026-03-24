@@ -108,10 +108,6 @@ Diagnostic metrics:
 
 Residual analysis with residual plots and Q-Q plots for assessing distributional assumptions.
 
-### AI Assistant
-
-Interactive analysis powered by Claude AI. Ask questions in natural language and receive custom charts and analyses. See [AI Assistant](./ai-assistant.md).
-
 ### VAR-Specific Tabs
 
 For models linked to a VAR model:
