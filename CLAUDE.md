@@ -222,12 +222,44 @@ Colored circles (1, 2, 3...) positioned with `position: absolute` over key UI el
 .anno-purple { background:#8B5CF6; }
 ```
 
-**CRITICAL annotation positioning rules:**
-- Every `<section>` that contains annotations MUST have `padding: 40px` minimum so annotations near edges are never clipped by the Playwright element screenshot
-- Never position an annotation circle on the border/edge of a card or container — place it clearly inside or outside with at least 20px clearance from any edge
-- Annotations near the top-left, top-right, bottom-left, or bottom-right corners of cards are the #1 cause of clipped screenshots — offset them inward
-- The annotation's `position: absolute` is relative to the nearest `position: relative` parent — ensure the section wrapper (not a child card) is the relative parent
-- After placing all annotations, mentally check: "If Playwright captures this section's bounding box, will every annotation circle be fully inside that box?"
+**CRITICAL annotation positioning rules — annotations must NEVER obscure text, icons, or data:**
+
+**Rule 1: No overlapping content.** An annotation circle must never sit on top of text, numbers, icons, badges, or input values. If an annotation would overlap any readable content, it FAILS and must be repositioned. This is the #1 quality issue.
+
+**Rule 2: Place annotations in whitespace.** Every UI element has whitespace nearby — margins, padding gaps, empty corners. Place annotations there, not on content. Good positions:
+- Right margin of a card (right:14px) in empty space above or below text
+- Bottom-right corner of a card below the last line of content
+- In the gap between elements (between title and content, between rows)
+- In the outer section padding area
+
+**Rule 3: For tables/grids, use an inline legend below the table instead of overlaid circles.** Tables have no whitespace — every cell contains data. Use this pattern instead:
+```html
+<div class="flex items-center gap-6 mt-4 text-xs text-slate-500">
+  <div class="flex items-center gap-1.5">
+    <div class="anno anno-blue" style="position:static;width:22px;height:22px;font-size:11px;">1</div>
+    <span>Channel column</span>
+  </div>
+  <!-- repeat for each annotation -->
+</div>
+```
+
+**Rule 4: For info boxes/text blocks, place the annotation OUTSIDE the box.** Use a flex wrapper to put the annotation in the right margin:
+```html
+<div class="flex items-start gap-3">
+  <div class="bg-blue-50 ... flex-1"><!-- info box content --></div>
+  <div class="anno anno-green" style="position:static;flex-shrink:0;margin-top:8px;">3</div>
+</div>
+```
+
+**Rule 5: Never use `overflow-hidden` on containers that hold annotations.** It clips the circles. Remove it or use `overflow-visible`.
+
+**Rule 6: Section padding.** Every `<section>` MUST have `padding: 40px` minimum so annotations in the margin area are never clipped.
+
+**Rule 7: Verify EVERY annotation after capture.** Read each screenshot back and zoom into every annotation circle. Check:
+- Is the full circle visible? (no clipping)
+- Is any text/icon/data behind or under the circle? (must be NO)
+- Can you read all text near the annotation? (must be YES)
+- If any check fails, reposition and re-capture
 
 **Step 4: Serve and screenshot with Playwright**
 
