@@ -40,7 +40,7 @@ Every new account starts with a 28-day trial that includes generous limits:
 
 - 10 saved models, 10 model fits, 10 optimizations, 10 scenarios.
 - VAR models are enabled.
-- Full platform access including AI Data Auditor, Smart Defaults, and AI Assistant.
+- Full platform access including Data Validator and Smart Defaults.
 - No credit card required.
 
 ### 3-Day Grace Period
