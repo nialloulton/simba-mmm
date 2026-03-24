@@ -1,6 +1,6 @@
 # Budget Optimization --- Risk-Adjusted Spend Allocation
 
-Budget Optimization generates per-channel budget recommendations that maximize expected revenue while respecting your risk tolerance, channel constraints, and spend timing preferences. It uses the full [Bayesian posterior](../core-concepts/bayesian-modeling.md) from your fitted model --- including response curves, [saturation](../core-concepts/saturation-curves.md), [adstock decay](../core-concepts/adstock-effects.md), and parameter uncertainty --- to find the optimal allocation. For the theory behind how optimization works, see [Optimization (Core Concepts)](../core-concepts/optimization.md).
+Budget Optimization generates per-channel budget recommendations that maximize expected revenue while respecting your risk tolerance, channel constraints, and spend timing preferences. It uses the full [Bayesian posterior](../core-concepts/bayesian-modeling.md) from your fitted model --- including response curves, [saturation](../core-concepts/saturation-curves.md), [adstock decay](../core-concepts/adstock-effects.md), and parameter uncertainty --- to find the optimal allocation. For the theory behind how optimization works, see [Optimization (Core Concepts)](../core-concepts/budget-optimization.md).
 
 ---
 
@@ -40,7 +40,7 @@ Set the core optimization parameters.
 | # | Element | Description |
 |---|---------|-------------|
 | 1 | **Total Budget** | The total amount to allocate across all channels for the planning period |
-| 2 | **Risk Tolerance (Gamma)** | Slider from 0.0 to 1.0. Controls the tradeoff between maximizing expected return and diversifying to reduce uncertainty. See [how gamma works](../core-concepts/optimization.md#risk-aversion-the-gamma-parameter) |
+| 2 | **Risk Tolerance (Gamma)** | Slider from 0.0 to 1.0. Controls the tradeoff between maximizing expected return and diversifying to reduce uncertainty. See [how gamma works](../core-concepts/budget-optimization.md#risk-aversion-gamma) |
 | 3 | **Warm Start & Historical Effect** | Warm Start accounts for [adstock](../core-concepts/adstock-effects.md) carryover from previous periods. Historical Effect includes residual media effects |
 | 4 | **Summary panel** | Live preview of all configuration settings |
 
@@ -54,7 +54,7 @@ The gamma parameter controls how the optimizer balances return against uncertain
 | **0.3 --- 0.7** (Balanced) | Moderate diversification. Balances expected return with stability | Default for most use cases. Good starting point |
 | **0.8 --- 1.0** (Risk-Averse) | Spreads budget to minimize variance. Prioritises reliable channels | When posterior uncertainty is high or you want conservative allocation |
 
-The optimizer maximizes: **E[response] --- gamma x STD[response]** across all posterior samples from your [Bayesian model](../core-concepts/bayesian-modeling.md). This is a mean-variance objective function inspired by [Modern Portfolio Theory](../core-concepts/optimization.md#the-mean-variance-framework).
+The optimizer maximizes: **E[response] --- gamma x STD[response]** across all posterior samples from your [Bayesian model](../core-concepts/bayesian-modeling.md). This is a mean-variance objective function inspired by [Modern Portfolio Theory](../core-concepts/budget-optimization.md#the-theory-behind-gamma).
 
 > **Technical note:** The UI gamma range (0 --- 1) is scaled internally before optimization. Even small gamma values produce meaningful diversification because the penalty is applied to the standard deviation of the full posterior distribution.
 
@@ -166,10 +166,10 @@ It accounts for:
 
 - **Diminishing returns:** Each additional dollar spent on a channel produces less incremental revenue as the channel approaches [saturation](../core-concepts/saturation-curves.md). The optimizer spreads budget across channels to capture the most efficient marginal returns.
 - **Carryover effects:** [Adstock](../core-concepts/adstock-effects.md) decay curves mean that spend in one period continues generating response in subsequent periods. When **Warm Start** is enabled, the optimizer accounts for historical spend bleeding into the planning window.
-- **Uncertainty:** The [gamma parameter](../core-concepts/optimization.md#risk-aversion-the-gamma-parameter) controls how much the optimizer penalises channels with wide [posterior distributions](../core-concepts/bayesian-modeling.md) (high uncertainty in their response estimates).
+- **Uncertainty:** The [gamma parameter](../core-concepts/budget-optimization.md#risk-aversion-gamma) controls how much the optimizer penalises channels with wide [posterior distributions](../core-concepts/bayesian-modeling.md) (high uncertainty in their response estimates).
 - **Constraints:** Per-channel percentage bounds, total budget constraint, and laydown weights are all enforced simultaneously.
 
-For a deeper explanation of the mathematics behind this --- marginal response curves, the efficient frontier, and the mean-variance framework --- see [Optimization (Core Concepts)](../core-concepts/optimization.md).
+For a deeper explanation of the mathematics behind this --- marginal response curves, the efficient frontier, and the mean-variance framework --- see [Optimization (Core Concepts)](../core-concepts/budget-optimization.md).
 
 ---
 
@@ -245,7 +245,7 @@ See [Halo and Trademark Channels](./halo-trademark-channels.md) and [Portfolio A
 - [Portfolio Analysis](./portfolio-analysis.md) --- Cross-brand optimization
 
 **Core concepts:**
-- [Optimization](../core-concepts/optimization.md) --- The theory behind marginal response curves, the efficient frontier, and risk-adjusted allocation
+- [Optimization](../core-concepts/budget-optimization.md) --- The theory behind marginal response curves, the efficient frontier, and risk-adjusted allocation
 - [Saturation Curves](../core-concepts/saturation-curves.md) --- How diminishing returns shape the optimizer's recommendations
 - [Adstock Effects](../core-concepts/adstock-effects.md) --- How carryover dynamics affect multi-period optimization
 - [Halo Effects](../core-concepts/halo-effects.md) --- Cross-brand effects in portfolio optimization
