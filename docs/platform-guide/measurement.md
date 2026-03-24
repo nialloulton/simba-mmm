@@ -137,7 +137,7 @@ For VAR models, a variable selector dropdown lets you inspect residuals for each
 
 The Media Results tab is the primary performance dashboard for channel-level analysis. It contains several sections:
 
-**Executive Summary Cards** --- Three KPI cards showing Total Revenue, Media Spend, and Overall ROI (revenue / spend). When a linked VAR model provides long-run elasticities, a "Long Run Effects" toggle transforms all metrics to include brand-building multipliers.
+**Executive Summary Cards** --- Three KPI cards showing Total Revenue, Media Spend, and Overall ROI (revenue / spend). When a linked [VAR model](../core-concepts/var-modeling.md) provides long-run elasticities, a "Long Run Effects" toggle transforms all metrics to include brand-building multipliers. These metrics feed directly into [budget optimization](../core-concepts/budget-optimization.md) recommendations.
 
 **Channel Control Panel** --- A chip-based selector for toggling individual channels on and off. Deselecting a channel removes it from all charts and tables below.
 
@@ -202,7 +202,7 @@ The Contributions tab decomposes the target variable into its component drivers 
 
 **Summary Cards** --- Four KPIs: Top Contributor (highest overall driver, typically Base), Top Media Channel, Media Contribution (% of total driven by media), and Base/Other Factors (non-media portion).
 
-**Channel Color Customizer** --- Assign custom colors to individual channels for consistent visualization across all tabs and exports.
+**Channel Color Customizer** --- Assign custom colors to individual channels for consistent visualization across all tabs and exports. [Halo channels](../core-concepts/halo-effects.md) and trademark channels are distinguished with purple and amber badges respectively.
 
 **Driver Grouping** --- Create custom groups that aggregate channels for higher-level reporting. For example, group Facebook + Instagram + TikTok into "Paid Social". Groups and their colors persist across sessions and sync to the Optimizer and Scenario Planner.
 
