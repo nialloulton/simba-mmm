@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>Simba Scenario Planning Mockup</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<style>
+body { background: #f8fafc; font-family: Inter, system-ui, -apple-system, sans-serif; }
+.anno { position:absolute; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px; color:#fff; z-index:50; box-shadow:0 2px 6px rgba(0,0,0,0.3); }
+.anno-blue { background:#2563EB; }
+.anno-orange { background:#F97316; }
+.anno-green { background:#10B981; }
+.anno-purple { background:#8B5CF6; }
+.anno-red { background:#EF4444; }
+section { margin: 40px auto; max-width: 1280px; padding: 40px 40px; position: relative; }
+</style>
+</head>
+<body>
+
+<!-- ============================================ -->
+<!-- SECTION: SCENARIO LANDING -->
+<!-- ============================================ -->
+<section id="scenario-landing" style="padding-top:40px;padding-bottom:40px;">
+<div class="min-h-[600px] flex items-center justify-center px-4">
+  <div class="max-w-6xl w-full">
+    <!-- Header -->
+    <div class="text-center mb-12" style="position:relative;">
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 mb-4">
+        <i data-lucide="notebook-pen" class="w-8 h-8 text-white"></i>
+      </div>
+      <h1 class="text-4xl font-bold text-slate-900 mb-3">Plan Your Marketing Future</h1>
+      <p class="text-lg text-slate-600 max-w-2xl mx-auto">Choose your planning approach and predict the impact of your marketing investments with confidence</p>
+      <div class="anno anno-blue" style="top:8px;right:180px;">1</div>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="grid md:grid-cols-2 gap-8" style="position:relative;">
+      <!-- Monthly Planner Card -->
+      <div class="relative border-2 border-blue-500 shadow-2xl rounded-lg bg-white cursor-pointer transform -translate-y-1" style="position:relative;">
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50 opacity-100 rounded-lg"></div>
+        <div class="relative p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg scale-110">
+              <i data-lucide="calendar" class="w-7 h-7 text-white"></i>
+            </div>
+            <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold">
+              <i data-lucide="sparkles" class="w-3 h-3"></i>
+              <span>RECOMMENDED</span>
+            </div>
+          </div>
+          <h2 class="text-3xl font-semibold text-blue-600 mb-3">Monthly Planner</h2>
+          <p class="text-base text-slate-600 mb-6 leading-relaxed">Perfect for marketers who think in months. Simple, intuitive interface to plan your budget month by month with instant forecasts.</p>
+          <ul class="space-y-3 mb-6">
+            <li class="flex items-center text-sm text-gray-700"><div class="w-1.5 h-1.5 rounded-full bg-blue-500 mr-3"></div>Quick monthly budget allocation</li>
+            <li class="flex items-center text-sm text-gray-700"><div class="w-1.5 h-1.5 rounded-full bg-blue-500 mr-3"></div>Easy-to-read forecasts</li>
+            <li class="flex items-center text-sm text-gray-700"><div class="w-1.5 h-1.5 rounded-full bg-blue-500 mr-3"></div>Perfect for strategic planning</li>
+          </ul>
+          <button class="w-full py-2.5 px-4 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold shadow-lg">Start Monthly Planning</button>
+          <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded-b-lg"></div>
+        </div>
+        <div class="anno anno-blue" style="top:12px;left:12px;">2</div>
+        <div class="anno anno-green" style="top:12px;right:12px;">3</div>
+      </div>
+
+      <!-- Advanced Planner Card -->
+      <div class="relative border-2 border-gray-200 hover:border-purple-500 rounded-lg bg-white cursor-pointer" style="position:relative;">
+        <div class="relative p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-600 shadow-lg">
+              <i data-lucide="bar-chart-3" class="w-7 h-7 text-white"></i>
+            </div>
+            <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-semibold">
+              <i data-lucide="trending-up" class="w-3 h-3"></i>
+              <span>ADVANCED</span>
+            </div>
+          </div>
+          <h2 class="text-3xl font-semibold text-slate-800 mb-3">Advanced Planner</h2>
+          <p class="text-base text-slate-600 mb-6 leading-relaxed">For detailed campaign planning. Full control over weekly budgets, interactive visualizations, and granular forecasting.</p>
+          <ul class="space-y-3 mb-6">
+            <li class="flex items-center text-sm text-gray-700"><div class="w-1.5 h-1.5 rounded-full bg-purple-500 mr-3"></div>Week-by-week planning precision</li>
+            <li class="flex items-center text-sm text-gray-700"><div class="w-1.5 h-1.5 rounded-full bg-purple-500 mr-3"></div>Interactive channel editing</li>
+            <li class="flex items-center text-sm text-gray-700"><div class="w-1.5 h-1.5 rounded-full bg-purple-500 mr-3"></div>Import/export capabilities</li>
+          </ul>
+          <button class="w-full py-2.5 px-4 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold shadow-lg">Start Advanced Planning</button>
+        </div>
+        <div class="anno anno-purple" style="top:12px;left:12px;">4</div>
+      </div>
+    </div>
+
+    <!-- Help Text -->
+    <div class="text-center mt-8">
+      <p class="text-sm text-gray-500">Not sure which to choose? Start with <span class="font-semibold text-blue-600">Monthly Planner</span> - you can always switch later</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: WIZARD STEP 1 - Budget Configuration -->
+<!-- ============================================ -->
+<section id="wizard-step1" style="padding-top:40px;padding-bottom:40px;">
+<div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg border border-slate-200 p-8" style="position:relative;">
+  <h2 class="text-2xl font-bold text-slate-900 mb-2">Step 1: Budget Configuration</h2>
+  <p class="text-slate-600 mb-6">Set your total marketing budget for the planning period</p>
+
+  <!-- Planning Period Summary -->
+  <div class="bg-blue-50 rounded-lg p-4 mb-6 flex items-center gap-6" style="position:relative;">
+    <div class="text-center">
+      <div class="text-2xl font-bold text-blue-700">3</div>
+      <div class="text-xs text-blue-600 font-medium">Months</div>
+    </div>
+    <div class="h-10 w-px bg-blue-200"></div>
+    <div class="text-center">
+      <div class="text-2xl font-bold text-blue-700">12</div>
+      <div class="text-xs text-blue-600 font-medium">Total Weeks</div>
+    </div>
+    <div class="h-10 w-px bg-blue-200"></div>
+    <div class="flex items-center gap-2">
+      <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-700 text-xs font-semibold">Partial Month</span>
+      <span class="text-sm text-slate-600">Mar 2025 starts mid-month (2w)</span>
+    </div>
+    <div class="anno anno-blue" style="top:8px;left:20px;">1</div>
+  </div>
+
+  <!-- Budget Input -->
+  <div class="mb-6" style="position:relative;">
+    <label class="block text-sm font-semibold text-slate-700 mb-2">Total Budget</label>
+    <div class="relative">
+      <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-semibold">$</span>
+      <input type="text" value="120,000" class="w-full pl-8 pr-4 py-3 border-2 border-slate-300 rounded-lg text-lg font-semibold focus:border-blue-500 focus:outline-none" />
+    </div>
+    <div class="anno anno-orange" style="top:8px;right:8px;">2</div>
+  </div>
+
+  <!-- Info Box -->
+  <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 flex items-start gap-3" style="position:relative;">
+    <span class="text-lg">💡</span>
+    <p class="text-sm text-blue-800">Don't worry about getting this perfect! You can adjust individual channel budgets in the next step. This total is just a starting point for even distribution.</p>
+    <div class="anno anno-green" style="top:8px;right:8px;">3</div>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="flex justify-end gap-3 mt-8">
+    <button class="px-6 py-2.5 rounded-lg border-2 border-slate-300 text-slate-700 font-medium">Back</button>
+    <button class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold shadow-lg">Next Step</button>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: WIZARD STEP 3 - Monthly Budgets -->
+<!-- ============================================ -->
+<section id="wizard-step3" style="padding-top:40px;padding-bottom:40px;">
+<div class="max-w-6xl mx-auto bg-white rounded-xl shadow-lg border border-slate-200 p-8" style="position:relative;">
+  <h2 class="text-2xl font-bold text-slate-900 mb-2">Step 3: Enter Monthly Budgets</h2>
+  <p class="text-slate-600 mb-6">Adjust the budget allocation for each channel per month</p>
+
+  <!-- AG Grid Table Mockup -->
+  <div class="border border-slate-300 rounded-lg" style="position:relative;">
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="bg-slate-100 border-b border-slate-300">
+          <th class="text-left p-3 font-semibold text-slate-700 border-r border-slate-200 bg-slate-50 sticky left-0" style="min-width:160px;">Channel</th>
+          <th class="text-right p-3 font-semibold text-blue-700 border-r border-slate-200 bg-blue-50" style="min-width:120px;">Total Budget</th>
+          <th class="text-right p-3 font-semibold text-slate-700 border-r border-slate-200 bg-green-50" style="min-width:120px;">Mar 2025 (2w)</th>
+          <th class="text-right p-3 font-semibold text-slate-700 border-r border-slate-200 bg-green-50" style="min-width:120px;">Apr 2025</th>
+          <th class="text-right p-3 font-semibold text-slate-700 bg-green-50" style="min-width:120px;">May 2025</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b border-slate-200 hover:bg-slate-50">
+          <td class="p-3 font-medium text-slate-800 border-r border-slate-200 bg-white sticky left-0">Google Ads</td>
+          <td class="p-3 text-right font-mono text-blue-700 border-r border-slate-200 bg-blue-50/30">$30,000</td>
+          <td class="p-3 text-right font-mono border-r border-slate-200">$5,000</td>
+          <td class="p-3 text-right font-mono border-r border-slate-200">$12,500</td>
+          <td class="p-3 text-right font-mono">$12,500</td>
+        </tr>
+        <tr class="border-b border-slate-200 hover:bg-slate-50">
+          <td class="p-3 font-medium text-slate-800 border-r border-slate-200 bg-white sticky left-0">Facebook</td>
+          <td class="p-3 text-right font-mono text-blue-700 border-r border-slate-200 bg-blue-50/30">$25,000</td>
+          <td class="p-3 text-right font-mono border-r border-slate-200">$4,167</td>
+          <td class="p-3 text-right font-mono border-r border-slate-200">$10,417</td>
+          <td class="p-3 text-right font-mono">$10,417</td>
+        </tr>
+        <tr class="border-b border-slate-200 hover:bg-slate-50">
+          <td class="p-3 font-medium text-slate-800 border-r border-slate-200 bg-white sticky left-0">TV</td>
+          <td class="p-3 text-right font-mono text-blue-700 border-r border-slate-200 bg-blue-50/30">$35,000</td>
+          <td class="p-3 text-right font-mono border-r border-slate-200">$5,833</td>
+          <td class="p-3 text-right font-mono border-r border-slate-200">$14,583</td>
+          <td class="p-3 text-right font-mono">$14,583</td>
+        </tr>
+        <tr class="border-b border-slate-200 hover:bg-slate-50">
+          <td class="p-3 font-medium text-slate-800 border-r border-slate-200 bg-white sticky left-0">Instagram</td>
+          <td class="p-3 text-right font-mono text-blue-700 border-r border-slate-200 bg-blue-50/30">$15,000</td>
+          <td class="p-3 text-right font-mono border-r border-slate-200">$2,500</td>
+          <td class="p-3 text-right font-mono border-r border-slate-200">$6,250</td>
+          <td class="p-3 text-right font-mono">$6,250</td>
+        </tr>
+        <tr class="border-b border-slate-200 hover:bg-slate-50 bg-blue-50/20">
+          <td class="p-3 font-medium text-blue-700 border-r border-slate-200 bg-white sticky left-0">Podcast <span class="text-xs bg-blue-100 text-blue-600 px-1.5 py-0.5 rounded font-semibold ml-1">Proxy</span></td>
+          <td class="p-3 text-right font-mono text-blue-700 border-r border-slate-200 bg-blue-50/30">$15,000</td>
+          <td class="p-3 text-right font-mono border-r border-slate-200">$2,500</td>
+          <td class="p-3 text-right font-mono border-r border-slate-200">$6,250</td>
+          <td class="p-3 text-right font-mono">$6,250</td>
+        </tr>
+        <tr class="bg-slate-50 font-semibold">
+          <td class="p-3 text-slate-900 border-r border-slate-200 bg-slate-100 sticky left-0">TOTAL</td>
+          <td class="p-3 text-right font-mono text-blue-800 border-r border-slate-200 bg-blue-100/50">$120,000</td>
+          <td class="p-3 text-right font-mono text-slate-800 border-r border-slate-200">$20,000</td>
+          <td class="p-3 text-right font-mono text-slate-800 border-r border-slate-200">$50,000</td>
+          <td class="p-3 text-right font-mono text-slate-800">$50,000</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="anno anno-blue" style="top:8px;left:8px;">1</div>
+    <div class="anno anno-orange" style="top:8px;right:380px;">2</div>
+    <div class="anno anno-green" style="top:8px;right:8px;">3</div>
+    <div class="anno anno-purple" style="bottom:50px;left:8px;">4</div>
+  </div>
+
+  <div class="flex justify-end gap-3 mt-8">
+    <button class="px-6 py-2.5 rounded-lg border-2 border-slate-300 text-slate-700 font-medium">Back</button>
+    <button class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold shadow-lg">Next Step</button>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: WIZARD STEP 4 - Allocation Strategy -->
+<!-- ============================================ -->
+<section id="wizard-step4" style="padding-top:40px;padding-bottom:40px;">
+<div class="max-w-5xl mx-auto bg-white rounded-xl shadow-lg border border-slate-200 p-8" style="position:relative;">
+  <h2 class="text-2xl font-bold text-slate-900 mb-2">Step 4: Choose Allocation Strategy</h2>
+  <p class="text-slate-600 mb-6">Select how your monthly budget is distributed across weeks within each month</p>
+
+  <div class="grid grid-cols-3 gap-4" style="position:relative;">
+    <!-- Equal (selected) -->
+    <div class="border-2 border-blue-500 bg-blue-50 rounded-xl p-5 cursor-pointer shadow-lg scale-105 relative">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center"><i data-lucide="bar-chart-3" class="w-5 h-5 text-blue-600"></i></div>
+        <div class="font-semibold text-slate-900">Equal Distribution</div>
+      </div>
+      <p class="text-sm text-slate-600">Even split across all weeks in each month</p>
+      <div class="absolute top-2 right-2 w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center"><i data-lucide="check" class="w-3 h-3 text-white"></i></div>
+      <div class="anno anno-blue" style="top:8px;left:8px;">1</div>
+    </div>
+    <!-- Business-Week -->
+    <div class="border-2 border-slate-200 rounded-xl p-5 cursor-pointer hover:border-slate-400">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center"><i data-lucide="calendar" class="w-5 h-5 text-slate-600"></i></div>
+        <div class="font-semibold text-slate-900">Business-Week</div>
+      </div>
+      <p class="text-sm text-slate-600">Customizable early/mid/late month weighting</p>
+    </div>
+    <!-- Always-On -->
+    <div class="border-2 border-slate-200 rounded-xl p-5 cursor-pointer hover:border-slate-400">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center"><i data-lucide="zap" class="w-5 h-5 text-slate-600"></i></div>
+        <div class="font-semibold text-slate-900">Always-On</div>
+      </div>
+      <p class="text-sm text-slate-600">Stable, consistent shares every week</p>
+    </div>
+    <!-- Pulsed -->
+    <div class="border-2 border-slate-200 rounded-xl p-5 cursor-pointer hover:border-slate-400">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center"><i data-lucide="activity" class="w-5 h-5 text-slate-600"></i></div>
+        <div class="font-semibold text-slate-900">Pulsed</div>
+      </div>
+      <p class="text-sm text-slate-600">High-low-high alternating pattern</p>
+    </div>
+    <!-- Launch Burst -->
+    <div class="border-2 border-slate-200 rounded-xl p-5 cursor-pointer hover:border-slate-400">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center"><i data-lucide="rocket" class="w-5 h-5 text-slate-600"></i></div>
+        <div class="font-semibold text-slate-900">Launch Burst</div>
+      </div>
+      <p class="text-sm text-slate-600">Front-loaded 40/30/20/10 spend pattern</p>
+    </div>
+    <!-- Event-Centric -->
+    <div class="border-2 border-slate-200 rounded-xl p-5 cursor-pointer hover:border-slate-400">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center"><i data-lucide="star" class="w-5 h-5 text-slate-600"></i></div>
+        <div class="font-semibold text-slate-900">Event-Centric</div>
+      </div>
+      <p class="text-sm text-slate-600">Peak spending around a target week/event</p>
+    </div>
+  </div>
+
+  <div class="flex justify-end gap-3 mt-8">
+    <button class="px-6 py-2.5 rounded-lg border-2 border-slate-300 text-slate-700 font-medium">Back</button>
+    <button class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold shadow-lg">Next Step</button>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: WIZARD STEP 5 - Control Adjustments -->
+<!-- ============================================ -->
+<section id="wizard-step5" style="padding-top:40px;padding-bottom:40px;">
+<div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg border border-slate-200 p-8" style="position:relative;">
+  <h2 class="text-2xl font-bold text-slate-900 mb-2">Step 5: Business Scenario Adjustments</h2>
+  <p class="text-slate-600 mb-6">Adjust control variables to model different business scenarios</p>
+
+  <!-- Pricing Category -->
+  <div class="mb-6 border border-slate-200 rounded-lg" style="position:relative;">
+    <div class="bg-green-50 px-4 py-3 flex items-center gap-3 border-b border-slate-200">
+      <div class="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center"><i data-lucide="dollar-sign" class="w-4 h-4 text-green-700"></i></div>
+      <h3 class="font-semibold text-slate-800">Pricing Factors</h3>
+      <span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">2 variables</span>
+    </div>
+    <div class="p-4 space-y-4">
+      <div class="flex items-center gap-4">
+        <div class="w-40 text-sm font-medium text-slate-700">Avg Unit Price</div>
+        <div class="flex-1"><div class="h-2 bg-slate-200 rounded-full relative"><div class="absolute left-1/2 top-0 h-2 bg-green-500 rounded-full" style="width:10%;transform:translateX(-50%)"></div><div class="absolute left-[55%] top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-2 border-green-500 rounded-full shadow"></div></div></div>
+        <div class="w-16 text-right text-sm font-semibold text-green-600">+5%</div>
+        <div class="text-xs text-slate-500">↑ Revenue</div>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="w-40 text-sm font-medium text-slate-700">Discount Rate</div>
+        <div class="flex-1"><div class="h-2 bg-slate-200 rounded-full relative"><div class="absolute left-[40%] top-0 h-2 bg-red-400 rounded-full" style="width:10%"></div><div class="absolute left-[45%] top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-2 border-red-400 rounded-full shadow"></div></div></div>
+        <div class="w-16 text-right text-sm font-semibold text-red-500">-10%</div>
+        <div class="text-xs text-slate-500">↓ Revenue</div>
+      </div>
+    </div>
+    <div class="anno anno-blue" style="top:8px;left:8px;">1</div>
+  </div>
+
+  <!-- Distribution Category -->
+  <div class="mb-6 border border-slate-200 rounded-lg" style="position:relative;">
+    <div class="bg-blue-50 px-4 py-3 flex items-center gap-3 border-b border-slate-200">
+      <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center"><i data-lucide="package" class="w-4 h-4 text-blue-700"></i></div>
+      <h3 class="font-semibold text-slate-800">Distribution Factors</h3>
+      <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-medium">1 variable</span>
+    </div>
+    <div class="p-4">
+      <div class="flex items-center gap-4">
+        <div class="w-40 text-sm font-medium text-slate-700">Store Count</div>
+        <div class="flex-1"><div class="h-2 bg-slate-200 rounded-full relative"><div class="absolute left-1/2 top-0 h-2 bg-blue-500 rounded-full" style="width:0%"></div><div class="absolute left-[50%] top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-2 border-slate-400 rounded-full shadow"></div></div></div>
+        <div class="w-16 text-right text-sm font-semibold text-slate-500">0%</div>
+        <div class="text-xs text-slate-500">— Baseline</div>
+      </div>
+    </div>
+    <div class="anno anno-orange" style="top:8px;left:8px;">2</div>
+  </div>
+
+  <!-- Automatic Category -->
+  <div class="mb-6 border border-slate-200 rounded-lg" style="position:relative;">
+    <div class="bg-slate-50 px-4 py-3 flex items-center gap-3 border-b border-slate-200">
+      <div class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center"><i data-lucide="settings" class="w-4 h-4 text-slate-600"></i></div>
+      <h3 class="font-semibold text-slate-800">Automatic (Read-Only)</h3>
+      <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-medium">Auto-projected</span>
+    </div>
+    <div class="p-4 text-sm text-slate-500 italic">Trend and seasonality variables are projected forward automatically based on historical patterns.</div>
+    <div class="anno anno-green" style="top:8px;left:8px;">3</div>
+  </div>
+
+  <div class="flex justify-between mt-8">
+    <button class="px-6 py-2.5 rounded-lg border-2 border-slate-300 text-slate-500 font-medium">Skip This Step</button>
+    <div class="flex gap-3">
+      <button class="px-6 py-2.5 rounded-lg border-2 border-slate-300 text-slate-700 font-medium">Back</button>
+      <button class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold shadow-lg">Next Step</button>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: WIZARD STEP 6 - Revenue Multiplier -->
+<!-- ============================================ -->
+<section id="wizard-step6" style="padding-top:40px;padding-bottom:40px;">
+<div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg border border-slate-200 p-8" style="position:relative;">
+  <h2 class="text-2xl font-bold text-slate-900 mb-2">Step 6: Configure Revenue Conversion</h2>
+  <p class="text-slate-600 mb-6">Set revenue multipliers to convert model predictions into business outcomes</p>
+
+  <div class="border border-slate-300 rounded-lg" style="position:relative;">
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="bg-slate-100 border-b border-slate-300">
+          <th class="text-left p-3 font-semibold text-slate-700 border-r border-slate-200">Revenue Multiplier</th>
+          <th class="text-center p-3 font-semibold text-slate-700 border-r border-slate-200">Mar 2025</th>
+          <th class="text-center p-3 font-semibold text-slate-700 border-r border-slate-200">Apr 2025</th>
+          <th class="text-center p-3 font-semibold text-slate-700">May 2025</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b border-slate-200">
+          <td class="p-3 font-medium text-slate-800 border-r border-slate-200">Multiplier</td>
+          <td class="p-3 text-center font-mono border-r border-slate-200"><input type="text" value="1.0" class="w-16 text-center border border-slate-300 rounded px-2 py-1"></td>
+          <td class="p-3 text-center font-mono border-r border-slate-200"><input type="text" value="1.0" class="w-16 text-center border border-slate-300 rounded px-2 py-1"></td>
+          <td class="p-3 text-center font-mono"><input type="text" value="1.0" class="w-16 text-center border border-slate-300 rounded px-2 py-1"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="anno anno-blue" style="top:8px;right:40px;">1</div>
+  </div>
+
+  <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-4 flex items-start gap-3">
+    <span class="text-lg">💡</span>
+    <p class="text-sm text-blue-800">A multiplier of 1.0 means the raw model prediction is used directly. Increase to account for factors the model doesn't capture (e.g., seasonal peaks, promotions). Decrease if you expect headwinds.</p>
+  </div>
+
+  <div class="flex justify-end gap-3 mt-8">
+    <button class="px-6 py-2.5 rounded-lg border-2 border-slate-300 text-slate-700 font-medium">Back</button>
+    <button class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold shadow-lg flex items-center gap-2">
+      <i data-lucide="play" class="w-4 h-4"></i>
+      Generate Predictions
+    </button>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: ADVANCED PLANNER -->
+<!-- ============================================ -->
+<section id="advanced-planner" style="padding-top:40px;padding-bottom:40px;">
+<div class="max-w-6xl mx-auto bg-white rounded-xl shadow-lg border border-slate-200 p-8" style="position:relative;">
+  <div class="flex items-center justify-between mb-6">
+    <div>
+      <div class="flex items-center gap-3 mb-2">
+        <button class="flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700"><i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Options</button>
+      </div>
+      <h2 class="text-2xl font-bold text-slate-900">Advanced Planner</h2>
+      <p class="text-slate-600 text-sm">Detailed week-by-week planning with full control</p>
+    </div>
+    <div class="flex items-center gap-3" style="position:relative;">
+      <button class="flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 text-slate-700 text-sm font-medium hover:bg-slate-50"><i data-lucide="download" class="w-4 h-4"></i> Download Template</button>
+      <button class="flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 text-slate-700 text-sm font-medium hover:bg-slate-50"><i data-lucide="upload" class="w-4 h-4"></i> Upload Template</button>
+      <button class="flex items-center gap-2 px-5 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 text-white text-sm font-semibold shadow-lg"><i data-lucide="play" class="w-4 h-4"></i> Predict Results</button>
+      <div class="anno anno-orange" style="top:8px;right:0px;">2</div>
+    </div>
+  </div>
+
+  <!-- Model Info Bar -->
+  <div class="bg-slate-50 border border-slate-200 rounded-lg p-3 mb-4 flex items-center gap-6 text-sm" style="position:relative;">
+    <span class="text-slate-600">Last data: <span class="font-semibold text-slate-800">2025-03-01</span></span>
+    <div class="h-4 w-px bg-slate-300"></div>
+    <span class="text-slate-600">Variables: <span class="font-semibold text-slate-800">8</span></span>
+    <div class="h-4 w-px bg-slate-300"></div>
+    <span class="text-slate-600">Periodicity: <span class="font-semibold text-slate-800">Weekly</span></span>
+    <div class="h-4 w-px bg-slate-300"></div>
+    <span class="text-slate-600">Planning periods: <span class="font-semibold text-slate-800">12 weeks</span></span>
+    <div class="anno anno-blue" style="top:8px;left:10px;">1</div>
+  </div>
+
+  <!-- Grid -->
+  <div class="border border-slate-300 rounded-lg overflow-auto">
+    <table class="w-full text-xs">
+      <thead>
+        <tr class="bg-slate-100 border-b border-slate-300">
+          <th class="text-left p-2 font-semibold text-slate-700 border-r border-slate-200 sticky left-0 bg-slate-100" style="min-width:100px;">Date</th>
+          <th class="text-right p-2 font-semibold text-slate-700 border-r border-slate-200 bg-white" style="min-width:90px;">Google Ads</th>
+          <th class="text-right p-2 font-semibold text-slate-700 border-r border-slate-200 bg-white" style="min-width:90px;">Facebook</th>
+          <th class="text-right p-2 font-semibold text-slate-700 border-r border-slate-200 bg-white" style="min-width:90px;">TV</th>
+          <th class="text-right p-2 font-semibold text-slate-700 border-r border-slate-200 bg-white" style="min-width:90px;">Instagram</th>
+          <th class="text-right p-2 font-semibold text-blue-700 border-r border-slate-200 bg-blue-50" style="min-width:90px;">Podcast</th>
+          <th class="text-right p-2 font-semibold text-slate-700 border-r border-slate-200 bg-yellow-50 italic" style="min-width:90px;">Avg Price</th>
+          <th class="text-right p-2 font-semibold text-slate-700 bg-yellow-50 italic" style="min-width:90px;">Store Count</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b border-slate-200"><td class="p-2 font-mono text-slate-700 border-r border-slate-200 sticky left-0 bg-white">2025-03-08</td><td class="p-2 text-right font-mono border-r border-slate-200">2,500</td><td class="p-2 text-right font-mono border-r border-slate-200">2,083</td><td class="p-2 text-right font-mono border-r border-slate-200">2,917</td><td class="p-2 text-right font-mono border-r border-slate-200">1,250</td><td class="p-2 text-right font-mono text-blue-700 border-r border-slate-200 bg-blue-50/30">1,250</td><td class="p-2 text-right font-mono italic border-r border-slate-200 bg-yellow-50/30">24.50</td><td class="p-2 text-right font-mono italic bg-yellow-50/30">142</td></tr>
+        <tr class="border-b border-slate-200"><td class="p-2 font-mono text-slate-700 border-r border-slate-200 sticky left-0 bg-white">2025-03-15</td><td class="p-2 text-right font-mono border-r border-slate-200">2,500</td><td class="p-2 text-right font-mono border-r border-slate-200">2,083</td><td class="p-2 text-right font-mono border-r border-slate-200">2,917</td><td class="p-2 text-right font-mono border-r border-slate-200">1,250</td><td class="p-2 text-right font-mono text-blue-700 border-r border-slate-200 bg-blue-50/30">1,250</td><td class="p-2 text-right font-mono italic border-r border-slate-200 bg-yellow-50/30">24.50</td><td class="p-2 text-right font-mono italic bg-yellow-50/30">142</td></tr>
+        <tr class="border-b border-slate-200"><td class="p-2 font-mono text-slate-700 border-r border-slate-200 sticky left-0 bg-white">2025-03-22</td><td class="p-2 text-right font-mono border-r border-slate-200">2,500</td><td class="p-2 text-right font-mono border-r border-slate-200">2,083</td><td class="p-2 text-right font-mono border-r border-slate-200">2,917</td><td class="p-2 text-right font-mono border-r border-slate-200">1,250</td><td class="p-2 text-right font-mono text-blue-700 border-r border-slate-200 bg-blue-50/30">1,250</td><td class="p-2 text-right font-mono italic border-r border-slate-200 bg-yellow-50/30">24.75</td><td class="p-2 text-right font-mono italic bg-yellow-50/30">143</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-4 flex gap-4 text-xs text-slate-500">
+    <div class="flex items-center gap-2"><div class="w-3 h-3 bg-white border border-slate-300 rounded"></div>Media channels (editable)</div>
+    <div class="flex items-center gap-2"><div class="w-3 h-3 bg-yellow-50 border border-yellow-300 rounded italic"></div>Control variables (editable)</div>
+    <div class="flex items-center gap-2"><div class="w-3 h-3 bg-blue-50 border border-blue-300 rounded"></div>Proxy channels (editable)</div>
+  </div>
+  <div class="anno anno-green" style="bottom:10px;left:8px;">3</div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: RESULTS - EXECUTIVE SUMMARY -->
+<!-- ============================================ -->
+<section id="results-summary" style="padding-top:40px;padding-bottom:40px;">
+<div class="max-w-6xl mx-auto" style="position:relative;">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- Total Investment -->
+    <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg shadow-lg p-6" style="position:relative;">
+      <i data-lucide="dollar-sign" class="w-8 h-8 mb-2 opacity-90"></i>
+      <div class="text-lg font-semibold opacity-95 mb-1">Total Investment</div>
+      <div class="text-4xl font-bold tabular-nums">$120,000</div>
+      <p class="text-sm opacity-90 mt-2">12 weeks planned</p>
+      <p class="text-xs opacity-75 mt-1">Excludes halo and trademark spend</p>
+      <div class="anno anno-blue" style="top:8px;right:8px;">1</div>
+    </div>
+    <!-- Predicted Return -->
+    <div class="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-lg shadow-lg p-6" style="position:relative;">
+      <i data-lucide="trending-up" class="w-8 h-8 mb-2 opacity-90"></i>
+      <div class="text-lg font-semibold opacity-95 mb-1">Predicted Return</div>
+      <div class="text-4xl font-bold tabular-nums">$456,200</div>
+      <p class="text-sm opacity-90 mt-2">Avg: $38,017/week</p>
+      <div class="anno anno-green" style="top:8px;right:8px;">2</div>
+    </div>
+    <!-- Portfolio ROAS -->
+    <div class="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-lg shadow-lg p-6" style="position:relative;">
+      <i data-lucide="target" class="w-8 h-8 mb-2 opacity-90"></i>
+      <div class="text-lg font-semibold opacity-95 mb-1">Portfolio ROAS</div>
+      <div class="text-4xl font-bold tabular-nums">3.80x</div>
+      <p class="text-sm font-semibold mt-2 text-green-300">✅ Excellent</p>
+      <div class="anno anno-purple" style="top:8px;right:8px;">3</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: RESULTS - FORECAST CHART -->
+<!-- ============================================ -->
+<section id="results-forecast" style="padding-top:40px;padding-bottom:40px;">
+<div class="max-w-6xl mx-auto bg-white rounded-lg shadow-lg border border-slate-200" style="position:relative;">
+  <div class="p-6 border-b border-slate-200">
+    <div class="flex items-center justify-between">
+      <div>
+        <h3 class="text-lg font-semibold text-slate-900">Sales Forecast</h3>
+        <p class="text-sm text-slate-500 mt-1">Predicted sales with 94% HDI confidence band</p>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-4 bg-indigo-100 rounded-full relative"><div class="absolute right-0.5 top-0.5 w-3 h-3 bg-indigo-500 rounded-full"></div></div>
+          <span class="text-sm font-medium text-slate-600">Show 95% CI</span>
+        </div>
+        <div class="flex overflow-hidden rounded-lg border border-slate-200 bg-white">
+          <button class="px-3 py-1.5 text-sm font-medium bg-indigo-600 text-white">All Data</button>
+          <button class="px-3 py-1.5 text-sm font-medium text-slate-600 border-l border-slate-200">In-Sample</button>
+          <button class="px-3 py-1.5 text-sm font-medium text-slate-600 border-l border-slate-200">Out-of-Sample</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="p-6">
+    <!-- Legend -->
+    <div class="flex items-center justify-center gap-6 mb-4">
+      <div class="flex items-center gap-2"><div class="w-4 h-0.5 bg-cyan-500 rounded-full"></div><span class="text-sm text-slate-600">Actual</span></div>
+      <div class="flex items-center gap-2"><div class="w-4 h-0.5 rounded-full" style="background:repeating-linear-gradient(90deg,#6366f1 0,#6366f1 4px,transparent 4px,transparent 8px)"></div><span class="text-sm text-slate-600">Prediction</span></div>
+      <div class="flex items-center gap-2"><div class="w-4 h-3 rounded-sm" style="background:linear-gradient(180deg,rgba(99,102,241,0.25) 0%,rgba(99,102,241,0.08) 100%)"></div><span class="text-sm text-slate-600">95% CI</span></div>
+    </div>
+    <canvas id="forecastChart" height="200"></canvas>
+    <div class="anno anno-blue" style="top:15px;right:15px;">1</div>
+    <div class="anno anno-orange" style="top:15px;right:280px;">2</div>
+  </div>
+  <div class="p-4 mx-6 mb-6 bg-blue-50 border border-blue-200 rounded-lg">
+    <p class="text-sm text-blue-800">The chart shows actual sales (cyan) and predicted sales (purple). The shaded area represents the 94% HDI. The forecast period begins after the last actual data point.</p>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: RESULTS - CHANNEL ROAS -->
+<!-- ============================================ -->
+<section id="results-roas" style="padding-top:40px;padding-bottom:40px;">
+<div class="max-w-6xl mx-auto bg-white rounded-lg shadow-lg border border-slate-200" style="position:relative;">
+  <div class="bg-gradient-to-r from-green-50 to-emerald-50 border-b border-slate-200 p-6">
+    <h3 class="text-lg font-semibold text-gray-900">Channel ROAS Comparison</h3>
+    <p class="text-sm text-gray-600 mt-1">Ranked by return on advertising spend (higher is better)</p>
+  </div>
+  <div class="p-6">
+    <canvas id="roasChart" height="220"></canvas>
+    <div class="mt-6 flex gap-6 text-xs text-gray-600">
+      <div class="flex items-center gap-2"><div class="w-4 h-4 bg-green-500 rounded"></div>Above average ROAS</div>
+      <div class="flex items-center gap-2"><div class="w-4 h-4 bg-red-500 rounded"></div>Below average ROAS</div>
+      <div class="flex items-center gap-2"><div class="w-4 h-4 bg-blue-500 rounded"></div>Proxy channels</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: RESULTS - WATERFALL -->
+<!-- ============================================ -->
+<section id="results-waterfall" style="padding-top:40px;padding-bottom:40px;">
+<div class="max-w-6xl mx-auto bg-white rounded-lg shadow-lg border border-slate-200" style="position:relative;">
+  <div class="bg-gradient-to-r from-purple-50 to-indigo-50 border-b border-slate-200 p-6">
+    <h3 class="text-lg font-semibold text-gray-900">Revenue Breakdown</h3>
+  </div>
+  <div class="p-6">
+    <canvas id="waterfallChart" height="220"></canvas>
+    <div class="mt-6 flex flex-wrap gap-4 text-xs text-gray-600">
+      <div class="flex items-center gap-2"><div class="w-4 h-4 rounded" style="background:#10b981"></div>Standard Channels</div>
+      <div class="flex items-center gap-2"><div class="w-4 h-4 rounded" style="background:#3b82f6"></div>Proxy Channels</div>
+      <div class="flex items-center gap-2"><div class="w-4 h-4 rounded" style="background:#8b5cf6"></div>Total Media Revenue</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: RESULTS - EFFICIENCY SCATTER -->
+<!-- ============================================ -->
+<section id="results-scatter" style="padding-top:40px;padding-bottom:40px;">
+<div class="max-w-6xl mx-auto bg-white rounded-lg shadow-lg border border-slate-200" style="position:relative;">
+  <div class="bg-gradient-to-r from-indigo-50 to-purple-50 border-b border-slate-200 p-6">
+    <h3 class="text-lg font-semibold text-gray-900">Efficiency vs Effectiveness</h3>
+    <p class="text-sm text-gray-600 mt-1">Bubble size represents total spend</p>
+  </div>
+  <div class="p-6">
+    <canvas id="scatterChart" height="240"></canvas>
+    <div class="grid grid-cols-2 gap-4 mt-4 text-xs">
+      <div class="bg-green-50 border border-green-200 rounded-lg p-3 text-center"><span class="font-semibold text-green-700">⭐ Star Performers</span><br>High ROAS + High Contribution</div>
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 text-center"><span class="font-semibold text-blue-700">💎 Efficient</span><br>High ROAS + Low Contribution</div>
+      <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 text-center"><span class="font-semibold text-amber-700">📊 Effective</span><br>Low ROAS + High Contribution</div>
+      <div class="bg-red-50 border border-red-200 rounded-lg p-3 text-center"><span class="font-semibold text-red-700">⚠️ Optimize</span><br>Low ROAS + Low Contribution</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: RESULTS - TOP PERFORMERS -->
+<!-- ============================================ -->
+<section id="results-performers" style="padding-top:40px;padding-bottom:40px;">
+<div class="max-w-6xl mx-auto" style="position:relative;">
+  <div class="border-2 border-green-200 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50 p-6">
+    <h3 class="text-lg font-semibold text-slate-900 mb-4">🏆 Top Performers</h3>
+    <div class="grid grid-cols-3 gap-4">
+      <!-- Gold -->
+      <div class="bg-white rounded-lg p-4 border border-green-200 shadow" style="position:relative;">
+        <div class="flex items-center gap-2 mb-3"><span class="text-2xl">🥇</span><span class="font-semibold text-slate-800">Google Ads</span></div>
+        <div class="space-y-2 text-sm">
+          <div class="flex justify-between"><span class="text-slate-500">Spend</span><span class="font-mono font-semibold">$30,000</span></div>
+          <div class="flex justify-between"><span class="text-slate-500">ROAS</span><span class="font-mono font-semibold text-green-600">5.2x</span></div>
+          <div class="flex justify-between"><span class="text-slate-500">Revenue</span><span class="font-mono font-semibold">$156,000</span></div>
+        </div>
+        <div class="anno anno-blue" style="top:8px;right:8px;">1</div>
+      </div>
+      <!-- Silver -->
+      <div class="bg-white rounded-lg p-4 border border-green-200 shadow">
+        <div class="flex items-center gap-2 mb-3"><span class="text-2xl">🥈</span><span class="font-semibold text-slate-800">Facebook</span></div>
+        <div class="space-y-2 text-sm">
+          <div class="flex justify-between"><span class="text-slate-500">Spend</span><span class="font-mono font-semibold">$25,000</span></div>
+          <div class="flex justify-between"><span class="text-slate-500">ROAS</span><span class="font-mono font-semibold text-green-600">4.8x</span></div>
+          <div class="flex justify-between"><span class="text-slate-500">Revenue</span><span class="font-mono font-semibold">$120,000</span></div>
+        </div>
+      </div>
+      <!-- Bronze -->
+      <div class="bg-white rounded-lg p-4 border border-green-200 shadow">
+        <div class="flex items-center gap-2 mb-3"><span class="text-2xl">🥉</span><span class="font-semibold text-slate-800">TV</span></div>
+        <div class="space-y-2 text-sm">
+          <div class="flex justify-between"><span class="text-slate-500">Spend</span><span class="font-mono font-semibold">$35,000</span></div>
+          <div class="flex justify-between"><span class="text-slate-500">ROAS</span><span class="font-mono font-semibold text-green-600">3.1x</span></div>
+          <div class="flex justify-between"><span class="text-slate-500">Revenue</span><span class="font-mono font-semibold">$108,500</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Insights Box -->
+  <div class="mt-6 bg-gradient-to-r from-blue-600 to-blue-500 rounded-lg text-white p-6" style="position:relative;">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-lg font-semibold">Scenario Insights</h3>
+      <button class="flex items-center gap-2 px-3 py-1.5 bg-white/10 rounded-lg text-sm font-medium hover:bg-white/20"><i data-lucide="download" class="w-4 h-4"></i> Export CSV</button>
+    </div>
+    <div class="grid grid-cols-3 gap-4 text-sm">
+      <div class="bg-white/10 rounded-lg p-3">
+        <div class="text-white/80 mb-1">OOS Total Revenue</div>
+        <div class="text-2xl font-bold">$456,200</div>
+      </div>
+      <div class="bg-white/10 rounded-lg p-3">
+        <div class="text-white/80 mb-1">OOS Average / Week</div>
+        <div class="text-2xl font-bold">$38,017</div>
+      </div>
+      <div class="bg-white/10 rounded-lg p-3">
+        <div class="text-white/80 mb-1">OOS Growth vs History</div>
+        <div class="text-2xl font-bold text-green-300">+12.4%</div>
+      </div>
+    </div>
+    <div class="anno anno-blue" style="top:8px;right:8px;">2</div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: RESULTS - CHANNEL TABLE -->
+<!-- ============================================ -->
+<section id="results-table" style="padding-top:40px;padding-bottom:40px;">
+<div class="max-w-6xl mx-auto bg-white rounded-lg shadow-lg border border-slate-200" style="position:relative;">
+  <div class="p-6 border-b border-slate-200">
+    <h3 class="text-lg font-semibold text-slate-900">Channel Performance</h3>
+  </div>
+  <div class="overflow-auto">
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="bg-slate-50 border-b border-slate-200">
+          <th class="text-center p-3 font-semibold text-slate-600 w-16">Rank</th>
+          <th class="text-left p-3 font-semibold text-slate-600">Channel</th>
+          <th class="text-right p-3 font-semibold text-slate-600">Spend</th>
+          <th class="text-right p-3 font-semibold text-slate-600">Contribution</th>
+          <th class="text-right p-3 font-semibold text-slate-600">Revenue</th>
+          <th class="text-right p-3 font-semibold text-slate-600">ROAS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b border-slate-100 hover:bg-slate-50">
+          <td class="text-center p-3 text-lg">🥇</td>
+          <td class="p-3 font-medium text-slate-800">Google Ads</td>
+          <td class="p-3 text-right font-mono">$30,000</td>
+          <td class="p-3 text-right font-mono">$156,000</td>
+          <td class="p-3 text-right font-mono">$156,000</td>
+          <td class="p-3 text-right font-mono font-semibold text-green-600">5.20x</td>
+        </tr>
+        <tr class="border-b border-slate-100 hover:bg-slate-50">
+          <td class="text-center p-3 text-lg">🥈</td>
+          <td class="p-3 font-medium text-slate-800">Facebook</td>
+          <td class="p-3 text-right font-mono">$25,000</td>
+          <td class="p-3 text-right font-mono">$120,000</td>
+          <td class="p-3 text-right font-mono">$120,000</td>
+          <td class="p-3 text-right font-mono font-semibold text-green-600">4.80x</td>
+        </tr>
+        <tr class="border-b border-slate-100 hover:bg-slate-50">
+          <td class="text-center p-3 text-lg">🥉</td>
+          <td class="p-3 font-medium text-slate-800">TV</td>
+          <td class="p-3 text-right font-mono">$35,000</td>
+          <td class="p-3 text-right font-mono">$108,500</td>
+          <td class="p-3 text-right font-mono">$108,500</td>
+          <td class="p-3 text-right font-mono font-semibold text-green-600">3.10x</td>
+        </tr>
+        <tr class="border-b border-slate-100 hover:bg-slate-50">
+          <td class="text-center p-3 text-sm font-semibold text-slate-400">4</td>
+          <td class="p-3 font-medium text-slate-800">Instagram</td>
+          <td class="p-3 text-right font-mono">$15,000</td>
+          <td class="p-3 text-right font-mono">$40,200</td>
+          <td class="p-3 text-right font-mono">$40,200</td>
+          <td class="p-3 text-right font-mono font-semibold text-amber-600">2.68x</td>
+        </tr>
+        <tr class="border-b border-slate-100 hover:bg-slate-50">
+          <td class="text-center p-3 text-sm font-semibold text-slate-400">5</td>
+          <td class="p-3 font-medium text-blue-700">Podcast <span class="text-xs bg-blue-100 text-blue-600 px-1.5 py-0.5 rounded font-semibold ml-1">Proxy</span></td>
+          <td class="p-3 text-right font-mono">$15,000</td>
+          <td class="p-3 text-right font-mono">$31,500</td>
+          <td class="p-3 text-right font-mono">$31,500</td>
+          <td class="p-3 text-right font-mono font-semibold text-red-500">2.10x</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- Chart.js Initialization -->
+<!-- ============================================ -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialize Lucide icons
+  lucide.createIcons();
+
+  // === FORECAST CHART (Chart.js - mimicking Recharts ComposedChart) ===
+  const forecastCtx = document.getElementById('forecastChart').getContext('2d');
+  const forecastLabels = ['Jan 4','Jan 11','Jan 18','Jan 25','Feb 1','Feb 8','Feb 15','Feb 22','Mar 1','Mar 8','Mar 15','Mar 22','Mar 29','Apr 5','Apr 12','Apr 19','Apr 26','May 3','May 10','May 17'];
+  const actuals = [32000,35000,33000,38000,36000,40000,37000,42000,39000,41000,null,null,null,null,null,null,null,null,null,null];
+  const predictions = [31500,34200,33500,37800,35900,39500,37200,41500,39200,40800,43000,44500,42800,45200,46000,44100,47500,48200,46800,49000];
+  const upper = [34000,37000,36500,41000,39000,43000,40500,45000,42500,44500,47500,50000,48500,52000,54000,52000,56000,58000,56500,60000];
+  const lower = [29000,31500,30500,34500,33000,36000,34000,38000,36000,37500,38500,39000,37000,38500,38000,36000,39000,38500,37000,38000];
+
+  const gradient = forecastCtx.createLinearGradient(0, 0, 0, 400);
+  gradient.addColorStop(0, 'rgba(99, 102, 241, 0.25)');
+  gradient.addColorStop(0.5, 'rgba(129, 140, 248, 0.12)');
+  gradient.addColorStop(1, 'rgba(165, 180, 252, 0.03)');
+
+  new Chart(forecastCtx, {
+    type: 'line',
+    data: {
+      labels: forecastLabels,
+      datasets: [
+        { label: 'Upper', data: upper, borderColor: 'transparent', backgroundColor: gradient, fill: true, pointRadius: 0, tension: 0.3, order: 4 },
+        { label: 'Lower', data: lower, borderColor: 'transparent', backgroundColor: 'white', fill: true, pointRadius: 0, tension: 0.3, order: 3 },
+        { label: 'Actual', data: actuals, borderColor: '#06b6d4', backgroundColor: '#06b6d4', borderWidth: 2.5, pointRadius: 2, tension: 0.3, spanGaps: false, order: 1 },
+        { label: 'Prediction', data: predictions, borderColor: '#6366f1', backgroundColor: '#6366f1', borderWidth: 2.5, pointRadius: 2, borderDash: [6, 4], tension: 0.3, order: 2 },
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        annotation: {}
+      },
+      scales: {
+        x: { ticks: { maxRotation: 45, font: { size: 10 }, color: '#64748b' }, grid: { display: false } },
+        y: { ticks: { callback: v => v >= 1000 ? (v/1000)+'k' : v, font: { size: 11 }, color: '#64748b' }, grid: { color: '#f1f5f9' } }
+      }
+    }
+  });
+
+  // === CHANNEL ROAS CHART (horizontal bar) ===
+  const roasCtx = document.getElementById('roasChart').getContext('2d');
+  const roasChannels = ['Google Ads', 'Facebook', 'TV', 'Instagram', 'Podcast'];
+  const roasValues = [5.2, 4.8, 3.1, 2.68, 2.1];
+  const avgROAS = 3.8;
+  const roasColors = roasValues.map((v, i) => {
+    if (roasChannels[i] === 'Podcast') return '#3b82f6';
+    return v >= avgROAS ? '#10b981' : '#ef4444';
+  });
+
+  new Chart(roasCtx, {
+    type: 'bar',
+    data: {
+      labels: roasChannels,
+      datasets: [{ data: roasValues, backgroundColor: roasColors.map(c => c + 'e6'), borderRadius: { topRight: 4, bottomRight: 4 } }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        annotation: { annotations: { avgLine: { type: 'line', xMin: avgROAS, xMax: avgROAS, borderColor: '#9ca3af', borderDash: [5, 5], borderWidth: 2, label: { content: 'Portfolio Avg: 3.80x', display: true, position: 'start', font: { size: 11, weight: 'bold' }, color: '#6b7280' } } } }
+      },
+      scales: {
+        x: { title: { display: true, text: 'ROAS (Return on Ad Spend)', font: { size: 12, weight: 'bold' }, color: '#374151' }, ticks: { font: { size: 11 }, color: '#374151' }, grid: { color: '#f1f5f9' } },
+        y: { ticks: { font: { size: 11 }, color: '#374151' }, grid: { display: false } }
+      }
+    },
+    plugins: [{ id: 'roasLabels', afterDatasetsDraw(chart) {
+      const ctx2 = chart.ctx;
+      chart.data.datasets[0].data.forEach((v, i) => {
+        const meta = chart.getDatasetMeta(0).data[i];
+        ctx2.fillStyle = '#111827'; ctx2.font = 'bold 11px Inter, sans-serif'; ctx2.textAlign = 'left';
+        ctx2.fillText(v.toFixed(2)+'x', meta.x + 8, meta.y + 4);
+      });
+    }}]
+  });
+
+  // === WATERFALL CHART ===
+  const waterfallCtx = document.getElementById('waterfallChart').getContext('2d');
+  const wfChannels = ['Google Ads', 'Facebook', 'TV', 'Instagram', 'Podcast', 'Total'];
+  const wfValues = [156000, 120000, 108500, 40200, 31500, 456200];
+  const wfBase = [0, 156000, 276000, 384500, 424700, 0];
+  const wfColors = ['#10b981', '#10b981', '#10b981', '#10b981', '#3b82f6', '#8b5cf6'];
+
+  new Chart(waterfallCtx, {
+    type: 'bar',
+    data: {
+      labels: wfChannels,
+      datasets: [
+        { label: 'Base', data: wfBase, backgroundColor: 'transparent', borderWidth: 0 },
+        { label: 'Value', data: wfValues, backgroundColor: wfColors.map(c => c + 'e6'), borderRadius: { topLeft: 6, topRight: 6 } }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { stacked: true, ticks: { font: { size: 11 }, color: '#374151', maxRotation: 45 }, grid: { display: false } },
+        y: { stacked: true, ticks: { callback: v => v >= 1000000 ? (v/1000000).toFixed(1)+'M' : v >= 1000 ? (v/1000)+'k' : v, font: { size: 11 }, color: '#374151' }, grid: { color: '#f1f5f9' } }
+      }
+    },
+    plugins: [{ id: 'waterfallLabels', afterDatasetsDraw(chart) {
+      const ctx2 = chart.ctx;
+      chart.data.datasets[1].data.forEach((v, i) => {
+        const meta = chart.getDatasetMeta(1).data[i];
+        ctx2.fillStyle = '#111827'; ctx2.font = 'bold 10px Inter, sans-serif'; ctx2.textAlign = 'center';
+        const label = v >= 1000000 ? (v/1000000).toFixed(1)+'M' : (v/1000)+'k';
+        ctx2.fillText(label, meta.x, meta.y - 8);
+      });
+    }}]
+  });
+
+  // === SCATTER CHART ===
+  const scatterCtx = document.getElementById('scatterChart').getContext('2d');
+  const scatterData = [
+    { x: 156000, y: 5.2, r: 18, label: 'Google Ads', color: '#10b981' },
+    { x: 120000, y: 4.8, r: 16, label: 'Facebook', color: '#10b981' },
+    { x: 108500, y: 3.1, r: 20, label: 'TV', color: '#10b981' },
+    { x: 40200, y: 2.68, r: 12, label: 'Instagram', color: '#10b981' },
+    { x: 31500, y: 2.1, r: 12, label: 'Podcast', color: '#3b82f6' },
+  ];
+  const avgContrib = 91240;
+
+  new Chart(scatterCtx, {
+    type: 'bubble',
+    data: {
+      datasets: [{
+        data: scatterData.map(d => ({ x: d.x, y: d.y, r: d.r })),
+        backgroundColor: scatterData.map(d => d.color + 'cc'),
+        borderColor: scatterData.map(d => d.color),
+        borderWidth: 2,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              const d = scatterData[ctx.dataIndex];
+              return `${d.label}: ROAS ${d.y}x, Revenue $${(d.x/1000).toFixed(0)}k`;
+            }
+          }
+        },
+        annotation: {
+          annotations: {
+            avgROASLine: { type: 'line', yMin: avgROAS, yMax: avgROAS, borderColor: '#9ca3af', borderDash: [5, 5], borderWidth: 1.5, label: { content: 'Avg ROAS', display: true, position: 'start', font: { size: 10 }, color: '#9ca3af' } },
+            avgContribLine: { type: 'line', xMin: avgContrib, xMax: avgContrib, borderColor: '#9ca3af', borderDash: [5, 5], borderWidth: 1.5, label: { content: 'Avg Contribution', display: true, position: 'start', font: { size: 10 }, color: '#9ca3af' } }
+          }
+        }
+      },
+      scales: {
+        x: { title: { display: true, text: 'Total Contribution ($)', font: { size: 12 }, color: '#374151' }, ticks: { callback: v => '$'+(v/1000)+'k', font: { size: 11 }, color: '#374151' }, grid: { color: '#f1f5f9' } },
+        y: { title: { display: true, text: 'ROAS', font: { size: 12 }, color: '#374151' }, ticks: { callback: v => v+'x', font: { size: 11 }, color: '#374151' }, grid: { color: '#f1f5f9' } }
+      }
+    },
+    plugins: [{ id: 'scatterLabels', afterDatasetsDraw(chart) {
+      const ctx2 = chart.ctx;
+      scatterData.forEach((d, i) => {
+        const meta = chart.getDatasetMeta(0).data[i];
+        ctx2.fillStyle = '#374151'; ctx2.font = '11px Inter, sans-serif'; ctx2.textAlign = 'center';
+        ctx2.fillText(d.label, meta.x, meta.y - d.r - 6);
+      });
+    }}]
+  });
+});
+</script>
+
+<!-- Annotation plugin for Chart.js (for reference lines) -->
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+
+</body>
+</html>
