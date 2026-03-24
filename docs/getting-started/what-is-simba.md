@@ -87,9 +87,9 @@ Read more: [Model Creation Wizard](../platform-guide/model-creation-wizard.md) |
 
 ### 2. Active Model
 
-The results hub for your fitted model. Explore channel contributions, response curves, ROAS, coefficients, model diagnostics, and more across multiple analysis tabs. Use the **AI Assistant** to generate custom interactive analyses by asking questions in natural language.
+The results hub for your fitted model. Explore channel contributions, response curves, ROAS, coefficients, model diagnostics, and more across multiple analysis tabs.
 
-Read more: [Incremental Measurement](../platform-guide/measurement.md) | [AI Assistant](../platform-guide/ai-assistant.md)
+Read more: [Incremental Measurement](../platform-guide/measurement.md)
 
 ### 3. Scenario Planner
 
