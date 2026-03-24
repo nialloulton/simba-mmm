@@ -83,15 +83,7 @@ When you select a completed model in the Warehouse, the Active Model section bec
 - **Posterior Distributions** --- The full posterior distribution plots for every model parameter.
 - **Diagnostics** --- Convergence diagnostics (R-hat, effective sample size), posterior predictive checks, and model comparison metrics.
 
-### AI Assistant
-
-Available within the Active Model page, the AI Assistant lets you ask questions about your model results in natural language. It generates interactive Marimo notebook dashboards with custom charts, tables, and analyses.
-
-- **Chat interface** on the left panel for entering queries.
-- **Interactive dashboard** on the right panel showing the generated analysis.
-- Example queries: channel contribution waterfalls, ROAS comparisons, monthly breakdowns, spend-response relationships.
-
-Read more: [AI Assistant](../platform-guide/ai-assistant.md) | [Incremental Measurement](../platform-guide/measurement.md)
+Read more: [Incremental Measurement](../platform-guide/measurement.md)
 
 ---
 
@@ -184,7 +176,7 @@ Here is a summary of the main navigation structure:
 | Sidebar Item | What It Contains |
 |---|---|
 | **Model Warehouse** | Data upload, model configuration, model list, comparison, and management |
-| **Active Model** | Channel contributions, ROAS, response curves, diagnostics, AI Assistant |
+| **Active Model** | Channel contributions, ROAS, response curves, diagnostics |
 | **Optimization** | Budget Optimizer and allocation recommendations |
 | **Scenario Planner** | Budget simulation, scenario comparison, and forecasting |
 | **Pipelines** | Data pipeline builder, connectors, transforms, versions |

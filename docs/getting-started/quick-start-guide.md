@@ -168,7 +168,6 @@ Congratulations — you have built, interpreted, and optimized your first Bayesi
 - **Set up regular updates.** As new data comes in, re-run your model to keep insights current. Simba preserves your configuration for easy re-runs.
 - **Invite your team.** Share results and collaborate on scenarios. See [Account Setup](account-setup.md) for team management.
 - **Explore Data Pipelines.** If you need to combine data from multiple sources or automate data preparation, try the [Data Pipelines](../platform-guide/data-pipelines.md) feature.
-- **Use the AI Assistant.** On your model results page, try the [AI Assistant](../platform-guide/ai-assistant.md) to generate custom interactive analyses by asking questions in natural language.
 - **Try VAR modeling.** For multi-variable time series analysis that captures inter-channel dynamics, explore [VAR Models](../platform-guide/var-models.md).
 
 ---

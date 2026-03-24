@@ -87,5 +87,4 @@ Export scenario planning results for stakeholder presentations:
 ## Next Steps
 
 - [Incremental Measurement](./measurement.md) --- Understanding the results that reports contain
-- [AI Assistant](./ai-assistant.md) --- Generate custom analyses interactively
 - [Sharing and Collaboration](./sharing-collaboration.md) --- Share results within the platform

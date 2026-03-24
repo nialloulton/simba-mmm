@@ -40,8 +40,6 @@ This guide covers every major feature of the Simba MMM platform, organized aroun
 
 ## Analysis and Collaboration
 
-- **[AI Assistant](./ai-assistant.md)** --- Interactive chat-based analysis tool powered by Claude AI. Generate custom dashboards, charts, and analyses from natural language queries.
-
 - **[Portfolio Analysis](./portfolio-analysis.md)** --- Cross-brand and cross-model comparison and optimization. Compare metrics, response curves, and ROI across brands, and optimize budget at the portfolio level.
 
 - **[Exports and Reporting](./exports-reporting.md)** --- PDF report generation, CSV data exports, and chart downloads for offline analysis and stakeholder communication.
