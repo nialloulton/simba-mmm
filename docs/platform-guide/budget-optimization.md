@@ -62,7 +62,17 @@ The optimizer maximizes: **E[response] --- gamma x STD[response]** across all po
 
 ### Step 2: Configure Channel Costs
 
-Define how each channel is costed. Simba supports five metric types:
+Define how each channel is costed.
+
+![Step 2: Configure Channel Costs](./images/opt-step2-costs.png)
+
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Info tips** | Guidance on metric types, average costs, and per-week editing |
+| 2 | **Metric Type** | Dropdown per channel: 💰 Spend, 👁️ Impressions, 👆 Clicks, 📊 GRP, 📈 TRP. Halo (🌟) and Trademark (👑) channels are badged |
+| 3 | **Avg CPM / per-week columns** | Blue-highlighted average column auto-fills all weeks. Edit individual weeks for seasonal cost variation |
+
+Simba supports five metric types:
 
 | Metric Type | Cost Field | Description |
 |---|---|---|
@@ -130,7 +140,15 @@ Choose how budget is distributed across the planning periods. This step is **ski
 
 ### Step 5: Configure Revenue Conversion
 
-Set a multiplier to convert the model's target variable into revenue:
+Set a multiplier to convert the model's target variable into revenue.
+
+![Step 5: Configure Revenue Conversion](./images/opt-step5-revenue.png)
+
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Guidance card** | Shows your model type (Volume/Units, Customers, Revenue) and what the multiplier represents |
+| 2 | **Quick Setup tip** | Edit 'Avg Multiplier' to auto-fill all weeks |
+| 3 | **Multiplier table** | Blue-highlighted average column. Green-highlighted cells show manually adjusted weeks (e.g., higher prices during peak season) |
 
 | Model Type | Multiplier Represents | Example |
 |---|---|---|
