@@ -226,11 +226,11 @@ Colored circles (1, 2, 3...) positioned with `position: absolute` over key UI el
 
 **Rule 1: No overlapping content.** An annotation circle must never sit on top of text, numbers, icons, badges, or input values. If an annotation would overlap any readable content, it FAILS and must be repositioned. This is the #1 quality issue.
 
-**Rule 2: Place annotations in whitespace.** Every UI element has whitespace nearby — margins, padding gaps, empty corners. Place annotations there, not on content. Good positions:
-- Right margin of a card (right:14px) in empty space above or below text
-- Bottom-right corner of a card below the last line of content
+**Rule 2: Place annotations in whitespace, on the 8pt grid.** Every UI element has whitespace nearby — margins, padding gaps, empty corners. Place annotations there, not on content. **All position values MUST be multiples of 8** (8, 16, 24, 32, 40, 48, 56, 64, 72, 80px etc.) to maintain visual consistency. Never use arbitrary values like 14px, 50px, 55px — snap to the nearest 8pt increment. Good positions:
+- Right margin of a card (`right:16px`) in empty space above or below text
+- Bottom-right corner of a card below the last line of content (`bottom:16px;right:16px`)
 - In the gap between elements (between title and content, between rows)
-- In the outer section padding area
+- In the outer section padding area (`top:8px;right:8px`)
 
 **Rule 3: For tables/grids, use an inline legend below the table instead of overlaid circles.** Tables have no whitespace — every cell contains data. Use this pattern instead:
 ```html
