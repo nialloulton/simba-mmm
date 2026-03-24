@@ -245,14 +245,29 @@ with sync_playwright() as p:
 
 This produces clean, full-element screenshots without viewport clipping.
 
-**Step 5: Visually verify every screenshot**
+**Step 5: Visually verify every screenshot — MANDATORY QUALITY GATE**
 
-Read each PNG file back and check:
-- Layout matches the component source
-- All text is readable, no overlap
-- Annotations don't obscure important content
-- Icons rendered correctly (Lucide loaded)
+Read each PNG file back and perform ALL of the following checks. If any check fails, fix the mockup and re-capture before proceeding:
+
+**Dimension and readability checks:**
+- Screenshot width must be at least 1000px (check with Python: `from PIL import Image; img = Image.open(path); print(img.size)`)
+- All text in the screenshot must be readable at 100% zoom — if text is blurry or too small, increase the section padding or font size in the HTML mockup
+- No content is cut off at edges — check that all elements including annotations are fully visible within the captured area
+- Tables and grids show all columns without horizontal clipping
+
+**Content accuracy checks:**
+- Layout matches the component source code
+- All labels and text match the TSX source verbatim
+- Annotations don't obscure important content — reposition if they overlap text or UI elements
+- Icons rendered correctly (Lucide loaded — check that icon placeholders aren't showing instead of actual icons)
 - Colors match design tokens exactly
+- Chart data is realistic and renders with correct colors, axes, and legends
+
+**If a screenshot fails any check:**
+1. Fix the HTML mockup (adjust padding, font size, section width, annotation position)
+2. Re-serve and re-capture ONLY the affected section
+3. Re-verify the new screenshot
+4. Only proceed after ALL screenshots pass ALL checks
 
 **Step 6: Copy to docs and write documentation**
 
@@ -277,7 +292,7 @@ Copy screenshots to `docs/platform-guide/images/` and write the markdown with an
 
 #### Platform Guide Documentation Structure
 
-Each platform guide page should follow this structure:
+Each platform guide page should follow this structure. **Use the annotation table format** (`| # | Element | Description |`), NOT inline bold annotations (`**①** ---`).
 
 ```markdown
 # Feature Name --- One-Line Description
@@ -286,16 +301,20 @@ Brief intro paragraph (2-3 sentences max).
 
 ---
 
-## The [Feature] Wizard / Workflow
+## Getting Started / The Wizard
 
 ### Step N: Step Title
 
+Brief description of what this step does (1-2 sentences).
+
 ![Step N mockup](./images/feature-stepN.png)
-*Caption describing what this step does.*
 
-**① Annotation 1** --- Explanation of the first callout.
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Element name** | What it does and any important details |
+| 2 | **Element name** | What it does and any important details |
 
-**② Annotation 2** --- Explanation of the second callout.
+[Additional explanation tables or technical details if needed]
 
 [Repeat for each step]
 
@@ -321,6 +340,13 @@ Brief intro paragraph (2-3 sentences max).
 **Core concepts:**
 [Links to the underlying theory pages that explain the mechanics]
 ```
+
+**Formatting rules:**
+- Annotations in the markdown use `| # | Element | Description |` tables, NOT inline `**①** ---` format
+- Annotation numbers in the HTML mockup callout circles correspond to the `#` column in the table
+- Each screenshot gets its own annotation table immediately after the image
+- No italic captions under images — the annotation table replaces them
+- Use `---` horizontal rules to separate major sections
 
 ### 4b. Cross-Referencing Rules
 
@@ -454,8 +480,12 @@ When reviewing any documentation page:
 **Platform guide pages (additionally):**
 - [ ] UI mockups included for every wizard step / major screen
 - [ ] Mockups use Simba design tokens (blue-purple gradient, slate palette, rounded-lg cards)
-- [ ] Numbered annotation callouts on each mockup with legend below
+- [ ] Numbered annotation callouts on each mockup with `| # | Element | Description |` table below (NOT inline `**①** ---` format)
 - [ ] All UI labels and field names verified against actual component source code
+- [ ] Screenshots verified for minimum width (≥ 1000px) using PIL
+- [ ] No content cut off at edges — all UI elements, annotations, and table columns fully visible
+- [ ] All text in screenshots is readable at 100% zoom (no blurry or tiny text)
+- [ ] Icons rendered correctly (Lucide icons visible, not placeholder boxes)
 - [ ] Mockups do not show features that are hidden in the frontend
 
 **Cross-referencing (all pages):**
@@ -549,8 +579,15 @@ Only after plan approval:
 
 1. Build the HTML mockup with real Plotly.js / Recharts charts (not matplotlib substitutes)
 2. Serve and screenshot with Playwright at 1280px width
-3. Visually verify every screenshot — read each PNG back, check layout/text/icons/charts render correctly
-4. Rewrite the markdown with screenshots + annotation tables
+3. **MANDATORY QUALITY GATE:** Visually verify every screenshot — read each PNG back and check:
+   - Width ≥ 1000px (verify with PIL)
+   - All text readable, no blurry or tiny text
+   - Nothing cut off at edges — all UI elements and annotations fully visible
+   - All table/grid columns visible without clipping
+   - Icons rendered (not placeholder boxes)
+   - Chart colors and data correct
+   - If ANY screenshot fails, fix and re-capture before proceeding
+4. Rewrite the markdown using `| # | Element | Description |` annotation tables (NOT inline `**①** ---` format)
 5. Commit, push, create PR
 
 ### Enforcement Rules
@@ -558,5 +595,7 @@ Only after plan approval:
 - **No code before plan approval.** Any attempt to write HTML, generate charts, or edit markdown before exiting plan mode is a violation.
 - **No guessing UI elements.** Every label, icon, color, and layout must be verified against the actual component source code.
 - **No matplotlib in platform guides.** Platform guide mockups use HTML/Tailwind + the same charting library as the real app (Plotly.js or Recharts). Matplotlib is only for `core-concepts/` statistical charts.
-- **No skipping visual verification.** Every screenshot must be read back and inspected before committing.
+- **No skipping visual verification.** Every screenshot must be read back and inspected before committing. Screenshots with cut-off content, unreadable text, or missing icons are NOT acceptable.
 - **No undocumented features.** If a feature is hidden or commented out in the frontend, it must not appear in the mockup or documentation.
+- **Use annotation table format.** All annotation callouts in markdown must use `| # | Element | Description |` tables, matching the budget-optimization.md style. Never use inline `**①** ---` format.
+- **Check screenshot dimensions.** Every screenshot must be verified for minimum width (1000px) and content completeness before being added to the docs. Use Python PIL to check: `from PIL import Image; img = Image.open(path); print(img.size)`.
