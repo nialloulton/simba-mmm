@@ -222,6 +222,13 @@ Colored circles (1, 2, 3...) positioned with `position: absolute` over key UI el
 .anno-purple { background:#8B5CF6; }
 ```
 
+**CRITICAL annotation positioning rules:**
+- Every `<section>` that contains annotations MUST have `padding: 40px` minimum so annotations near edges are never clipped by the Playwright element screenshot
+- Never position an annotation circle on the border/edge of a card or container — place it clearly inside or outside with at least 20px clearance from any edge
+- Annotations near the top-left, top-right, bottom-left, or bottom-right corners of cards are the #1 cause of clipped screenshots — offset them inward
+- The annotation's `position: absolute` is relative to the nearest `position: relative` parent — ensure the section wrapper (not a child card) is the relative parent
+- After placing all annotations, mentally check: "If Playwright captures this section's bounding box, will every annotation circle be fully inside that box?"
+
 **Step 4: Serve and screenshot with Playwright**
 
 Serve the HTML via `preview_start` (`.claude/launch.json` config for `python -m http.server`), then capture full-element screenshots using Playwright:
@@ -252,8 +259,15 @@ Read each PNG file back and perform ALL of the following checks. If any check fa
 **Dimension and readability checks:**
 - Screenshot width must be at least 1000px (check with Python: `from PIL import Image; img = Image.open(path); print(img.size)`)
 - All text in the screenshot must be readable at 100% zoom — if text is blurry or too small, increase the section padding or font size in the HTML mockup
-- No content is cut off at edges — check that all elements including annotations are fully visible within the captured area
 - Tables and grids show all columns without horizontal clipping
+
+**Annotation callout checks (CRITICAL — this is the #1 failure mode):**
+- **Every single annotation circle must be 100% visible** — no partial circles, no clipping at any edge
+- Annotations positioned near card edges, section boundaries, or the top/bottom of a container are the most common failure. If an annotation is within 20px of any edge, it WILL get clipped
+- **Fix**: Add `padding: 40px` to the outermost `<section>` wrapper so annotations have room to breathe outside the UI elements they label
+- **Fix**: Never place annotation circles ON the border/edge of a card — position them clearly inside or clearly outside with enough margin
+- After capturing, zoom into each annotation in the screenshot and confirm the full circle + number is visible. If even 1px is cut off, it fails
+- Count the annotations in the screenshot and compare to the expected count — if any are missing or partially visible, the screenshot fails
 
 **Content accuracy checks:**
 - Layout matches the component source code
@@ -264,10 +278,11 @@ Read each PNG file back and perform ALL of the following checks. If any check fa
 - Chart data is realistic and renders with correct colors, axes, and legends
 
 **If a screenshot fails any check:**
-1. Fix the HTML mockup (adjust padding, font size, section width, annotation position)
-2. Re-serve and re-capture ONLY the affected section
-3. Re-verify the new screenshot
-4. Only proceed after ALL screenshots pass ALL checks
+1. Identify exactly which annotation(s) are clipped or which content is cut off
+2. Fix the HTML mockup — typically by adding more padding to the section wrapper (`padding: 40px` minimum) and repositioning annotations away from edges
+3. Re-serve and re-capture ONLY the affected section
+4. Re-verify the new screenshot by reading the PNG back
+5. **Repeat until every annotation is fully visible and all content is intact** — do NOT proceed with a failing screenshot
 
 **Step 6: Copy to docs and write documentation**
 
@@ -282,13 +297,16 @@ Copy screenshots to `docs/platform-guide/images/` and write the markdown with an
 - [ ] **Tailwind classes match** — same colors, spacing, borders, shadows as the real components
 - [ ] **Conditional states shown correctly** — selected/unselected, enabled/disabled, active/pending
 - [ ] **Badges reproduced** — ADVANCED, FASTEST, Halo (purple), Trademark (amber), Excluded
-- [ ] Annotation callouts are visible and don't obscure content
+- [ ] **ALL annotation circles are 100% visible** — zoom into each one in the screenshot; if even 1px is clipped at any edge, the screenshot FAILS and must be redone
+- [ ] **Annotation count matches** — count visible annotations in screenshot vs expected count; if any are missing, partially hidden, or overlapping each other, it FAILS
+- [ ] **Section padding is ≥ 40px** — every `<section>` wrapper has enough padding that edge annotations aren't clipped
+- [ ] Annotations don't obscure important content — reposition if they overlap text or UI elements
 - [ ] Legend below each screenshot explains every numbered callout
 - [ ] Realistic marketing data in all inputs/tables
 - [ ] Screenshots captured at 1280px width via Playwright (not viewport-clipped browser screenshots)
 - [ ] No UI elements that don't exist in the actual app (verify against codebase)
 - [ ] Hidden/commented-out features are NOT shown (e.g., AI Assistant tab is hidden)
-- [ ] **Visually verified** — each screenshot read back and inspected before committing
+- [ ] **Visually verified** — each screenshot read back and inspected before committing. Read the PNG with the Read tool and visually confirm every annotation, every label, every edge
 
 #### Platform Guide Documentation Structure
 
