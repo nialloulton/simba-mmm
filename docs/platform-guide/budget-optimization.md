@@ -1,6 +1,6 @@
 # Budget Optimization --- Risk-Adjusted Spend Allocation
 
-Budget Optimization generates per-channel budget recommendations that maximize expected revenue while respecting your risk tolerance, channel constraints, and spend timing preferences. It uses the full Bayesian posterior from your fitted model --- including response curves, saturation, adstock decay, and parameter uncertainty --- to find the optimal allocation.
+Budget Optimization generates per-channel budget recommendations that maximize expected revenue while respecting your risk tolerance, channel constraints, and spend timing preferences. It uses the full [Bayesian posterior](../core-concepts/bayesian-modeling.md) from your fitted model --- including response curves, [saturation](../core-concepts/saturation-curves.md), [adstock decay](../core-concepts/adstock-effects.md), and parameter uncertainty --- to find the optimal allocation. For the theory behind how optimization works, see [Optimization (Core Concepts)](../core-concepts/optimization.md).
 
 ---
 
@@ -40,8 +40,8 @@ Set the core optimization parameters.
 | # | Element | Description |
 |---|---------|-------------|
 | 1 | **Total Budget** | The total amount to allocate across all channels for the planning period |
-| 2 | **Risk Tolerance (Gamma)** | Slider from 0.0 to 1.0. Controls the tradeoff between maximizing expected return and diversifying to reduce uncertainty |
-| 3 | **Warm Start & Historical Effect** | Warm Start accounts for adstock carryover from previous periods. Historical Effect includes residual media effects |
+| 2 | **Risk Tolerance (Gamma)** | Slider from 0.0 to 1.0. Controls the tradeoff between maximizing expected return and diversifying to reduce uncertainty. See [how gamma works](../core-concepts/optimization.md#risk-aversion-the-gamma-parameter) |
+| 3 | **Warm Start & Historical Effect** | Warm Start accounts for [adstock](../core-concepts/adstock-effects.md) carryover from previous periods. Historical Effect includes residual media effects |
 | 4 | **Summary panel** | Live preview of all configuration settings |
 
 **Risk Tolerance in detail:**
@@ -54,7 +54,7 @@ The gamma parameter controls how the optimizer balances return against uncertain
 | **0.3 --- 0.7** (Balanced) | Moderate diversification. Balances expected return with stability | Default for most use cases. Good starting point |
 | **0.8 --- 1.0** (Risk-Averse) | Spreads budget to minimize variance. Prioritises reliable channels | When posterior uncertainty is high or you want conservative allocation |
 
-The optimizer maximizes: **E[response] --- gamma x STD[response]** across all posterior samples from your Bayesian model.
+The optimizer maximizes: **E[response] --- gamma x STD[response]** across all posterior samples from your [Bayesian model](../core-concepts/bayesian-modeling.md). This is a mean-variance objective function inspired by [Modern Portfolio Theory](../core-concepts/optimization.md#the-mean-variance-framework).
 
 > **Technical note:** The UI gamma range (0 --- 1) is scaled internally before optimization. Even small gamma values produce meaningful diversification because the penalty is applied to the standard deviation of the full posterior distribution.
 
@@ -86,7 +86,7 @@ Set minimum and maximum spend bounds for each channel as percentages of total bu
 |---|---------|-------------|
 | 1 | **Preset buttons** | Quick-apply Conservative (10 --- 20%), Balanced (5 --- 30%), or Aggressive (0 --- 50%) bounds |
 | 2 | **Channel sliders** | Set minimum and maximum % of total budget per channel |
-| 3 | **Halo channels** | Automatically excluded (0 --- 0% bounds) since they represent brand awareness spillover, not directly optimisable spend |
+| 3 | **Halo channels** | Automatically excluded (0 --- 0% bounds) since they represent brand awareness spillover, not directly optimisable spend. See [Halo Effects](../core-concepts/halo-effects.md) |
 | 4 | **Validation summary** | Real-time check that constraints are feasible: minimums total, maximums total, and flexibility range |
 
 **Constraint presets:**
@@ -166,8 +166,10 @@ It accounts for:
 
 - **Diminishing returns:** Each additional dollar spent on a channel produces less incremental revenue as the channel approaches [saturation](../core-concepts/saturation-curves.md). The optimizer spreads budget across channels to capture the most efficient marginal returns.
 - **Carryover effects:** [Adstock](../core-concepts/adstock-effects.md) decay curves mean that spend in one period continues generating response in subsequent periods. When **Warm Start** is enabled, the optimizer accounts for historical spend bleeding into the planning window.
-- **Uncertainty:** The gamma parameter controls how much the optimizer penalises channels with wide posterior distributions (high uncertainty in their response estimates).
+- **Uncertainty:** The [gamma parameter](../core-concepts/optimization.md#risk-aversion-the-gamma-parameter) controls how much the optimizer penalises channels with wide [posterior distributions](../core-concepts/bayesian-modeling.md) (high uncertainty in their response estimates).
 - **Constraints:** Per-channel percentage bounds, total budget constraint, and laydown weights are all enforced simultaneously.
+
+For a deeper explanation of the mathematics behind this --- marginal response curves, the efficient frontier, and the mean-variance framework --- see [Optimization (Core Concepts)](../core-concepts/optimization.md).
 
 ---
 
@@ -194,19 +196,19 @@ After the optimizer completes, the results page shows a comprehensive breakdown.
 | **Response %** | Percentage of total expected response with visual bar |
 | **Revenue** | Expected revenue (response multiplied by your multiplier) |
 | **ROI** | Return on investment. Color-coded: green (>= 1.0), amber (>= 0.5), red (< 0.5) |
-| **Saturation** | Saturation level at the recommended spend. Higher % means the channel is closer to its ceiling |
+| **Saturation** | [Saturation level](../core-concepts/saturation-curves.md) at the recommended spend. Higher % means the channel is closer to its ceiling |
 
 ### Reading the Donuts
 
 Compare **Spend Share** with **Response Share** to identify efficiency:
-- A channel with 15% spend share but 25% response share is **under-saturated** --- it delivers disproportionate value and may benefit from more budget.
-- A channel with 25% spend share but 15% response share is **over-saturated** --- budget could be shifted elsewhere for better returns.
+- A channel with 15% spend share but 25% response share is **under-saturated** --- it delivers disproportionate value and may benefit from more budget. This corresponds to operating in the [steep region of the saturation curve](../core-concepts/saturation-curves.md).
+- A channel with 25% spend share but 15% response share is **over-saturated** --- budget could be shifted elsewhere for better returns. This corresponds to operating in the [flat region of the saturation curve](../core-concepts/saturation-curves.md).
 
 ### Weekly Flighting Chart
 
 Below the table, a **metric toggle** (Response / Revenue) switches the weekly stacking chart view:
 - **Weekly Spend** bars show how each channel's budget is distributed across planning periods.
-- **Weekly Response** bars show the expected response per period, including **adstock carryover tail** periods beyond the planning window (labeled Tail 1, Tail 2, etc.). This visualises how the effects of spend persist after the campaign ends.
+- **Weekly Response** bars show the expected response per period, including **[adstock](../core-concepts/adstock-effects.md) carryover tail** periods beyond the planning window (labeled Tail 1, Tail 2, etc.). This visualises how the effects of spend persist after the campaign ends.
 
 ---
 
@@ -225,8 +227,8 @@ Optimization results are recommendations, not automatic actions:
 
 When optimising at the portfolio level, the optimizer accounts for cross-brand effects:
 
-- **Halo channels** generate lift not just for their primary brand but for other brands in the portfolio. The optimizer gives them credit for **total portfolio impact**.
-- **Trademark channels** (masterbrand, portfolio, corporate) are optimised against total revenue across all brands, not attributed to any single brand.
+- **[Halo channels](../core-concepts/halo-effects.md)** generate lift not just for their primary brand but for other brands in the portfolio. The optimizer gives them credit for **total portfolio impact**.
+- **[Trademark channels](../core-concepts/halo-effects.md)** (masterbrand, portfolio, corporate) are optimised against total revenue across all brands, not attributed to any single brand.
 
 The optimizer solves for the allocation that maximises **total portfolio revenue**, including direct channel effects, halo spillover, and trademark-level impact.
 
@@ -236,7 +238,14 @@ See [Halo and Trademark Channels](./halo-trademark-channels.md) and [Portfolio A
 
 ## Next Steps
 
+**Platform guides:**
 - [Scenario Planning](./scenario-planning.md) --- Test budget scenarios before optimising
 - [Model Configuration](./model-configuration.md) --- Adjust the underlying model parameters
 - [Incremental Measurement](./measurement.md) --- The attribution results that drive optimization
 - [Portfolio Analysis](./portfolio-analysis.md) --- Cross-brand optimization
+
+**Core concepts:**
+- [Optimization](../core-concepts/optimization.md) --- The theory behind marginal response curves, the efficient frontier, and risk-adjusted allocation
+- [Saturation Curves](../core-concepts/saturation-curves.md) --- How diminishing returns shape the optimizer's recommendations
+- [Adstock Effects](../core-concepts/adstock-effects.md) --- How carryover dynamics affect multi-period optimization
+- [Halo Effects](../core-concepts/halo-effects.md) --- Cross-brand effects in portfolio optimization
