@@ -159,13 +159,15 @@ Copyright © 2025 1749 Ltd. All rights reserved.
 
 This repository and its contents are proprietary. See [LICENSE](LICENSE) for details.
 
+[Privacy Policy](https://getsimba.ai/privacy) · [Terms of Service](https://getsimba.ai/terms)
+
 ---
 
 ## Contact
 
 - **Website**: [getsimba.ai](https://getsimba.ai)
-- **Support**: support@simba-mmm.com
-- **General**: info@pymc-labs.com
+- **Support**: [GitHub Issues](https://github.com/nialloulton/simba-mmm/issues)
+- **Email**: info@pymc-labs.com
 - **Book a Call**: [Schedule a strategy call](https://getsimba.ai)
 
 ---
