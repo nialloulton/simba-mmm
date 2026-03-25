@@ -53,10 +53,10 @@ For organizations with advanced security requirements, we offer:
 - Dedicated onboarding with security review
 - Custom SLAs
 
-Contact **info@1749.io** or [book a call](https://calendly.com/niall-oulton) to discuss your requirements.
+Contact **info@pymc-labs.com** or [book a call](https://calendly.com/niall-oulton) to discuss your requirements.
 
 ---
 
 ## Reporting Security Issues
 
-If you discover a security vulnerability, please report it responsibly to **info@1749.io**.
+If you discover a security vulnerability, please report it responsibly to **info@pymc-labs.com**.

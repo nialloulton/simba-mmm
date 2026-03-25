@@ -33,7 +33,7 @@ Simba is organized around four main areas:
 - [Core Concepts](../core-concepts/) --- Bayesian methodology, saturation, adstock, priors, and more
 - [Data Guide](../data/) --- Data requirements, preparation, and validation
 - [FAQ](../faq/) --- Common questions answered
-- Contact **info@1749.io** or [book a call](https://calendly.com/niall-oulton)
+- [Open a GitHub issue](https://github.com/nialloulton/simba-mmm/issues) or email **info@pymc-labs.com** | [Book a call](https://calendly.com/niall-oulton)
 
 ---
 

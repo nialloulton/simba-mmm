@@ -182,7 +182,7 @@ Congratulations — you have built, interpreted, and optimized your first Bayesi
 | Poor model fit | Review diagnostics and consider adding control variables, adjusting priors, or checking data quality. See [Model Diagnostics](../platform-guide/measurement.md). |
 | Results seem unreasonable | Check your priors and data. Unreasonable results often indicate data issues or overly vague priors. See [Setting Priors](../platform-guide/model-configuration.md). |
 
-For additional help, contact **info@1749.io**.
+For additional help, [open a GitHub issue](https://github.com/nialloulton/simba-mmm/issues) or email **info@pymc-labs.com**.
 
 ---
 
