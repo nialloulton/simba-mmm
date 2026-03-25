@@ -42,7 +42,7 @@ Every new account starts with a **28-day free trial** with access to core platfo
 
 ## Self-Service Tiers (Coming Soon)
 
-Self-service tiers for individual analysts and smaller teams are coming soon, offering different levels of access at various price points. Visit [getsimba.ai](https://getsimba.ai) for updates or contact **info@1749.io** to be notified when they launch.
+Self-service tiers for individual analysts and smaller teams are coming soon, offering different levels of access at various price points. Visit [getsimba.ai](https://getsimba.ai) for updates or contact **info@pymc-labs.com** to be notified when they launch.
 
 ---
 
@@ -52,7 +52,7 @@ Self-service tiers for individual analysts and smaller teams are coming soon, of
 - Cancel anytime
 - 28-day free trial available
 
-For specific pricing, visit [getsimba.ai](https://getsimba.ai) or contact our sales team at **info@1749.io**.
+For specific pricing, visit [getsimba.ai](https://getsimba.ai) or contact our sales team at **info@pymc-labs.com**.
 
 ---
 

@@ -519,7 +519,8 @@ When reviewing any documentation page:
 - [ ] Lift tests described as likelihood observations, not priors
 - [ ] No "glass-box", "AI Data Auditor", "Budget Intelligence", "workspaces", "Sandbox", "power law adstock", or "AI Assistant"
 - [ ] No features documented that are hidden/commented out in the UI
-- [ ] Contact email is `info@1749.io` (not `support@simba-mmm.com`)
+- [ ] Contact email is `info@pymc-labs.com` (not `info@1749.io` or `support@simba-mmm.com`)
+- [ ] Support/help references link to GitHub issues alongside email
 - [ ] Reference to PyMC-Marketing as the foundation is accurate and present where appropriate
 
 **Core concepts pages (additionally):**
