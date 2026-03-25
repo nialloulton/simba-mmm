@@ -25,7 +25,7 @@ If you have questions about using Simba:
 1. **Check the documentation** — browse the [docs](docs/) for guides and tutorials
 2. **Read the FAQ** — common questions are answered in [FAQ](docs/faq/README.md)
 3. **Ask a question** — use our [support question template](../../issues/new?template=support_question.yml)
-4. **Email support** — reach us at support@simba-mmm.com
+4. **Email support** — reach us at info@pymc-labs.com
 
 ## Contributing to Documentation
 
@@ -50,4 +50,4 @@ All contributors are expected to follow our [Code of Conduct](CODE_OF_CONDUCT.md
 
 ## Questions?
 
-Reach out to us at support@simba-mmm.com or visit [getsimba.ai](https://getsimba.ai).
+Reach out to us via [GitHub Issues](https://github.com/nialloulton/simba-mmm/issues) or email info@pymc-labs.com.
