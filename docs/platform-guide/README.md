@@ -14,7 +14,7 @@ This guide covers every major feature of the Simba MMM platform, organized aroun
 
 ### Step 3: Predict
 
-- **[Scenario Planning](./scenario-planning.md)** --- Multi-scenario forecasting with aggressive, base, and conservative projections. Includes uncertainty bands, what-if budget reallocation, and revenue forecast charts for comparing possible futures.
+- **[Scenario Planning](./scenario-planning.md)** --- What-if forecasting with uncertainty bands. Configure monthly or weekly spend plans, adjust control variables, and generate Bayesian predictions with a comprehensive results dashboard including ROAS analysis, revenue decomposition, and efficiency scatter plots.
 
 ### Step 4: Optimize
 
