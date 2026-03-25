@@ -2,17 +2,20 @@
 
 Scenario Planning lets you explore how different budget allocations and market conditions affect future revenue. Using the [Bayesian model](../core-concepts/bayesian-modeling.md) fitted during [Incremental Measurement](./measurement.md), you create custom spend plans and generate revenue predictions with uncertainty bands powered by the full posterior distribution.
 
-![Scenario Planning Workflow](./images/scenario-workflow.png)
-*The scenario planning process: choose a mode, configure your budget, set allocation strategy, adjust control variables, generate predictions, and analyze the results dashboard.*
-
 ---
 
 ## Choosing a Planning Mode
 
 When you open the Scenario Planner, you are presented with two planning modes. Both produce the same prediction output --- the difference is how you build the input plan.
 
-![Monthly vs Advanced Planner](./images/planner-comparison.png)
-*The Monthly Planner (left) walks you through a guided wizard. The Advanced Planner (right) gives you a full spreadsheet grid for week-by-week control.*
+![Scenario Planning Landing Page](./images/scenario-landing.png)
+
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Header** | The Scenario Planner opens with "Plan Your Marketing Future" and a brief description |
+| 2 | **Monthly Planner card** | Blue-themed card with a Calendar icon and green "RECOMMENDED" badge. Features a guided wizard flow for month-based planning |
+| 3 | **RECOMMENDED badge** | Green badge with Sparkles icon indicating this is the suggested starting point |
+| 4 | **Advanced Planner card** | Purple-themed card with a BarChart3 icon and "ADVANCED" badge. Provides full spreadsheet control over every period |
 
 ### Monthly Planner (Recommended)
 
@@ -38,13 +41,13 @@ The Monthly Planner is a 6-step wizard that converts high-level monthly budgets 
 
 Set your total marketing budget and review the planning period.
 
-| Element | Description |
-|---|---|
-| **Total Budget** | The total amount to allocate across all channels and months |
-| **Planning Period** | Auto-calculated from your selected horizon (1, 3, or 6 months). Weeks are grouped by calendar month, with partial months highlighted in amber |
-| **Configuration Summary** | Shows total budget, duration, average per month, and total periods |
+![Step 1: Budget Configuration](./images/scenario-wizard-step1.png)
 
-The planning period starts from the next period after your model's last data point. If your model data ends mid-month, the first planning month will be partial (fewer weeks) and is flagged accordingly.
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Planning period summary** | Shows the number of months, total weeks, and flags any partial months with an amber badge. The planning period starts from the next period after your model's last data point |
+| 2 | **Total budget input** | Enter your total marketing budget. Default is $120,000 for a 3-month horizon. This total is distributed evenly across channels in the next step |
+| 3 | **Info box** | Reassurance that the total budget is just a starting point --- you can adjust individual channel budgets in the next step |
 
 ### Step 2: Configure Channel Costs
 
@@ -61,59 +64,51 @@ Channels with metric type "Spend" do not require a cost column (spend is entered
 
 Average costs are pre-filled from historical data when available. The system calculates cost-per-unit from your model's last year of data.
 
-**Proxy channels** can be added at the bottom of this step. A proxy channel borrows the response curve of an existing reference channel, allowing you to model new channels (e.g., Podcasts) that were not in the original training data. Proxy channels appear with a blue highlight and a "(Proxy)" label.
+**Proxy channels** can be added at the bottom of this step. A proxy channel borrows the [response curve](../core-concepts/saturation-curves.md) of an existing reference channel, allowing you to model new channels (e.g., Podcasts) that were not in the original training data. Proxy channels appear with a blue highlight and a "Proxy" badge.
 
 ### Step 3: Enter Monthly Budgets
 
 Allocate spend to each channel for each month using an editable AG Grid.
 
-| Column | Description |
-|---|---|
-| **Channel** (pinned) | Channel name |
-| **Total Budget** (pinned, blue) | Total budget for this channel across all months. Editing this auto-distributes evenly across months |
-| **Monthly columns** (green) | Per-month budget for this channel. Editing any month recalculates the channel total |
+![Step 3: Monthly Budgets](./images/scenario-wizard-step3.png)
 
-Partial months are shown with an amber background and include a "(Nw)" suffix showing the number of weeks in that month. Budget is distributed proportionally across the actual weeks in each month.
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Channel column** (pinned left) | Channel names with proxy channels marked by a blue badge |
+| 2 | **Monthly columns** (green headers) | Per-month budget for each channel. Partial months show the week count (e.g., "Mar 2025 (2w)"). Editing any month recalculates the channel total |
+| 3 | **Total Budget column** (pinned right, blue) | Total budget for each channel across all months. Editing this auto-distributes evenly across months |
+| 4 | **Proxy channel row** | Podcast shown with blue "Proxy" badge, using the response curve from its reference channel |
 
 ### Step 4: Choose Allocation Strategy
 
 Select how each month's budget is distributed across the weeks (or days) within that month.
 
-![Allocation Strategies](./images/allocation-strategies.png)
-*Six allocation strategies control how monthly budgets are split into weekly (or daily) values.*
+![Step 4: Allocation Strategy](./images/scenario-wizard-step4.png)
 
-| Strategy | Behavior |
-|---|---|
-| **Equal Distribution** | Budget split evenly across all periods. Simple and balanced |
-| **Business-Week Weighting** | Customizable weights for early, mid, and late month (sliders from 0.5x to 1.5x) |
-| **Always-On** | Stable shares throughout the month for consistent media presence |
-| **Pulsed** | High-Low-High pattern to create variation and maintain audience interest |
-| **Launch Burst** | Front-loaded spending (40%, 30%, 20%, 10%) for product launches or campaign openings |
-| **Event-Centric** | Peak spending concentrated in a specific week, ideal for promotions and events |
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Selected strategy** | Blue border and blue background indicate the active selection (Equal Distribution shown here) |
+
+| Strategy | Icon | Behavior |
+|---|---|---|
+| **Equal Distribution** | BarChart3 | Budget split evenly across all periods. Simple and balanced |
+| **Business-Week** | Calendar | Customizable weights for early, mid, and late month (sliders from 0.5x to 1.5x) |
+| **Always-On** | Zap | Stable, consistent shares throughout the month |
+| **Pulsed** | Activity | High-low-high alternating pattern for variation |
+| **Launch Burst** | Rocket | Front-loaded spending (40%, 30%, 20%, 10%) for product launches |
+| **Event-Centric** | Star | Peak spending concentrated in a specific week, ideal for promotions |
 
 ### Step 5: Business Scenario Adjustments (Conditional)
 
 This step appears only if your model includes control variables (non-media drivers like pricing, distribution, or promotions). It lets you run "what-if" scenarios by adjusting these factors relative to their historical baseline.
 
-![Control Variable Adjustments](./images/control-adjustments.png)
-*Adjust non-media drivers by percentage. The KPI impact indicator shows whether each change helps or hurts predicted sales.*
+![Step 5: Control Adjustments](./images/scenario-wizard-step5.png)
 
-Control variables are grouped into four categories:
-
-| Category | Examples | Impact Direction |
-|---|---|---|
-| **Pricing** | Price index, unit cost | Higher price typically *decreases* sales |
-| **Distribution** | Store count, availability | Higher distribution *increases* sales |
-| **Promotional** | Promo depth, discount rate | More promotion *increases* sales |
-| **Automatic** | Seasonality, trend, intercept | Read-only; auto-populated from historical patterns |
-
-Each editable control has a slider (-50% to +50%) that adjusts the variable relative to its historical baseline mean. The "KPI" indicator to the right shows the expected impact direction based on the model's coefficient sign.
-
-**Preset scenarios** are available for quick configuration:
-- **Price +5%** --- Apply a 5% increase to all pricing variables
-- **Distribution +10%** --- Apply a 10% increase to all distribution variables
-- **Promo Push +20%** --- Apply a 20% increase to all promotional variables
-- **Reset All** --- Return all adjustments to 0%
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Pricing Factors** | Variables related to price, cost, or discount. Each has a slider and shows the impact direction (↑ Revenue or ↓ Revenue) based on the model's coefficient sign |
+| 2 | **Distribution Factors** | Variables like store count or availability. A 0% adjustment means using the baseline value |
+| 3 | **Automatic (Read-Only)** | [Seasonality](../core-concepts/seasonality.md), trend, and intercept variables are projected forward automatically from historical patterns. These cannot be edited |
 
 You can also **Skip** this step to use baseline (unadjusted) values for all controls.
 
@@ -121,15 +116,19 @@ You can also **Skip** this step to use baseline (unadjusted) values for all cont
 
 Set a multiplier to convert the model's predicted target variable into revenue.
 
+![Step 6: Revenue Multiplier](./images/scenario-wizard-step6.png)
+
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Multiplier inputs** | One column per planning month. Default is 1.0 (no conversion). Adjust for seasonal pricing or to convert units to revenue |
+
 | Model Type | Multiplier Represents | Example |
 |---|---|---|
 | Volume/Units | Average price per unit | $25.00 |
 | Customer Acquisition | Customer lifetime value (LTV) | $500.00 |
 | Revenue/Sales | No conversion needed | 1.00 |
 
-The multiplier can vary by month --- edit the "Avg Multiplier" column to auto-fill all months, then customize individual months if seasonal pricing applies.
-
-After completing Step 6, the wizard converts your monthly budget plan into period-level rows (weekly or daily), merges control variables from historical data, and transitions you to the Advanced Planner grid for final review.
+After completing Step 6, the wizard converts your monthly budget plan into period-level rows (weekly or daily), merges control variables, and transitions to the prediction phase.
 
 ---
 
@@ -137,23 +136,18 @@ After completing Step 6, the wizard converts your monthly budget plan into perio
 
 The Advanced Planner presents a full AG Grid spreadsheet with one row per period (week or day) and columns for every variable in the model.
 
-| Feature | Description |
-|---|---|
-| **Model info bar** | Shows last date, variable count, periodicity, and total periods |
-| **Weekly Planning Grid** | Editable AG Grid with date rows and channel columns |
-| **Save Grid** | Download the current grid as JSON for reuse |
-| **Upload Grid** | Import a previously saved JSON grid (also supports CSV and Excel) |
-| **Predict Results** | Submit the scenario for Bayesian prediction |
+![Advanced Planner](./images/scenario-advanced-planner.png)
+
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Model info bar** | Shows last data date, variable count, periodicity, and total planning periods |
+| 2 | **Action buttons** | Download Template (export as CSV), Upload Template (import from CSV/Excel), and Predict Results (submit for Bayesian prediction) |
+| 3 | **Color-coded legend** | Media channels (white, editable), control variables (yellow italic, editable), proxy channels (blue, editable) |
 
 The grid is pre-filled using one of these sources (in priority order):
 1. **Wizard data** --- If you came from the Monthly Planner, the wizard output populates the grid
 2. **Last year data** --- Historical activity from the same period one year ago
 3. **Empty template** --- A blank grid with the correct dates and channel names
-
-**Cell color coding:**
-- White cells --- Media channels (editable)
-- Yellow italic cells --- Control variables (auto-filled from history, editable)
-- Blue cells --- Proxy channels (editable)
 
 **Tips:**
 - Copy and paste from Excel using Ctrl+C / Ctrl+V
@@ -169,7 +163,7 @@ Scenario planning does **not** update forecasts in real time as you edit. Instea
 1. Configure your scenario in either the Monthly Planner wizard or the Advanced Planner grid.
 2. Click **Predict Results** to queue the forecast.
 3. The prediction runs asynchronously on the server. The UI polls for results every 5 seconds.
-4. When complete, the Scenario Performance Dashboard appears with full visualizations.
+4. When complete, the Scenario Results Dashboard appears with full visualizations.
 
 Each prediction uses the full [Bayesian](../core-concepts/bayesian-modeling.md) posterior from your fitted model. The forecast applies the [adstock](../core-concepts/adstock-effects.md) and [saturation](../core-concepts/saturation-curves.md) transforms to your planned activity, then generates predictions with uncertainty bands from all posterior samples.
 
@@ -179,11 +173,8 @@ Each prediction uses the full [Bayesian](../core-concepts/bayesian-modeling.md) 
 
 Every forecast includes uncertainty bands showing the range of plausible outcomes:
 
-![Forecast with Confidence Interval](./images/scenario-forecast.png)
-*The forecast chart shows actual sales (cyan), predicted sales (purple dashed), and the 95% confidence interval (shaded band). The dashed vertical line marks the boundary between historical fit and forward projection.*
-
 - The **prediction line** shows the median forecast from the Bayesian posterior.
-- The **shaded band** shows the 95% credible interval --- the range within which the outcome will fall with 95% probability given the model and planned inputs.
+- The **shaded band** shows the 94% HDI (Highest Density Interval) --- the range containing 94% of the posterior probability mass. The UI displays this as "95% CI" for readability.
 
 Wider bands indicate greater uncertainty. This typically happens when:
 
@@ -197,55 +188,83 @@ Wider bands indicate greater uncertainty. This typically happens when:
 
 When predictions complete, a comprehensive results dashboard appears with multiple views.
 
-![Results Dashboard](./images/results-overview.png)
-*The results dashboard includes channel ROAS comparison (left), revenue decomposition waterfall (center), and efficiency scatter plot (right).*
+### Executive Summary
 
-### Prediction Summary
+Three gradient hero cards show the top-level forecast metrics (out-of-sample periods only):
 
-Three hero cards show the top-level forecast metrics (out-of-sample periods only):
+![Executive Summary](./images/scenario-results-summary.png)
 
-| Card | Metric |
-|---|---|
-| **Total Predicted Sales** | Sum of predictions across all forecast periods |
-| **Average Weekly Sales** | Mean prediction per period in the forecast window |
-| **Growth vs Historical** | Percentage change between forecasted average and historical in-sample average |
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Total Investment** (blue) | Total media spend across all planned periods. Excludes [halo and trademark](../core-concepts/halo-effects.md) spend. Shows the number of weeks planned |
+| 2 | **Predicted Return** (green) | Total predicted revenue from all media channels. Shows the average per-week revenue |
+| 3 | **Portfolio ROAS** (purple) | Return on ad spend across the full portfolio. Includes a quality rating: Excellent (≥ 4.0x), Good (≥ 2.5x), or Below Target (< 2.5x) |
 
 ### Sales Forecast Chart
 
-An interactive time series chart showing:
-- **Actual** values (cyan line) for in-sample periods
-- **Prediction** values (indigo dashed line) for both in-sample and out-of-sample periods
-- **95% confidence interval** (indigo shaded band) that widens over the forecast horizon
-- A toggle to show/hide the confidence interval
-- Filters to view All Data, In-Sample only, or Out-of-Sample only
+![Sales Forecast](./images/scenario-results-forecast.png)
 
-### Media Performance Analysis
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Filter toggle** | Switch between All Data, In-Sample, and Out-of-Sample views |
+| 2 | **CI toggle** | Show or hide the confidence interval band |
 
-This section appears when spend data is available (from the Monthly Planner or when metric costs are configured):
+The chart uses a Recharts ComposedChart with:
+- **Actual** values (cyan `#06b6d4` solid line) for in-sample periods
+- **Prediction** values (indigo `#6366f1` dashed line) for both in-sample and out-of-sample periods
+- **94% HDI band** (indigo gradient, from 30% to 5% opacity) that widens over the forecast horizon
+- A "Forecast Start" reference line at the in-sample/out-of-sample boundary
 
-| Component | Description |
+### Channel ROAS Comparison
+
+![Channel ROAS](./images/scenario-results-roas.png)
+
+Channels are ranked by ROAS (return on ad spend). The dashed vertical line shows the portfolio average ROAS. [Halo and trademark channels](../core-concepts/halo-effects.md) are excluded from this chart since their ROAS is misleading (they have no direct spend on the current brand).
+
+### Revenue Breakdown (Waterfall)
+
+![Revenue Waterfall](./images/scenario-results-waterfall.png)
+
+The waterfall shows cumulative revenue contributions from each channel, building up to the total media revenue. Each bar is labeled with its contribution value.
+
+### Efficiency vs Effectiveness
+
+![Efficiency Scatter](./images/scenario-results-scatter.png)
+
+The scatter plot divides channels into four quadrants based on portfolio averages:
+
+| Quadrant | Meaning |
 |---|---|
-| **Executive Summary** | Three gradient cards showing Total Investment, Predicted Return, and Portfolio ROAS with a quality rating (Excellent/Good/Below Target) |
-| **Channel Performance Table** | Per-channel metrics: spend, contribution, ROAS, and share of total |
-| **Channel ROAS Chart** | Horizontal bar chart comparing ROAS across all media channels |
-| **Contribution Waterfall** | Stacked breakdown showing how each channel and non-media factor contributes to total predicted revenue |
-| **Contribution Time Series** | Area chart showing how channel contributions evolve week by week |
-| **Efficiency Scatter** | Spend vs. ROAS scatter plot with portfolio average reference line |
+| **⭐ Star Performers** | High ROAS + High Contribution --- your best channels |
+| **💎 Efficient** | High ROAS + Low Contribution --- opportunity to scale up |
+| **📊 Effective** | Low ROAS + High Contribution --- volume drivers with diminishing returns |
+| **⚠️ Optimize** | Low ROAS + Low Contribution --- candidates for budget reallocation |
 
-### Insight Cards
+### Top Performers and Insights
 
-| Card | Content |
-|---|---|
-| **Top Performers** | Channels with the highest ROAS in this scenario |
-| **Opportunities** | Optimization suggestions --- channels above or below portfolio average |
-| **Weekly Breakdown** | Best and worst performing periods, plus consistency score |
+![Top Performers and Insights](./images/scenario-results-performers.png)
+
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Top Performers** | The three highest-ROAS channels with medal emojis (🥇🥈🥉), showing spend, ROAS, and revenue for each |
+| 2 | **Scenario Insights** | Blue gradient panel with OOS Total Revenue, OOS Average per Week, and OOS Growth vs History. Includes an Export CSV button |
+
+### Channel Performance Table
+
+![Channel Performance Table](./images/scenario-results-table.png)
+
+The table shows all channels ranked by performance, with:
+- Medal emojis (🥇🥈🥉) for the top 3 channels
+- Proxy channels highlighted with a blue "Proxy" badge
+- ROAS color-coded: green for above average, amber for moderate, red for below average
 
 ### Additional Analysis
 
 | Component | Description |
 |---|---|
 | **Control Contributions Card** | Shows the impact of Step 5 adjustments (pricing, distribution, promotional changes) on predicted revenue |
-| **Proxy Spotlight** | Detailed performance of any proxy channels added during planning |
+| **Opportunities Card** | Identifies under-invested channels with strong ROAS and recommends budget reallocation |
+| **Weekly Breakdown** | Best and worst performing periods, average weekly performance, and volatility (coefficient of variation) |
 | **Export CSV** | Download the full prediction data (dates, actuals, predictions, confidence bounds, per-channel contributions) as a CSV file |
 
 ---
@@ -268,7 +287,7 @@ See [Portfolio Analysis](./portfolio-analysis.md) for the full portfolio workflo
 
 Scenarios are most useful when paired with a decision framework:
 
-- **Marginal analysis**: Compare scenarios that differ by a single change (one channel budget increase) to isolate the expected impact of that change
+- **Marginal analysis**: Compare scenarios that differ by a single change (one channel budget increase) to isolate the expected [incremental](../core-concepts/incrementality.md) impact of that change
 - **Risk assessment**: Use the width of uncertainty bands to gauge confidence. Narrow bands suggest reliable forecasts; wide bands suggest more risk
 - **Control variable testing**: Use Step 5 adjustments to model how changes in pricing, distribution, or promotions interact with your media plan
 - **Threshold testing**: Set a revenue target and test which budget configurations achieve it within the confidence bands
@@ -292,4 +311,7 @@ After identifying your preferred budget plan, proceed to [Budget Optimization](.
 - [Bayesian Modeling](../core-concepts/bayesian-modeling.md) --- How the posterior distribution drives uncertainty bands
 - [Saturation Curves](../core-concepts/saturation-curves.md) --- Diminishing returns in media response
 - [Adstock Effects](../core-concepts/adstock-effects.md) --- Carryover effects from media spend
+- [Priors and Distributions](../core-concepts/priors-and-distributions.md) --- How prior knowledge shapes predictions
+- [Seasonality](../core-concepts/seasonality.md) --- Fourier terms and trend modeling
+- [Halo Effects](../core-concepts/halo-effects.md) --- Cross-brand marketing effects
 - [Incrementality](../core-concepts/incrementality.md) --- Measuring true incremental impact
