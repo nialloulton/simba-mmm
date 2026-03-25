@@ -257,6 +257,6 @@ A form of scenario planning where you change one or more input variables (e.g., 
 
 ---
 
-*Missing a term? Contact us at [info@1749.io](mailto:info@1749.io) and we'll add it.*
+*Missing a term? [Open a GitHub issue](https://github.com/nialloulton/simba-mmm/issues) or email [info@pymc-labs.com](mailto:info@pymc-labs.com) and we'll add it.*
 
 *See also: [Core Concepts](../docs/core-concepts/README.md) | [FAQ](../docs/faq/README.md)*
