@@ -375,4 +375,4 @@ Groups are saved per model and persist across sessions. Colors assigned to group
 
 ---
 
-*For questions about interpreting model results, contact [info@1749.io](mailto:info@1749.io).*
+*For questions about interpreting model results, [open a GitHub issue](https://github.com/nialloulton/simba-mmm/issues) or email [info@pymc-labs.com](mailto:info@pymc-labs.com).*

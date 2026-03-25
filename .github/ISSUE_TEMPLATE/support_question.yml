@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Need help with Simba? Ask your question below. For urgent issues, you can also email support@simba-mmm.com.
+        Need help with Simba? Ask your question below. For urgent issues, you can also email info@pymc-labs.com.
 
   - type: dropdown
     id: category

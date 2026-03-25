@@ -20,7 +20,7 @@ We are committed to providing a welcoming and inclusive environment for everyone
 
 ## Enforcement
 
-Instances of unacceptable behavior may be reported to support@simba-mmm.com. All complaints will be reviewed and investigated, and will result in a response deemed necessary and appropriate to the circumstances.
+Instances of unacceptable behavior may be reported to info@pymc-labs.com. All complaints will be reviewed and investigated, and will result in a response deemed necessary and appropriate to the circumstances.
 
 ## Scope
 

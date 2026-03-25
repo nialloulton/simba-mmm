@@ -6,7 +6,7 @@ If you discover a security vulnerability in Simba, please report it responsibly.
 
 ### How to Report
 
-Email **security@simba-mmm.com** with:
+Email **info@pymc-labs.com** with:
 
 - A description of the vulnerability
 - Steps to reproduce the issue

@@ -202,7 +202,7 @@ Now that you know your way around the interface:
 - Read about [Data Requirements](../data/data-requirements.md) to prepare your dataset.
 - Explore [Smart Defaults](../platform-guide/smart-defaults.md) to understand how Simba auto-generates model configuration.
 
-For questions about navigating the platform, contact **info@1749.io**.
+For questions about navigating the platform, [open a GitHub issue](https://github.com/nialloulton/simba-mmm/issues) or email **info@pymc-labs.com**.
 
 ---
 
