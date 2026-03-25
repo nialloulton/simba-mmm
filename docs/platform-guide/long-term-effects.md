@@ -1,6 +1,8 @@
-# Long-Term Effects --- Modeling Lasting Brand Impact
+# Long-Term Effects --- Interpreting Lasting Brand Impact
 
 Standard Marketing Mix Models measure short-term media impact: the incremental revenue generated within a few weeks of [adstock decay](../core-concepts/adstock-effects.md). But some marketing activities --- brand campaigns, sponsorships, sustained awareness efforts --- produce effects that persist for months or longer. The Long-Term Effects module captures this extended impact using [Vector AutoRegression (VAR)](../core-concepts/var-modeling.md) to trace how marketing spend flows through brand-building variables (awareness, consideration, equity) to ultimately drive revenue, complementing the [saturation](../core-concepts/saturation-curves.md) and carryover modeling of your standard MMM.
+
+> **Prerequisites**: Long-run effects require a trained VAR model with at least 2 endogenous variables and 1 exogenous variable, and a configured long-run effects analysis. For setup instructions, see [VAR Models](./var-models.md). For linking a VAR to your MMM model, see [VAR Models --- Linking](./var-models.md#linking-var-to-mmm-models).
 
 ---
 
@@ -20,31 +22,6 @@ These three tabs work together: IRF shows *how* variables respond to shocks, FEV
 
 ---
 
-## Configuring Long-Run Effects
-
-Before building your VAR model, you configure the long-run effects analysis. This card appears in the [Model Creation Wizard](./model-creation-wizard.md) when your VAR model has at least 2 endogenous variables and 1 exogenous variable.
-
-![Long-Run Effects configuration](./images/lte-config.png)
-
-| # | Element | Description |
-|---|---------|-------------|
-| 1 | **Purple config card** | Appears automatically when prerequisites are met (≥2 endogenous + ≥1 exogenous variables) |
-| 2 | **Manual Config toggle** | Switch between Smart Configuration (auto-detected defaults) and Manual Configuration for full control |
-| 3 | **Smart Configuration** | Auto-detects: base variable (last endogenous, typically sales), equity variables (all other endogenous), horizon (156 periods = ~3 years weekly), confidence interval (95%) |
-| 4 | **What You'll Get** | Preview of outputs: Long-Term Multipliers, Channel Elasticities, Path Decomposition, and Confidence Intervals |
-| 5 | **Automatic Computation** | Long-run effects are computed automatically during model training --- no additional steps required |
-
-### Configuration Defaults
-
-| Setting | Default | Range | Description |
-|---|---|---|---|
-| Base variable | Last endogenous variable | Any endogenous | The ultimate target metric (usually sales or long-term base) |
-| Equity variables | All other endogenous | Auto-derived | Brand/mindset metrics that mediate marketing effects |
-| Horizon | 156 periods | 52--520 | ~3 years weekly for cumulative IRF |
-| Confidence interval | 95% | 90%, 95%, 99% | Width of [Bayesian credible intervals](../core-concepts/bayesian-modeling.md) (HDI bounds) |
-
----
-
 ## Interpreting Impulse Response Functions
 
 Impulse Response Functions (IRFs) show how each variable responds over time when another variable receives a sudden one-unit "shock". This is the foundation for understanding how marketing spend ripples through your brand metrics. Unlike standard MMM [priors](../core-concepts/priors-and-distributions.md) which capture short-term response shapes, IRFs reveal the full dynamic system of cross-variable effects.
@@ -60,6 +37,8 @@ Impulse Response Functions (IRFs) show how each variable responds over time when
 | 5 | **Response chart grid** | 2-column responsive grid of Plotly charts (one chart per variable). Green (#28a745) = positive response, Red (#dc3545) = negative response. Fill shows direction clearly |
 | 6 | **Own Effect badge** | Marks the chart showing how the shocked variable responds to itself --- typically a spike with rapid decay for media spend |
 
+> **Tip**: Use the **Download CSV** and **Export to PDF** buttons in the header to save IRF results for reports and presentations.
+
 ### Reading IRF Charts
 
 - **Green (positive)** responses mean the variable increases after the shock --- e.g., TV spend increases brand awareness
@@ -71,6 +50,16 @@ Impulse Response Functions (IRFs) show how each variable responds over time when
 ### Cumulative Mode
 
 Toggle cumulative mode on to see the **total accumulated effect** over time. This is the most relevant view for budget decisions --- it shows how much total impact builds up rather than the period-by-period response. A channel whose cumulative curve keeps rising has strong persistent effects worth investing in.
+
+### Marketing Effects Analysis
+
+Below the chart grid, the **Marketing Effects Analysis** panel provides automated interpretation:
+
+- **Persistence Analysis**: A visual bar showing what percentage of the initial shock effect remains after a set number of periods. Short-lived effects (<20%) indicate performance-oriented channels; long-lasting effects (>80%) indicate brand-building channels
+- **Key Relationships**: Up to 3 of the most significant cross-variable effects, ranked by magnitude. Each describes the direction (positive/negative), strength, and timing of the response
+- **Marketing Insight**: A summary card synthesizing the overall pattern --- whether the shocked variable primarily drives direct results or builds long-term brand value
+
+> **Learning resource**: Click the **Show Explanation** button at the bottom of the IRF section for an in-app educational guide explaining how IRFs work, with badge indicators showing positive (↑ green) and negative (↓ red) response interpretations.
 
 ---
 
@@ -86,7 +75,9 @@ Forecast Error Variance Decomposition (FEVD) answers: "what proportion of the un
 | 2 | **Response Variable selector** | Choose which variable's variance to decompose (typically your base/revenue variable) |
 | 3 | **Forecast Horizon selector** | How far into the future to measure variance contributions. Longer horizons reveal more about persistent effects |
 | 4 | **Pie chart** | Color-coded breakdown using a 20-color palette. Labels show both variable name and percentage contribution |
-| 5 | **Insights panel** | Auto-classified contributions: Dominant driver (≥60%), Major contributor (≥30%), Moderate impact (≥10%), Minor influence (<10%) |
+| 5 | **Insights panel** | Auto-classified contributions with emoji indicators: dominant (✓), moderate (~), minor (-). Shows top 5 contributors with narrative insight |
+
+> **Tip**: Use the **Download CSV** and **Export to PDF** buttons to save FEVD results. Click **Show Explanation** at the bottom for an in-app educational guide with tips (highlighted in yellow) on interpreting variance decomposition.
 
 ### Reading FEVD Results
 
@@ -99,13 +90,27 @@ Forecast Error Variance Decomposition (FEVD) answers: "what proportion of the un
 
 **Pie vs Time Series**: Use Pie Chart for a quick snapshot at a specific horizon. Switch to Time Series (stacked bar) to see how contributions **evolve over time** --- variables whose share grows at longer horizons have increasing long-run importance.
 
-> **Note**: FEVD is unavailable when Fast Mode is enabled during VAR training. Fast Mode uses a diagonal covariance matrix which skips the cross-variable covariance estimation needed for FEVD. To enable FEVD, rebuild the model with Fast Mode disabled.
+> **Note**: FEVD is unavailable when Fast Mode is enabled during VAR training. Fast Mode uses a diagonal covariance matrix which skips the cross-variable covariance estimation needed for FEVD. To enable FEVD, rebuild the model with Fast Mode disabled. For Fast Mode configuration, see [VAR Models](./var-models.md).
 
 ---
 
 ## Long-Run Effects Results
 
-When the VAR model finishes training with long-run effects configured, the Long-Run Effects tab shows up to five sub-tabs of results.
+When the VAR model finishes training with long-run effects configured, the Long-Run Effects tab shows up to five sub-tabs of results. Each sub-tab includes **Download CSV** and **Export to PDF** buttons for reporting.
+
+### Configuration Summary
+
+At the top of every sub-tab, a blue gradient card confirms your analysis settings:
+
+| Field | What it shows |
+|---|---|
+| **Base Variable** | The target metric (e.g., long_term_base, revenue) |
+| **Equity Variables** | Brand metrics that mediate effects (e.g., brand_awareness, consideration) |
+| **Horizon** | Number of periods for cumulative analysis (default: 156 = ~3 years weekly) |
+| **Confidence** | Width of [Bayesian credible intervals](../core-concepts/bayesian-modeling.md) (90%, 95%, or 99%) |
+| **Transformations** | Whether media variable transformations were applied. If shown, a details panel lists per-channel transform types with ⚠ warnings for potentially problematic transformations (e.g., log with zeros) |
+
+> **Exogenous scaling note**: If exogenous scaling was enabled during VAR training, elasticities are interpreted as "per 1 standard deviation increase" rather than "per 1% increase". A warning banner appears when this is the case.
 
 ### Elasticities Tab (Default)
 
@@ -123,7 +128,7 @@ The primary results view showing each channel's total persistent effect on your 
 
 **How to interpret elasticities:**
 
-- **Brand builders** (like TV with 90% via equity): Most impact flows through brand metrics. These channels build long-term value that standard adstock decay misses. Consider increasing budget allocation beyond what short-term ROAS suggests
+- **Brand builders** (like TV with 90% via equity): Most impact flows through brand metrics. These channels build long-term value that standard [adstock](../core-concepts/adstock-effects.md) decay misses. Consider increasing budget allocation beyond what short-term ROAS suggests
 - **Performance channels** (like Google Search with 75% direct): Most impact is immediate and well-captured by the standard MMM. Long-run effects are smaller but still present
 - **Wider confidence intervals**: Indicate more uncertainty in the estimate. Collect more data or integrate [lift tests](../core-concepts/incrementality.md) to narrow them
 - **Elasticity magnitude**: 0.38 means a sustained 1% increase in that channel drives a cumulative 0.38% increase in your base variable over the full horizon
@@ -147,6 +152,7 @@ Shows the cumulative persistent effect of each equity variable on your base metr
 - **Own persistence > 1**: The base variable amplifies its own shocks --- positive momentum effects
 - **High equity multipliers**: These brand metrics are strong mediators of long-term value. Invest in channels that drive these metrics (revealed by the Path Breakdown tab)
 - **Low equity multipliers**: These metrics have limited persistent effect on revenue, even if they respond strongly to marketing in the IRF view
+- **Comparing multipliers**: The relative size tells you which brand dimensions matter most for your business. If brand_awareness has a 1.45% multiplier but consideration only 0.56%, awareness-building campaigns create more lasting value
 
 ### Path Breakdown Tab
 
@@ -159,7 +165,7 @@ Shows *how* each channel creates long-term value --- through which equity pathwa
 | 1 | **Channel cards** | One card per media channel showing total elasticity and the breakdown across pathways |
 | 2 | **Direct effect bar** (gray) | The portion of the channel's effect that bypasses brand metrics. Performance channels show dominant gray bars |
 | 3 | **Performance channel pattern** | Google Search shows 75% direct effect --- typical of lower-funnel channels where most value is immediate |
-| 4 | **Interpretation boxes** | Two info boxes explaining brand-mediated effects and direct effects (both use InfoBox variant="info") |
+| 4 | **Interpretation boxes** | Two info boxes explaining brand-mediated effects and direct effects |
 
 **How to interpret Path Breakdown:**
 
@@ -167,41 +173,52 @@ Shows *how* each channel creates long-term value --- through which equity pathwa
 - **Gray bars** (Direct) show unmediated impact. High direct % = performance channel
 - **Multiple blue bars** indicate a channel influences revenue through several brand metrics simultaneously --- these are your most versatile brand-building channels
 - Compare channels side-by-side to understand which drives awareness vs consideration vs equity
+- **Channel mix implications**: If your brand is weak on consideration but strong on awareness, prioritize channels with higher Via consideration percentages
 
-### ROI & NPV Tabs (Optional)
+### ROI Analysis Tab (Conditional)
 
-Two additional tabs appear when you provide annual spend and revenue data:
+Appears when annual spend and revenue data are provided during VAR configuration. Translates elasticities into long-run return on investment.
 
-- **ROI Analysis**: Long-run ROI accounting for the full cumulative impact, not just short-term returns. Color-coded: >2x (emerald), >1x (blue), <1x (amber)
-- **NPV Scenarios**: Present value of sustained marketing changes over a configurable time horizon with discounting
+| Column | Description |
+|---|---|
+| **Channel** | Media channel name |
+| **Elasticity** | Long-run elasticity (% per %) |
+| **PV Factor** | Present value discount factor for multi-year horizon |
+| **Annual Spend** | Your provided annual spend per channel |
+| **Long-Run ROI (NPV)** | Net present value return on investment |
 
-These tabs translate elasticities into financial metrics for stakeholder communication.
+**ROI color coding:**
 
----
-
-## Linking VAR to MMM Models
-
-Long-term effects are most valuable when linked to your standard MMM model. The LinkVAR dialog uses smart matching to recommend the best VAR for each MMM.
-
-![Link VAR dialog](./images/lte-linkvar.png)
-
-| # | Element | Description |
-|---|---------|-------------|
-| 1 | **Dialog header** | Shows which MMM model you're linking a VAR to |
-| 2 | **Recommended section** | Green border highlights the best match based on smart matching criteria |
-| 3 | **Other VARs** | Alternative VARs in the portfolio with their match scores |
-| 4 | **Link Models button** | Confirms the link. Once linked, the MMM results are augmented with long-run elasticities |
-
-### Smart Matching Tiers
-
-| Match | Criteria | Recommendation |
+| Color | Threshold | Interpretation |
 |---|---|---|
-| **100%** | Same batch AND same brand | Perfect match --- use this VAR |
-| **80%** | Same brand only | Strong match --- brand metrics align |
-| **50%** | Same batch only | Moderate --- same time period but different brand |
-| **0%** | Different batch and brand | Weak --- consider building a dedicated VAR |
+| **Emerald (green)** | ROI > 2x | Strong long-run return --- channel pays for itself multiple times over |
+| **Blue** | ROI > 1x | Positive long-run return --- channel generates more value than it costs |
+| **Amber** | ROI ≤ 1x | Weak or negative long-run return --- consider reallocating budget |
 
-For portfolios with many models, the **AutoLink** feature in the portfolio view can bulk-link VARs to MMMs based on smart matching.
+**How to interpret Long-Run ROI:**
+
+- Unlike short-term ROAS, Long-Run ROI accounts for the **full cumulative impact** through brand equity pathways, discounted to present value
+- A channel with poor short-term ROAS but strong Long-Run ROI (>2x) is a brand builder whose value materializes over months --- don't cut it based on short-term metrics alone
+- The PV Factor applies time-value-of-money discounting, so distant future effects are appropriately weighted lower than near-term effects
+
+### NPV Scenarios Tab (Conditional)
+
+Appears when NPV scenario configuration is provided. Shows the present value of sustained marketing changes.
+
+| Column | Description |
+|---|---|
+| **Channel** | Media channel name |
+| **Sustained Change** | The percentage change you're modeling (e.g., +10%) |
+| **Elasticity** | Long-run elasticity applied to the change |
+| **NPV of Base Uplift** | Total present value of the resulting base variable increase |
+| **Annual Value** | Annualized impact for budgeting purposes |
+
+**How to interpret NPV Scenarios:**
+
+- **NPV of Base Uplift** answers: "If I sustain a 10% increase in TV spend for 3 years, what is the total present value of the resulting revenue increase?"
+- Use this to build a **business case** for brand investment --- translate percentage elasticities into monetary terms stakeholders understand
+- Compare NPV across channels to identify where sustained investment creates the most value
+- The Annual Value column helps translate lump-sum NPV into annual budget planning terms
 
 ---
 
@@ -214,7 +231,7 @@ Long-term effects fundamentally change how you think about [budget optimization]
 - **Cutting brand spend** saves money immediately but erodes the equity variables that support future revenue. The long-run elasticity quantifies exactly how much future revenue is at risk per % of spend reduction
 - **NPV analysis** helps justify brand investment to stakeholders by translating long-run effects into financial terms with appropriate discounting
 - **Channel mix decisions**: Compare Path Breakdown across channels to understand which drives awareness vs consideration vs equity, then align channel mix with your brand's weakest equity dimension
-- **When linking VAR to MMM**: The linked long-run effects automatically enhance your MMM's [measurement](./measurement.md) results, showing total (short + long) channel contributions rather than short-term only
+- **When linking VAR to MMM**: The linked long-run effects automatically enhance your MMM's [measurement](./measurement.md) results, showing total (short + long) channel contributions rather than short-term only. For linking instructions, see [VAR Models](./var-models.md)
 
 ---
 
@@ -222,7 +239,7 @@ Long-term effects fundamentally change how you think about [budget optimization]
 
 **Platform guides:**
 
-- [VAR Models](./var-models.md) --- Building and fitting VAR models in Simba
+- [VAR Models](./var-models.md) --- Building, configuring, and linking VAR models in Simba
 - [Budget Optimization](./budget-optimization.md) --- How long-term effects influence allocation decisions
 - [Model Creation Wizard](./model-creation-wizard.md) --- Step-by-step model setup including VAR configuration
 - [Measurement](./measurement.md) --- Channel attribution and results interpretation
@@ -230,9 +247,10 @@ Long-term effects fundamentally change how you think about [budget optimization]
 **Core concepts:**
 
 - [VAR Modeling](../core-concepts/var-modeling.md) --- Statistical foundation: Minnesota priors, IRF, FEVD, long-run multipliers
-- [Bayesian Modeling](../core-concepts/bayesian-modeling.md) --- The Bayesian approach and credible intervals
+- [Bayesian Modeling](../core-concepts/bayesian-modeling.md) --- The [Bayesian](../core-concepts/bayesian-modeling.md) approach and credible intervals
 - [Adstock Effects](../core-concepts/adstock-effects.md) --- Short-term carryover and decay (complementary to long-term effects)
 - [Saturation Curves](../core-concepts/saturation-curves.md) --- Diminishing returns in media response
+- [Priors & Distributions](../core-concepts/priors-and-distributions.md) --- Configuring Bayesian priors
 - [Incrementality](../core-concepts/incrementality.md) --- Causal attribution and lift test integration
 
 ---
