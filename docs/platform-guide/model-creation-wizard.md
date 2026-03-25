@@ -64,25 +64,17 @@ Choose your model type and configure high-level settings.
 | 4 | **Vector Autoregression** | [VAR model](../core-concepts/var-modeling.md) for analyzing inter-channel dynamics and time series relationships |
 | 5 | **Navigation buttons** | Previous returns to Step 1, Next proceeds to Step 3 (Variable Selection) |
 
-### VAR-Specific Configuration
+### VAR Models
 
-When VAR is selected, additional settings appear directly in Step 2:
+When VAR is selected, the wizard flow changes --- additional configuration panels appear directly in Step 2 (lags, forecast horizon, endogenous/exogenous variables, media transformations, prior distributions) and the model is built from this step without proceeding through Steps 3--5.
 
-- **Date Variable** selector
-- **Number of Lags** (min 1) and **Forecast Horizon** (min 1)
-- **Endogenous/Exogenous Variables** selection
-- **Media Variable Transformations** (6 options: log(1+x) recommended, asinh, log, Raw Levels, Z-Score, Per 1000)
-- **Hierarchy/Brand Configuration** for multi-brand models
-- **Prior Distributions** for lag coefficients, intercept, exogenous coefficients, and noise
-- **Long-Run Effects Configuration**
-
-For VAR models, clicking "Build Model" in Step 2 submits the model directly without proceeding through Steps 3--5.
+For full details on setting up a VAR model, including the importance of correctly matching spend and media exposure variables, see [VAR Models](./var-models.md). For the underlying methodology, see [VAR Modeling](../core-concepts/var-modeling.md).
 
 ---
 
 ## Step 3: Variable Selection
 
-Categorize each column in your dataset by its role in the model using a three-panel layout.
+Categorize each column in your dataset by its role in the model using a three-panel layout. Correctly assigning variables is critical --- media channels need matching cost variables for ROI calculations, and control variables should capture non-media factors that influence your KPI. For guidance on preparing your data before this step, see [Data Requirements](../data/data-requirements.md).
 
 ![Variable Selection](./images/wizard-variables.png)
 
@@ -136,7 +128,7 @@ Configure [prior distributions](../core-concepts/priors-and-distributions.md) fo
 
 ### Standard Configuration (Recommended)
 
-The Standard tab automatically generates optimal priors based on your data patterns and industry benchmarks (FMCG, Retail, TelCo, Financial Services, E-Commerce).
+The Standard tab automatically generates optimal priors based on your data patterns and industry benchmarks (FMCG, Retail, TelCo, Financial Services, E-Commerce). For a deep dive into how these defaults are calculated, see [Smart Defaults](./smart-defaults.md).
 
 ![Standard Configuration](./images/wizard-priors-standard.png)
 
@@ -150,7 +142,7 @@ The Standard tab automatically generates optimal priors based on your data patte
 
 ### Custom Configuration
 
-The Custom tab exposes a full AG Grid table for manual prior editing. Each row represents a variable with editable parameters.
+The Custom tab exposes a full AG Grid table for manual prior editing. Each row represents a variable with editable parameters. For detailed guidance on choosing distributions, setting decay bounds, and tuning saturation parameters, see [Model Configuration](./model-configuration.md).
 
 ![Custom Configuration](./images/wizard-priors-custom.png)
 
@@ -175,7 +167,7 @@ The Custom tab exposes a full AG Grid table for manual prior editing. Each row r
 
 ## Step 5: Model Details
 
-Final configuration before fitting your model.
+Final configuration before fitting your model. This step brings together model naming, train/test splitting, advanced tuning options, and optional lift test calibration.
 
 ![Model Details](./images/wizard-model-details.png)
 
@@ -267,6 +259,8 @@ Once submitted, the model progresses through these statuses:
 
 You can navigate away during fitting and return when it completes. Check status from the Warehouse or Dashboard.
 
+Once your model completes, proceed to [Incremental Measurement](./measurement.md) to interpret channel contributions, response curves, and model diagnostics. To optimize your budget based on the results, see [Budget Optimization](./budget-optimization.md). For what-if forecasting, see [Scenario Planning](./scenario-planning.md).
+
 ---
 
 ## Next Steps
@@ -275,8 +269,11 @@ You can navigate away during fitting and return when it completes. Check status 
 - [Model Configuration](./model-configuration.md) --- Detailed prior and parameter tuning
 - [Smart Defaults](./smart-defaults.md) --- How auto-generated priors work
 - [Incremental Measurement](./measurement.md) --- Interpreting your model results
+- [Budget Optimization](./budget-optimization.md) --- Optimize channel spend allocation
+- [Scenario Planning](./scenario-planning.md) --- What-if forecasting and scenario analysis
 - [VAR Models](./var-models.md) --- VAR-specific model creation and analysis
 - [Halo and Trademark Channels](./halo-trademark-channels.md) --- Cross-brand channel configuration
+- [Data Requirements](../data/data-requirements.md) --- Data preparation guidance
 
 **Core concepts:**
 - [Bayesian Modeling](../core-concepts/bayesian-modeling.md) --- Priors, posteriors, and the 94% HDI
