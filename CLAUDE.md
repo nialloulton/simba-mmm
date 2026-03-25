@@ -2,8 +2,8 @@
 
 ## Repository Layout
 
-- **Application codebase (READ ONLY)**: `C:/Users/iamni/OneDrive/Documents/simba/` — the private Simba app repo. Read component files here to verify UI elements, labels, icons, logic. **Never write to this repo.**
-- **Documentation repo (WRITE HERE)**: `C:/Users/iamni/OneDrive/Documents/simba-doc/` — this repo. All documentation edits, charts, screenshots, and markdown changes happen here.
+- **Application codebase (READ ONLY)**: `../simba/` (sibling directory to this repo) — the private Simba app repo. Read component files here to verify UI elements, labels, icons, logic. **Never write to this repo.**
+- **Documentation repo (WRITE HERE)**: This repo (current working directory). All documentation edits, charts, screenshots, and markdown changes happen here.
 - **Remote**: `https://github.com/nialloulton/simba-mmm` (public GitHub Pages) — push branches and PRs here.
 
 > **Workflow**: Read from the app codebase → Write to this docs repo → Push to GitHub.
@@ -19,7 +19,7 @@ git fetch origin main
 git checkout -b docs/<descriptive-branch-name> origin/main
 ```
 
-> **Windows path note**: When generating charts or screenshots with Python, save to `C:\tmp\` then copy into the docs repo. Bash `/tmp/` maps to `C:\Users\iamni\AppData\Local\Temp\` which is different from Python's `C:\tmp\`.
+> **Windows path note**: When generating charts or screenshots with Python, save to `C:\tmp\` then copy into the docs repo. On Windows, Bash `/tmp/` maps to the user's `AppData\Local\Temp\` which is different from Python's `C:\tmp\`.
 
 ### 2. Cross-Reference Against the Application Codebase
 
@@ -554,10 +554,10 @@ When reviewing any documentation page:
 When rewriting any platform guide page (`docs/platform-guide/[filename].md`), the following phased process is **mandatory**. No shortcuts, no skipping phases.
 
 **Context for every rewrite:**
-- **Read from**: App codebase at `C:/Users/iamni/OneDrive/Documents/simba/` (read-only, never write here)
-- **Write to**: This docs repo at `C:/Users/iamni/OneDrive/Documents/simba-doc/`
+- **Read from**: App codebase at `../simba/` (sibling directory, read-only, never write here)
+- **Write to**: This docs repo (current working directory)
 - **Push to**: `nialloulton/simba-mmm` on GitHub
-- Windows paths: bash `/tmp/` = `C:\Users\iamni\AppData\Local\Temp`, Python `/tmp/` = `C:\tmp`
+- Windows paths: Bash `/tmp/` maps to user's `AppData\Local\Temp`, Python `/tmp/` = `C:\tmp`
 - Read this `CLAUDE.md` first — it has the full terminology table, design tokens, cross-referencing rules, and the exact UI mockup process to follow.
 
 ### Phase 1: Deep Codebase Exploration (do this in plan mode)

@@ -1,0 +1,10 @@
+# Claude Code local files
+.claude/settings.local.json
+.claude/launch.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temp files
+*.tmp
