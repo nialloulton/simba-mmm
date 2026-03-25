@@ -17,4 +17,4 @@ Simba is the only enterprise MMM platform that gives you **Bayesian rigor with g
 
 - **Email**: info@pymc-labs.com
 - **Book a call**: [getsimba.ai](https://getsimba.ai)
-- **Support**: support@simba-mmm.com
+- **Support**: [GitHub Issues](https://github.com/nialloulton/simba-mmm/issues) | info@pymc-labs.com

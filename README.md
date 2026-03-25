@@ -130,7 +130,7 @@ We use GitHub Issues for bug reports, feature requests, and support questions:
 - [Request a Feature](../../issues/new?template=feature_request.yml) — Suggest an improvement or new capability
 - [Ask a Question](../../issues/new?template=support_question.yml) — Get help with Simba
 
-You can also reach us at **support@simba-mmm.com** or visit [getsimba.ai](https://getsimba.ai).
+You can also [open a GitHub issue](https://github.com/nialloulton/simba-mmm/issues) or email **info@pymc-labs.com**.
 
 ---
 
