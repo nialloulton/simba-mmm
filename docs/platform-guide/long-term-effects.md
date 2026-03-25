@@ -1,6 +1,6 @@
 # Long-Term Effects --- Modeling Lasting Brand Impact
 
-Standard Marketing Mix Models measure short-term media impact: the incremental revenue generated within a few weeks of spend. But some marketing activities --- brand campaigns, sponsorships, sustained awareness efforts --- produce effects that persist for months or longer. The Long-Term Effects module captures this extended impact using [Vector AutoRegression (VAR)](../core-concepts/var-modeling.md) to trace how marketing spend flows through brand-building variables (awareness, consideration, equity) to ultimately drive revenue.
+Standard Marketing Mix Models measure short-term media impact: the incremental revenue generated within a few weeks of [adstock decay](../core-concepts/adstock-effects.md). But some marketing activities --- brand campaigns, sponsorships, sustained awareness efforts --- produce effects that persist for months or longer. The Long-Term Effects module captures this extended impact using [Vector AutoRegression (VAR)](../core-concepts/var-modeling.md) to trace how marketing spend flows through brand-building variables (awareness, consideration, equity) to ultimately drive revenue, complementing the [saturation](../core-concepts/saturation-curves.md) and carryover modeling of your standard MMM.
 
 ---
 
@@ -41,13 +41,13 @@ Before building your VAR model, you configure the long-run effects analysis. Thi
 | Base variable | Last endogenous variable | Any endogenous | The ultimate target metric (usually sales or long-term base) |
 | Equity variables | All other endogenous | Auto-derived | Brand/mindset metrics that mediate marketing effects |
 | Horizon | 156 periods | 52--520 | ~3 years weekly for cumulative IRF |
-| Confidence interval | 95% | 90%, 95%, 99% | Width of [credible intervals](../core-concepts/bayesian-modeling.md) |
+| Confidence interval | 95% | 90%, 95%, 99% | Width of [Bayesian credible intervals](../core-concepts/bayesian-modeling.md) (HDI bounds) |
 
 ---
 
 ## Interpreting Impulse Response Functions
 
-Impulse Response Functions (IRFs) show how each variable responds over time when another variable receives a sudden one-unit "shock". This is the foundation for understanding how marketing spend ripples through your brand metrics.
+Impulse Response Functions (IRFs) show how each variable responds over time when another variable receives a sudden one-unit "shock". This is the foundation for understanding how marketing spend ripples through your brand metrics. Unlike standard MMM [priors](../core-concepts/priors-and-distributions.md) which capture short-term response shapes, IRFs reveal the full dynamic system of cross-variable effects.
 
 ![IRF grid view](./images/lte-irf.png)
 
@@ -123,10 +123,11 @@ The primary results view showing each channel's total persistent effect on your 
 
 **How to interpret elasticities:**
 
-- **Brand builders** (like TV with 90% via equity): Most impact flows through brand metrics. These channels build long-term value that standard [adstock decay](../core-concepts/adstock-effects.md) misses
-- **Performance channels** (like Google Search with 75% direct): Most impact is immediate and well-captured by the standard MMM. Long-run effects are smaller
-- **Wider confidence intervals**: Indicate more uncertainty. Collect more data or integrate [lift tests](../core-concepts/incrementality.md) to narrow them
+- **Brand builders** (like TV with 90% via equity): Most impact flows through brand metrics. These channels build long-term value that standard adstock decay misses. Consider increasing budget allocation beyond what short-term ROAS suggests
+- **Performance channels** (like Google Search with 75% direct): Most impact is immediate and well-captured by the standard MMM. Long-run effects are smaller but still present
+- **Wider confidence intervals**: Indicate more uncertainty in the estimate. Collect more data or integrate [lift tests](../core-concepts/incrementality.md) to narrow them
 - **Elasticity magnitude**: 0.38 means a sustained 1% increase in that channel drives a cumulative 0.38% increase in your base variable over the full horizon
+- **Comparing channels**: Sort by elasticity to rank channels by total long-run impact. A channel with a lower short-term ROAS but higher long-run elasticity may be undervalued
 
 ### C-Multipliers Tab
 
@@ -208,10 +209,12 @@ For portfolios with many models, the **AutoLink** feature in the portfolio view 
 
 Long-term effects fundamentally change how you think about [budget optimization](./budget-optimization.md):
 
-- **Brand-building channels** (high Via % in Path Breakdown) may warrant higher spend than short-term ROAS alone suggests, because their full return materializes over months through brand equity
+- **Brand-building channels** (high Via % in Path Breakdown) may warrant higher spend than short-term ROAS alone suggests, because their full return materializes over months through brand equity. Use the elasticities to quantify the gap between short-term and total return
 - **Performance channels** (high Direct %) deliver most of their value immediately and are well-captured by standard MMM optimization with [saturation curves](../core-concepts/saturation-curves.md)
-- **Cutting brand spend** saves money immediately but erodes the equity variables that support future revenue. The long-run elasticity quantifies exactly how much future revenue is at risk
+- **Cutting brand spend** saves money immediately but erodes the equity variables that support future revenue. The long-run elasticity quantifies exactly how much future revenue is at risk per % of spend reduction
 - **NPV analysis** helps justify brand investment to stakeholders by translating long-run effects into financial terms with appropriate discounting
+- **Channel mix decisions**: Compare Path Breakdown across channels to understand which drives awareness vs consideration vs equity, then align channel mix with your brand's weakest equity dimension
+- **When linking VAR to MMM**: The linked long-run effects automatically enhance your MMM's [measurement](./measurement.md) results, showing total (short + long) channel contributions rather than short-term only
 
 ---
 
