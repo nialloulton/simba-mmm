@@ -14,7 +14,7 @@ When you build a VAR model in Simba, the results page includes seven tabs. The l
 |---|---------|-------------|
 | 1 | **Long-Run Effects tab** | Quantifies persistent marketing impact through brand equity pathways --- the primary output for budget decisions |
 | 2 | **Variance Decomposition tab** | Shows what drives uncertainty in each variable --- which channels matter most at different time horizons |
-| 3 | **Standard VAR tabs** | Coefficients, Model Stats, Actual vs Modeled, and Residuals --- standard model diagnostics |
+| 3 | **Standard VAR tabs** | Coefficients, Model Stats, AvM, and Residuals --- standard model diagnostics |
 
 These three tabs work together: IRF shows *how* variables respond to shocks, FEVD shows *what drives uncertainty*, and Long-Run Effects quantifies the *persistent cumulative impact* on your base metric.
 
@@ -57,7 +57,7 @@ Impulse Response Functions (IRFs) show how each variable responds over time when
 | 2 | **Shock Variable selector** | Choose which variable to "shock" --- typically a media spend channel --- to see how all other variables respond |
 | 3 | **Cumulative toggle** | Off = period-by-period response; On = total accumulated effect over time. Cumulative mode shows the building long-run impact |
 | 4 | **Brand Impact Analysis** | Auto-generated insight summarizing the key cross-variable effects of the selected shock |
-| 5 | **Response chart grid** | 2x2 grid of Plotly charts. Green (#28a745) = positive response, Red (#dc3545) = negative response. Fill shows direction clearly |
+| 5 | **Response chart grid** | 2-column responsive grid of Plotly charts (one chart per variable). Green (#28a745) = positive response, Red (#dc3545) = negative response. Fill shows direction clearly |
 | 6 | **Own Effect badge** | Marks the chart showing how the shocked variable responds to itself --- typically a spike with rapid decay for media spend |
 
 ### Reading IRF Charts
@@ -116,7 +116,7 @@ The primary results view showing each channel's total persistent effect on your 
 | # | Element | Description |
 |---|---------|-------------|
 | 1 | **Analysis Configuration summary** | Blue gradient card confirming: base variable, equity variables, horizon, confidence level, and whether transformations were applied |
-| 2 | **Results sub-tabs** | Five tabs: Elasticities (always), C-Multipliers (always), Path Breakdown (always), ROI Analysis (conditional), NPV Scenarios (conditional) |
+| 2 | **Results sub-tabs** | Five tabs: Elasticities (always), Long-Term Multipliers (always), Path Breakdown (always), ROI Analysis (conditional), NPV Scenarios (conditional) |
 | 3 | **Elasticity value** | Total % change in your base variable from a sustained 1% increase in each channel. Higher = stronger long-run effect |
 | 4 | **Via columns** | Show how much of the total effect flows through each equity pathway (brand_awareness, consideration, brand_equity). Percentages reveal brand-mediated vs performance impact |
 | 5 | **Direct column** | Effect that bypasses brand metrics entirely --- captures immediate/performance-oriented response |
@@ -129,20 +129,20 @@ The primary results view showing each channel's total persistent effect on your 
 - **Elasticity magnitude**: 0.38 means a sustained 1% increase in that channel drives a cumulative 0.38% increase in your base variable over the full horizon
 - **Comparing channels**: Sort by elasticity to rank channels by total long-run impact. A channel with a lower short-term ROAS but higher long-run elasticity may be undervalued
 
-### C-Multipliers Tab
+### Long-Term Multipliers Tab
 
 Shows the cumulative persistent effect of each equity variable on your base metric.
 
-![C-Multipliers cards](./images/lte-cmultipliers.png)
+![Long-Term Multipliers cards](./images/lte-cmultipliers.png)
 
 | # | Element | Description |
 |---|---------|-------------|
 | 1 | **Multiplier cards** | One card per equity variable showing its cumulative persistent effect on the base variable |
 | 2 | **Own persistence** (gray card) | Self-amplification: how much the base variable reinforces itself over time. Higher values indicate stronger self-sustaining dynamics |
 | 3 | **Equity multiplier values** | A value of 0.89% means a sustained 1% increase in that equity variable leads to a cumulative 0.89% increase in the base over the analysis horizon |
-| 4 | **What are Long-Term Multipliers?** | Explanation of C-Multipliers and how to interpret the cumulative persistence values |
+| 4 | **What are Long-Term Multipliers?** | Explanation of long-term multipliers and how to interpret the cumulative persistence values |
 
-**How to interpret C-Multipliers:**
+**How to interpret Long-Term Multipliers:**
 
 - **Own persistence > 1**: The base variable amplifies its own shocks --- positive momentum effects
 - **High equity multipliers**: These brand metrics are strong mediators of long-term value. Invest in channels that drive these metrics (revealed by the Path Breakdown tab)
@@ -159,7 +159,7 @@ Shows *how* each channel creates long-term value --- through which equity pathwa
 | 1 | **Channel cards** | One card per media channel showing total elasticity and the breakdown across pathways |
 | 2 | **Direct effect bar** (gray) | The portion of the channel's effect that bypasses brand metrics. Performance channels show dominant gray bars |
 | 3 | **Performance channel pattern** | Google Search shows 75% direct effect --- typical of lower-funnel channels where most value is immediate |
-| 4 | **Interpretation boxes** | Blue = brand-mediated effects explanation; Gray = direct effects explanation |
+| 4 | **Interpretation boxes** | Two info boxes explaining brand-mediated effects and direct effects (both use InfoBox variant="info") |
 
 **How to interpret Path Breakdown:**
 
