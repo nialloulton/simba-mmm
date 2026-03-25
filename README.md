@@ -130,7 +130,7 @@ We use GitHub Issues for bug reports, feature requests, and support questions:
 - [Request a Feature](../../issues/new?template=feature_request.yml) — Suggest an improvement or new capability
 - [Ask a Question](../../issues/new?template=support_question.yml) — Get help with Simba
 
-You can also reach us at **support@simba-mmm.com** or visit [getsimba.ai](https://getsimba.ai).
+You can also [open a GitHub issue](https://github.com/nialloulton/simba-mmm/issues) or email **info@pymc-labs.com**.
 
 ---
 
@@ -159,13 +159,15 @@ Copyright © 2025 1749 Ltd. All rights reserved.
 
 This repository and its contents are proprietary. See [LICENSE](LICENSE) for details.
 
+[Privacy Policy](https://getsimba.ai/privacy) · [Terms of Service](https://getsimba.ai/terms)
+
 ---
 
 ## Contact
 
 - **Website**: [getsimba.ai](https://getsimba.ai)
-- **Support**: support@simba-mmm.com
-- **General**: info@pymc-labs.com
+- **Support**: [GitHub Issues](https://github.com/nialloulton/simba-mmm/issues)
+- **Email**: info@pymc-labs.com
 - **Book a Call**: [Schedule a strategy call](https://getsimba.ai)
 
 ---

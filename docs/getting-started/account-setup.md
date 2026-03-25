@@ -32,7 +32,7 @@ At the end of your trial, you can choose a plan to continue. Your data and model
 
 ## Plans
 
-Simba currently offers two plans. For current pricing and to discuss which is right for your team, visit [getsimba.ai](https://getsimba.ai) or contact **info@1749.io**.
+Simba currently offers two plans. For current pricing and to discuss which is right for your team, visit [getsimba.ai](https://getsimba.ai) or contact **info@pymc-labs.com**.
 
 ### Enterprise
 
@@ -112,7 +112,7 @@ For full details on Simba's security practices, see [Security and Compliance](..
 
 - Plans are billed monthly or annually (annual billing includes a discount).
 - Manage payment methods and view invoices in **Settings > Billing**.
-- For Enterprise and Managed plan billing, contact your account manager or email **info@1749.io**.
+- For Enterprise and Managed plan billing, contact your account manager or email **info@pymc-labs.com**.
 
 ---
 
@@ -121,8 +121,8 @@ For full details on Simba's security practices, see [Security and Compliance](..
 | Issue | Solution |
 |---|---|
 | Did not receive verification email | Check your spam folder. If not found, click "Resend verification" on the login page. |
-| Trial expired before evaluation was complete | Contact **info@1749.io** to discuss an extension. |
-| Need to transfer project ownership | Contact **info@1749.io**. |
+| Trial expired before evaluation was complete | [Open a GitHub issue](https://github.com/nialloulton/simba-mmm/issues) or email **info@pymc-labs.com** to discuss an extension. |
+| Need to transfer project ownership | [Open a GitHub issue](https://github.com/nialloulton/simba-mmm/issues) or email **info@pymc-labs.com**. |
 
 ---
 
@@ -133,4 +133,4 @@ For full details on Simba's security practices, see [Security and Compliance](..
 - [Data Requirements](../data/data-requirements.md) --- Prepare your data for upload.
 - [Security and Compliance](../security/README.md) --- Detailed security documentation.
 
-For any account-related questions, contact **info@1749.io**.
+For any account-related questions, [open a GitHub issue](https://github.com/nialloulton/simba-mmm/issues) or email **info@pymc-labs.com**.
