@@ -17,7 +17,7 @@ Built on the open-source [PyMC-Marketing](https://www.pymc-marketing.io/) framew
 |---|---|
 | Disconnected silos — different teams, different models, different methodologies | Shared Bayesian framework with consistent KPIs across brands |
 | Integration nightmares — broken chain of custody from data to decisions | End-to-end in one platform, no handoffs, no chaos |
-| Black-box opacity — "trust me" slides and unexplainable coefficients | Glass-box transparency — inspect every prior and assumption |
+| Black-box opacity — "trust me" slides and unexplainable coefficients | Fully transparent — inspect every prior and assumption |
 
 ---
 
@@ -25,7 +25,7 @@ Built on the open-source [PyMC-Marketing](https://www.pymc-marketing.io/) framew
 
 Simba provides a complete operating system for marketing science in four steps:
 
-### 1. Audit — AI Data Auditor
+### 1. Audit — Data Validator
 Trust your inputs. An intelligent agent validates and cleans your data before you model. Automatically detects anomalies, missing values, and data quality issues across all data sources.
 
 → [Learn more about the Data Auditor](docs/platform-guide/data-auditor.md)
@@ -40,7 +40,7 @@ Plan with confidence. Test your budget decisions and forecast results before you
 
 → [Learn more about Scenario Planning](docs/platform-guide/scenario-planning.md)
 
-### 4. Optimize — Budget Intelligence
+### 4. Optimize — Budget Optimizer
 Spend smarter. Risk-adjusted optimization that balances maximum ROI with your appetite for risk. Multi-week carryover-aware allocation with precise recommendations.
 
 → [Learn more about Budget Optimization](docs/platform-guide/budget-optimization.md)
@@ -52,9 +52,9 @@ Spend smarter. Risk-adjusted optimization that balances maximum ROI with your ap
 - **Bayesian Marketing Mix Modeling** — Rigorous probabilistic models, not black-box regressions
 - **No-Code Model Configuration** — Configure priors, saturation curves, and adstock effects through an intuitive UI
 - **Smart Defaults** — Auto-generated starting points based on your historical data and industry benchmarks
-- **Glass-Box Transparency** — Inspect every prior, every parameter, every assumption. Powered by open-source PyMC-Marketing
-- **AI-Powered Data Auditing** — Automated validation, anomaly detection, and data quality scoring
-- **Multi-Scenario Forecasting** — Aggressive, base case, and conservative projections with uncertainty bands
+- **Fully Transparent** — Inspect every prior, every parameter, every assumption. Powered by open-source PyMC-Marketing
+- **AI-Powered Data Validation** — Automated validation, anomaly detection, and data quality scoring
+- **Scenario Forecasting** — Single-scenario prediction with uncertainty bands and what-if analysis
 - **Risk-Adjusted Optimization** — Budget allocation that accounts for diminishing returns and carryover effects
 - **Portfolio Modeling** — Cross-brand and cross-client modeling for agencies and multi-brand organizations
 - **Enterprise Security** — AES-256 encryption at rest, TLS 1.3 in transit, Cyber Essentials certified, GDPR compliant
@@ -66,7 +66,7 @@ Spend smarter. Risk-adjusted optimization that balances maximum ROI with your ap
 ### Getting Started
 - [What is Simba?](docs/getting-started/what-is-simba.md) — Product overview and positioning
 - [Quick Start Guide](docs/getting-started/quick-start-guide.md) — Build your first model in 15 minutes
-- [Account Setup](docs/getting-started/account-setup.md) — Registration, plans, and workspace configuration
+- [Account Setup](docs/getting-started/account-setup.md) — Registration, plans, and project configuration
 - [Platform Overview](docs/getting-started/platform-overview.md) — UI walkthrough and navigation
 
 ### Core Concepts
@@ -79,7 +79,7 @@ Spend smarter. Risk-adjusted optimization that balances maximum ROI with your ap
 - [Seasonality](docs/core-concepts/seasonality.md) — Seasonal patterns in marketing models
 
 ### Platform Guide
-- [AI Data Auditor](docs/platform-guide/data-auditor.md) — Automated data validation and quality scoring
+- [Data Validator](docs/platform-guide/data-auditor.md) — Automated data validation and quality scoring
 - [Incremental Measurement](docs/platform-guide/measurement.md) — Channel attribution and lift testing
 - [Scenario Planning](docs/platform-guide/scenario-planning.md) — Forecasting and what-if analysis
 - [Budget Optimization](docs/platform-guide/budget-optimization.md) — Risk-adjusted spend allocation
@@ -100,14 +100,10 @@ Spend smarter. Risk-adjusted optimization that balances maximum ROI with your ap
 - [Retail & E-commerce](docs/use-cases/retail-and-ecommerce.md) — Online and omnichannel retail
 
 ### Security & Compliance
-- [Security Overview](docs/security/README.md) — How Simba protects your data
-- [Data Encryption](docs/security/data-encryption.md) — AES-256 and TLS 1.3 details
-- [Infrastructure](docs/security/infrastructure.md) — AWS architecture and isolation
-- [Compliance](docs/security/compliance.md) — GDPR, DPA, and Cyber Essentials
-- [Data Sovereignty](docs/security/data-sovereignty.md) — Residency and international transfers
+- [Security Overview](docs/security/README.md) — How Simba protects your data, including encryption, infrastructure, compliance, and data sovereignty
 
 ### More
-- [Pricing & Plans](docs/pricing/README.md) — Sandbox, Analyst, Pro, Scale, Enterprise, and Managed tiers
+- [Pricing & Plans](docs/pricing/README.md) — Enterprise and Managed plans (self-serve tiers coming soon)
 - [FAQ](docs/faq/README.md) — Frequently asked questions
 - [Glossary](resources/glossary.md) — Marketing mix modeling and Bayesian statistics terminology
 
