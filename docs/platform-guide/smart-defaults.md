@@ -125,10 +125,10 @@ The Standard tab shows a summary of the auto-generated configuration without exp
 
 | # | Element | Description |
 |---|---------|-------------|
-| 1 | **Standard / Custom tabs** | Toggle between the simplified Standard view (with Sparkles icon) and the full Custom AG Grid |
-| 2 | **Recommended badge** | Indicates this is the suggested approach for most users |
-| 3 | **About Standard Configuration** | InfoBox explaining that smart defaults are auto-generated from your data and industry benchmarks |
-| 4 | **Configuration Summary** | Grid showing selected industry, channel count, control count, and default distribution |
+| 1 | **Recommended badge** | Blue badge with Sparkles icon --- indicates this is the suggested approach for most users |
+| 2 | **About Standard Configuration** | InfoBox explaining that the standard approach uses AI to generate optimal priors |
+| 3 | **Configuration toggle items** | Four items: Enable Baseline, Enable Seasonality, AI Media Priors, and Time-Varying Parameters. Each has a checkbox toggle (Enabled/Disabled) except AI Media Priors which has an "Apply Smart Defaults" button (purple outline with Sparkles icon) |
+| 4 | **Configuration Summary** | Bottom panel (Settings icon) showing: Media Channels count, Control Variables count, and enabled/disabled status for each of the four configuration items |
 | 5 | **Navigation buttons** | Previous (back to Variable Selection) and Next (proceed to Model Details) |
 
 ### Custom Build --- AG Grid
