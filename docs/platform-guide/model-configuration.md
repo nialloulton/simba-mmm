@@ -1,293 +1,264 @@
-# Model Configuration
+# Model Configuration — Deep Reference Guide
 
-The Model Configuration wizard guides you through a five-step process to build a [Bayesian](../core-concepts/bayesian-modeling.md) Marketing Mix Model or Vector Autoregression model. Each step collects specific inputs that determine how the model is structured, what [priors](../core-concepts/priors-and-distributions.md) are applied, and how media effects are parameterized.
+This guide provides a detailed reference for every configuration feature in Simba's model building workflow. For the step-by-step wizard overview, see the [Model Creation Wizard](./model-creation-wizard.md). For how [smart defaults](./smart-defaults.md) are calculated, see the Smart Defaults guide.
 
-## Wizard Overview
-
-The configuration workflow consists of five sequential steps:
-
-| Step | Name | Purpose |
-|------|------|---------|
-| 1 | **Data Source Configuration** | Upload CSV data, preview columns, and optionally run the Data Validator |
-| 2 | **Model Setup** | Choose between Marketing Mix Model (MMM) and Vector Autoregression (VAR) |
-| 3 | **Variable Selection** | Assign each column a role: Date, KPI, Media, Cost, Control, Multiplier, or Hierarchy |
-| 4 | **Prior Builder** | Configure prior distributions in Standard (AI-driven) or Custom (manual) mode |
-| 5 | **Model Details** | Set model name, likelihood, train/test split, advanced options, and build |
-
-Each step must be completed before proceeding to the next. You can navigate back to any previous step to modify your selections.
+The configuration workflow uses a five-step wizard (Source → Model Setup → Variable Selection → Prior Builder → Model Details) to build [Bayesian](../core-concepts/bayesian-modeling.md) Marketing Mix Models or [VAR](../core-concepts/var-modeling.md) models. This page dives deep into each configuration feature.
 
 ---
 
-## Step 1: Data Source Configuration
+## Managing Models
 
-Upload your dataset in **CSV format** (50 MB maximum; Excel files are not supported). The upload panel accepts drag-and-drop or file browser selection.
+### Available Models
 
-After uploading, the right panel shows a data preview with column headers and the first rows of your dataset. This preview confirms that your file was parsed correctly and that columns are recognized.
+After building a model, it appears in the **Available Models** tab with real-time status tracking.
 
-### Actions available at this step
+![Available Models list](./images/mc-model-list.png)
 
-| Action | Description |
-|--------|-------------|
-| **Use Demo File** | Loads a built-in two-year weekly marketing dataset for exploration |
-| **Start Validator Agent** | Runs the Data Validator, an AI agent that checks your dataset for 10 categories of issues (schema, frequency, alignment, multiplier, controls, coverage, outliers, multicollinearity, leakage, documentation). Choose between Claude Haiku (fast, 2-3 min) or Claude Sonnet (deep analysis, 4-6 min) |
-| **Continue to Model Selection** | Proceeds to Step 2 once your data is ready |
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Available Models header** | List icon with title and subtitle. Shows all fitted models in the current project. |
+| 2 | **Status indicators** | COMPLETE (green check), UNDER_WAY (orange spinner), PENDING (gray clock with queue position), FAILED (red alert triangle) |
+| 3 | **Progress bar** | Real-time progress for models currently fitting. Shows percentage complete. |
+| 4 | **Action buttons** | Eye (view results, requires COMPLETE), BookmarkCheck (save to project), Trash2 (delete), PauseCircle (cancel running model) |
+| 5 | **Batch model badge** | Indigo badge with Layers icon indicates models built from a hierarchy/panel data configuration |
 
-### Data requirements
+#### Model statuses
 
-Your CSV should include at minimum:
-- A **date column** with consistent time intervals (daily, weekly, or monthly)
-- At least one **media activity variable** (impressions, clicks, GRPs)
-- At least one **cost/spend variable** linked to a media variable
-- A **KPI/target variable** (revenue, conversions, sales)
+| Status | Icon | Description |
+|--------|------|-------------|
+| **PENDING** | Clock (gray) | Queued for fitting. Shows position in queue and estimated wait. |
+| **UNDER_WAY** | Loader (orange, spinning) | Currently fitting. Progress bar updates in real-time. |
+| **COMPLETE** | Check (green) | Successfully fitted. View, save, and delete actions available. |
+| **FAILED** | AlertTriangle (red) | Fitting failed. Click for error details. Delete available. |
+| **TIME_EXCEEDED** | Clock (orange) | Fitting exceeded the time limit. Treated like a failure. |
+| **REVOKED** | PauseCircle (blue) | User cancelled the fitting process. |
+| **REVOKE_IN_PROGRESS** | MoreHorizontal (blue) | Cancellation in progress. |
 
-Optional columns include control variables (holidays, promotions, weather), a multiplier variable, and a hierarchy/brand column for panel data models.
+### Saved Models & Projects
 
----
+The **Saved Models** tab organizes completed models into projects. Two views are available:
 
-## Step 2: Model Setup
+- **My Models** — All models you own, whether shared or not
+- **Shared Models** — Models shared with you by other users, or models you've shared out
 
-Choose between two model types:
-
-| Model Type | Description |
-|------------|-------------|
-| **Marketing Mix Model** | Bayesian MMM for media attribution, optimization, and scenario planning. Proceeds to Variable Selection. |
-| **Vector Autoregression** | Bayesian VAR with Minnesota prior shrinkage for cross-channel dynamics, impulse response functions, and forecast error variance decomposition. Builds directly from this step. |
-
-For MMM, click **Next** to proceed to Variable Selection. For VAR, configure endogenous/exogenous variables, lag settings, and build directly from this step.
-
----
-
-## Step 3: Variable Selection
-
-This is the core step where you assign each column in your dataset to a specific role. The screen is divided into three panels:
-
-### Panel layout
-
-| Panel | Description |
-|-------|-------------|
-| **Available Variables** (left) | Lists all unassigned column headers from your CSV. Select one or more variables by clicking their checkboxes. |
-| **Assignment Buttons** (center) | Category buttons that assign selected variables to a role: Control, Media, Cost, Date, Multiplier, Model KPI, Hierarchy, or Reset All. |
-| **Selected Variables** (right) | Shows variables organized into their assigned categories with color-coded panels. |
-
-### Variable roles
-
-| Role | Color | Required | Description |
-|------|-------|----------|-------------|
-| **Date Variable** | Purple | Yes | The time column. One variable only. Simba auto-detects periodicity (daily/weekly/monthly). |
-| **Model KPI** | Indigo | Yes | The target variable the model predicts (e.g., revenue, sales, conversions). One variable only. |
-| **Media Variables** | Green | Yes | Channel activity metrics (impressions, clicks, GRPs). These receive [adstock](../core-concepts/adstock-effects.md) and [saturation](../core-concepts/saturation-curves.md) transforms. |
-| **Cost Variables** | Amber | Yes | Channel spend data. Must be linked 1:1 with media variables. |
-| **Control Variables** | Blue | No | External factors (holidays, promotions, weather, competitor activity). Receive DM (Divide by Mean) transform by default. |
-| **Multiplier** | Pink | No | A scaling factor applied to the model. |
-| **Hierarchy** | Teal | No | A brand/segment/region column for panel data. When set, Simba builds one model per unique value. |
-
-### Linking cost and media variables
-
-After assigning cost and media variables, you must link them in pairs. Each cost variable maps to exactly one media variable (e.g., `tv_spend` links to `tv_impressions`). The **Linked Items** panel below the selection grid shows all active links.
-
-Simba includes a **semantic matcher** that automatically detects channel types across 13 categories (TV, Digital, Social, Search, Video, Radio, Print, OOH, Email, Influencer, Affiliate, Direct, Mobile) and 8 metric types (Cost, Impressions, GRP, Clicks, Engagement, Conversions, Frequency, Duration). When you assign cost and media variables, the system suggests links based on matching channel and metric types.
-
-### Smart Variable Categorization
-
-When you upload data, Simba analyzes column names using keyword matching and pattern detection to suggest which category each variable belongs to. Suggestions appear below the selection grid with confidence scores. You can accept all suggestions at once or apply them individually.
-
-### Halo and Trademark channels
-
-Below the linked items, two additional sections allow you to designate:
-
-- **[Halo Channels](../core-concepts/halo-effects.md)**: Brand awareness channels (e.g., TV, OOH) whose effects spill over to other brands in a portfolio. These receive a fixed small coefficient (0.005) rather than a data-driven prior.
-- **Trademark/Portfolio Channels**: Masterbrand or corporate-level campaigns. These receive 25% of the calculated coefficient to account for shared attribution.
-
-### Data validation
-
-When you click **Next**, Simba runs automatic validation on your selected variables. If issues are found (e.g., missing values, misaligned dates), error messages appear at the top of the page and must be resolved before proceeding.
+Models can be moved between projects, duplicated, and connected (e.g., linking an MMM to a VAR model for [long-term effects](./long-term-effects.md) analysis).
 
 ---
 
-## Step 4: Prior Builder
+## Prior Builder — Custom Mode Deep Dive
 
-The Prior Builder configures the [prior distributions](../core-concepts/priors-and-distributions.md) that encode your beliefs about each channel's effect before the model sees data. Two modes are available:
+The Prior Builder is where you configure [prior distributions](../core-concepts/priors-and-distributions.md) that encode your beliefs about each channel's effect. Two modes are available: **Standard** (AI-driven, see [Smart Defaults](./smart-defaults.md)) and **Custom** (full manual control).
 
-### Standard mode (recommended)
+### AG Grid Configuration
 
-In Standard mode, the AI generates optimal priors automatically. Four toggleable features control the standard configuration:
+Custom mode provides an interactive AG Grid table with single-click cell editing. Every parameter is directly editable.
 
-| Feature | Default | Description |
-|---------|---------|-------------|
-| **Enable Baseline** | On | Adds a dynamic baseline (smooth local linear trend using HSGP Matern52) to capture underlying trends |
-| **Enable Seasonality** | On | Adds [Fourier-based seasonality](../core-concepts/seasonality.md) to capture recurring patterns |
-| **AI Media Priors** | On | Calculates per-channel coefficients using industry benchmarks, cost shares, and saturation adjustment |
-| **Time-Varying Parameters** | Off | Allows media coefficients to evolve over time (TVP distribution) |
+![Custom AG Grid prior table](./images/mc-ag-grid.png)
 
-The AI Media Priors calculation pipeline works as follows:
-
-1. **Cost share analysis** -- Each channel is weighted by its percentage of total spend
-2. **Industry benchmark** -- Total media effect is estimated using benchmarks (e.g., E-Commerce: 21.9%, FMCG: 6.0%, Retail: 8.9%, Financial Services: 18.9%, TelCo: 30%)
-3. **Saturation adjustment** -- Coefficients are adjusted for the tanh saturation curve using `impact / tanh(avg / (max * alpha))` where alpha mean is fixed at 1.7
-4. **Output** -- Each channel receives an InverseGamma prior with calculated mean (mu) and sigma
-
-### Custom mode (advanced)
-
-Custom mode provides an interactive AG Grid table with direct cell editing. Single-click any cell to modify its value.
+The inline legend below the table explains the color coding:
+- **Blue (#eff6ff)** — Distribution column
+- **Purple (#faf5ff)** — Transform column
+- **Yellow (#fef9c3)** — [Saturation](../core-concepts/saturation-curves.md) point
+- **Light blue (#dbeafe)** — [Decay](../core-concepts/adstock-effects.md) parameters and α_sd
+- **Green (#f0fdf4)** — Adstock type and theta parameters
+- **Sparkles (purple)** — [Halo](../core-concepts/halo-effects.md) channel indicator
+- **Award (orange)** — Trademark/portfolio channel indicator
 
 #### Media variable columns
 
-| Column | Background | Description |
-|--------|-----------|-------------|
-| **Variable** | White | Channel name. Halo channels show a sparkle icon; trademark channels show an award icon. |
-| **Distribution** | Blue tint | Prior distribution: `inversegamma`, `normal`, `truncatednormal`, or `tvp` |
-| **Mean (mu)** | White | Expected coefficient value |
-| **Sigma** | White | Uncertainty (standard deviation). Default: 1.0 |
-| **Transform** | Purple tint | Data transformation: `N` (None, for media), `DM` (Divide by Mean, for controls), `STA` (Standardize), `DDM` |
-| **Saturation** | Yellow tint | Activity level where the channel reaches 50% of maximum effect. Auto-populated with average non-zero activity. |
-| **alpha_sd** | Blue tint | Shape uncertainty of the saturation curve. Lower values = steeper diminishing returns. Alpha mean is fixed at 1.7; only alpha_sd is editable. |
-| **Period** | Blue tint | Number of time periods the media effect persists (default: 6 for weekly, 45 for daily) |
-| **Decay L** | Blue tint | Minimum [adstock](../core-concepts/adstock-effects.md) decay rate (0.01-0.99) |
-| **Decay U** | Blue tint | Maximum adstock decay rate (0.01-0.99) |
-| **Adstock** | Green tint | Adstock type: `geometric` (instant peak, exponential decay) or `delayed` (peak at theta lag, then decay) |
-| **Theta Mean** | Green tint | For delayed adstock: expected peak delay in periods (Gamma prior mean) |
-| **Theta SD** | Green tint | For delayed adstock: uncertainty in peak delay (Gamma prior std dev) |
-| **Lower / Upper** | Yellow tint | Bounds for Truncated Normal and TVP distributions. Media channels enforce Lower >= 0. |
+| Column | Width | Description |
+|--------|-------|-------------|
+| **Variable** | 200px | Channel name with halo/trademark badges. Pinned left. |
+| **Distribution** | 140px | Prior distribution: `inversegamma` (default for media), `normal`, `truncatednormal`, or `tvp` |
+| **Mean (μ)** | 100px | Expected coefficient value. Range: -5 to 5 |
+| **Sigma (σ)** | 100px | Uncertainty (standard deviation). Default: 2× mean |
+| **Transform** | 100px | Data transformation: `N` (None, for media), `DM` (Divide by Mean, for controls), `STA`, `DDM` |
+| **Saturation** | 130px | Activity level where channel reaches 50% of maximum effect. Auto-populated with average non-zero activity. |
+| **α_sd** | 100px | Shape uncertainty of the saturation curve. Alpha mean is fixed at 1.7; only α_sd is editable. Range: 0.1-5.0 |
+| **Period** | 90px | Number of time periods the media effect persists. Default: 6 (weekly), 45 (daily). Range: 1-20 |
+| **Decay L / U** | 100px each | Lower and upper adstock decay rate bounds. Range: 0.01-0.99 |
+| **Adstock** | 120px | Type: `geometric` (instant peak, exponential decay) or `delayed` (peak at theta lag) |
+| **θ Mean / SD** | 90px / 80px | For delayed adstock only: expected peak delay and uncertainty (Gamma prior). Disabled for geometric. |
+| **Lower / Upper** | 90px each | Bounds for TruncatedNormal and TVP distributions. Media enforces Lower ≥ 0. |
+| **Actions** | 80px | Copy (bulk update) and LineChart (graph preview) buttons |
 
-#### Control variable columns
+Control variables share Distribution, Mean, Sigma, Transform, Lower/Upper, and Actions columns but omit all saturation, decay, and adstock columns. Control bounds can be negative.
 
-Control variables share the same Distribution, Mean, Sigma, Transform, Lower, and Upper columns but do not have saturation, decay, or adstock columns. Lower bounds can be negative for controls.
+### Master-Detail View
 
-#### Bulk operations
+Toggle from compact (AG Grid) to Master-Detail view for a three-panel editing experience.
 
-Each row has action buttons:
-- **Copy** -- Opens a bulk update dialog to copy settings from one variable to others
-- **Chart** -- Opens a graph preview showing the prior distribution shape and decay curve
+![Master-Detail View](./images/mc-master-detail.png)
+
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Variable list** | Left panel with grouped sections (Media Variables, Control Variables). Sticky headers show group name and count. Selected item highlighted with blue left border. Quick summary shows distribution, mean, and decay range. |
+| 2 | **Detail panel header** | Shows variable type badge (Media=blue, Control=gray), variable name, and action buttons (Copy, Reset, Graph Preview) |
+| 3 | **Distribution Settings** | Editable fields for distribution type, transform, mean (μ), and sigma (σ) |
+| 4 | **Media Effects** | Saturation point with auto-fill from data, α_sd slider, decay lower/upper inputs, effect period, and adstock type selector |
+| 5 | **Recently Edited** | Clock icon section listing the last 5 variables you modified. Click to jump to that variable. |
+| 6 | **Quick Templates** | Zap icon section with 5 pre-built channel configurations. Apply to selected variables. |
+
+#### Quick Templates
+
+| Template | Decay Range | Period | α_sd | Description |
+|----------|-------------|--------|------|-------------|
+| 📺 TV Conservative | 0.7–0.9 | 6 | 0.8 | Slow decay, low uncertainty |
+| 📺 TV Aggressive | 0.3–0.6 | 4 | 1.0 | Medium decay, standard uncertainty |
+| 💻 Digital Standard | 0.01–0.5 | 2 | 0.7 | Default digital decay range |
+| 📱 Social Fast | 0.01–0.2 | 1 | 1.0 | Very quick decay |
+| 🏢 OOH Persistent | 0.7–0.95 | 8 | 0.6 | Very slow decay |
+
+### Decay Chart Visualization
+
+The decay chart shows how media effects diminish over time based on your configured decay parameters.
+
+![Decay Chart](./images/mc-decay-chart.png)
+
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Decay curves** | SVG visualization showing upper decay curve (solid blue) and lower decay curve (dashed orange) with shaded area representing the uncertainty range |
+| 2 | **Legend** | Explains the upper/lower curves and shaded decay range area |
+| 3 | **View and spend controls** | Toggle between "Decay Curves" (default) and "Effect Example" views. Effect Example shows how spend patterns translate to effects over time with laydown options: Single Period, Continuous, Pulsed, Increasing, or Custom (drag bars). |
+| 4 | **Help text** | Explains that the shaded area represents uncertainty between lower and upper decay bounds |
+
+### Distribution Preview
+
+Click the LineChart icon on any variable to open the Graph Preview modal.
+
+![Graph Preview Modal](./images/mc-graph-preview.png)
+
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Modal header** | Shows "Graph Preview: [variable name]" with description text |
+| 2 | **Distribution / Decay tabs** | Distribution tab (always available) shows prior density function. Decay tab (media only) shows decay curve with adjustable parameters. |
+| 3 | **Density chart** | Probability density function with red dashed line at the mean value. Hover for exact values. |
+| 4 | **Parameter controls** | Right panel with editable distribution, mean, sigma, and bounds. Changes update the chart in real-time. Save Changes commits edits. |
+
+### Bulk Update
+
+Copy prior settings from one variable to multiple others using the Bulk Update dialog.
+
+![Bulk Update Dialog](./images/mc-bulk-update.png)
+
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Dialog header** | "Bulk Update" with description. Opens from the Copy icon on any variable row. |
+| 2 | **Source and field selection** | Left column shows the source variable (blue highlight) and checkboxes for which fields to copy: Distribution Settings (distribution, mean, sigma), Media Effects (decay range, period, adstock), and Metrics/Saturation. |
+| 3 | **Target variable selection** | Right column with search, Select All/Clear, and checkboxes for each compatible target. Only same-type variables shown (media→media, control→control). |
+| 4 | **Apply button** | Shows count of selected targets. Copies all checked fields from source to targets. |
 
 ---
 
-## Step 5: Model Details
+## Model Details — Advanced Settings
 
-The final step configures model-level settings and triggers the build.
+### Advanced Options
 
-### Model Configuration panel
+The Advanced Options accordion on the Model Details step contains four configuration sections.
 
-| Setting | Description |
-|---------|-------------|
-| **Model Name** | Optional custom name. If blank, an auto-generated name is used (e.g., `MMM_a1b2c3d4`). When a hierarchy column is set, a **Batch Name** is required instead, and models are named `{BatchName}_{BrandValue}_001`. |
-| **Transformation Method** | Fixed to **DM (Divide by Mean)** -- the dependent variable is scaled by its mean value. |
-| **Likelihood Function** | `Normal` (default), `LogNormal` (strictly positive data), `StudentT` (robust to outliers), or `Quantile` (quantile regression). |
+![Advanced Options](./images/mc-advanced-options.png)
 
-### Train/Test Split
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **[Seasonality](../core-concepts/seasonality.md) settings** | Prior Scale (default: 10) controls flexibility. Fourier Terms (default: 2, range 1-25) controls complexity of annual patterns. Weekly seasonality only available for daily data (default: 3 terms, range 1-7). |
+| 2 | **Intercept Priors** | Prior Mean (default: 2), Lower Bound (default: 0), Upper Bound (default: 2). Controls the model's baseline level as a multiple of KPI mean. |
+| 3 | **MCMC Sampling** | Sampler Backend (NUMBA recommended, Nutpie faster but no progress tracking), Target Accept Rate (0.85), Warmup Iterations (1500), Posterior Samples (1000). Quantile field only shown when Quantile likelihood is selected. |
+| 4 | **Diagnostics** | Sample from Prior checkbox generates prior predictive samples before fitting for validation. |
+| 5 | **Context note** | These settings are within the Advanced Options accordion, collapsed by default |
 
-A slider controls the percentage of data used for training (50%-100%, default: 100%). The visualization shows the date ranges for training and test periods.
+### Lift Test Calibration
 
-### Advanced Options (collapsible)
+Enable lift test calibration to integrate experimental results as **likelihood observations** (not priors) that constrain the model's [saturation](../core-concepts/saturation-curves.md) parameters with direct evidence of [diminishing returns](../core-concepts/incrementality.md).
 
-The Advanced Options accordion expands to reveal four sections:
+![Lift Test Calibration](./images/mc-lift-test.png)
 
-#### Seasonality settings
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Enable toggle** | Beaker icon header with checkbox to enable/disable lift test calibration |
+| 2 | **About lift tests** | InfoBox explaining that lift tests are controlled experiments providing direct evidence of diminishing returns |
+| 3 | **Units and cost metric** | Units selector (Response or Revenue) and Cost Metric dropdown (Direct Spend, CPA, CPC, CPM, Custom) |
+| 4 | **Entry table** | Each lift test entry requires: Channel, x (baseline spend), Δx (spend change), Δy (observed response change), σ (uncertainty). Import/Export JSON available. |
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| **Prior Scale** | 10 | Controls flexibility of the [seasonality](../core-concepts/seasonality.md) component |
-| **Fourier Terms (Annual)** | 2 | Number of Fourier terms for yearly seasonality (range: 1-25) |
-| **Weekly Seasonality** | Off | Only available for daily data. Captures day-of-week effects. |
-| **Weekly Fourier Terms** | 3 | Number of Fourier terms for weekly patterns (range: 1-7). Only shown when weekly seasonality is enabled. |
+### Holidays and Events
 
-#### Intercept Priors
+When **Include Special Events** is enabled in Model Features, the holiday selector appears.
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| **Prior Mean** | 1 | Expected baseline level as a multiple of KPI mean |
-| **Lower Bound** | 0 | Minimum allowed intercept value |
-| **Upper Bound** | 2 | Maximum allowed intercept value |
+![Holiday/Event Selector](./images/mc-holidays.png)
 
-#### MCMC Sampling
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Auto-detected periodicity** | InfoBox showing the detected data frequency (daily/weekly/monthly). Week convention selector (Commencing vs Ending) shown for weekly data. |
+| 2 | **Week convention** | Radio buttons for "Week Commencing" or "Week Ending" — determines how holidays align to weeks |
+| 3 | **Country selector** | Popover with search input and "Popular Countries" quick-select. 200+ countries supported via `date-holidays` library. Check icon shows selected country. Add button confirms selection. |
+| 4 | **Library note** | Holidays sourced from the `date-holidays` library with comprehensive international coverage |
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| **Sampler Backend** | NUMBA | `NUMBA` (recommended, with progress tracking) or `Nutpie` (faster, no progress updates) |
-| **Target Accept Rate** | 0.85 | NUTS sampler acceptance probability (0.6-0.99). Higher values reduce divergences but slow sampling. |
-| **Warmup Iterations** | 1500 | Tuning samples for step-size and mass matrix adaptation (discarded after tuning) |
-| **Posterior Samples** | 1000 | Number of posterior draws per chain |
-| **Quantile** | 0.5 | Only shown when Quantile likelihood is selected |
+---
 
-#### Diagnostics
+## Export, Import & Warm Start
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| **Sample from Prior** | Off | Generates prior predictive samples before fitting. Useful for validating prior assumptions. |
+### Download / Upload Config
 
-### Model Features (right column, Custom mode only)
+The Model Details step includes export/import buttons:
 
-When in Custom build mode, a right column shows toggleable model features:
+- **Download Config** (Download icon) — Exports the complete model configuration as a JSON file, including all priors, variable assignments, and settings
+- **Upload Config** (Upload icon) — Imports a previously saved configuration file, restoring all settings
+
+This enables reproducible model building and configuration sharing between team members.
+
+### Import from Saved Model
+
+The **Import from Saved Model** dialog enables warm-starting a new model from a previously completed one.
+
+![Import from Saved Model](./images/mc-import-dialog.png)
+
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Dialog header** | "Import from Saved Model" with explanation that posteriors become new priors |
+| 2 | **Selected model** | Blue highlight card showing the model being imported from |
+| 3 | **Import options** | Three checkboxes: **Variable Selections** (Date, KPI, Media, Costs, Controls, Linked Items, Halo & Trademark), **Priors** (N posteriors → priors, with adjusted scalars), **Model Settings** (Trend, Seasonality, TVP, Sampling, Train/Test split) |
+| 4 | **Import Selected** | Applies checked selections. If priors are imported, the Prior Builder automatically switches to Custom mode. |
+
+**When to use warm start:**
+- Iterating on a model with refined priors from posterior results
+- Applying a proven configuration to new data (e.g., next quarter's data)
+- Sharing configurations across brands in a portfolio
+
+---
+
+## Model Features (Custom Mode)
+
+When in Custom build mode, the Model Details step shows a right column with toggleable features:
 
 | Feature | Default | Description |
 |---------|---------|-------------|
-| **Include Dynamic Baseline** | On | Adds smooth local linear trend (HSGP Matern52) |
-| **Include Automatic Seasonality** | On | Adds Fourier-based seasonal components |
-| **Time-Varying Media Variables** | Off | Allows channel effects to change over time |
-| **Include Special Events** | Off | Enables holiday/event selection with country-specific calendars and manual date entry |
+| **Include Dynamic Baseline** | Off | Adds smooth local linear trend (HSGP Matern52) to capture underlying trends |
+| **Include Automatic Seasonality** | Off | Adds Fourier-based seasonal components |
+| **Time-Varying Media Variables** | Off | Allows channel effects to change over time (TVP distribution) |
+| **Include Special Events** | Off | Enables holiday/event selection with country-specific calendars |
 
-When **Include Special Events** is enabled, the panel expands to show:
-- Auto-detected data periodicity (daily/weekly)
-- Week convention selector (commencing vs. ending, for weekly data only)
-- Holiday country selector
-- Manual date picker for custom event dates
-
-### Lift Test Calibration (collapsible)
-
-Enable the **Include Lift Test Calibration** checkbox to add experimental results. Lift tests are integrated as **likelihood observations** (not priors) that constrain the model's saturation parameters with direct evidence of diminishing returns.
-
-Each lift test entry requires:
-- **Channel**: Which media variable the test applies to
-- **x**: Baseline spend level during the test
-- **delta_x**: Change in spend (the test increment)
-- **delta_y**: Observed change in response
-- **sigma**: Uncertainty in the observed effect (auto or manual)
-
-Cost modes available: Direct spend, CPA, CPC, CPM, or Custom metric.
-
-### Footer actions
-
-| Button | Description |
-|--------|-------------|
-| **Download Config** | Exports the complete model configuration as JSON |
-| **Upload Config** | Imports a previously saved configuration file |
-| **Import from Saved Model** | Loads posteriors and settings from a completed model (switches to Custom mode if priors are imported) |
-| **Build Model** | Submits the configuration and starts the Bayesian fitting process |
-
----
-
-## Semantic Channel Matching
-
-Simba's semantic matcher recognizes 13 channel categories and 8 metric types from variable names:
-
-**Channel categories**: TV, Digital, Social, Search, Video, Radio, Print, OOH, Email, Influencer, Affiliate, Direct, Mobile
-
-**Metric types**: Cost, Impressions, GRP, Clicks, Engagement, Conversions, Frequency, Duration
-
-The matcher parses variable names by splitting on underscores, hyphens, dots, and spaces, then identifies channel type, metric type, and brand/segment tokens. This powers:
-- Automatic cost-to-media linking suggestions
-- Smart variable categorization
-- Semantic decay defaults (e.g., TV gets higher decay ranges than search)
-- Halo and trademark channel detection
+When **Include Special Events** is enabled, the panel expands to show periodicity detection, week convention, holiday country selector, and manual date picker.
 
 ---
 
 ## Next Steps
 
-### Platform guides
+**Platform guides:**
 
-- [Smart Defaults](./smart-defaults.md) -- How AI Media Priors are calculated
-- [Budget Optimization](./budget-optimization.md) -- Optimize spend allocation using your fitted model
-- [Scenario Planning](./scenario-planning.md) -- Explore what-if scenarios
-- [Measurement](./measurement.md) -- Understanding model results and diagnostics
-- [Halo & Trademark Channels](./halo-trademark-channels.md) -- Cross-brand effects in portfolio models
-- [VAR Models](./var-models.md) -- Vector Autoregression configuration and results
-- [Long-Term Effects](./long-term-effects.md) -- Brand effects beyond standard adstock
+- [Model Creation Wizard](./model-creation-wizard.md) — Step-by-step wizard walkthrough
+- [Smart Defaults](./smart-defaults.md) — How AI Media Priors are calculated
+- [Budget Optimization](./budget-optimization.md) — Optimize spend allocation using your fitted model
+- [Scenario Planning](./scenario-planning.md) — Explore what-if scenarios
+- [Measurement](./measurement.md) — Understanding model results and diagnostics
+- [Halo & Trademark Channels](./halo-trademark-channels.md) — Cross-brand effects in portfolio models
+- [VAR Models](./var-models.md) — Vector Autoregression configuration and results
+- [Long-Term Effects](./long-term-effects.md) — Brand effects beyond standard adstock
 
-### Core concepts
+**Core concepts:**
 
-- [Bayesian Modeling](../core-concepts/bayesian-modeling.md) -- How Bayesian inference powers the MMM
-- [Priors and Distributions](../core-concepts/priors-and-distributions.md) -- Understanding prior distributions
-- [Saturation Curves](../core-concepts/saturation-curves.md) -- Diminishing returns modeling
-- [Adstock Effects](../core-concepts/adstock-effects.md) -- Geometric and delayed carryover
-- [Seasonality](../core-concepts/seasonality.md) -- Fourier-based seasonal modeling
-- [Halo Effects](../core-concepts/halo-effects.md) -- Cross-brand spillover effects
+- [Bayesian Modeling](../core-concepts/bayesian-modeling.md) — How Bayesian inference powers the MMM
+- [Priors and Distributions](../core-concepts/priors-and-distributions.md) — Understanding prior distributions
+- [Saturation Curves](../core-concepts/saturation-curves.md) — Diminishing returns modeling
+- [Adstock Effects](../core-concepts/adstock-effects.md) — Geometric and delayed carryover
+- [Seasonality](../core-concepts/seasonality.md) — Fourier-based seasonal modeling
+- [Halo Effects](../core-concepts/halo-effects.md) — Cross-brand spillover effects
+- [Incrementality](../core-concepts/incrementality.md) — Causal attribution and lift testing
