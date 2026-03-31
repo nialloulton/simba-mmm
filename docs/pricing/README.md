@@ -66,14 +66,29 @@ Self-service tiers for individual analysts and smaller teams are coming soon, of
 | Strategic consultation | Optional | Included |
 | Custom SLAs | Yes | Yes |
 
+## What Happens After the Trial?
+
+When your 28-day trial ends:
+
+- **Your models are preserved.** All models, results, and scenarios remain in your account in read-only mode.
+- **You can still view results** but cannot fit new models, run optimizations, or create scenarios.
+- **Upgrade anytime** to restore full access. Your data and models carry over — nothing is lost.
+- If you choose not to upgrade, your data is retained for 90 days before being deleted. You can request earlier deletion by contacting support.
+
+---
+
 ## General
 
 - No setup fees
 - Cancel anytime
-- 28-day free trial available
+- 28-day free trial available — no credit card required
+
+**Calculate your potential ROI:** Use the [ROI Calculator](../../sales/roi-calculator.md) to estimate the value Simba can deliver for your organization.
 
 For specific pricing, visit [getsimba.ai](https://getsimba.ai) or contact our sales team at **info@pymc-labs.com**.
 
+> [Book a Call](https://calendly.com/niall-oulton) | [Calculate ROI](../../sales/roi-calculator.md)
+
 ---
 
-*See also: [What is Simba?](../getting-started/what-is-simba.md) | [Account Setup](../getting-started/account-setup.md) | [FAQ](../faq/README.md)*
+*See also: [What is Simba?](../getting-started/what-is-simba.md) | [Account Setup](../getting-started/account-setup.md) | [FAQ](../faq/README.md) | [Why Simba?](../../sales/why-simba.md)*
