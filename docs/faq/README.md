@@ -83,9 +83,9 @@ PyMC-Marketing is the leading open-source library for Bayesian marketing analyti
 
 ### How does the Data Validator work?
 
-The Data Auditor is an intelligent agent that runs automatically when you upload data. It validates your data structure, detects anomalies and missing values, checks schema integrity, and assigns a **Data Health Score** (0–100%) so you know exactly how reliable your inputs are before modeling.
+The Data Validator is an intelligent agent that runs automatically when you upload data. It validates your data structure, detects anomalies and missing values, checks schema integrity, and assigns a **Data Health Score** (0–100%) so you know exactly how reliable your inputs are before modeling.
 
-→ [Data Auditor Guide](../platform-guide/data-auditor.md)
+→ [Data Validator Guide](../platform-guide/data-auditor.md)
 
 ### What channels does Simba support?
 

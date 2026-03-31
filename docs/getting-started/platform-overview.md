@@ -30,7 +30,7 @@ The Model Warehouse is your landing page and the starting point for all work in 
 
 Upload your dataset and configure how Simba should interpret it. This includes:
 
-- **Data upload** --- Drag-and-drop or file selection for CSV/Excel uploads.
+- **Data upload** --- Drag-and-drop or file selection for CSV uploads (Excel not supported).
 - **Column mapping** --- Assign columns to roles: date, dependent variable (KPI), media channels, spend columns, control variables, and hierarchy columns.
 - **Semantic matching** --- Simba automatically detects column types using semantic analysis of variable names, recognizing channel types (TV, digital, social, search, etc.), metric types (cost, impressions, GRPs, clicks), and control variable types (price, promotions, distribution).
 - **Data Validator** --- Run the Validator Agent to check data quality. It analyzes your dataset and presents validation results including issue detection, column statistics, and data readiness assessment.
