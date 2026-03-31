@@ -81,7 +81,7 @@ Simba is organized around four main areas, accessible from the sidebar navigatio
 
 ### 1. Model Warehouse
 
-Your central hub for data management and model creation. Upload data (or use [Data Pipelines](../platform-guide/data-pipelines.md) to prepare it), run the **Data Validator** to check for quality issues, configure your model through a 5-step wizard, and manage all your saved models, projects, and portfolios.
+Your central hub for data management and model creation. Upload your CSV data, run the **Data Validator** to check for quality issues, configure your model through a 5-step wizard, and manage all your saved models, projects, and portfolios.
 
 Read more: [Model Creation Wizard](../platform-guide/model-creation-wizard.md) | [Data Validator](../platform-guide/data-auditor.md)
 
@@ -108,7 +108,6 @@ Read more: [Budget Optimization](../platform-guide/budget-optimization.md)
 - **Smart Defaults** --- Auto-generated prior configurations from your historical data. Run a credible model immediately, then refine as you learn more. Read more: [Smart Defaults](../platform-guide/smart-defaults.md)
 - **VAR Modeling** --- Vector AutoRegression for understanding inter-channel dynamics and long-term brand effects. Read more: [VAR Models](../platform-guide/var-models.md)
 - **Portfolio Analysis** --- Cross-brand comparison and optimization with halo and trademark channel support. Read more: [Portfolio Analysis](../platform-guide/portfolio-analysis.md)
-- **Data Pipelines** --- Visual pipeline builder for repeatable data preparation workflows. Read more: [Data Pipelines](../platform-guide/data-pipelines.md)
 
 ### Security and Compliance
 

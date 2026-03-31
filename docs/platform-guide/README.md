@@ -34,10 +34,6 @@ This guide covers every major feature of the Simba MMM platform, organized aroun
 
 - **[Halo and Trademark Channels](./halo-trademark-channels.md)** --- Configuring cross-brand marketing effects for portfolio analysis, including halo channels and masterbrand/portfolio/corporate trademark channels.
 
-## Data and Pipelines
-
-- **[Data Pipelines](./data-pipelines.md)** --- Visual, node-based pipeline builder for creating repeatable ETL workflows. Connect data sources, apply transforms, and produce versioned datasets for modeling.
-
 ## Analysis and Collaboration
 
 - **[Portfolio Analysis](./portfolio-analysis.md)** --- Cross-brand and cross-model comparison and optimization. Compare metrics, response curves, and ROI across brands, and optimize budget at the portfolio level.
