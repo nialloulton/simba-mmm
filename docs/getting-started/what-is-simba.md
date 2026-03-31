@@ -146,3 +146,5 @@ Or, if you want to set up your account first, see [Account Setup](account-setup.
 - [Bayesian Modeling in Marketing](../core-concepts/bayesian-modeling.md) --- Understand the methodology
 - [Data Requirements](../data/data-requirements.md) --- What data you need to get started
 - [Pricing and Plans](../pricing/README.md) --- Plan comparison and pricing details
+
+**Comparing Simba to alternatives?** See the [Competitor Comparison](../../sales/competitor-comparison.md) for detailed analysis against open-source libraries, SaaS platforms, and consulting firms.

@@ -39,6 +39,17 @@ Simba is organized around four main areas:
 
 ---
 
+## Evaluating Simba?
+
+If you're comparing tools or building a business case:
+
+- [Why Simba?](../../sales/why-simba.md) — Core differentiators and value proposition
+- [Competitor Comparison](../../sales/competitor-comparison.md) — Simba vs. open-source libraries, SaaS platforms, and consulting
+- [ROI Calculator](../../sales/roi-calculator.md) — Estimate the financial return from adopting Simba
+- [Case Studies](../../sales/case-studies/) — Real-world results from Simba customers
+
+---
+
 ## Need Help?
 
 - [Core Concepts](../core-concepts/) --- Bayesian methodology, saturation, adstock, priors, and more
