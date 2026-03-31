@@ -107,13 +107,22 @@ Your data should be in a **tabular format** with:
 - **Columns** representing variables (target, media channels, controls)
 - **One column** should contain the date/period identifier
 
-Example structure:
+Example structure showing all variable types:
 
-| date | revenue | tv_spend | digital_spend | social_spend | ooh_spend | price_index |
-|---|---|---|---|---|---|---|
-| 2023-01-02 | 245000 | 50000 | 30000 | 15000 | 10000 | 1.00 |
-| 2023-01-09 | 262000 | 50000 | 35000 | 15000 | 10000 | 1.00 |
-| 2023-01-16 | 258000 | 45000 | 32000 | 18000 | 10000 | 0.95 |
+| date | revenue | avg_price | brand | tv_spend | tv_impressions | facebook_spend | google_spend | ooh_spend | price_index | competitor_promo |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 2023-01-02 | 245000 | 24.50 | BrandA | 50000 | 8500000 | 30000 | 15000 | 10000 | 1.00 | 0 |
+| 2023-01-09 | 262000 | 24.50 | BrandA | 50000 | 8500000 | 35000 | 18000 | 10000 | 1.00 | 0 |
+| 2023-01-16 | 258000 | 23.28 | BrandA | 45000 | 7200000 | 32000 | 16000 | 10000 | 0.95 | 1 |
+| 2023-01-23 | 310000 | 24.50 | BrandA | 60000 | 10000000 | 40000 | 20000 | 12000 | 1.00 | 0 |
+| 2023-01-30 | 275000 | 24.50 | BrandA | 55000 | 9000000 | 28000 | 14000 | 10000 | 1.00 | 1 |
+
+In this example:
+- **revenue** is the target KPI, **avg_price** is the multiplier, **brand** is the hierarchy column
+- **tv_spend**, **facebook_spend**, **google_spend**, **ooh_spend** are media variables with corresponding cost columns
+- **tv_impressions** is an activity metric (paired with tv_spend)
+- **price_index** and **competitor_promo** are control variables
+- Zero spend is entered as `0`, not left blank
 
 Column names are flexible --- Simba's semantic matcher identifies variable types from keywords in the names. There are no strict naming requirements, but descriptive names (e.g., `tv_spend`, `social_impressions`) will auto-classify more accurately than generic names (e.g., `col1`, `col2`).
 

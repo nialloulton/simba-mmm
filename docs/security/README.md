@@ -57,6 +57,22 @@ Contact **info@pymc-labs.com** or [book a call](https://calendly.com/niall-oulto
 
 ---
 
-## Reporting Security Issues
+## Data Retention
 
-If you discover a security vulnerability, please report it responsibly to **info@pymc-labs.com**.
+- Your marketing data is retained for as long as your account is active.
+- When you delete a model or project, the associated data is permanently removed from active storage.
+- If you cancel your account, all data is deleted within 30 days of account closure.
+- Backups are encrypted and follow the same retention policy.
+
+For specific data retention requirements (e.g., regulatory minimums or maximums), contact **info@pymc-labs.com** to discuss custom arrangements.
+
+---
+
+## Vulnerability Disclosure
+
+If you discover a security vulnerability, please report it responsibly:
+
+1. Email **info@pymc-labs.com** with a description of the vulnerability.
+2. Include steps to reproduce, if possible.
+3. We will acknowledge your report within 2 business days and provide an initial assessment within 5 business days.
+4. Please do not publicly disclose the vulnerability until we have had an opportunity to address it.

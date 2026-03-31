@@ -44,10 +44,21 @@ Portfolio models are available on paid plans. See [Pricing](../pricing/README.md
 ## Use Cases
 
 ### Agency Portfolio Management
-An agency managing 5 retail clients can build individual models per client, then use portfolio modeling to benchmark channel effectiveness and identify optimization opportunities across the portfolio.
+
+An agency managing 5 retail clients builds an individual MMM for each client using their respective data (each client needs their own CSV with media spend, KPI, and controls). Once all models are fitted, the agency links them into a single portfolio. This enables:
+
+- **Cross-client benchmarking**: Compare ROAS for Facebook across all 5 clients to identify which verticals respond best to social spend
+- **Portfolio-level optimization**: Allocate a shared media budget across clients to maximize total portfolio ROI, rather than optimizing each client in isolation
+- **Consistent methodology**: All clients are modeled with the same Bayesian framework, making comparisons meaningful
 
 ### Global Brand Multi-Market Analysis
-A global CPG brand running in 8 markets can compare TV effectiveness across markets, identify where digital channels are under-utilized, and optimize total marketing spend across geographies.
+
+A global CPG brand running in 8 markets builds one model per market (e.g., US, UK, Germany, France, etc.). Each model uses local media spend and local revenue data. When linked into a portfolio:
+
+- **Cross-market TV comparison**: Identify which markets have the steepest TV saturation curves (meaning TV is most efficient there)
+- **Halo effect analysis**: Configure [halo channels](../core-concepts/halo-effects.md) where a global brand campaign (e.g., Super Bowl ad) spills over into non-US markets
+- **Trademark channel optimization**: [Trademark channels](../core-concepts/halo-effects.md) (masterbrand campaigns) are optimized against total portfolio revenue, not attributed to any single market
+- **Budget reallocation**: Shift budget from saturated markets to markets with more headroom, guided by the cross-brand optimizer
 
 → [Agencies Use Case](agencies.md) | [Pricing](../pricing/README.md)
 
