@@ -224,7 +224,7 @@ Prior predictive checking is especially valuable for VAR because:
 
 ## Availability
 
-VAR modeling is included in the free trial and in Enterprise and Managed plans. For details, see [Pricing](../pricing/README.md).
+VAR modeling is included in the free trial, Pro, and Scale plans (disabled on Analyst). See [getsimba.ai](https://getsimba.ai) for current plans.
 
 ---
 

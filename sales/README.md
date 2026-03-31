@@ -11,7 +11,7 @@ This section contains materials for evaluating Simba as your marketing mix model
 
 ## Quick Pitch
 
-Simba is the only enterprise MMM platform that gives you **Bayesian rigor with glass-box transparency** — built on the open-source PyMC-Marketing framework, configurable without code, and powered by AI-driven data validation. Replace fragmented spreadsheet models with one centralized platform delivering consistent, defensible insights across every market and brand.
+Simba is the only enterprise MMM platform that gives you **Bayesian rigor with fully transparent modeling** — built on the open-source PyMC-Marketing framework, configurable without code, and powered by AI-driven data validation. Replace fragmented spreadsheet models with one centralized platform delivering consistent, defensible insights across every market and brand.
 
 ## Contact Sales
 

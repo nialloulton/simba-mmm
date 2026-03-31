@@ -126,7 +126,7 @@ Before fitting the full model, you can validate your priors by running a **prior
 |---|---------|-------------|
 | 1 | **Check Priors button** | Runs prior predictive sampling (typically 30-60 seconds). "Complete" badge shows when finished. |
 | 2 | **IRF direction config** | Select shock variable (media channel) and response variable (base metric) to analyze. Shows cumulative IRF direction. |
-| 3 | **Results table** | Per-channel multipliers with confidence intervals. Green = positive effect, Red = negative. |
+| 3 | **Results table** | Per-channel multipliers with credible intervals. Green = positive effect, Red = negative. |
 | 4 | **C-Multipliers summary** | Persistence factors for each equity variable — how much a sustained shock accumulates over time |
 | 5 | **Stability diagnostics** | Spectral radius check: what percentage of prior draws produce a stable VAR system (ρ < 1.0) |
 
