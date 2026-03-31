@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+title: "Simba: Bayesian Marketing Mix Modeling Platform"
+message: "If you use Simba in your research, please cite it."
+type: software
+authors:
+  - family-names: Oulton
+    given-names: Niall
+    affiliation: "1749"
+url: "https://getsimba.ai"
+repository-code: "https://github.com/nialloulton/simba-mmm"
+keywords:
+  - marketing-mix-modeling
+  - bayesian-statistics
+  - media-attribution
+  - budget-optimization
+  - incrementality
+  - pymc-marketing
+  - media-planning
+  - marketing-analytics
+license: LicenseRef-Proprietary
+date-released: "2026-03-31"
