@@ -1,5 +1,7 @@
 # Frequently Asked Questions
 
+> **Unfamiliar with a term?** See the [Glossary](../../resources/glossary.md) for definitions.
+
 ## General
 
 ### What is marketing mix modeling (MMM)?
