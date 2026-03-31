@@ -1,5 +1,7 @@
 # Budget Optimization --- Maximizing Return from Your Media Mix
 
+> **In brief:** Budget optimization finds the channel-level spend split that maximizes total revenue within your constraints and risk tolerance. In Simba, the Budget Optimizer uses your fitted model's response curves to recommend reallocations with uncertainty-aware, risk-adjusted recommendations.
+
 Budget optimization answers the question every marketer faces: **"Given a fixed budget, how should I allocate spend across channels to maximize total return?"**
 
 The answer depends entirely on the shape of each channel's response curve. A channel that is under-saturated (operating in the steep part of its curve) will generate more incremental return per dollar than a channel that is already saturated. The optimizer finds the allocation where no dollar can be moved from one channel to another to improve total return.
@@ -87,7 +89,7 @@ For each candidate allocation, the optimizer:
 7. Repeats steps 2--6 for **every posterior sample** to build the response distribution.
 8. Computes mean and standard deviation of the response distribution.
 
-The optimizer then searches for the allocation that maximizes `mean - gamma x std`, using SLSQP (Sequential Least Squares Programming) with analytically computed gradients for efficiency.
+The optimizer then searches for the allocation that maximizes `mean - gamma x std`, using SLSQP (Sequential Least Squares Programming — a standard numerical optimization algorithm for constrained problems) with analytically computed gradients for efficiency.
 
 This means the optimizer respects uncertainty end-to-end: a channel with a high expected coefficient but wide uncertainty will be penalized when gamma > 0, because the optimizer can see that the return is unreliable.
 
