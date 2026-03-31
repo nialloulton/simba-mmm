@@ -10,6 +10,9 @@ Portfolio modeling extends marketing mix modeling beyond a single brand or marke
 - **Multi-market teams** — Global brands running campaigns across different geographies
 - **Agencies** — Firms managing portfolios of clients that benefit from cross-client insights
 
+![Portfolio ROAS with and without halo effects](./images/portfolio-halo-impact.png)
+*Modeling halo effects reveals the true portfolio-wide impact of each channel. Without halo modeling, cross-brand campaigns like corporate TV or masterbrand display appear under-performing — leading to budget cuts on some of the most effective channels.*
+
 ## Key Capabilities
 
 ### Cross-Brand Comparison
