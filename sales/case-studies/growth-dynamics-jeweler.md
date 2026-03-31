@@ -21,7 +21,7 @@ Growth Dynamics deployed Simba to build a unified marketing mix model covering t
 
 - **Omnichannel modeling** — A single model capturing both online revenue and in-store sales
 - **Weekly cadence** — Models updated weekly instead of quarterly, enabling real-time strategic guidance
-- **Glass-box transparency** — The client could inspect model assumptions, building trust in the results
+- **Fully transparent modeling** — The client could inspect model assumptions, building trust in the results
 - **Scenario planning** — Budget scenarios presented to the client before spend decisions were made
 
 ## The Results
@@ -37,7 +37,7 @@ Growth Dynamics deployed Simba to build a unified marketing mix model covering t
 
 - **Weekly strategic guidance** — Moved from backward-looking quarterly reports to forward-looking weekly recommendations
 - **Omnichannel visibility** — For the first time, the client could see the full impact of marketing across online and physical retail
-- **Client trust** — Glass-box transparency eliminated the "trust me" dynamic and built genuine confidence in the numbers
+- **Client trust** — Full transparency eliminated the "trust me" dynamic and built genuine confidence in the numbers
 - **Agency differentiation** — Growth Dynamics elevated their positioning from analytics vendor to strategic advisor
 
 ## Why Simba Made the Difference

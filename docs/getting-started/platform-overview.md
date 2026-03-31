@@ -161,7 +161,6 @@ Here is a summary of the main navigation structure:
 | **Active Model** | Channel contributions, ROAS, response curves, diagnostics |
 | **Optimization** | Budget Optimizer and allocation recommendations |
 | **Scenario Planner** | Budget simulation, scenario comparison, and forecasting |
-| **Pipelines** | Data pipeline builder, connectors, transforms, versions |
 
 Active Model, Optimization, and Scenario Planner require selecting a model in the Warehouse first.
 
