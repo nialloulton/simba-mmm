@@ -20,9 +20,47 @@ We practice data minimization: only the information necessary to operate the pla
 
 ---
 
-## Compliance
+## Compliance and Certifications
 
-Simba is compliant with applicable data protection regulations. Enterprise customers can discuss specific compliance requirements, data residency arrangements, and custom hosting as part of their onboarding.
+- **Cyber Essentials certified** — independently assessed baseline security controls covering boundary firewalls, secure configuration, access control, malware protection, and patch management.
+- **SOC 2** — evaluation in progress. Contact us for current status and timeline.
+- **GDPR compliant** — Simba processes only aggregated marketing data (no PII required). For data subject requests, DPA (Data Processing Agreement) availability, and right-to-erasure procedures, contact **info@pymc-labs.com**.
+
+Enterprise customers can discuss specific compliance requirements as part of their onboarding.
+
+---
+
+## Data Residency
+
+By default, Simba data is stored in secure cloud infrastructure. Enterprise customers can request:
+
+- **EU-hosted** or **US-hosted** data residency to meet regional requirements
+- **Custom hosting arrangements** for organizations with specific sovereignty needs
+
+Contact **info@pymc-labs.com** to discuss data residency options.
+
+---
+
+## Audit Logging
+
+Simba logs security-relevant actions including:
+
+- User authentication events (login, logout, failed attempts)
+- Model creation, modification, and deletion
+- Data uploads and exports
+- Configuration changes
+
+Audit logs are retained for the duration of your account plus 90 days. Enterprise customers can request extended retention or log exports.
+
+---
+
+## Incident Response
+
+In the event of a security incident affecting your data:
+
+1. We will **notify affected customers within 72 hours** of confirmed impact.
+2. Notification will include: what happened, what data was affected, and what steps we are taking.
+3. For security-critical communications, contact **info@pymc-labs.com** with "SECURITY" in the subject line for priority handling.
 
 ---
 
