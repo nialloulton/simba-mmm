@@ -4,6 +4,17 @@ Simba is a fully transparent Bayesian Marketing Mix Modeling platform. Every ass
 
 ---
 
+## Where to Start
+
+- **New to marketing mix modeling?** Start with [What is Simba?](./what-is-simba.md) to understand the platform and methodology
+- **Ready to build your first model?** Jump to the [Quick Start Guide](./quick-start-guide.md) for a step-by-step walkthrough
+- **Setting up your team or account?** See [Account Setup](./account-setup.md) for registration, plans, and project configuration
+- **Looking for a specific feature?** Browse the [Platform Overview](./platform-overview.md) to find where things are
+
+> **Unfamiliar with a term?** See the [Glossary](../../resources/glossary.md) for definitions.
+
+---
+
 ## In This Section
 
 | Guide | Description |

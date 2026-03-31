@@ -6,6 +6,8 @@ This guide walks you through the complete Simba workflow, from signing up to int
 
 **Time required:** Most users complete their first model run within a few hours. The actual computation takes minutes; the majority of your time will be spent reviewing data and results.
 
+> **Before you start:** Make sure you have [prepared your data](../data/data-requirements.md) as a CSV with date, media spend, and a target KPI column. Need a refresher on what Simba does? Read [What is Simba?](./what-is-simba.md) first.
+
 **Prerequisites:** A dataset with time-series marketing data (weekly or daily), including spend by channel and a target KPI. See [Data Requirements](../data/data-requirements.md) for full details.
 
 ---

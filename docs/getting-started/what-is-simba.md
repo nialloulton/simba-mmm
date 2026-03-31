@@ -60,6 +60,8 @@ You need to understand the incremental impact of each channel, including those t
 | **Data validation** | Manual QA | AI-powered Data Validator with 10 specialized checks |
 | **Updates** | Expensive re-engagement | Re-run models as new data arrives |
 
+For a detailed comparison against specific tools (Meta's Robyn, Google's Meridian, consulting models), see the [Competitor Comparison](../../sales/competitor-comparison.md).
+
 ---
 
 ## The PyMC-Marketing Foundation

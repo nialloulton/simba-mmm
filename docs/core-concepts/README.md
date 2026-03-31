@@ -37,3 +37,5 @@ How to allocate budget across channels to maximize total return. Covers the marg
 How advertising for one brand can lift sales of related brands in a portfolio. Halo channels receive a fixed small coefficient (0.005), while trademark channels receive a 75% reduction in their calculated prior.
 
 Each concept page is self-contained, but reading them in the order listed above will give you the most coherent understanding of how the pieces fit together.
+
+> **Unfamiliar with a term?** See the [Glossary](../../resources/glossary.md) for definitions.
