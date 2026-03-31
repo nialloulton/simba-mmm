@@ -192,6 +192,7 @@ For additional help, [open a GitHub issue](https://github.com/nialloulton/simba-
 
 ## Related Documentation
 
+- [Your First Model](first-model-tutorial.md) — Hands-on tutorial with sample data
 - [What is Simba?](what-is-simba.md) — Understand the platform and methodology
 - [Account Setup](account-setup.md) — Plans, projects, and team management
 - [Platform Overview](platform-overview.md) — Navigate the full interface
