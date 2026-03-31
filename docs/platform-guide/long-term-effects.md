@@ -130,7 +130,7 @@ The primary results view showing each channel's total persistent effect on your 
 
 - **Brand builders** (like TV with 90% via equity): Most impact flows through brand metrics. These channels build long-term value that standard [adstock](../core-concepts/adstock-effects.md) decay misses. Consider increasing budget allocation beyond what short-term ROAS suggests
 - **Performance channels** (like Google Search with 75% direct): Most impact is immediate and well-captured by the standard MMM. Long-run effects are smaller but still present
-- **Wider confidence intervals**: Indicate more uncertainty in the estimate. Collect more data or integrate [lift tests](../core-concepts/incrementality.md) to narrow them
+- **Wider credible intervals**: Indicate more uncertainty in the estimate. Collect more data or integrate [lift tests](../core-concepts/incrementality.md) to narrow them
 - **Elasticity magnitude**: 0.38 means a sustained 1% increase in that channel drives a cumulative 0.38% increase in your base variable over the full horizon
 - **Comparing channels**: Sort by elasticity to rank channels by total long-run impact. A channel with a lower short-term ROAS but higher long-run elasticity may be undervalued
 

@@ -112,7 +112,7 @@ For full details on Simba's security practices, see [Security and Compliance](..
 
 - Plans are billed monthly or annually (annual billing includes a discount).
 - Manage payment methods and view invoices in **Settings > Billing**.
-- For Enterprise and Managed plan billing, contact your account manager or email **info@pymc-labs.com**.
+- For billing inquiries, contact your account manager or email **info@pymc-labs.com**.
 
 ---
 
