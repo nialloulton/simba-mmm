@@ -297,6 +297,17 @@ After identifying your preferred budget plan, proceed to [Budget Optimization](.
 
 ---
 
+## Troubleshooting Scenarios
+
+| Scenario | Likely Cause | What to Do |
+|---|---|---|
+| **Predictions seem unreasonably high or low** | The underlying model may have poor fit or misspecified priors | Check [model diagnostics](./measurement.md) — look at posterior predictive fit and R-hat values. Adjust priors or add control variables and re-fit before running scenarios |
+| **Uncertainty bands are very wide** | The model has high parameter uncertainty, often due to limited data or vague priors | Add more historical data, incorporate [lift test calibration](../core-concepts/incrementality.md), or tighten priors based on domain knowledge |
+| **All scenarios show similar outcomes** | Channels may be heavily saturated, or the budget changes are too small relative to total spend | Try larger budget shifts, or check [saturation curves](../core-concepts/saturation-curves.md) to see if channels are near the flat part of the curve |
+| **Control variable adjustments have no effect** | The control variable may have a near-zero coefficient in the fitted model | Check the coefficient in the [Active Model](./measurement.md) results. If the variable has a negligible effect, it will not change predictions |
+
+---
+
 ## Next Steps
 
 **Platform guides:**

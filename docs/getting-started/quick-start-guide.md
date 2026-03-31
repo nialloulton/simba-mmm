@@ -178,11 +178,15 @@ Congratulations — you have built, interpreted, and optimized your first Bayesi
 
 | Issue | Solution |
 |---|---|
-| Data upload fails | Check that your file is a valid CSV with a header row. See [Data Requirements](../data/data-requirements.md). |
-| Audit flags critical issues | Address the flagged issues in your data before running the model. The audit report includes specific guidance. |
-| Model takes too long | Large datasets or complex configurations increase run time. Try reducing the number of channels or using weekly instead of daily data. |
-| Poor model fit | Review diagnostics and consider adding control variables, adjusting priors, or checking data quality. See [Model Diagnostics](../platform-guide/measurement.md). |
-| Results seem unreasonable | Check your priors and data. Unreasonable results often indicate data issues or overly vague priors. See [Setting Priors](../platform-guide/model-configuration.md). |
+| **Data upload fails** | Check that your file is a valid CSV with a header row and is under 50MB. Excel (.xlsx) is not supported. See [Data Requirements](../data/data-requirements.md). |
+| **Data Validator flags critical issues** | Address the flagged issues in your data before running the model. The audit report includes specific guidance for each category. |
+| **Model takes too long** | Large datasets or complex configurations increase run time. Try reducing the number of channels, using weekly instead of daily data, or disabling seasonality/trend. |
+| **Model status "Failed"** | Check the error message. Common causes: too few observations for the number of parameters, conflicting priors (e.g., very tight priors that disagree with data), or data quality issues the validator didn't catch. Fix the underlying issue and re-run. |
+| **Model status "Time Exceeded"** | The model exceeded maximum computation time. Simplify by reducing channels, using weekly data, or turning off optional features (seasonality, trend, weekly seasonality). |
+| **R-hat warnings (> 1.1)** | The model did not fully converge. Try increasing the number of MCMC samples, simplifying the model (fewer channels, simpler priors), or checking for multicollinearity in your data. See [Measurement diagnostics](../platform-guide/measurement.md). |
+| **Optimizer returns current allocation unchanged** | Channels may already be near-optimal, or per-channel constraints are too tight. Try widening the min/max bounds in the constraint step. |
+| **Poor model fit** | Review diagnostics and consider adding control variables, adjusting priors, or checking data quality. A poor fit often means the model is missing an important driver (seasonality, promotions, competitor activity). See [Model Diagnostics](../platform-guide/measurement.md). |
+| **Results seem unreasonable** | Check your priors and data. Common causes: overly vague priors allowing unrealistic coefficients, missing control variables that inflate channel credit, or data errors. See [Setting Priors](../platform-guide/model-configuration.md). |
 
 For additional help, [open a GitHub issue](https://github.com/nialloulton/simba-mmm/issues) or email **info@pymc-labs.com**.
 
