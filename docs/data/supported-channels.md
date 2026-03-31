@@ -46,7 +46,7 @@ Simba's metric type dropdown offers four options:
 
 The metric type **does not change the model structure** --- it only sets the default saturation scalar (which you can override). All metrics flow through the same [adstock + saturation + coefficient](../core-concepts/incrementality.md) pipeline. Smart priors are calculated from cost shares and channel activity patterns, not from the metric type.
 
-**Tip:** Use the most granular metric available. Impressions are generally more informative than spend because they reflect actual media delivery rather than cost, which can fluctuate due to CPM changes.
+**Tip:** Use the most granular metric available. Impressions are generally more informative than spend because they reflect actual media delivery rather than cost, which can fluctuate due to CPM (cost per thousand impressions) changes.
 
 ---
 
@@ -102,7 +102,7 @@ In addition to media channels, include **control variables** for non-media facto
 | **Pricing** | Price index, discount depth, promotional flags | Negative effect (price up = sales down) |
 | **Distribution** | Store count, availability score | Positive effect |
 | **Promotions** | Promotion flag (0/1), discount percentage | Positive effect |
-| **Competition** | Competitor spend, share of voice | Negative effect |
+| **Competition** | Competitor spend, share of voice (your brand's portion of total category advertising) | Negative effect |
 | **Economic** | Consumer confidence, unemployment rate | Varies |
 | **Weather** | Temperature, precipitation | Varies |
 
