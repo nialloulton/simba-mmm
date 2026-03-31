@@ -127,6 +127,10 @@ You do not need to write Python, Stan, or any code to build a production-grade B
 
 ---
 
+> **See this in action:** [Start your free 28-day trial](https://getsimba.ai) — no credit card required.
+
+---
+
 ## Next Steps
 
 - [Bayesian Modeling](./bayesian-modeling.md) --- Understand the statistical foundation in depth.

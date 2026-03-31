@@ -143,6 +143,10 @@ Simba's UI lets you inspect every prior, posterior, and diagnostic. You can see 
 
 ---
 
+> **See this in action:** [Start your free 28-day trial](https://getsimba.ai) — no credit card required.
+
+---
+
 ## Next Steps
 
 - [Priors and Distributions](./priors-and-distributions.md) --- Learn how to configure priors in Simba's UI.

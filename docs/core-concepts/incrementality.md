@@ -125,6 +125,10 @@ Incrementality is not the same as last-touch attribution, first-touch attributio
 
 ---
 
+> **See this in action:** [Start your free 28-day trial](https://getsimba.ai) — no credit card required.
+
+---
+
 ## Next Steps
 
 - [Saturation Curves](./saturation-curves.md) --- Learn how diminishing returns affect incrementality.

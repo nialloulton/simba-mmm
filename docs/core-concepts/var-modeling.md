@@ -234,6 +234,10 @@ VAR modeling is included in the free trial and paid plans. See [Pricing](../pric
 
 ---
 
+> **See this in action:** [Start your free 28-day trial](https://getsimba.ai) — no credit card required.
+
+---
+
 ## Next Steps
 
 - [Marketing Mix Modeling](./marketing-mix-modeling.md) --- The standard MMM approach for channel attribution and optimization.

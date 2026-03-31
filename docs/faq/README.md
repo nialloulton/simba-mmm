@@ -25,6 +25,8 @@ Key differentiators:
 
 → [Why Simba?](../../sales/why-simba.md)
 
+For detailed comparisons against specific tools, see the [Competitor Comparison](../../sales/competitor-comparison.md).
+
 ### Who is Simba for?
 
 Simba is built for:
