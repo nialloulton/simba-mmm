@@ -1,4 +1,4 @@
-# Simba — Bayesian Marketing Mix Modeling (MMM) Platform
+# SIMBA — Bayesian Marketing Mix Modeling (MMM) Platform
 
 [![Website](https://img.shields.io/badge/Website-getsimba.ai-blue)](https://getsimba.ai)
 [![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-red)](#license)

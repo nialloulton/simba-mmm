@@ -1,5 +1,7 @@
 # Halo Effects --- Cross-Brand Marketing Impact
 
+> **In brief:** Halo effects measure how one brand's marketing lifts another brand's sales — cross-brand spillover that is invisible without explicit modeling. In Simba, halo and trademark channels are tagged during setup and handled with special priors to capture portfolio-wide impact.
+
 In a multi-brand portfolio, advertising for one brand can lift sales of related brands. This cross-brand spillover is called a **halo effect**, and modeling it correctly is essential for accurate portfolio-level budget optimization.
 
 ---

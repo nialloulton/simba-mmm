@@ -15,6 +15,9 @@ Best practices for cleaning and formatting. Covers time alignment, missing value
 ### [Data Validation](./data-validation.md)
 How Simba's Data Validator assesses your data across 10 categories: schema, frequency, alignment, multiplier, controls, coverage, outliers, multicollinearity, leakage, and documentation. Triggered via the **Start Validator Agent** button.
 
+### [Exporting Data from Ad Platforms](./exporting-from-platforms.md)
+How to export the right data from Google Ads, Meta Ads Manager, GA4, TikTok, DV360, TV, and OOH platforms. Covers what columns to download, what granularity to use, and how to combine everything into one CSV.
+
 ### [Supported Channels](./supported-channels.md)
 The 15 channel categories Simba auto-detects (TV, digital, social, search, video, radio, print, OOH, email, influencer, affiliate, direct mail, mobile, cinema, sponsorship), the 4 metric types (Spend, Impressions, GRPs, Clicks), and typical saturation/decay profiles by channel type.
 

@@ -53,9 +53,9 @@ The model does **not** auto-fill missing values. All NaN/blank cells must be res
 | Scenario | Recommended Action |
 |---|---|
 | Channel had zero spend | Enter **0** (not blank) |
-| Data is genuinely missing | Impute using an appropriate method (e.g., median for spend, forward-fill for controls) or remove the affected rows |
+| Data is genuinely missing | Impute (fill in missing values) using an appropriate method (e.g., median for spend, forward-fill for controls) or remove the affected rows |
 | Channel didn't exist yet | Enter **0** for periods before launch |
-| Temporary data gap (1--2 periods) | Interpolate if reasonable, or impute |
+| Temporary data gap (1--2 periods) | Interpolate (estimate values between known data points) if reasonable, or impute |
 
 **Never fill missing values with averages** --- this distorts the model's ability to measure impact during low/zero activity periods. Zero-spend weeks are valuable signal because they show what happens when a channel is "off."
 
