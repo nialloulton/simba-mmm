@@ -71,7 +71,7 @@ When clients ask "how does this work?", you can show them. Every [prior is visib
 
 ## Typical Agency Workflow
 
-1. **Onboard client data** --- Upload each client's media and outcome data as a CSV per client project.
+1. **Onboard client data** --- Upload each client's media and outcome data as a CSV per client project. See [Data Requirements](../data/data-requirements.md) for format details.
 2. **Validate** --- Run the Data Validator to check for quality issues before modeling.
 3. **Configure per-client models** --- Set channel-specific priors, adstock, and saturation parameters. Use smart defaults as a starting point.
 4. **Run measurement** --- Fit the model and generate incremental attribution by channel.

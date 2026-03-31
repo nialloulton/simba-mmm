@@ -148,6 +148,10 @@ Portfolio features, including halo and trademark channel modeling, are available
 
 ---
 
+> **See this in action:** [Start your free 28-day trial](https://getsimba.ai) — no credit card required.
+
+---
+
 ## Next Steps
 
 - [Halo and Trademark Channels](../platform-guide/halo-trademark-channels.md) --- Step-by-step configuration guide

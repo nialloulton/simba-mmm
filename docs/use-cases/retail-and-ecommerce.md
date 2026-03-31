@@ -41,6 +41,8 @@ With weekly model updates and scenario planning, retail brands can make faster b
 | Competitor activity | Competitor promotions or share of voice |
 | Seasonal flags | Holiday weeks, sale events, seasonal markers |
 
+See [Data Requirements](../data/data-requirements.md) for format details and CSV specifications.
+
 ## Example Retail Insights
 
 Simba helps retail brands answer questions like:

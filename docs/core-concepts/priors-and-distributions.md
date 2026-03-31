@@ -287,6 +287,10 @@ This transparency ensures that no assumption is hidden. Stakeholders can review 
 
 ---
 
+> **See this in action:** [Start your free 28-day trial](https://getsimba.ai) — no credit card required.
+
+---
+
 ## Next Steps
 
 - [Bayesian Modeling](./bayesian-modeling.md) --- Understand the full prior-likelihood-posterior workflow.
