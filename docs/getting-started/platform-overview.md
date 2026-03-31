@@ -121,24 +121,6 @@ Read more: [Scenario Planning](../platform-guide/scenario-planning.md)
 
 ---
 
-## Data Pipelines
-
-**Purpose:** Build repeatable data preparation workflows.
-
-The Data Pipelines feature provides a visual, node-based pipeline builder for creating ETL workflows that prepare data for modeling:
-
-- **Visual Canvas** --- Drag and drop data source nodes and transform nodes onto the canvas, connecting them with edges to define the data flow.
-- **Node Palette** --- Choose from available connectors (CSV, Excel, external data sources like weather APIs) and transforms (filter, merge, aggregate, calculate).
-- **Config Panel** --- Click any node to configure its parameters in the right-side panel.
-- **Data Preview** --- Preview the output of any node or the final pipeline output before committing.
-- **Version Management** --- Each pipeline execution creates a versioned snapshot. Compare versions side by side and download any version as CSV.
-
-Pipeline outputs can be used directly as data sources when creating models in the Warehouse.
-
-Read more: [Data Pipelines](../platform-guide/data-pipelines.md)
-
----
-
 ## Settings
 
 The **Settings** area, accessible from the main navigation menu or the gear icon, contains:
