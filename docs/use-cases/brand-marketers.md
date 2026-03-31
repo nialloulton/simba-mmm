@@ -10,6 +10,9 @@ Common pain points:
 - **Planning uncertainty** — No reliable way to forecast the impact of budget changes
 - **Optimization paralysis** — Too many channels, not enough clarity on where the next dollar should go
 
+![Channel ROAS with credible intervals](./images/brand-roas-comparison.png)
+*Simba provides ROAS estimates for every channel with 94% credible intervals — showing not just the best estimate, but the range of plausible values. This lets you make budget decisions with known uncertainty rather than false precision.*
+
 ## How Simba Helps
 
 ### Unified Measurement Across All Channels
