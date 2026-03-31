@@ -1,5 +1,7 @@
 # Marketing Mix Modeling (MMM) --- What It Is and Why It Matters
 
+> **In brief:** MMM measures how each marketing channel drives revenue, so you can reallocate budget to what actually works. In Simba, you upload spend and revenue data and the model estimates each channel's contribution automatically.
+
 Marketing Mix Modeling is a statistical technique that quantifies the impact of marketing activities on business outcomes such as revenue, conversions, or customer acquisition. By analyzing historical data across all channels simultaneously, MMM answers the question every marketing leader asks: **"Where should I spend my next dollar?"**
 
 ---

@@ -1,5 +1,7 @@
 # Incrementality --- Measuring the True Causal Impact of Marketing
 
+> **In brief:** Incrementality measures what revenue would NOT have happened without your marketing — the true causal lift above baseline demand. In Simba, the model separates organic demand from media-driven revenue, and lift tests sharpen those estimates.
+
 Not every sale that follows an ad was caused by that ad. Incrementality measurement answers the most important question in marketing analytics: **"How many conversions would I have lost if I had not spent on this channel?"**
 
 Simba's Bayesian MMM isolates incremental impact by decomposing your outcome variable into its constituent parts --- base demand, seasonal patterns, control variable effects, and the incremental contribution of each media channel.

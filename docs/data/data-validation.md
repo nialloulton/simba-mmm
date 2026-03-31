@@ -62,7 +62,7 @@ Identifies gaps and inactive periods:
 
 ### 7. Outlier Detection
 
-Flags statistical outliers using IQR (Interquartile Range)-based methods:
+Flags statistical outliers using IQR (interquartile range — the spread between the 25th and 75th percentile of values)-based methods:
 
 - Unusually high or low values on numeric columns
 - Values that may indicate data errors vs genuine business events
@@ -71,7 +71,7 @@ Flags statistical outliers using IQR (Interquartile Range)-based methods:
 
 Analyzes correlation between media channels:
 
-- Variance Inflation Factor (VIF) analysis
+- Variance Inflation Factor (VIF) analysis — VIF measures how much each channel's spend pattern overlaps with other channels; high VIF means the model struggles to tell channels apart
 - Pairwise correlation detection between channels
 - Flags channels that always spend together (model cannot distinguish their effects)
 

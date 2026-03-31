@@ -1,5 +1,7 @@
 # Bayesian Modeling --- The Statistical Foundation Behind Simba
 
+> **In brief:** Bayesian modeling gives you a range of likely outcomes (not just a single number), so you can make decisions with known uncertainty. In Simba, this runs automatically — no statistics knowledge needed.
+
 Simba is built on Bayesian statistics. This page explains what that means, why it matters for marketing measurement, and how it works in practice --- all without assuming a statistics background.
 
 ---
@@ -80,7 +82,7 @@ Frequentist analysis encourages a binary "significant or not" framing that is po
 
 Simba's statistical engine is powered by **PyMC-Marketing**, an open-source probabilistic programming library maintained by the PyMC development team. PyMC-Marketing is purpose-built for marketing science applications, providing pre-built components for saturation functions, adstock transformations, and time-varying effects.
 
-Under the hood, PyMC uses advanced sampling algorithms --- specifically **Markov Chain Monte Carlo (MCMC)** methods --- to explore the posterior distribution. The core sampler is the No-U-Turn Sampler (NUTS), a state-of-the-art variant of Hamiltonian Monte Carlo that efficiently handles high-dimensional parameter spaces.
+Under the hood, PyMC uses advanced sampling algorithms --- specifically **Markov Chain Monte Carlo (MCMC)** methods (algorithms that draw thousands of random samples to map out the posterior distribution) --- to explore the posterior distribution. The core sampler is the **No-U-Turn Sampler (NUTS)** (an efficient MCMC algorithm that automatically tunes its step size), a state-of-the-art variant of Hamiltonian Monte Carlo that efficiently handles high-dimensional parameter spaces.
 
 You do not need to understand MCMC to use Simba. The platform manages sampling configuration, convergence diagnostics, and chain validation automatically. But if you are a data scientist who wants to go deeper, Simba exposes convergence metrics (R-hat, effective sample size, trace plots) for full diagnostic transparency.
 
