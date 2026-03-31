@@ -19,7 +19,6 @@ The Active Model page has three main areas:
 Every tab includes **Download CSV** and **Export to PDF** buttons for offline analysis and stakeholder reporting.
 
 ![Active Model navigation and metadata bar](./images/measurement-navigation-tabs.png)
-*The Model Summary bar and tab navigation for an MMM model. MMM models show seven tabs; VAR models show a different set with Impulse Response, Variance Decomposition, and Long-Run Effects replacing Media Results, Curves, and Contributions.*
 
 | # | Element | Description |
 |---|---------|-------------|
@@ -46,7 +45,6 @@ The Coefficients tab displays posterior parameter estimates in a table with thes
 Rows are color-coded: green background for positive coefficients, red background for negative. Clicking a row expands it to show either the full posterior sample detail or, for time-varying parameters (TVP), an interactive time series chart with [94% HDI](../core-concepts/bayesian-modeling.md) bands showing how the coefficient evolves over the model's date range.
 
 ![Coefficients table](./images/measurement-coefficients-tab.png)
-*The Coefficients table with posterior estimates. Green rows indicate positive effects; red rows indicate negative or near-zero effects. Click any row to expand and see detailed samples or time-varying coefficient charts.*
 
 | # | Element | Description |
 |---|---------|-------------|
@@ -66,7 +64,6 @@ The Model Stats tab presents a diagnostic summary table. Each row shows a test n
 Common diagnostics include R-squared (in-sample fit), MAPE (prediction accuracy), R-hat (convergence), Durbin-Watson (residual autocorrelation), residual normality, and overfitting risk.
 
 ![Model Stats diagnostic table](./images/measurement-model-stats-tab.png)
-*Model Performance Statistics showing diagnostic tests with traffic-light assessment badges. An R-squared above 0.7 and MAPE below 10% generally indicate a well-fitted model.*
 
 | # | Element | Description |
 |---|---------|-------------|
@@ -92,7 +89,6 @@ Out-of-sample metrics (when the model reserved a test set) appear with a blue le
 **Actual vs Posterior Predictive Chart** --- A Plotly time series overlaying the actual target variable against the model's posterior predictive mean, with HDI confidence bands.
 
 ![AvM model fit analysis](./images/measurement-avm-tab.png)
-*Model Fit Analysis showing in-sample and out-of-sample KPI cards with the Actual vs Posterior Predictive chart. Out-of-sample cards have a blue left border.*
 
 | # | Element | Description |
 |---|---------|-------------|
@@ -123,7 +119,6 @@ Below the summary cards, four visualization sub-tabs are available:
 For VAR models, a variable selector dropdown lets you inspect residuals for each endogenous variable independently.
 
 ![Residuals analysis](./images/measurement-residuals-tab.png)
-*Residuals Analysis with four diagnostic KPI cards and four visualization sub-tabs (Time Series, Distribution, Autocorrelation, Outliers).*
 
 | # | Element | Description |
 |---|---------|-------------|
@@ -161,7 +156,6 @@ Additional analysis sections include:
 - **Time Series Analysis** --- Collapsible section with per-channel time series of contributions
 
 ![Media Results performance dashboard](./images/measurement-media-results-tab.png)
-*Media Results showing executive summary KPIs, channel filter chips, performance table, and visualization charts.*
 
 | # | Element | Description |
 |---|---------|-------------|
@@ -185,7 +179,6 @@ The Curves tab shows three types of response analysis:
 A channel selector toolbar lets you choose which channels to display. A "Profit" overlay toggle shows where each channel crosses from profitable to unprofitable spend. If a VAR model is linked, a "Long Run Effects" toggle scales curves by long-run elasticity multipliers.
 
 ![Response Curves analysis](./images/measurement-curves-tab.png)
-*Response Curves tab with channel selector toolbar, revenue curves, decay curves, and marginal revenue analysis. The Long Run Effects toggle (green) appears when a VAR model is linked.*
 
 | # | Element | Description |
 |---|---------|-------------|
@@ -213,7 +206,6 @@ The Contributions tab decomposes the target variable into its component drivers 
 3. **Year Comparison** --- Year-over-year contribution comparison highlighting changes in channel effectiveness
 
 ![Channel Contribution Analysis](./images/measurement-contributions-tab.png)
-*Contributions tab with summary KPIs, chart type sub-tabs (Stacked Bar, Waterfall, Year Comparison), and the stacked bar time series.*
 
 | # | Element | Description |
 |---|---------|-------------|
@@ -263,7 +255,6 @@ The tab is organized into up to five sub-tabs:
 An **Analysis Configuration** card at the top summarizes the base variable, equity variables, horizon, confidence level, and whether log transformations were applied.
 
 ![VAR Model tabs](./images/measurement-var-tabs.png)
-*VAR model tab navigation showing Impulse Response, Variance Decomposition, and Long-Run Effects. The Long-Run Effects tab includes configuration summary, five analysis sub-tabs, and an elasticities table.*
 
 | # | Element | Description |
 |---|---------|-------------|
@@ -375,4 +366,4 @@ Groups are saved per model and persist across sessions. Colors assigned to group
 
 ---
 
-*For questions about interpreting model results, [open a GitHub issue](https://github.com/nialloulton/simba-mmm/issues) or email [info@pymc-labs.com](mailto:info@pymc-labs.com).*
+For questions about interpreting model results, [open a GitHub issue](https://github.com/nialloulton/simba-mmm/issues) or email [info@pymc-labs.com](mailto:info@pymc-labs.com).
