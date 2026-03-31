@@ -1,5 +1,7 @@
 # Seasonality --- Modeling Seasonal Patterns in Marketing Data
 
+> **In brief:** Seasonality separates recurring patterns (holidays, weather, pay cycles) from marketing effects so channel contributions are not inflated by demand that would have happened anyway. In Simba, seasonality is opt-in via Advanced Options with configurable Fourier terms.
+
 Sales do not happen in a vacuum. Retail spikes during the holidays. Ice cream sells more in summer. Tax software peaks in April. These predictable, recurring patterns are **seasonal effects**, and failing to account for them is one of the most common sources of error in marketing measurement.
 
 ---

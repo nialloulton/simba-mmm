@@ -1,5 +1,7 @@
 # Priors and Distributions --- Configuring Bayesian Priors in Simba
 
+> **In brief:** Priors encode what you already know before seeing data, keeping the model realistic and preventing nonsensical results. In Simba, [Smart Defaults](../platform-guide/smart-defaults.md) set priors automatically, but you can customize every one.
+
 Priors are one of the most powerful features of Bayesian modeling. They let you tell the model what you already know --- or believe --- about a parameter before it sees any data. In Simba, priors are fully configurable through the UI, giving you control over every aspect of the model while providing sensible defaults that work out of the box.
 
 ---
@@ -82,7 +84,7 @@ The **TruncatedNormal** distribution is a normal (bell-curve) distribution that 
 
 ### TVP (Time-Varying Parameter)
 
-The **TVP** distribution allows a parameter to change smoothly over time rather than remaining fixed for the entire modeling period. It uses a Hilbert Space Gaussian Process (HSGP) basis internally.
+The **TVP** distribution allows a parameter to change smoothly over time rather than remaining fixed for the entire modeling period. It uses a Hilbert Space Gaussian Process (HSGP) basis internally — a computationally efficient approximation that allows smooth time-variation without excessive computation.
 
 **When TVP is useful:**
 - A channel's effectiveness has changed over the modeling period (e.g., creative fatigue, market saturation, or a major strategy shift)

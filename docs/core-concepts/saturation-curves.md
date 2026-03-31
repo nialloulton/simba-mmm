@@ -1,5 +1,7 @@
 # Saturation Curves --- Understanding Diminishing Returns in Media Spend
 
+> **In brief:** Saturation curves show when extra spend stops producing proportional returns — the point of diminishing returns for each channel. In Simba, these are estimated automatically per channel and displayed on the response curves tab.
+
 Every marketing channel hits a point of diminishing returns. The first thousand dollars you spend on paid search generates more conversions per dollar than the hundred-thousandth dollar. Saturation curves model this relationship mathematically, and they are one of the most important components of any Marketing Mix Model.
 
 ---
