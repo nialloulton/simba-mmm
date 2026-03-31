@@ -62,7 +62,7 @@ Identifies gaps and inactive periods:
 
 ### 7. Outlier Detection
 
-Flags statistical outliers using IQR-based methods:
+Flags statistical outliers using IQR (Interquartile Range)-based methods:
 
 - Unusually high or low values on numeric columns
 - Values that may indicate data errors vs genuine business events
