@@ -14,7 +14,7 @@ Last-click and multi-touch attribution models rely on user-level tracking that i
 
 ### Black-box tools erode trust
 
-Many marketing analytics platforms produce a single point estimate with no explanation of how they arrived at it. When a tool tells you that paid search drove 23% of revenue but cannot explain its assumptions, confidence intervals, or methodology, you are making million-dollar decisions on faith. Simba is a fully transparent platform: every model assumption, prior distribution, and posterior result is visible and auditable.
+Many marketing analytics platforms produce a single point estimate with no explanation of how they arrived at it. When a tool tells you that paid search drove 23% of revenue but cannot explain its assumptions, confidence intervals, or methodology, you are making million-dollar decisions on faith. Simba is a fully transparent platform: every model assumption, prior distribution, and posterior (the updated belief about parameters after seeing the data) result is visible and auditable.
 
 ### Traditional MMM is slow and expensive
 
@@ -42,7 +42,7 @@ You understand the statistics but want to move faster than building custom PyMC-
 
 ### Performance Marketing Teams
 
-You need to understand the incremental impact of each channel, including those that digital attribution consistently overvalues or undervalues. Simba quantifies true incrementality with Bayesian credible intervals, giving you a statistically grounded basis for optimization.
+You need to understand the incremental impact of each channel, including those that digital attribution consistently overvalues or undervalues. Simba quantifies true incrementality with Bayesian credible intervals (the Bayesian equivalent of a confidence interval --- a range where the true value most likely falls), giving you a statistically grounded basis for optimization.
 
 ---
 
@@ -87,7 +87,7 @@ Read more: [Model Creation Wizard](../platform-guide/model-creation-wizard.md) |
 
 ### 2. Active Model
 
-The results hub for your fitted model. Explore channel contributions, response curves, ROAS, coefficients, model diagnostics, and more across multiple analysis tabs.
+The results hub for your fitted model. Explore channel contributions, response curves, ROAS (Return on Ad Spend), coefficients, model diagnostics, and more across multiple analysis tabs.
 
 Read more: [Incremental Measurement](../platform-guide/measurement.md)
 
