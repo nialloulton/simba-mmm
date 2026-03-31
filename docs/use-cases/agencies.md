@@ -11,6 +11,9 @@ Marketing and media agencies face unique complexities in marketing measurement:
 - **Speed expectations** --- quarterly reporting cycles are too slow for clients that need to react to market trends week by week
 - **Competitive differentiation** --- agencies need to offer something beyond basic reporting
 
+![Cross-client portfolio comparison](./images/agency-portfolio-comparison.png)
+*Agencies can compare current vs. optimized ROAS across all clients in a single portfolio view, identifying which clients have the most room for improvement.*
+
 ---
 
 ## Case Study: Growth Dynamics x High-End Jeweler
