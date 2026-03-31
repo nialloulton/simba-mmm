@@ -1,5 +1,7 @@
 # Adstock Effects --- How Advertising Impact Carries Over Time
 
+> **In brief:** Adstock captures how advertising impact lingers after the ad runs — a TV spot this week still drives sales next week. In Simba, each channel gets its own decay rate, estimated from your data or set via priors.
+
 A television commercial that airs on Monday does not stop influencing consumers on Tuesday. A billboard seen during a morning commute may drive a purchase days later. This lagged, decaying influence of advertising is called **adstock** (also known as carryover or decay), and modeling it correctly is essential for accurate marketing measurement.
 
 ---
