@@ -253,9 +253,9 @@ Once submitted, the model progresses through these statuses:
 | **Pending** | Queued, waiting for compute resources |
 | **Under Way** | Bayesian inference is actively running with a progress indicator |
 | **Complete** | Results are available for review |
-| **Failed** | An error occurred. Check the error message for guidance |
+| **Failed** | An error occurred — common causes include insufficient data for the number of parameters, conflicting priors, or data quality issues. Check the error message and review your configuration |
 | **Revoked** | Cancelled by the user before completion |
-| **Time Exceeded** | Exceeded maximum computation time. Simplify the model and retry |
+| **Time Exceeded** | Exceeded maximum computation time. Simplify by reducing channels, switching to weekly data, or disabling optional features (seasonality, trend) |
 
 You can navigate away during fitting and return when it completes. Check status from the Warehouse or Dashboard.
 

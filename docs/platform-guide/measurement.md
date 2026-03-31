@@ -344,6 +344,20 @@ Groups are saved per model and persist across sessions. Colors assigned to group
 
 ---
 
+## Diagnostics and Troubleshooting
+
+If your model results look unexpected, use the diagnostics to identify the issue:
+
+| Diagnostic | What It Means | What to Do |
+|---|---|---|
+| **R-hat > 1.1** | The MCMC chains did not converge — parameter estimates may be unreliable | Increase the number of samples, simplify the model (fewer channels, remove correlated variables), or loosen overly tight priors |
+| **Low effective sample size (ESS < 200)** | The algorithm did not produce enough independent samples for reliable estimates | Increase sample count. If ESS remains low for specific parameters, those parameters may be poorly identified by the data |
+| **Poor posterior predictive fit** | The model's predictions do not closely match actual observed data | Add missing control variables (seasonality, trend, promotions, competitor activity), check for structural breaks in the data, or adjust priors that may be too constraining |
+| **Very wide credible intervals** | High uncertainty in channel effects — the data does not strongly constrain the estimate | This is honest reporting, not a flaw. Consider adding more data (longer time period), adding lift test calibration, or tightening priors based on domain knowledge |
+| **Negative or near-zero contributions for a known effective channel** | The model may be misattributing that channel's effect to a correlated variable | Check for multicollinearity, ensure the channel has enough spend variation, and consider adjusting priors to reflect known effectiveness |
+
+---
+
 ## Next Steps
 
 **Platform guides:**

@@ -254,6 +254,18 @@ See [Halo and Trademark Channels](./halo-trademark-channels.md) and [Portfolio A
 
 ---
 
+## Common Issues
+
+| Issue | Cause | Solution |
+|---|---|---|
+| **Constraint validation error** | Per-channel minimums exceed the total budget (sum of minimums > 100%) | Reduce minimum bounds so they sum to less than the total budget |
+| **Warning: minimums exceed 85%** | Very little room for the optimizer to reallocate spend | Loosen minimum constraints to give the optimizer more flexibility |
+| **Optimizer returns current allocation** | Channels are already near-optimal, or constraints are so tight the optimizer has no room to move | Widen the min/max bounds, or increase the total budget to create reallocation headroom |
+| **All channels at minimum bounds** | High risk aversion (gamma) combined with wide uncertainty spreads across allocation equally | Reduce gamma to allow the optimizer to concentrate spend where returns are higher |
+| **Unexpected channel getting most budget** | That channel has the steepest marginal return curve at current spend levels | Review the [saturation curves](../core-concepts/saturation-curves.md) for that channel — it may be far from saturation, making additional spend highly efficient |
+
+---
+
 ## Next Steps
 
 **Platform guides:**
