@@ -134,7 +134,7 @@ When reviewing results, keep in mind:
 
 ## Availability
 
-Portfolio features, including halo and trademark channel modeling, are available on Pro and Scale plans. See [getsimba.ai](https://getsimba.ai) for current plans.
+Portfolio features, including halo and trademark channel modeling, are available on paid plans. See [Pricing](../pricing/README.md) or [getsimba.ai](https://getsimba.ai) for current plans.
 
 ---
 

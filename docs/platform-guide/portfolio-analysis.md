@@ -2,7 +2,7 @@
 
 Portfolio Analysis enables cross-brand, cross-market, and cross-model comparison and optimization. Build individual [Bayesian MMM](../core-concepts/bayesian-modeling.md) models for each brand, link them into a portfolio, and analyze the combined picture to make portfolio-level budget decisions --- including how [halo and trademark channels](../core-concepts/halo-effects.md) impact the entire portfolio.
 
-> **Availability**: Portfolios are available on Pro (1 portfolio) and Scale (2 portfolios) plans. Trial and Analyst plans do not include portfolio analysis.
+> **Availability**: Portfolios are available on paid plans. See [Pricing](../pricing/README.md) or [getsimba.ai](https://getsimba.ai) for current plans and limits.
 
 ---
 
