@@ -101,12 +101,7 @@ Simba can model any marketing channel where you have time-series data: TV, digit
 
 ### How secure is my marketing data?
 
-Simba is **Cyber Essentials certified** and fully **GDPR compliant**. Your data is:
-
-- Encrypted at rest with **AES-256**
-- Encrypted in transit with **TLS 1.3**
-- Stored in **isolated AWS S3 buckets** (not shared with other customers)
-- Protected by **zero-retention logging** and strict data minimization
+Your data is encrypted at rest and in transit using industry-standard protocols, and stored in isolated per-customer infrastructure.
 
 → [Security Overview](../security/README.md)
 
