@@ -1,15 +1,17 @@
-# Portfolio Analysis --- Cross-Brand and Cross-Model Insights
+# Portfolio Analysis --- Cross-Brand Insights and Optimization
 
-Portfolio Analysis enables cross-brand, cross-market, and cross-model comparison and optimization. Build individual models for each brand or market, link them into a portfolio, and analyze the combined picture to make portfolio-level decisions.
+Portfolio Analysis enables cross-brand, cross-market, and cross-model comparison and optimization. Build individual [Bayesian MMM](../core-concepts/bayesian-modeling.md) models for each brand, link them into a portfolio, and analyze the combined picture to make portfolio-level budget decisions --- including how [halo and trademark channels](../core-concepts/halo-effects.md) impact the entire portfolio.
+
+> **Availability**: Portfolios are available on Pro (1 portfolio) and Scale (2 portfolios) plans. Trial and Analyst plans do not include portfolio analysis.
 
 ---
 
 ## Creating a Portfolio
 
-1. Navigate to the **Warehouse > Portfolios** tab.
+1. Navigate to **Warehouse > Portfolios** tab.
 2. Click **Create Portfolio** and give it a descriptive name.
-3. **Add models**: Select completed models to include in the portfolio. Each model typically represents a different brand, market, or product line.
-4. **Link models**: Link the models together to enable cross-brand analysis.
+3. **Add models**: Select completed MMM and/or VAR models to include. Each model typically represents a different brand, market, or product line.
+4. **Link VAR models**: Link VAR models to their corresponding MMM models to enable long-run effects analysis across the portfolio.
 
 Portfolios can contain models with different time periods, channel sets, and configurations. The analysis tools handle alignment automatically.
 
@@ -17,56 +19,130 @@ Portfolios can contain models with different time periods, channel sets, and con
 
 ## Portfolio Analysis Tabs
 
-The portfolio analysis page is organized into six tabs, each providing a different lens on your cross-brand data.
+The portfolio analysis page has four active tabs, each providing a different lens on your cross-brand data.
 
-### 1. Model Statistics
+![Portfolio analysis tabs](./images/portfolio-tabs.png)
 
-Compare key metrics across all models in the portfolio:
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Portfolio header** | Portfolio name, brand count, model counts (MMM and VAR) |
+| 2 | **Tab navigation** | Four analysis tabs: Model Stats, ROI & Contribution, Cross-Brand Optimizer, Scenario Planner |
 
-- **Model fit**: R-squared, mean absolute error, and other goodness-of-fit metrics for each model.
-- **Convergence diagnostics**: R-hat, effective sample size, and other Bayesian convergence indicators.
-- **Data coverage**: Time period, number of observations, and number of channels per model.
+---
 
-Use this tab to identify models that may need reconfiguration or additional data.
+## Model Statistics
 
-### 2. Response Curves
+Compare model fit, accuracy, and diagnostics across all brands in your portfolio at a glance.
 
-Overlay and compare saturation response curves across brands and models:
+![Model Statistics tab](./images/portfolio-model-stats.png)
 
-- See which channels have more **headroom** (room to increase spend before hitting diminishing returns) in each brand.
-- Identify channels that are **saturated** in one brand but still have capacity in another.
-- Compare the shape and steepness of response curves to understand how channel dynamics differ across brands.
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **MMM Models badge** | Count of MMM models in the portfolio |
+| 2 | **Aggregate stats** | Four summary cards: Total Brands, MMM Models, VAR Models, VARs Linked (emerald when linked) |
+| 3 | **Brand model cards** | Per-brand cards showing R², MAPE, channel count, controls, [halo](../core-concepts/halo-effects.md) count, trademark count, and VAR linking status (green "VAR Linked" badge when a VAR model is connected) |
 
-### 3. Portfolio Optimizer
+**How to interpret**: Use this tab to quickly identify models that may need attention --- low R² (< 0.7), high MAPE (> 10%), or missing VAR linkage. All brands should ideally have VAR models linked for long-run effects analysis.
 
-Optimize budget allocation within a single brand's channels, but in the context of the broader portfolio. The optimizer considers how budget changes for one brand might affect portfolio-level outcomes through halo effects.
+---
 
-### 4. Cross-Brand Optimizer
+## ROI & Contribution Analysis
 
-Optimize budget allocation **across all brands and channels simultaneously**:
+Compare return on investment across brands and channels with optional long-run effects from linked [VAR models](../core-concepts/var-modeling.md).
 
-- The optimizer solves for the allocation that maximizes **total portfolio revenue**, not just individual brand revenue.
-- **Halo effects**: Channels that generate cross-brand spillover receive credit for their total portfolio impact.
-- **Trademark channels**: Portfolio-wide advertising budget is allocated based on its impact across all brands.
-- Set constraints per brand and per channel.
+### Brand ROI Comparison
 
-This is the most powerful optimization mode, but requires halo and trademark channels to be properly configured. See [Halo and Trademark Channels](./halo-trademark-channels.md).
+![ROI & Contribution Analysis](./images/portfolio-roi.png)
 
-### 5. ROI Analysis
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Section header** | Title and subtitle describing the portfolio-wide ROI analysis |
+| 2 | **Channel filters and Long Run Effects toggle** | Filter by All Channels, Standard Only, Halos Only, or Trademarks Only. The emerald "Long Run Effects" toggle (only visible when VAR models are linked) applies VAR elasticity multipliers to show long-run ROI alongside short-term |
+| 3 | **Brand ROI chart** | Stacked bar chart comparing ROI across brands. Blue = short-term ROI, Green = long-term incremental ROI, Indigo = Total Portfolio aggregate, Amber = Portfolio Trademark (costs allocated once, benefits all brands) |
 
-Compare return on ad spend across brands and channels:
+**Portfolio Trademark**: Trademark channels (e.g., brand search) are shown as a separate "Portfolio Trademark" entity rather than split across individual brands. This reflects how trademark spend is typically allocated once at the portfolio level but generates revenue across all brands.
 
-- Identify the most and least efficient investments across the portfolio.
-- Compare ROAS by channel across brands to find where each channel performs best.
-- Spot opportunities to shift budget from low-ROI brand-channel combinations to high-ROI ones.
+### Insights & Diagnostics
 
-### 6. Scenario Planner
+![Portfolio Insights](./images/portfolio-insights.png)
 
-Run portfolio-level scenarios to forecast revenue across all brands under different budget allocations:
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Insights header** | Summary of portfolio-level diagnostic panels |
+| 2 | **Efficiency vs Effectiveness scatter** | Quadrant chart positioning brands by ROI (efficiency, y-axis) and total spend (scale, x-axis). Green = high efficiency & scale, Blue = high efficiency but lower scale, Orange = high scale but lower efficiency, Red = needs improvement |
+| 3 | **Halo Impact comparison** | Horizontal bars comparing per-brand ROI with and without [halo channel](../core-concepts/halo-effects.md) contributions. Gray = without halos, Purple = with halos. The lift shows how much cross-brand marketing adds to each brand's ROI |
 
-- Create scenarios that shift budget between brands, not just between channels.
-- Compare portfolio-level forecasts with uncertainty bands.
-- Test strategic questions like "What happens if we shift 20% of Brand A's budget to Brand B?"
+### How to Interpret ROI Results
+
+| Pattern | Meaning | Action |
+|---|---|---|
+| **High ROI + High Spend** | Strong performer | Maintain or grow cautiously (check [saturation](../core-concepts/saturation-curves.md)) |
+| **High ROI + Low Spend** | Opportunity to scale | Increase budget --- high marginal returns available |
+| **Low ROI + High Spend** | Candidate for reallocation | Shift budget to higher-ROI brands/channels |
+| **High Halo Lift** | Cross-brand effects significant | Protect halo spend --- cutting it erodes other brands' ROI |
+| **Portfolio Trademark ROI < 2x** | Trademark may be over-invested | Review trademark vs generic search allocation |
+
+---
+
+## Cross-Brand Optimizer
+
+Optimize budget allocation across all brands and channels simultaneously, maximizing total portfolio revenue.
+
+### Optimizer Landing
+
+![Portfolio Optimizer landing](./images/portfolio-optimizer-landing.png)
+
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Optimizer header** | Brand count, total optimizable channels across all brands |
+| 2 | **Strategy card** | "Optimizer" with smart defaults: automatic channel bounds (5-30% per channel), risk-seeking by default (gamma = 0.0), even weekly distribution. Click "Start Optimization" to begin |
+
+After clicking Start, choose the optimization period (1 week, 1 month/4 weeks, 3 months/12 weeks, or custom up to 52 weeks).
+
+### The Optimization Wizard
+
+![Portfolio Optimizer wizard](./images/portfolio-optimizer-wizard.png)
+
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Progress stepper** | 7 steps (6 if single-week): Budget → Costs → Brand Budgets → Channel Mix → Strategy → Revenue Setup → Review. Green checkmarks for completed steps, active step highlighted with gradient |
+| 2 | **Brand constraints** | Per-brand minimum and maximum budget allocation. Each brand shows channel count and current spend share |
+| 3 | **Navigation** | Previous/Next buttons to move through the wizard |
+
+**Key optimizer behaviors:**
+- **[Halo channels](../core-concepts/halo-effects.md)** are excluded from optimization (their spend belongs to another brand)
+- **Trademark channels** are allocated once at portfolio level, with benefits distributed across brands
+- **Virtual channel mapping** handles deduplication when the same channel appears across multiple brands
+- See [Budget Optimization](./budget-optimization.md) for single-brand optimization details and [optimization theory](../core-concepts/budget-optimization.md) for the mathematical framework
+
+---
+
+## Scenario Planner
+
+Run portfolio-level scenarios to forecast revenue across all brands under different budget allocations.
+
+### Brand Configuration Checklist
+
+![Portfolio Scenario Planner checklist](./images/portfolio-scenario-checklist.png)
+
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Configuration header** | Title showing the number of brands to configure |
+| 2 | **Progress tracker** | Gradient progress bar showing percentage of brands configured, with count |
+| 3 | **Brand checklist** | Sequential brand cards: emerald border + CheckCircle = complete, blue border = ready to configure, slate border + Lock = pending (must complete previous brands first). A **Master Template** feature lets you copy channel configurations from one brand to all others for consistency |
+
+When all brands are configured, a green "Ready to Run Portfolio Scenario" card appears.
+
+### Portfolio Forecast
+
+![Portfolio Sales Forecast](./images/portfolio-forecast.png)
+
+| # | Element | Description |
+|---|---------|-------------|
+| 1 | **Forecast header** | Title and description of the stacked area visualization |
+| 2 | **Stacked area chart** | Plotly.js chart showing per-brand revenue contributions stacked over time. Each brand gets a distinct HSL color. Hover shows per-brand values at each date. Legend below the chart |
+
+See [Scenario Planning](./scenario-planning.md) for single-brand scenario details.
 
 ---
 
@@ -74,22 +150,23 @@ Run portfolio-level scenarios to forecast revenue across all brands under differ
 
 Portfolios can be shared with other users for collaborative analysis:
 
-- Share a portfolio to grant access to the portfolio view and all linked models.
-- Manage share permissions independently of individual model shares.
-
-See [Sharing and Collaboration](./sharing-collaboration.md).
-
----
-
-## Tier Availability
-
-Portfolio analysis is available on Enterprise and Managed plans. For details, see [Pricing](../pricing/README.md).
+- Share a portfolio to grant access to the portfolio view and all linked models
+- Manage share permissions independently of individual model shares
 
 ---
 
 ## Next Steps
 
-- [Halo Effects](../core-concepts/halo-effects.md) --- Understanding cross-brand marketing impact
-- [Halo and Trademark Channels](./halo-trademark-channels.md) --- Configure cross-brand effects
+**Platform guides:**
 - [Budget Optimization](./budget-optimization.md) --- Single-brand optimization details
-- [Sharing and Collaboration](./sharing-collaboration.md) --- Collaborative workflows
+- [Scenario Planning](./scenario-planning.md) --- Single-brand forecasting
+- [Halo & Trademark Channels](./halo-trademark-channels.md) --- Configure cross-brand channel effects
+- [Long-Term Effects](./long-term-effects.md) --- VAR-based long-run analysis
+- [Measurement](./measurement.md) --- Individual model results interpretation
+
+**Core concepts:**
+- [Halo Effects](../core-concepts/halo-effects.md) --- Cross-brand marketing impact theory
+- [Saturation Curves](../core-concepts/saturation-curves.md) --- [Diminishing returns](../core-concepts/saturation-curves.md) across channels
+- [Bayesian Modeling](../core-concepts/bayesian-modeling.md) --- The Bayesian approach to MMM
+- [Budget Optimization](../core-concepts/budget-optimization.md) --- Risk-adjusted allocation theory
+- [VAR Modeling](../core-concepts/var-modeling.md) --- Long-run effects methodology
