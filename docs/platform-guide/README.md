@@ -42,6 +42,10 @@ This guide covers every major feature of the Simba MMM platform, organized aroun
 
 - **[Sharing and Collaboration](./sharing-collaboration.md)** --- Model sharing, portfolio sharing, team management, and project organization for collaborative workflows.
 
+## Help and Troubleshooting
+
+- **[Troubleshooting](./troubleshooting.md)** --- Common issues and how to fix them. Covers data upload problems, model convergence, unexpected results, optimizer issues, and account access.
+
 ## Account Management
 
 - **[Usage Tracking](./usage-tracking.md)** --- Understanding plan limits, usage tracking, billing periods, and how to manage your monthly allocations.
