@@ -134,7 +134,7 @@ When reviewing results, keep in mind:
 
 ## Availability
 
-Portfolio features, including halo and trademark channel modeling, are available on Pro and Scale plans. See [getsimba.ai](https://getsimba.ai) for current plans.
+Portfolio features, including halo and trademark channel modeling, are available on paid plans. See [Pricing](../pricing/README.md) or [getsimba.ai](https://getsimba.ai) for current plans.
 
 ---
 
@@ -145,6 +145,10 @@ Portfolio features, including halo and trademark channel modeling, are available
 - Without halo/trademark modeling, cross-brand channels are systematically undervalued, leading to suboptimal portfolio allocation.
 - Configuration happens in the **Model Details** step, with visual indicators in the Prior Builder.
 - The full portfolio impact is realized in the **Portfolio Optimizer**, which aggregates brand-level effects for trademark channels and holds halo channels at fixed spend.
+
+---
+
+> **See this in action:** [Start your free 28-day trial](https://getsimba.ai) — no credit card required.
 
 ---
 

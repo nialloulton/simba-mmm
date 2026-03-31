@@ -45,3 +45,5 @@ This guide covers every major feature of the Simba MMM platform, organized aroun
 ## Account Management
 
 - **[Usage Tracking](./usage-tracking.md)** --- Understanding plan limits, usage tracking, billing periods, and how to manage your monthly allocations.
+
+> **Unfamiliar with a term?** See the [Glossary](../../resources/glossary.md) for definitions.

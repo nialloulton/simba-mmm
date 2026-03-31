@@ -220,6 +220,10 @@ The seasonal component works together with the trend and intercept to define the
 
 ---
 
+> **See this in action:** [Start your free 28-day trial](https://getsimba.ai) — no credit card required.
+
+---
+
 ## Next Steps
 
 - [Incrementality](./incrementality.md) --- See how seasonality separation improves causal attribution.

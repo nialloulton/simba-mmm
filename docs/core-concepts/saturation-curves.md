@@ -190,6 +190,10 @@ The optimizer uses the exact same tanh function and posterior parameter samples 
 
 ---
 
+> **See this in action:** [Start your free 28-day trial](https://getsimba.ai) — no credit card required.
+
+---
+
 ## Next Steps
 
 - [Adstock Effects](./adstock-effects.md) --- Understand how carryover is applied before saturation.

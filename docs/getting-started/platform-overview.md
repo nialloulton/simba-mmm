@@ -54,7 +54,7 @@ Read more: [Model Configuration](../platform-guide/model-configuration.md) | [Sm
 
 Once configured, click **Build Model** to start the Bayesian inference. The execution interface shows:
 
-- **Progress indicator** --- Real-time status of the MCMC sampling process.
+- **Progress indicator** --- Real-time status of the MCMC (Markov Chain Monte Carlo --- the algorithm that explores possible parameter values) sampling process.
 - **Estimated time remaining** --- Based on your dataset size and model complexity.
 
 You can navigate away during execution and return when it completes. Simba will notify you.
@@ -81,7 +81,7 @@ When you select a completed model in the Warehouse, the Active Model section bec
 - **Saturation Response Curves** --- Per-channel visualizations showing how the KPI responds to increasing spend, highlighting where diminishing returns begin.
 - **Model Fit** --- Actual versus predicted KPI values over time, so you can visually assess how well the model captures your data.
 - **Posterior Distributions** --- The full posterior distribution plots for every model parameter.
-- **Diagnostics** --- Convergence diagnostics (R-hat, effective sample size), posterior predictive checks, and model comparison metrics.
+- **Diagnostics** --- Convergence diagnostics including R-hat (convergence diagnostic --- values near 1.0 mean the model converged properly) and effective sample size (how many independent samples the algorithm produced --- higher is better). Also includes posterior predictive checks (comparing model predictions against actual observed data) and model comparison metrics.
 
 Read more: [Incremental Measurement](../platform-guide/measurement.md)
 
@@ -161,7 +161,6 @@ Here is a summary of the main navigation structure:
 | **Active Model** | Channel contributions, ROAS, response curves, diagnostics |
 | **Optimization** | Budget Optimizer and allocation recommendations |
 | **Scenario Planner** | Budget simulation, scenario comparison, and forecasting |
-| **Pipelines** | Data pipeline builder, connectors, transforms, versions |
 
 Active Model, Optimization, and Scenario Planner require selecting a model in the Warehouse first.
 

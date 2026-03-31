@@ -1,5 +1,7 @@
 # Frequently Asked Questions
 
+> **Unfamiliar with a term?** See the [Glossary](../../resources/glossary.md) for definitions.
+
 ## General
 
 ### What is marketing mix modeling (MMM)?
@@ -22,6 +24,8 @@ Key differentiators:
 - **Risk-adjusted optimization** — budget allocation that accounts for diminishing returns and carryover
 
 → [Why Simba?](../../sales/why-simba.md)
+
+For detailed comparisons against specific tools, see the [Competitor Comparison](../../sales/competitor-comparison.md).
 
 ### Who is Simba for?
 

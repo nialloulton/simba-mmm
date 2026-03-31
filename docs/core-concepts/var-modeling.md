@@ -224,13 +224,17 @@ Prior predictive checking is especially valuable for VAR because:
 
 ## Availability
 
-VAR modeling is included in the free trial, Pro, and Scale plans (disabled on Analyst). See [getsimba.ai](https://getsimba.ai) for current plans.
+VAR modeling is included in the free trial and paid plans. See [Pricing](../pricing/README.md) or [getsimba.ai](https://getsimba.ai) for current plans.
 
 ---
 
 ## References
 
 - [Bayesian Vector Autoregressive Models for Marketing](https://www.sciencedirect.com/science/article/abs/pii/S0167811621000495) --- Foundational reference on Bayesian VAR applications in marketing, covering long-run effects, impulse responses, and the role of Minnesota priors in marketing systems.
+
+---
+
+> **See this in action:** [Start your free 28-day trial](https://getsimba.ai) — no credit card required.
 
 ---
 

@@ -36,6 +36,12 @@ Simba offers flexible plans designed to match your organization's needs.
 
 Every new account starts with a **28-day free trial** with access to core platform features. No credit card required.
 
+Trial includes:
+- Up to **10 saved models**
+- Up to **10 optimization runs**
+- Up to **10 scenario plans**
+- Full access to Data Validator, model fitting, results, and VAR modeling
+
 > [Book a Demo](https://calendly.com/niall-oulton)
 
 ---
@@ -45,6 +51,20 @@ Every new account starts with a **28-day free trial** with access to core platfo
 Self-service tiers for individual analysts and smaller teams are coming soon, offering different levels of access at various price points. Visit [getsimba.ai](https://getsimba.ai) for updates or contact **info@pymc-labs.com** to be notified when they launch.
 
 ---
+
+## Plan Comparison
+
+| Feature | Enterprise | Managed |
+|---|---|---|
+| Full platform access (validation, modeling, optimization, scenarios) | Yes | Yes |
+| Multi-project support | Yes | Yes |
+| Team collaboration | Yes | Yes |
+| VAR modeling | Yes | Yes |
+| Portfolio analysis | Yes | Yes |
+| Model building | Self-service | Done for you by PhD statisticians |
+| Dedicated onboarding | Yes | Yes |
+| Strategic consultation | Optional | Included |
+| Custom SLAs | Yes | Yes |
 
 ## General
 

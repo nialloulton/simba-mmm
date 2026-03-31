@@ -4,6 +4,17 @@ Simba is a fully transparent Bayesian Marketing Mix Modeling platform. Every ass
 
 ---
 
+## Where to Start
+
+- **New to marketing mix modeling?** Start with [What is Simba?](./what-is-simba.md) to understand the platform and methodology
+- **Ready to build your first model?** Jump to the [Quick Start Guide](./quick-start-guide.md) for a step-by-step walkthrough
+- **Setting up your team or account?** See [Account Setup](./account-setup.md) for registration, plans, and project configuration
+- **Looking for a specific feature?** Browse the [Platform Overview](./platform-overview.md) to find where things are
+
+> **Unfamiliar with a term?** See the [Glossary](../../resources/glossary.md) for definitions.
+
+---
+
 ## In This Section
 
 | Guide | Description |
@@ -22,7 +33,7 @@ Simba is a fully transparent Bayesian Marketing Mix Modeling platform. Every ass
 Simba is organized around four main areas:
 
 1. **Model Warehouse** --- Upload your data, run the Data Validator, configure your model through a 5-step wizard, and manage saved models and portfolios.
-2. **Active Model** --- Analyze your fitted model: channel contributions, response curves, ROAS, coefficient posteriors with 94% HDI, and diagnostics.
+2. **Active Model** --- Analyze your fitted model: channel contributions, response curves, ROAS, coefficient posteriors with 94% HDI (Highest Density Interval --- the range of most credible values), and diagnostics.
 3. **Optimization** --- Find the optimal budget allocation across channels, with risk-adjusted recommendations using the full posterior distribution.
 4. **Scenario Planner** --- Simulate "what-if" budget scenarios and forecast their revenue impact.
 

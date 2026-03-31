@@ -37,4 +37,6 @@ Before uploading data to Simba, ensure you have:
 
 ---
 
+> **Unfamiliar with a term?** See the [Glossary](../../resources/glossary.md) for definitions.
+
 > **Next**: [Data Requirements](./data-requirements.md)
