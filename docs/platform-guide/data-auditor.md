@@ -74,7 +74,7 @@ For detailed technical explanations of each category, see [Data Validation (Tech
 | Issue | Impact on Model | How to Fix |
 |---|---|---|
 | **Missing date or KPI column** | Model cannot fit at all | Ensure your CSV has a date column and a target KPI column (e.g., revenue, sales, units) |
-| **High multicollinearity** (VIF > 10) | Coefficient uncertainty inflated, individual channel effects unidentifiable | Remove one of the correlated variables, or link them as a cost-media pair in Variable Selection |
+| **High multicollinearity** (VIF > 10) | Coefficient uncertainty inflated, individual channel effects unidentifiable | Remove one of the correlated variables, include lift tests or strengthen the prior assumptions |
 | **Plan spreading** (even weekly splits) | [Adstock](../core-concepts/adstock-effects.md) and [saturation](../core-concepts/saturation-curves.md) estimates will be biased because there's no real weekly variation | Request actual weekly delivery data from your media agency instead of monthly plans divided by 4 |
 | **Sparse campaigns** (> 70% zeros) | Unstable ROI estimates due to insufficient data points | Aggregate to a higher time granularity (monthly), or exclude the channel and add back later with more data |
 | **Structural break in KPI** (> 50% shift) | Model may not generalize across the break | Investigate the cause (business event, data error). Consider modeling periods separately or adding a structural break event |
