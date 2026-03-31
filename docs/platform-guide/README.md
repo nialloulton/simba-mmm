@@ -6,7 +6,7 @@ This guide covers every major feature of the Simba MMM platform, organized aroun
 
 ### Step 1: Audit
 
-- **[AI Data Auditor](./data-auditor.md)** --- Automated validation and quality scoring for every data source. Detects anomalies, handles missing values, checks schema integrity, and produces a data health score before modeling begins.
+- **[Data Validator](./data-auditor.md)** --- Automated validation and quality scoring for every data source. Detects anomalies, handles missing values, checks schema integrity, and produces a data health score before modeling begins.
 
 ### Step 2: Measure
 

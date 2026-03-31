@@ -30,7 +30,7 @@ Growth Dynamics deployed Simba to build a unified marketing mix model covering t
 |--------|-------------|------------|
 | **Reporting cadence** | Quarterly | Weekly |
 | **Channel coverage** | Online only | Omnichannel (online + brick-and-mortar) |
-| **Transparency** | Black-box | Full glass-box — inspectable priors and parameters |
+| **Transparency** | Black-box | Fully transparent — inspectable priors and parameters |
 | **Client relationship** | Report recipient | Strategic partner |
 
 ### Key Outcomes

@@ -12,7 +12,7 @@ How Growth Dynamics elevated their analytics service for a high-end jeweler from
 | **Client** | High-end jeweler |
 | **Model cadence** | Weekly (up from quarterly) |
 | **Coverage** | Omnichannel — online + brick-and-mortar |
-| **Transparency** | Full glass-box — no black-box metrics |
+| **Transparency** | Fully transparent — no black-box metrics |
 
 → [Read the full case study](growth-dynamics-jeweler.md)
 

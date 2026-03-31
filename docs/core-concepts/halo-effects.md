@@ -134,7 +134,7 @@ When reviewing results, keep in mind:
 
 ## Availability
 
-Portfolio features, including halo and trademark channel modeling, are available on Enterprise and Managed plans. For details, see [Pricing](../pricing/README.md).
+Portfolio features, including halo and trademark channel modeling, are available on Pro and Scale plans. See [getsimba.ai](https://getsimba.ai) for current plans.
 
 ---
 

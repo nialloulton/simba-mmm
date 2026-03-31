@@ -28,7 +28,7 @@ Simba provides a complete operating system for marketing science in four steps:
 ### 1. Audit — Data Validator
 Trust your inputs. An intelligent agent validates and cleans your data before you model. Automatically detects anomalies, missing values, and data quality issues across all data sources.
 
-→ [Learn more about the Data Auditor](docs/platform-guide/data-auditor.md)
+→ [Learn more about the Data Validator](docs/platform-guide/data-auditor.md)
 
 ### 2. Measure — Incremental Measurement
 Measure true impact. Isolate the real value of your media from seasonality and base sales. Causal attribution across all channels with lift test integration for validation.
@@ -103,7 +103,7 @@ Spend smarter. Risk-adjusted optimization that balances maximum ROI with your ap
 - [Security Overview](docs/security/README.md) — How Simba protects your data, including encryption, infrastructure, compliance, and data sovereignty
 
 ### More
-- [Pricing & Plans](docs/pricing/README.md) — Enterprise and Managed plans (self-serve tiers coming soon)
+- [Pricing & Plans](docs/pricing/README.md) — See [getsimba.ai](https://getsimba.ai) for current plans and pricing
 - [FAQ](docs/faq/README.md) — Frequently asked questions
 - [Glossary](resources/glossary.md) — Marketing mix modeling and Bayesian statistics terminology
 

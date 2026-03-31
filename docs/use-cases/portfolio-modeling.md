@@ -39,7 +39,7 @@ Because all models use the same Bayesian methodology and Simba platform, compari
 3. **Run cross-brand analyses** to compare channel effectiveness
 4. **Optimize at portfolio level** to allocate budget across brands and channels
 
-Portfolio models are available on Enterprise and Managed plans. For details, see [Pricing](../pricing/README.md).
+Portfolio models are available on Pro and Scale plans. See [getsimba.ai](https://getsimba.ai) for current plans.
 
 ## Use Cases
 
