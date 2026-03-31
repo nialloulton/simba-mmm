@@ -10,6 +10,9 @@ Retail and e-commerce brands face unique marketing measurement challenges:
 - **Marketplace dynamics** — Amazon, marketplace advertising, and retail media networks add complexity
 - **Seasonal peaks** — Black Friday, holiday seasons, and back-to-school create massive spend fluctuations
 
+![Retail seasonal revenue decomposition](./images/retail-seasonal-decomposition.png)
+*Simba decomposes retail revenue into base demand, seasonal effects, media contributions, and promotional impact — ensuring Black Friday and holiday spikes are not wrongly attributed to media spend.*
+
 ## How Simba Helps Retail Brands
 
 ### Omnichannel Measurement
