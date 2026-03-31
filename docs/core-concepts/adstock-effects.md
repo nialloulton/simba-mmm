@@ -164,6 +164,10 @@ A quick-service restaurant chain runs a three-month billboard campaign across a 
 
 ---
 
+> **See this in action:** [Start your free 28-day trial](https://getsimba.ai) — no credit card required.
+
+---
+
 ## Next Steps
 
 - [Saturation Curves](./saturation-curves.md) --- Understand how diminishing returns interact with carryover.

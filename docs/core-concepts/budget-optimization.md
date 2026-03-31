@@ -174,6 +174,10 @@ Both use the same underlying model and response curves. The optimizer finds the 
 
 ---
 
+> **See this in action:** [Start your free 28-day trial](https://getsimba.ai) — no credit card required.
+
+---
+
 ## Next Steps
 
 - [Saturation Curves](./saturation-curves.md) --- The response curves that drive optimization.

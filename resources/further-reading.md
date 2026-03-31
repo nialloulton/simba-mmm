@@ -6,14 +6,14 @@ A curated collection of resources for deeper learning about marketing mix modeli
 
 ### Foundational Concepts
 
-- **"Marketing Mix Modeling and the Rise of Bayesian Methods"** — Overview of how Bayesian approaches are transforming the MMM landscape
-- **"The Resurgence of Marketing Mix Modeling"** — Why MMM is experiencing a renaissance driven by privacy changes, cookie deprecation, and the limitations of user-level tracking
-- **"MMM vs. MTA: Complementary Approaches to Marketing Measurement"** — Understanding when to use marketing mix modeling versus multi-touch attribution
+- [Marketing Mix Modeling: A Practical Guide](https://www.pymc-marketing.io/) — Overview of how Bayesian approaches are transforming the MMM landscape (see PyMC-Marketing docs for worked examples)
+- [The Resurgence of Marketing Mix Modeling](https://www.thinkwithgoogle.com/) — Why MMM is experiencing a renaissance driven by privacy changes and cookie deprecation
+- [Lift Test Integration in PyMC-Marketing](https://www.pymc-marketing.io/en/0.16.0/notebooks/mmm/mmm_lift_test.html) — How lift test observations are integrated as likelihood terms in Bayesian MMM
 
 ### Industry Reports
 
-- **Google's guide to MMM** — Google's perspective on how marketing mix modeling fits into modern measurement
-- **Meta's marketing measurement resources** — Meta's approach to incrementality and measurement beyond platform metrics
+- [Google's guide to MMM and Meridian](https://github.com/google/meridian) — Google's perspective on how marketing mix modeling fits into modern measurement
+- [Meta's Robyn documentation](https://facebookexperimental.github.io/Robyn/) — Meta's open-source MMM approach (ridge regression, for comparison with Bayesian methods)
 
 ## Bayesian Statistics
 
@@ -33,18 +33,15 @@ A curated collection of resources for deeper learning about marketing mix modeli
 
 ### Saturation and Diminishing Returns
 
-- **"Understanding Saturation Curves in Advertising"** — How diminishing returns affect media investment decisions
-- **"The S-Curve and Marketing Effectiveness"** — Mathematical foundations of saturation modeling
+- [Understanding Media Saturation](https://www.pymc-marketing.io/) — How diminishing returns affect media investment decisions (see PyMC-Marketing saturation docs)
 
 ### Adstock and Carryover
 
-- **"Advertising Adstock — Theory and Practice"** — How advertising effects persist and decay over time
-- **"Media Carryover Effects in Marketing"** — Research on how different media channels exhibit different decay patterns
+- [Advertising Adstock — Broadbent (1979)](https://en.wikipedia.org/wiki/Advertising_adstock) — The foundational concept of how advertising effects persist and decay over time
 
 ## Privacy and the Future of Measurement
 
-- **"The Post-Cookie World and Marketing Measurement"** — How cookie deprecation, iOS privacy changes, and regulatory pressure are making MMM more relevant than ever
-- **"Why First-Party Data and Aggregate Measurement Win"** — The shift from user-level tracking to aggregate statistical approaches
+- The deprecation of third-party cookies, iOS App Tracking Transparency (ATT), GDPR, and similar regulations are making user-level attribution increasingly unreliable. MMM's reliance on aggregate time-series data makes it inherently privacy-compliant.
 
 ## Open-Source MMM Tools
 
@@ -63,7 +60,3 @@ A curated collection of resources for deeper learning about marketing mix modeli
 *Have a resource suggestion? [Let us know](https://github.com/nialloulton/simba-mmm/issues).*
 
 *See also: [Glossary](glossary.md) | [PyMC-Marketing & Simba](pymc-marketing.md) | [Core Concepts](../docs/core-concepts/README.md)*
-
-### Lift Test Calibration
-
-- [Lift Test Integration in PyMC-Marketing](https://www.pymc-marketing.io/en/0.16.0/notebooks/mmm/mmm_lift_test.html) --- How lift test observations are integrated as additional likelihood terms in Bayesian MMM, constraining the posterior to be consistent with experimental results.

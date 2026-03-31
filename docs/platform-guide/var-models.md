@@ -4,7 +4,7 @@ This guide walks you through creating, fitting, and interpreting [Bayesian VAR](
 
 For the detailed analysis of IRF, FEVD, and long-run effects results, see the [Long-Term Effects](./long-term-effects.md) guide.
 
-> **Availability**: VAR models are available on Trial, Pro, and Scale plans. The Analyst plan does not include VAR.
+> **Availability**: VAR models are included in the free trial and paid plans. See [Pricing](../pricing/README.md) or [getsimba.ai](https://getsimba.ai) for current plans.
 
 ---
 

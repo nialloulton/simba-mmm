@@ -31,9 +31,9 @@ Simba's automated Bayesian pipeline unified data ingestion, modeling, and predic
 
 ### The Outcomes
 
-- **Weekly strategic guidance** --- The client now receives weekly model updates, enabling agile decision-making and rapid budget optimization across all channels.
-- **Omnichannel transparency** --- Accurate, explainable insights across online and brick-and-mortar touchpoints with no black-box metrics or opaque methodologies.
-- **Agency differentiation** --- Growth Dynamics elevated their service from reporting to strategic consulting, powered by Simba's enterprise-grade MMM capabilities.
+- **12x faster reporting** --- Reduced the reporting cycle from quarterly to weekly, enabling the client to react to market trends in days rather than months.
+- **Omnichannel visibility** --- For the first time, a single model captured both online revenue and brick-and-mortar sales across all marketing channels, replacing fragmented platform-specific reports.
+- **Agency differentiation** --- Growth Dynamics elevated their positioning from analytics vendor to strategic advisor, powered by Simba's transparent, enterprise-grade MMM capabilities.
 
 > *"SIMBA has been an excellent solution for our team, offering the flexibility to utilise sophisticated models without the burden of internal maintenance. Its ability to quickly ingest our data into a highly customisable framework has significantly reduced our technical overhead and saved valuable time. The built-in safeguards and robust support have made SIMBA a reliable, efficient tool, perfectly suited for analytics teams focused on actionable outcomes rather than infrastructure management. We consider SIMBA a strong, dependable partner in our analytics workflow."*
 >
@@ -71,7 +71,7 @@ When clients ask "how does this work?", you can show them. Every [prior is visib
 
 ## Typical Agency Workflow
 
-1. **Onboard client data** --- Upload each client's media and outcome data as a CSV per client project.
+1. **Onboard client data** --- Upload each client's media and outcome data as a CSV per client project. See [Data Requirements](../data/data-requirements.md) for format details.
 2. **Validate** --- Run the Data Validator to check for quality issues before modeling.
 3. **Configure per-client models** --- Set channel-specific priors, adstock, and saturation parameters. Use smart defaults as a starting point.
 4. **Run measurement** --- Fit the model and generate incremental attribution by channel.
