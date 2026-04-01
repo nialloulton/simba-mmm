@@ -174,7 +174,7 @@ Simba is powered by [PyMC-Marketing](https://www.pymc-marketing.io/), the leadin
 
 ## License
 
-Copyright 2025 1749 Ltd. All rights reserved.
+Copyright 2026 1749 Ltd. All rights reserved.
 
 This repository and its contents are proprietary. See [LICENSE](LICENSE) for details.
 
